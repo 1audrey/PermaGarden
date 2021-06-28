@@ -1,0 +1,62 @@
+.plant-list{
+  width: 75%;
+  height:auto;
+  border-style: outset;
+  border-radius: 5px;
+  display: block;
+  margin-left:auto;
+  margin-right: auto;
+  vertical-align: middle;
+  padding-bottom: 0px;
+  padding-top: 0px;
+  background-color:darkolivegreen;
+}
+
+mat-card-header{
+  color: white;
+  font-size: 16px;
+  background-color: darkolivegreen;
+  display: inline-block;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  width:100%;
+
+}
+
+.mat-card-header .mat-card-title {
+    margin-bottom: 12px;
+}
+
+.mat-card-title:not(:first-child), .mat-card-subtitle:not(:first-child) {
+  margin-top: 0px;
+}
+
+.title-left{
+  float: left;
+  display: inline;
+  font-weight: bold;
+}
+
+.material-icons{
+  float: right;
+  display: inline;
+  padding-right: 10px;
+}
+
+.title-right{
+  float: right;
+  display: inline;
+  margin-top: 0px;
+}
+
+
+
+img.mat-card-image{
+width: calc(100% + 32px);
+margin: 0 -16px 0 -16px;
+border-radius: 5px;
+height: 250px;
+object-fit: cover;
+}
+
+

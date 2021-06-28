@@ -1,0 +1,23 @@
+<div>
+  <h2>Plants list</h2>
+  <p>Pick plants and add them to your garden</p>
+
+    <mat-card class="plant-list">
+
+    <mat-card-content>
+      <img mat-card-image [src]="plants.imageURL" alt={{plants.name}} >
+    </mat-card-content>
+
+    <mat-card-header>
+      <mat-card-title class="title-left">{{plants.name}}</mat-card-title>
+      <span class="material-icons">
+        event_available
+        </span>
+      <mat-card-title class="title-right">{{plants.sowingMonths.months}}</mat-card-title>
+
+    </mat-card-header>
+
+
+    </mat-card>
+
+</div>
