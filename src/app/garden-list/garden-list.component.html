@@ -2,22 +2,25 @@
   <h2>Plants list</h2>
   <p>Pick plants and add them to your garden</p>
 
-    <mat-card class="plant-list">
+  <mat-card class="plant-list">
 
     <mat-card-content>
-      <img mat-card-image [src]="plants.imageURL" alt={{plants.name}} >
+      <button class="material-icons" id="add">
+        bookmark_add
+      </button>
+      <img mat-card-image [src]="plants.imageURL" alt={{plants.name}}>
     </mat-card-content>
 
     <mat-card-header>
       <mat-card-title class="title-left">{{plants.name}}</mat-card-title>
-      <span class="material-icons">
+      <span class="material-icons" id="calendar">
         event_available
-        </span>
+      </span>
       <mat-card-title class="title-right">{{plants.sowingMonths.months}}</mat-card-title>
 
     </mat-card-header>
 
 
-    </mat-card>
+  </mat-card>
 
 </div>

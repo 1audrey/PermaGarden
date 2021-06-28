@@ -1,7 +1,6 @@
 .plant-list{
   width: 75%;
   height:auto;
-  border-style: outset;
   border-radius: 5px;
   display: block;
   margin-left:auto;
@@ -17,7 +16,7 @@ mat-card-header{
   font-size: 16px;
   background-color: darkolivegreen;
   display: inline-block;
-  margin-top: 0px;
+  margin-top: 12px;
   margin-bottom: 0px;
   width:100%;
 
@@ -37,7 +36,7 @@ mat-card-header{
   font-weight: bold;
 }
 
-.material-icons{
+#calendar{
   float: right;
   display: inline;
   padding-right: 10px;
@@ -49,7 +48,12 @@ mat-card-header{
   margin-top: 0px;
 }
 
-
+mat-card-content{
+  display: inline-block;
+  margin-bottom: 0px;
+  width:100%;
+  object-fit: cover;
+}
 
 img.mat-card-image{
 width: calc(100% + 32px);
@@ -57,6 +61,27 @@ margin: 0 -16px 0 -16px;
 border-radius: 5px;
 height: 250px;
 object-fit: cover;
+margin-top:0px;
+}
+
+#add{
+  top:0%;
+  right:0%;
+  display: inline;
+  position: absolute;
+  border-radius:5px;
+  padding-top: 5px;
+  padding-bottom:5px;
+  color: white;
+  border-color: transparent;
+  background-color: #F69517;
+}
+
+#add:hover{
+  color: white;
+  border-color: transparent;
+  background-color: #E2860E;
+
 }
 
 
