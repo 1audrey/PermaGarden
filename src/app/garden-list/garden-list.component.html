@@ -2,25 +2,31 @@
   <h2>Plants list</h2>
   <p>Pick plants and add them to your garden</p>
 
-  <mat-card class="plant-list">
+  <mat-list>
+    <mat-list-item *ngFor="let plant of plants">
 
-    <mat-card-content>
-      <button class="material-icons" id="add">
+      <mat-card class="plant-list">
+
+      <mat-card-content>
+        <button class="material-icons" id="add">
         bookmark_add
-      </button>
-      <img mat-card-image [src]="plants.imageURL" alt={{plants.name}}>
-    </mat-card-content>
+        </button>
+        <img mat-card-image [src]="plant.imageURL" alt={{plant.name}}>
 
-    <mat-card-header>
-      <mat-card-title class="title-left">{{plants.name}}</mat-card-title>
-      <span class="material-icons" id="calendar">
-        event_available
-      </span>
-      <mat-card-title class="title-right">{{plants.sowingMonths.months}}</mat-card-title>
+        <p [@bodyExpansion]="state" class="plants-info">
+          <mat-card-subtitle class="sowing-months">Sowing: {{plant.sowingMonths}}</mat-card-subtitle>
+          <mat-card-subtitle class="sowing-months">Harvesting: {{plant.harvestingMonths}}</mat-card-subtitle>
+        </p>
+      </mat-card-content>
 
-    </mat-card-header>
+      <mat-card-footer class="card-footer">
+          <mat-card-title class="title-left">{{plant.name}}
+          <button mat-button class="more-info" (click)="toggle()">More Info</button>
+        </mat-card-title>
+        </mat-card-footer>
 
-
-  </mat-card>
+    </mat-card>
+  </mat-list-item>
+</mat-list>
 
 </div>

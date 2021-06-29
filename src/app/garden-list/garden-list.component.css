@@ -1,51 +1,53 @@
 .plant-list{
-  width: 75%;
+  width: 30%;
   height:auto;
   border-radius: 5px;
-  display: block;
-  margin-left:auto;
-  margin-right: auto;
   vertical-align: middle;
   padding-bottom: 0px;
   padding-top: 0px;
   background-color:darkolivegreen;
-}
-
-mat-card-header{
   color: white;
-  font-size: 16px;
-  background-color: darkolivegreen;
-  display: inline-block;
-  margin-top: 12px;
-  margin-bottom: 0px;
-  width:100%;
-
+  margin-bottom:0px;
 }
 
-.mat-card-header .mat-card-title {
-    margin-bottom: 12px;
-}
 
 .mat-card-title:not(:first-child), .mat-card-subtitle:not(:first-child) {
   margin-top: 0px;
+
+}
+
+.mat-card-title {
+  display: block;
+  margin-bottom: 0px;
+}
+
+mat-card-footer{
+  padding-bottom:0px;
+}
+
+.card-footer{
+  color: white;
+  background-color: darkolivegreen;
+  margin-top: 12px;
+  margin-bottom: 0px;
+  margin-left: 5px;
+  margin-right: 5px;
+  display: inline;
+  text-align: center;
 }
 
 .title-left{
-  float: left;
-  display: inline;
   font-weight: bold;
+  font-size: 13px;
 }
 
-#calendar{
-  float: right;
-  display: inline;
-  padding-right: 10px;
-}
-
-.title-right{
-  float: right;
-  display: inline;
-  margin-top: 0px;
+.more-info{
+  color: darkolivegreen;
+  border-color: darkolivegreen;
+  background-color: white;
+  font-size: 13px;
+  font-weight:0px;
+  margin-left:5px;
 }
 
 mat-card-content{
@@ -81,7 +83,25 @@ margin-top:0px;
   color: white;
   border-color: transparent;
   background-color: #E2860E;
-
+  cursor: pointer;
 }
 
+.mat-list .mat-list-item .mat-list-icon, .mat-nav-list .mat-list-item {
+  width: 48px;
+  height: 48px;
+  font-size: 48px;
+  color: #b4bcc2;
+}
+
+.plants-info {
+
+  overflow: hidden;
+  display:inline-block;
+}
+
+.sowing-months{
+  float: right;
+  font-size: 13px;
+  color: white;
+}
 

@@ -8,6 +8,10 @@ import { GardenListComponent } from './garden-list/garden-list.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import {MatCardModule} from '@angular/material/card';
+import {MatListModule} from '@angular/material/list';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDividerModule } from '@angular/material/divider';
+
 
 @NgModule({
   declarations: [
@@ -19,6 +23,11 @@ import {MatCardModule} from '@angular/material/card';
     AppRoutingModule,
     BrowserAnimationsModule,
     MatCardModule,
+    MatListModule,
+    MatButtonModule,
+    MatDividerModule,
+
+
   ],
 
   bootstrap: [PermagardenAppComponent]
