@@ -51,7 +51,6 @@ mat-card-footer{
 }
 
 mat-card-content{
-  display: inline-block;
   margin-bottom: 0px;
   width:100%;
   object-fit: cover;
@@ -61,7 +60,6 @@ img.mat-card-image{
 width: calc(100% + 32px);
 margin: 0 -16px 0 -16px;
 border-radius: 5px;
-height: 250px;
 object-fit: cover;
 margin-top:0px;
 }
@@ -93,15 +91,55 @@ margin-top:0px;
   color: #b4bcc2;
 }
 
-.plants-info {
-
-  overflow: hidden;
-  display:inline-block;
-}
-
 .sowing-months{
   float: right;
   font-size: 13px;
   color: white;
+}
+
+table{
+  width:100%;
+  table-layout: auto;
+  border:black;
+}
+
+thead{
+  float:left;
+  width:100%;
+  border-bottom-color: white;
+  border-style: solid;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+}
+
+tbody{
+  width:100%;
+  float:left;
+}
+
+td{
+  width: 6%;
+}
+
+th{
+  width: 6%;
+}
+
+tr{
+  vertical-align: middle;
+  max-width:100%
+}
+
+.months-not-included{
+  transform: scale(0.5);
+  padding:0px;
+  margin:0px;
+}
+
+.check-circle{
+  transform: scale(0.5);
+  padding:0px;
+  margin:0px;
 }
 
