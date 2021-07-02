@@ -1,5 +1,5 @@
 .plant-list{
-  width: 30%;
+  width: 100%;
   height:auto;
   border-radius: 5px;
   vertical-align: middle;
@@ -86,49 +86,36 @@ margin-top:0px;
 
 .mat-list .mat-list-item .mat-list-icon, .mat-nav-list .mat-list-item {
   width: 48px;
-  height: 48px;
   font-size: 48px;
   color: #b4bcc2;
 }
 
-.sowing-months{
-  float: right;
-  font-size: 13px;
-  color: white;
+.mat-list-base .mat-list-item, .mat-list-base .mat-list-option {
+  display: block;
+  height: auto;
+  -webkit-tap-highlight-color: transparent;
+  width: 100%;
+
+}
+
+.plants-info{
+  width:100%;
+  overflow-x:auto;
 }
 
 table{
-  width:100%;
-  table-layout: auto;
-  border:black;
-}
-
-thead{
-  float:left;
-  width:100%;
-  border-bottom-color: white;
-  border-style: solid;
-  border-top: none;
-  border-left: none;
-  border-right: none;
-}
-
-tbody{
-  width:100%;
-  float:left;
-}
-
-td{
-  width: 6%;
+  margin-top:5px;
+  width: 100%;
 }
 
 th{
-  width: 6%;
+  padding-bottom:5px;
+  font-weight: normal;
 }
 
-tr{
-  vertical-align: middle;
-  max-width:100%
+th, td{
+  width: calc(100%/13);
+  line-height: calc(100%/1.5);
 }
 
 .months-not-included{
@@ -137,9 +124,13 @@ tr{
   margin:0px;
 }
 
-.check-circle{
+.months-included{
   transform: scale(0.5);
   padding:0px;
   margin:0px;
+}
+
+.table-subtitle{
+font-weight: bold;
 }
 
