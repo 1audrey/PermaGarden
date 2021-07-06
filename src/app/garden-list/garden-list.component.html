@@ -6,13 +6,9 @@
     <mat-list-item *ngFor="let plant of plants">
       <mat-card class="plant-list">
       <mat-card-content>
-        <button class="material-icons" id="add">
-        bookmark_add
-        </button>
         <img mat-card-image [src]="plant.imageURL" alt={{plant.name}}>
 
         <div [@bodyExpansion]="state" class="plants-info">
-
           <table>
             <thead>
               <tr>
@@ -65,15 +61,15 @@
             </tbody>
           </table>
         </div>
-
-
       </mat-card-content>
 
       <mat-card-footer class="card-footer">
-          <mat-card-title class="title-left">{{plant.name}}
-          <button mat-button class="more-info" (click)="toggle()">More Info</button>
-        </mat-card-title>
-        </mat-card-footer>
+
+          <span><mat-card-title class="title-left">{{plant.name}}</mat-card-title></span>
+            <button mat-button class="add-to-garden">Add To Garden</button>
+            <button mat-button class="more-info" (click)="toggle() ">{{state == 'collapsed' ? 'More Info': 'Less Info'}}</button>
+
+      </mat-card-footer>
 
     </mat-card>
   </mat-list-item>
