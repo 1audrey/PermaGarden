@@ -33,16 +33,6 @@ export class GardenListComponent {
    numberOfSeeds: 80,
    imageURL: 'assets/images/spring-onions.jpg',
    },
-  //  {
-  //   name: "Spring Onions",
-  //   startDate: "23/06/2021",
-  //   sowingMonths:  "March, April, May, June, July, August, September" ,
-  //   sowingPeriodInDays: 21,
-  //   harvestingMonths: "January, April, June, July, August, September, October",
-  //   harvestingPeriodInDays: 77,
-  //   numberOfSeeds: 80,
-  //   imageURL: 'assets/images/spring-onions.jpg',
-  //  }
 
 ];
 
