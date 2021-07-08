@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, Input } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 
@@ -17,6 +17,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { NavigationComponent } from './navigation/navigation.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { PlantThumbnailComponent } from './plant-thumbnail/plant-thumbnail.component';
+
 
 
 @NgModule({
@@ -24,6 +26,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     PermagardenAppComponent,
     GardenListComponent,
     NavigationComponent,
+    PlantThumbnailComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -38,6 +42,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatToolbarModule,
     MatSidenavModule,
     FlexLayoutModule,
+
 
 
 

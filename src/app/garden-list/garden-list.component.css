@@ -1,141 +1,20 @@
-.plant-list{
-  width: 100%;
-  height:auto;
-  border-radius: 5px;
-  vertical-align: middle;
-  padding-bottom: 0px;
-  padding-top: 0px;
-  background-color:darkolivegreen;
-  color: white;
-  margin-bottom:0px;
-}
-
-.mat-card-title:not(:first-child), .mat-card-subtitle:not(:first-child) {
-  margin-top: 0px;
-}
-
-.mat-card-title {
-  display: block;
-  margin-bottom: 0px;
-}
-
-mat-card-footer{
-  padding-bottom:0px;
-  vertical-align: middle;
-}
-
-.card-footer{
-  color: white;
-  background-color: darkolivegreen;
-  margin-top: 12px;
-  margin-bottom: 0px;
-  margin-left: 5px;
-  margin-right: 5px;
-  padding-bottom: 12px;
-  width: 100%;
-  vertical-align: middle;
-  text-align: center;
-  display:inline-block;
-}
-
-.title-left{
-  font-weight: bold;
-  font-size: 20px;
-  float:left;
-}
-
-.add-to-garden{
-  font-size: 13px;
-  font-weight:0px;
-  color: white;
-  border-color: #E2860E;
-  background-color: #F69517;
-  float:right;
-}
-
-.more-info{
-  color: darkolivegreen;
-  border-color: darkolivegreen;
-  background-color: white;
-  font-size: 13px;
-  font-weight:0px;
-  float: right;
-  margin-right: 5px;
-}
-
-.add-to-garden:hover{
-  color: white;
-  border-color: transparent;
-  background-color: #E2860E;
-  cursor: pointer;
-}
-
-mat-card-content{
-  margin-bottom: 0px;
-  width:100%;
-  object-fit: cover;
-}
-
-img.mat-card-image{
-width: calc(100% + 32px);
-height:250px;
-margin: 0 -16px 0 -16px;
-border-radius: 5px;
-object-fit: cover;
-margin-top:0px;
-}
-
-
-
-.mat-list .mat-list-item .mat-list-icon, .mat-nav-list .mat-list-item {
-  width: 48px;
-  font-size: 48px;
-  color: #b4bcc2;
+.my-garden-list{
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 0 16px;
+  position: relative;
+  width: 100% ;
+  justify-content: center;
 }
 
 .mat-list-base .mat-list-item, .mat-list-base .mat-list-option {
-  display: block;
+  display: inline-block;
   height: auto;
   -webkit-tap-highlight-color: transparent;
   width: 100%;
 
-}
 
-.plants-info{
-  width:100%;
-  overflow-x:auto;
-  overflow-y:hidden;
-}
-
-table{
-  margin-top:5px;
-  width: 100%;
-}
-
-th{
-  padding-bottom:5px;
-  font-weight: normal;
-}
-
-th, td{
-  width: calc(100%/13);
-  line-height: calc(100%/1.5);
-  text-align: center;
-}
-
-.months-not-included{
-  transform: scale(0.5);
-  padding:0px;
-  margin:0px;
-}
-
-.months-included{
-  transform: scale(0.5);
-  padding:0px;
-  margin:0px;
-}
-
-.table-subtitle{
-font-weight: bold;
 }
 

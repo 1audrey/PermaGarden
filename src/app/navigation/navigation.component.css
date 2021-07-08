@@ -12,33 +12,18 @@ mat-toolbar {
   font-weight: normal;
 }
 
+.mat-list-item{
+  color: #6B8E23;
+}
+
 mat-sidenav {
-  margin: 16px;
-  width: 200px;
+  width: 150px;
   border-right: none;
   background:white;
-  color: #6B8E23;
   border-radius: 5px;
   padding: 16px;
-  text-align: center;
-}
+  color:#6B8E23;
 
-.content {
-  height: calc(100vh - 98px);
-  border-radius: 10px;
-  margin: 16px;
-  margin-left: 32px;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  font-size: 2rem;
-  color: lightgray;
-}
-
-.fas fa-seedling{
-color:white;
 }
 
 mat-sidenav-container {
@@ -46,5 +31,6 @@ mat-sidenav-container {
 }
 
 .menu-spacer {
-  flex: 1 1 auto;
+  flex: 1 1 initial;
 }
+

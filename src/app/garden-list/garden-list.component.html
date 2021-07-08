@@ -2,82 +2,12 @@
   <h2>Plants list</h2>
   <p>Pick plants and add them to your garden</p>
 
-  <mat-list>
-    <mat-list-item *ngFor="let plant of plants">
-      <mat-card class="plant-list">
-      <mat-card-content>
-        <img mat-card-image [src]="plant.imageURL" alt={{plant.name}}>
+  <div class="my-garden-list">
+    <div class="my-garden-list" *ngFor="let plant of plants">
+    <div class="my-garden-list"><app-plant-thumbnail [plant]="plant"></app-plant-thumbnail>
+    </div>
+  </div>
+</div>
 
-        <div [@bodyExpansion]="state" class="plants-info">
-          <table>
-            <thead>
-              <tr>
-                <th></th>
-                <th>J</th>
-                <th>F</th>
-                <th>M</th>
-                <th>A</th>
-                <th>M</th>
-                <th>J</th>
-                <th>J</th>
-                <th>A</th>
-                <th>S</th>
-                <th>O</th>
-                <th>N</th>
-                <th>D</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td class="table-subtitle">Sow</td>
-                <td *ngIf="plant.sowingMonths.includes('January');else isNotIncluded"><mat-icon class="months-included">check_circle</mat-icon></td>
-                <td *ngIf="plant.sowingMonths.includes('Febuary');else isNotIncluded"><mat-icon class="months-included">check_circle</mat-icon></td>
-                <td *ngIf="plant.sowingMonths.includes('March');else isNotIncluded"><mat-icon class="months-included">check_circle</mat-icon></td>
-                <td *ngIf="plant.sowingMonths.includes('April');else isNotIncluded"><mat-icon class="months-included">check_circle</mat-icon></td>
-                <td *ngIf="plant.sowingMonths.includes('May');else isNotIncluded"><mat-icon class="months-included">check_circle</mat-icon></td>
-                <td *ngIf="plant.sowingMonths.includes('June');else isNotIncluded"><mat-icon class="months-included">check_circle</mat-icon></td>
-                <td *ngIf="plant.sowingMonths.includes('July');else isNotIncluded"><mat-icon class="months-included">check_circle</mat-icon></td>
-                <td *ngIf="plant.sowingMonths.includes('August');else isNotIncluded"><mat-icon class="months-included">check_circle</mat-icon></td>
-                <td *ngIf="plant.sowingMonths.includes('September');else isNotIncluded"><mat-icon class="months-included">check_circle</mat-icon></td>
-                <td *ngIf="plant.sowingMonths.includes('October');else isNotIncluded"><mat-icon class="months-included">check_circle</mat-icon></td>
-                <td *ngIf="plant.sowingMonths.includes('November');else isNotIncluded"><mat-icon class="months-included">check_circle</mat-icon></td>
-                <td *ngIf="plant.sowingMonths.includes('December');else isNotIncluded"><mat-icon class="months-included">check_circle</mat-icon></td>
-              </tr>
-              <tr>
-                <td class="table-subtitle">Harvest</td>
-                <td *ngIf="plant.harvestingMonths.includes('January');else isNotIncluded"><mat-icon class="months-included">check_circle</mat-icon></td>
-                <td *ngIf="plant.harvestingMonths.includes('Febuary');else isNotIncluded"><mat-icon class="months-included">check_circle</mat-icon></td>
-                <td *ngIf="plant.harvestingMonths.includes('March');else isNotIncluded"><mat-icon class="months-included">check_circle</mat-icon></td>
-                <td *ngIf="plant.harvestingMonths.includes('April');else isNotIncluded"><mat-icon class="months-included">check_circle</mat-icon></td>
-                <td *ngIf="plant.harvestingMonths.includes('May');else isNotIncluded"><mat-icon class="months-included">check_circle</mat-icon></td>
-                <td *ngIf="plant.harvestingMonths.includes('June');else isNotIncluded"><mat-icon class="months-included">check_circle</mat-icon></td>
-                <td *ngIf="plant.harvestingMonths.includes('July');else isNotIncluded"><mat-icon class="months-included">check_circle</mat-icon></td>
-                <td *ngIf="plant.harvestingMonths.includes('August');else isNotIncluded"><mat-icon class="months-included">check_circle</mat-icon></td>
-                <td *ngIf="plant.harvestingMonths.includes('September');else isNotIncluded"><mat-icon class="months-included">check_circle</mat-icon></td>
-                <td *ngIf="plant.harvestingMonths.includes('October');else isNotIncluded"><mat-icon class="months-included">check_circle</mat-icon></td>
-                <td *ngIf="plant.harvestingMonths.includes('November');else isNotIncluded"><mat-icon class="months-included">check_circle</mat-icon></td>
-                <td *ngIf="plant.harvestingMonths.includes('December');else isNotIncluded"><mat-icon class="months-included">check_circle</mat-icon></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </mat-card-content>
-
-      <mat-card-footer class="card-footer">
-
-          <span><mat-card-title class="title-left">{{plant.name}}</mat-card-title></span>
-            <button mat-button class="add-to-garden">Add To Garden</button>
-            <button mat-button class="more-info" (click)="toggle() ">{{this.state == 'collapsed' ? 'More Info': 'Less Info'}}</button>
-
-      </mat-card-footer>
-
-    </mat-card>
-  </mat-list-item>
-</mat-list>
-
-
-<ng-template #isNotIncluded>
-  <td><mat-icon class="months-not-included">highlight_off</mat-icon></td>
-</ng-template>
 </div>
 
