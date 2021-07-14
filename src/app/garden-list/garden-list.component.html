@@ -2,12 +2,15 @@
   <h2>Plants list</h2>
   <p>Pick plants and add them to your garden</p>
 
+
   <div class="my-garden-list">
-    <div class="my-garden-list" *ngFor="let plant of plants">
+    <div fxLayout="row wrap" fxLayoutGap="16px grid">
+    <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="33%" *ngFor="let plant of plants">
     <div class="my-garden-list"><app-plant-thumbnail [plant]="plant"></app-plant-thumbnail>
     </div>
+    </div>
   </div>
-</div>
+
 
 </div>
 

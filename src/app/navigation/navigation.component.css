@@ -34,3 +34,10 @@ mat-sidenav-container {
   flex: 1 1 initial;
 }
 
+.mat-drawer-content{
+overflow: initial;
+}
+
+.active-list-item{
+  color: #FFD700 !important;
+}

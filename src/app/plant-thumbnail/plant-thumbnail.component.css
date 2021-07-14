@@ -1,5 +1,5 @@
 .plant-list{
-  width: 100%;
+  max-width: 100%;
   height:auto;
   border-radius: 5px;
   vertical-align: middle;
@@ -38,12 +38,12 @@ mat-card-footer{
 
 .title-left{
   font-weight: bold;
-  font-size: 20px;
+  font-size: 16px;
   float:left;
 }
 
 .add-to-garden{
-  font-size: 13px;
+  font-size: 12px;
   font-weight:0px;
   color: white;
   border-color: #6B8E23;
@@ -55,7 +55,7 @@ mat-card-footer{
   color: darkolivegreen;
   border-color: #DAA520;
   background-color: #FFD700;
-  font-size: 13px;
+  font-size: 12px;
   font-weight:0px;
   float: right;
   margin-right: 5px;
@@ -76,28 +76,12 @@ mat-card-content{
 }
 
 img.mat-card-image{
-width: calc(100% + 32px);
+max-width: calc(100% + 32px);
 height:250px;
 margin: 0 -16px 0 -16px;
 border-radius: 5px;
 object-fit: cover;
 margin-top:0px;
-}
-
-
-
-.mat-list .mat-list-item .mat-list-icon, .mat-nav-list .mat-list-item {
-  width: 48px;
-  font-size: 48px;
-  color: #b4bcc2;
-}
-
-.mat-list-base .mat-list-item, .mat-list-base .mat-list-option {
-  display: block;
-  height: auto;
-  -webkit-tap-highlight-color: transparent;
-  width: 100%;
-
 }
 
 .plants-info{
@@ -107,12 +91,12 @@ margin-top:0px;
 }
 
 table{
-  margin-top:5px;
+  margin-top:4px;
   width: 100%;
 }
 
 th{
-  padding-bottom:5px;
+  padding-bottom:4px;
   font-weight: normal;
 }
 
@@ -120,7 +104,11 @@ th, td{
   width: calc(100%/13);
   line-height: calc(100%/1.5);
   text-align: center;
+  padding-left: 0px;
+  padding-right: 0px;
 }
+
+
 
 .months-not-included{
   transform: scale(0.5);
@@ -137,4 +125,11 @@ th, td{
 .table-subtitle{
 font-weight: bold;
 }
+
+.mat-button, .mat-icon-button, .mat-stroked-button, .mat-flat-button{
+  padding-left:4px;
+  padding-right:4px;
+}
+
+
 

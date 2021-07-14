@@ -1,5 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { trigger, state, style, transition, animate } from '@angular/animations';
+import { registerLocaleData } from '@angular/common';
+import localeFr from '@angular/common/locales/fr';
 
 @Component({
   selector: 'app-plant-thumbnail',
@@ -19,9 +21,16 @@ export class PlantThumbnailComponent {
 @Input() plant:any;
 
 state = 'collapsed';
+todayDate : Date = new Date();
+month = this.todayDate.toLocaleString('default', { month: 'long' });
+
 
 toggle(): void {
   this.state = this.state === 'collapsed' ? 'expanded' : 'collapsed';
 }
 
 }
+
+
+
+

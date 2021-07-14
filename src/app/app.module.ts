@@ -18,6 +18,9 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { NavigationComponent } from './navigation/navigation.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { PlantThumbnailComponent } from './plant-thumbnail/plant-thumbnail.component';
+import { PlantsService } from './garden-list/shared/plants.service';
+import { AddToGardenComponent } from './garden-list/add-to-garden/add-to-garden.component';
+import { GardenListResolver } from './garden-list/garden-list-resolver.service';
 
 
 
@@ -27,6 +30,7 @@ import { PlantThumbnailComponent } from './plant-thumbnail/plant-thumbnail.compo
     GardenListComponent,
     NavigationComponent,
     PlantThumbnailComponent,
+    AddToGardenComponent,
 
   ],
   imports: [
@@ -51,7 +55,20 @@ import { PlantThumbnailComponent } from './plant-thumbnail/plant-thumbnail.compo
 
 
   ],
-
+  providers:[
+    PlantsService,
+    {provide: 'canDeactivateAddToGarden', useValue: checkDirtyState},
+    GardenListResolver
+  ],
   bootstrap: [PermagardenAppComponent]
 })
 export class AppModule { }
+
+export function checkDirtyState(component: AddToGardenComponent){
+  if (component.isDirty)
+  {
+    return window.confirm('You have not saved this plant, do you really want to cancel?')
+  }
+  return true;
+
+}
