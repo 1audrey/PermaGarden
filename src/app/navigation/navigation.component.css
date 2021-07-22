@@ -7,6 +7,10 @@ mat-toolbar {
   color: white;
   font-weight: normal;
 }
+mat-toolbar-row{
+display:flex;
+justify-content: flex-start;
+}
 
 .mat-button{
   font-weight: normal;
@@ -35,9 +39,22 @@ mat-sidenav-container {
 }
 
 .mat-drawer-content{
-overflow: initial;
+overflow: auto;
 }
 
 .active-list-item{
   color: #FFD700 !important;
+}
+
+.profile{
+  float: right !important;
+}
+
+.setting{
+  display: inline-flex;
+}
+
+.menu-buttons{
+  display:flex;
+  justify-content: space-between;
 }

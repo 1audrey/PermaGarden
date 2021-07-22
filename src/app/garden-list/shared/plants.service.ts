@@ -1,21 +1,22 @@
 import { Injectable } from "@angular/core";
-import { Subject } from "rxjs";
+import { Observable, Subject } from "rxjs";
+import { IPlantsList } from "./iplants-model";
 
 @Injectable()
 export class PlantsService{
-  getPlants(){
-    let subject = new Subject
+  getPlants(): Observable<IPlantsList[]>{
+    let subject = new Subject<IPlantsList[]>()
     setTimeout(() => {subject.next(PLANTS); subject.complete();},
     100)
 
     return subject;
   }
 }
-  const PLANTS =
+  const PLANTS : IPlantsList[] =
   [
     {
     name: "Spring Onions",
-    startDate: "23/06/2021",
+    startDate: new Date(''),
     sowingMonths: ["March", "April", "May", "June", "July", "August", "September"] ,
     sowingPeriodInDays: 21,
     harvestingMonths: 'January, April, June, July, August, September, October',
@@ -26,7 +27,7 @@ export class PlantsService{
 
     {
      name: "Carrots",
-     startDate: "20/06/2021",
+     startDate: new Date(''),
      sowingMonths: ["February", "March", "April", "May", "June", "July"] ,
      sowingPeriodInDays: 21,
      harvestingMonths: 'May, June, July, August, September, October',

@@ -2,6 +2,8 @@ import { Component, Input } from '@angular/core';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
+import { IPlantsList } from '../shared/iplants-model';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-plant-thumbnail',
@@ -18,7 +20,8 @@ import localeFr from '@angular/common/locales/fr';
   ]
 })
 export class PlantThumbnailComponent {
-@Input() plant:any;
+  @Input()
+  plant!: IPlantsList;
 
 state = 'collapsed';
 todayDate : Date = new Date();

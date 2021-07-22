@@ -1,6 +1,6 @@
 export interface IPlantsList {
   name: string,
-  startDate: string,
+  startDate: Date,
   sowingMonths: string[],
   sowingPeriodInDays: number,
   harvestingMonths: string,

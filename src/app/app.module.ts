@@ -7,8 +7,8 @@ import { PermagardenAppComponent } from './permagarden-app.component';
 import { GardenListComponent } from './garden-list/garden-list.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import {MatCardModule} from '@angular/material/card';
-import {MatListModule} from '@angular/material/list';
+import { MatCardModule } from '@angular/material/card';
+import { MatListModule } from '@angular/material/list';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatGridListModule} from '@angular/material/grid-list';
@@ -17,10 +17,11 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { NavigationComponent } from './navigation/navigation.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { PlantThumbnailComponent } from './plant-thumbnail/plant-thumbnail.component';
+import { PlantThumbnailComponent } from './garden-list/plant-thumbnail/plant-thumbnail.component';
 import { PlantsService } from './garden-list/shared/plants.service';
 import { AddToGardenComponent } from './garden-list/add-to-garden/add-to-garden.component';
 import { GardenListResolver } from './garden-list/garden-list-resolver.service';
+
 
 
 
@@ -30,7 +31,7 @@ import { GardenListResolver } from './garden-list/garden-list-resolver.service';
     GardenListComponent,
     NavigationComponent,
     PlantThumbnailComponent,
-    AddToGardenComponent,
+    AddToGardenComponent
 
   ],
   imports: [
@@ -46,14 +47,6 @@ import { GardenListResolver } from './garden-list/garden-list-resolver.service';
     MatToolbarModule,
     MatSidenavModule,
     FlexLayoutModule,
-
-
-
-
-
-
-
-
   ],
   providers:[
     PlantsService,

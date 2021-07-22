@@ -1,5 +1,5 @@
 import { Component, OnInit} from '@angular/core';
-import { IPlantsList } from '../iplants-list';
+import { IPlantsList } from './shared/iplants-model';
 import { PlantsService } from './shared/plants.service';
 import { ActivatedRoute } from '@angular/router';
 
@@ -12,7 +12,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 
 export class GardenListComponent implements OnInit{
-  plants :any[] | undefined ;
+  plants: IPlantsList[] = [];
 
   constructor(private plantsService: PlantsService, private route: ActivatedRoute){
 
