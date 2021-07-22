@@ -10,10 +10,17 @@ mat-toolbar {
 mat-toolbar-row{
 display:flex;
 justify-content: flex-start;
+padding: 0 25px;
 }
 
-.mat-button{
+.mat-flat-button{
   font-weight: normal;
+  background-color: transparent !important;
+  color:white;
+}
+
+.mat-flat-button:hover{
+  color:#DCDCDC;;
 }
 
 .mat-list-item{
@@ -46,15 +53,20 @@ overflow: auto;
   color: #FFD700 !important;
 }
 
-.profile{
-  float: right !important;
-}
-
-.setting{
-  display: inline-flex;
-}
-
 .menu-buttons{
   display:flex;
   justify-content: space-between;
+}
+
+.material-icons {
+  transform: scale(1.5);
+}
+
+.material-icons:hover {
+  color:#DCDCDC;
+  cursor: pointer;
+}
+
+h1{
+  font-size: 20px;
 }

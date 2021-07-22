@@ -21,6 +21,7 @@ import { PlantThumbnailComponent } from './garden-list/plant-thumbnail/plant-thu
 import { PlantsService } from './garden-list/shared/plants.service';
 import { AddToGardenComponent } from './garden-list/add-to-garden/add-to-garden.component';
 import { GardenListResolver } from './garden-list/garden-list-resolver.service';
+import { AuthService } from './user/auth.service';
 
 
 
@@ -51,7 +52,8 @@ import { GardenListResolver } from './garden-list/garden-list-resolver.service';
   providers:[
     PlantsService,
     {provide: 'canDeactivateAddToGarden', useValue: checkDirtyState},
-    GardenListResolver
+    GardenListResolver,
+    AuthService,
   ],
   bootstrap: [PermagardenAppComponent]
 })
