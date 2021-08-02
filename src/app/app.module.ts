@@ -22,6 +22,9 @@ import { PlantsService } from './garden-list/shared/plants.service';
 import { AddToGardenComponent } from './garden-list/add-to-garden/add-to-garden.component';
 import { GardenListResolver } from './garden-list/garden-list-resolver.service';
 import { AuthService } from './user/auth.service';
+import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
+import {MatDialogModule} from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 
 
@@ -32,7 +35,7 @@ import { AuthService } from './user/auth.service';
     GardenListComponent,
     NavigationComponent,
     PlantThumbnailComponent,
-    AddToGardenComponent
+    AddToGardenComponent,
 
   ],
   imports: [
@@ -48,6 +51,11 @@ import { AuthService } from './user/auth.service';
     MatToolbarModule,
     MatSidenavModule,
     FlexLayoutModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatDialogModule,
+    MatFormFieldModule,
+
   ],
   providers:[
     PlantsService,

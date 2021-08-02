@@ -1,4 +1,14 @@
-<h2>Add This.Plant.Name in my garden</h2>
-<p>create form here</p>
-<button type="submit">Save</button>
-<button type="cancel" (click)="cancel()">Cancel</button>
+
+<h1  mat-dialog-title>Add {{this.plant.name}} to my garden</h1>
+<!-- <div mat-dialog-content>
+  <p>Please select a bed?</p>
+  <mat-form-field appearance="fill">
+    <mat-label>Bed #</mat-label>
+    <input matInput [(ngModel)]="this.plant.name">
+  </mat-form-field>
+</div> -->
+<div mat-dialog-actions>
+  <button mat-button (click)="cancel()">No Thanks</button>
+  <button mat-button (click)="addOnGardenPage()" cdkFocusInitial>Ok</button>
+</div>
+

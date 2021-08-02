@@ -17,10 +17,16 @@ padding: 0 25px;
   font-weight: normal;
   background-color: transparent !important;
   color:white;
+
 }
 
-.mat-flat-button:hover{
-  color:#DCDCDC;;
+.mat-flat-button:not([disabled]):hover{
+  color:#DCDCDC;
+  background-color: transparent !important;
+}
+
+.mat-flat-button:focus {
+  outline: none !important;
 }
 
 .mat-list-item{
@@ -55,7 +61,8 @@ overflow: auto;
 
 .menu-buttons{
   display:flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
+  background-color: transparent !important;
 }
 
 .material-icons {
@@ -70,3 +77,4 @@ overflow: auto;
 h1{
   font-size: 20px;
 }
+

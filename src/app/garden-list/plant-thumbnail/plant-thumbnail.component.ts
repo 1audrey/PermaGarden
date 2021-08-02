@@ -4,6 +4,8 @@ import { registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
 import { IPlantsList } from '../shared/iplants-model';
 import { Observable } from 'rxjs';
+import { AddToGardenComponent } from '../add-to-garden/add-to-garden.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-plant-thumbnail',
@@ -27,9 +29,17 @@ state = 'collapsed';
 todayDate : Date = new Date();
 month = this.todayDate.toLocaleString('default', { month: 'long' });
 
+constructor(public dialog: MatDialog){}
 
 toggle(): void {
   this.state = this.state === 'collapsed' ? 'expanded' : 'collapsed';
+}
+
+addToGarden(): void{
+    this.dialog.open(AddToGardenComponent, {
+    width: '250px',
+    data: {name: this.plant.name }
+  });
 }
 
 }
