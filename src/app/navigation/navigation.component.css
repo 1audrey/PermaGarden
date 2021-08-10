@@ -61,7 +61,6 @@ overflow: auto;
 
 .menu-buttons{
   display:flex;
-  /* justify-content: space-between; */
   background-color: transparent !important;
 }
 

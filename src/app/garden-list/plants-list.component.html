@@ -1,0 +1,20 @@
+<div class="plants-list">
+  <div class="title-left">
+    <h2>Plants list</h2>
+    <p>Pick plants and add them to your garden</p>
+  </div>
+
+  <div class="title-right">
+    <button mat-button class="add-new-plant" [routerLink]="['/add-new-plant']">Add a new plant</button>
+  </div>
+</div>
+
+  <div class="my-garden-list">
+    <div fxLayout="row wrap" fxLayoutGap="16px grid">
+    <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="50%" fxFlex.md="50%"  *ngFor="let plant of plants">
+    <div class="my-garden-list"><app-plant-thumbnail [plant]="plant"></app-plant-thumbnail>
+    </div>
+    </div>
+  </div>
+
+

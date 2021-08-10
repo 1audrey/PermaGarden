@@ -1,0 +1,41 @@
+.my-garden-list{
+  padding: 0 20px;
+  justify-content: center;
+
+}
+
+.plants-list{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 25px !important;
+  padding-right: 25px !important;
+}
+
+.mat-h2, .mat-title, h2{
+  font: 500 20px/32px Roboto, "Helvetica Neue", sans-serif;
+  letter-spacing: normal;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 16px !important;
+
+}
+
+p {
+  padding-left: 16px !important;
+}
+
+.title-right{
+  float:center;
+  padding-right: 16px !important;
+}
+
+.add-new-plant{
+  color: darkolivegreen;
+  border-color: #DAA520;
+  background-color: #FFD700;
+  font-size: 12px;
+  font-weight:0px;
+  float: right;
+  /* margin-right: 5px; */
+}

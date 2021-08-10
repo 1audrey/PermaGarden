@@ -1,4 +1,4 @@
-import { PathLocationStrategy } from "@angular/common";
+
 import { Injectable } from "@angular/core";
 import { Observable, Subject } from "rxjs";
 import { IPlantsList } from "./iplants-model";
@@ -18,25 +18,39 @@ export class PlantsService{
   [
     {
     name: "Spring Onions",
-    startDate: new Date(''),
     sowingMonths: ["March", "April", "May", "June", "July", "August", "September"] ,
     sowingPeriodInDays: 21,
     harvestingMonths: ["January", "April", "June", "July", "August", "September", "October"],
     harvestingPeriodInDays: 120,
-    numberOfSeeds: 80,
     imageURL: 'assets/images/spring-onions.jpg',
     },
 
     {
      name: "Carrots",
-     startDate: new Date(''),
      sowingMonths: ["February", "March", "April", "May", "June", "July"] ,
      sowingPeriodInDays: 21,
      harvestingMonths: ["May", "June", "July", "August", "September", "October"],
      harvestingPeriodInDays: 77,
-     numberOfSeeds: 80,
      imageURL: 'assets/images/carrots.jpg',
      },
+
+     {
+      name: "Spring Onions",
+      sowingMonths: ["March", "April", "May", "June", "July", "August", "September"] ,
+      sowingPeriodInDays: 21,
+      harvestingMonths: ["January", "April", "June", "July", "August", "September", "October"],
+      harvestingPeriodInDays: 120,
+      imageURL: 'assets/images/spring-onions.jpg',
+      },
+
+      {
+        name: "Carrots",
+        sowingMonths: ["February", "March", "April", "May", "June", "July"] ,
+        sowingPeriodInDays: 21,
+        harvestingMonths: ["May", "June", "July", "August", "September", "October"],
+        harvestingPeriodInDays: 77,
+        imageURL: 'assets/images/carrots.jpg',
+        },
 
 
  ];

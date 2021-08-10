@@ -6,12 +6,12 @@ import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
-  selector: 'app-garden-list',
-  templateUrl: './garden-list.component.html',
-  styleUrls: ['./garden-list.component.css']
+  selector: 'app-plants-list',
+  templateUrl: './plants-list.component.html',
+  styleUrls: ['./plants-list.component.css']
 })
 
-export class GardenListComponent implements OnInit{
+export class PlantsListComponent implements OnInit{
   plants: IPlantsList[] = [];
 
   constructor(private plantsService: PlantsService, private route: ActivatedRoute){

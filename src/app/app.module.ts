@@ -1,10 +1,10 @@
-import { NgModule, Input } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 
 import { AppRoutingModule } from './app-routing.module';
 import { PermagardenAppComponent } from './permagarden-app.component';
-import { GardenListComponent } from './garden-list/garden-list.component';
+import { PlantsListComponent } from './garden-list/plants-list.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MatCardModule } from '@angular/material/card';
@@ -20,22 +20,25 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { PlantThumbnailComponent } from './garden-list/plant-thumbnail/plant-thumbnail.component';
 import { PlantsService } from './garden-list/shared/plants.service';
 import { AddToGardenComponent } from './garden-list/add-to-garden/add-to-garden.component';
-import { GardenListResolver } from './garden-list/garden-list-resolver.service';
+import { PlantsListResolver } from './garden-list/plants-list-resolver.service';
 import { AuthService } from './user/auth.service';
 import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
 import {MatDialogModule} from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { AddNewPlantComponent } from './add-new-plant/add-new-plant.component';
 
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 
 
 @NgModule({
   declarations: [
     PermagardenAppComponent,
-    GardenListComponent,
+    PlantsListComponent,
     NavigationComponent,
     PlantThumbnailComponent,
     AddToGardenComponent,
+    AddNewPlantComponent,
 
   ],
   imports: [
@@ -55,12 +58,14 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     ReactiveFormsModule,
     MatDialogModule,
     MatFormFieldModule,
+    MatCheckboxModule,
+
 
   ],
   providers:[
     PlantsService,
     {provide: 'canDeactivateAddToGarden', useValue: checkDirtyState},
-    GardenListResolver,
+    PlantsListResolver,
     AuthService,
   ],
   bootstrap: [PermagardenAppComponent]

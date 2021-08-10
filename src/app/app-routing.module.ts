@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AddNewPlantComponent } from './add-new-plant/add-new-plant.component';
 import { AddToGardenComponent } from './garden-list/add-to-garden/add-to-garden.component';
-import { GardenListResolver } from './garden-list/garden-list-resolver.service';
-import { GardenListComponent } from './garden-list/garden-list.component';
-import { UserModule } from './user/user.module';
+import { PlantsListResolver } from './garden-list/plants-list-resolver.service';
+import { PlantsListComponent } from './garden-list/plants-list.component';
+
 
 const routes: Routes = [
   {path: 'add-to-garden',
@@ -12,12 +13,17 @@ const routes: Routes = [
   },
 
   {path: 'plants-list',
-  component: GardenListComponent,
-  resolve: {plants: GardenListResolver}
+  component: PlantsListComponent,
+  resolve: {plants: PlantsListResolver}
   },
 
   {path: '',
   redirectTo:'/plants-list', pathMatch: 'full'
+  },
+
+  {path: 'add-new-plant',
+  component: AddNewPlantComponent,
+  canDeactivate:['canDeactivateAddToGarden']
   },
 
   {path: 'user',

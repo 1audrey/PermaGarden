@@ -4,7 +4,7 @@ import { PlantsService } from "./shared/plants.service";
 import { map } from 'rxjs/operators';
 
 @Injectable()
-export class GardenListResolver implements Resolve<any> {
+export class PlantsListResolver implements Resolve<any> {
 
   constructor(private plantsService: PlantsService){
 
