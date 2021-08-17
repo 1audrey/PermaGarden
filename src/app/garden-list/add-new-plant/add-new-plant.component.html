@@ -9,23 +9,23 @@
       <input (ngModel)="newPlant.name" name="name" required id="name" type="text" class="form-control" placeholder="Name of your plant..." />
     </div>
 
-    <div class="form-group" [ngClass]="{'error': newPlantForm.controls.sowingMonths?.invalid}">
-      <mat-selection-list name="sowingMonths" [(ngModel)]="sowingMonths" >
-        <mat-list-option *ngFor="let month of monthData" [value]="month.name">
+    <div class="form-group" [ngClass]="{'error': newPlantForm.controls.sowingMonths?.invalid}">Tick the sowing month(s)
+      <mat-selection-list class="sowing-months" name="sowingMonths"  [(ngModel)]="sowingMonths" >
+        <mat-list-option class="sowing-months-check" checkboxPosition="before" *ngFor="let month of monthData" [value]="month.name">
           {{month.name}}
         </mat-list-option>
       </mat-selection-list>
     </div>
 
-    <div class="form-group" [ngClass]="{'error': newPlantForm.controls.sowingPeriodInDays?.invalid && newPlantForm.controls.sowingPeriodInDays?.touched}">
+    <div class="form-group" id="sowingPeriodInDays" [ngClass]="{'error': newPlantForm.controls.sowingPeriodInDays?.invalid && newPlantForm.controls.sowingPeriodInDays?.touched}">
       <label for="sowingPeriodInDays">Sowing period (in days):</label>
       <em *ngIf="newPlantForm.controls.sowingPeriodInDays?.invalid && (newPlantForm.controls.sowingPeriodInDays?.touched)">Required</em>
       <input (ngModel)="newPlant.sowingPeriodInDays" name="sowingPeriodInDays" required id="sowingPeriodInDays" type="text" class="form-control" placeholder="For 3 months write 90..." />
     </div>
 
     <div class="form-group" [ngClass]="{'error': newPlantForm.controls.harvestingMonths?.invalid}">
-      <mat-selection-list name="harvestingMonths" [(ngModel)]="harvestingMonths" >
-        <mat-list-option *ngFor="let month of monthData" [value]="month.name">
+      <mat-selection-list class="harvesting-months" name="harvestingMonths" [(ngModel)]="harvestingMonths" >
+        <mat-list-option class="harvesting-months-check" checkboxPosition="before" *ngFor="let month of monthData" [value]="month.name">
           {{month.name}}
         </mat-list-option>
       </mat-selection-list>
@@ -34,14 +34,16 @@
     <div class="form-group" [ngClass]="{'error': newPlantForm.controls.harvestingPeriodInDays?.invalid && newPlantForm.controls.harvestingPeriodInDays?.touched}">
       <label for="harvestingPeriodInDays">Harvesting period(in days):</label>
       <em *ngIf="newPlantForm.controls.harvestingPeriodInDays?.invalid && (newPlantForm.controls.harvestingPeriodInDays?.touched)">Required</em>
-      <input (ngModel)="newPlant.harvestingPeriodInDays" name="harvestingPeriodInDays" required id="harvestingPeriodInDays" type="text" class="form-control" placeholder="If 3 months write 90..." />
+      <input (ngModel)="newPlant.harvestingPeriodInDays" name="harvestingPeriodInDays" required id="harvestingPeriodInDays" type="text" class="form-control" placeholder="For 3 months write 90..." />
     </div>
 
-    <!-- <div class="form-group" [ngClass]="{'error': newPlantForm.controls.imageUrl?.invalid && newPlantForm.controls.imageUrl?.touched}">
-      <label for="imageUrl">Image:</label>
-      <input (ngModel)="newPlant.imageUrl" name="imageUrl" required pattern=".*\/.*.(png|jpg)" id="imageUrl" type="text" class="form-control" placeholder="url of image..." />
-      <img />
-    </div> -->
+    <div class="form-group" [ngClass]="{'error': newPlantForm.controls.imageURL?.invalid && newPlantForm.controls.imageURL?.touched}" >
+        <label for="ImageURL">Image selected</label>
+        <em *ngIf="newPlantForm.controls.imageURL?.invalid && (newPlantForm.controls.imageURL?.touched)">Required</em>
+        <button #imageUrlSelected mat-button (click)="openSelectImageDialog()" >Select Image</button>
+        <input [(ngModel)]="imageURL" [value]="imageURL" name="imageURL" id="imageURL" type="text" />
+      </div>
+
 
     <button type="submit" class="btn btn-primary">Save</button>
     <button type="button" class="btn btn-default" (click)="cancel()">Cancel</button>

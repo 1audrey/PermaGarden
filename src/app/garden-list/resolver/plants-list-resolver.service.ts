@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Resolve } from '@angular/router';
-import { PlantsService } from "./shared/plants.service";
+import { PlantsService } from "../shared/plants.service";
 import { map } from 'rxjs/operators';
 
 @Injectable()

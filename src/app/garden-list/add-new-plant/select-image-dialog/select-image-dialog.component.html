@@ -1,0 +1,22 @@
+
+  <div>
+  <h2 mat-dialog-title >Select an image</h2>
+
+  <mat-dialog-content class="select-images" >
+      <mat-selection-list #imageSelected class="pick-image" label="imageUrl" fxLayout="row wrap" fxLayoutGap="10px grid" columns="4">
+        <mat-list-option  class="checkbox"
+        fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="50%" fxFlex.md="25%"
+        [disableRipple]="true" checkboxPosition="before"
+        *ngFor="let img of imgs" [value]="img.imageUrl">
+          <p>{{img.title}}</p>
+          <img class="img-responsive" [src]=img.imageUrl />
+      </mat-list-option>
+    </mat-selection-list>
+  </mat-dialog-content>
+
+  <mat-dialog-actions>
+    <button mat-button (click)="cancel()">Cancel</button>
+    <button mat-button [mat-dialog-close] type="submit" (click)="save()" cdkFocusInitial>Save</button>
+  </mat-dialog-actions>
+</div>
+

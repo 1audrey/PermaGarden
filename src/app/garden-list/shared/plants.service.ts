@@ -1,7 +1,7 @@
 
 import { Injectable } from "@angular/core";
 import { Observable, Subject } from "rxjs";
-import { IPlantsList } from "./iplants-model";
+import { IPlantsList } from "../models/iplants-model";
 
 @Injectable()
 export class PlantsService{

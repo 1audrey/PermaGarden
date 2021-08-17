@@ -20,14 +20,19 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { PlantThumbnailComponent } from './garden-list/plant-thumbnail/plant-thumbnail.component';
 import { PlantsService } from './garden-list/shared/plants.service';
 import { AddToGardenComponent } from './garden-list/add-to-garden/add-to-garden.component';
-import { PlantsListResolver } from './garden-list/plants-list-resolver.service';
+import { PlantsListResolver } from './garden-list/resolver/plants-list-resolver.service';
 import { AuthService } from './user/auth.service';
 import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
 import {MatDialogModule} from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { AddNewPlantComponent } from './add-new-plant/add-new-plant.component';
+import { AddNewPlantComponent } from './garden-list/add-new-plant/add-new-plant.component';
 
 import {MatCheckboxModule} from '@angular/material/checkbox';
+
+import { SelectImageDialogComponent } from './garden-list/add-new-plant/select-image-dialog/select-image-dialog.component';
+import { PlantImageService } from './garden-list/shared/plant-image.service';
+import { PlantImageResolverService } from './garden-list/resolver/plant-image-resolver.service';
+import {MatRadioModule} from '@angular/material/radio';
 
 
 
@@ -39,6 +44,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     PlantThumbnailComponent,
     AddToGardenComponent,
     AddNewPlantComponent,
+    SelectImageDialogComponent,
 
   ],
   imports: [
@@ -59,6 +65,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     MatDialogModule,
     MatFormFieldModule,
     MatCheckboxModule,
+    MatRadioModule
 
 
   ],
@@ -67,6 +74,8 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     {provide: 'canDeactivateAddToGarden', useValue: checkDirtyState},
     PlantsListResolver,
     AuthService,
+    PlantImageService,
+    PlantImageResolverService
   ],
   bootstrap: [PermagardenAppComponent]
 })

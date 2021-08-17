@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-import { IPlantsList } from '../shared/iplants-model';
+import { IPlantsList } from '../models/iplants-model';
 
 @Component({
   selector: 'app-add-to-garden',
@@ -27,7 +27,7 @@ plants: IPlantsList[] = [];
 
   addOnGardenPage(){
     return console.log(`added ${this.plant.name}`);
-    // this.router.navigate(['plants-list']);
+
   }
 
 

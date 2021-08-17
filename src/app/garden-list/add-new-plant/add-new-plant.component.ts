@@ -1,5 +1,8 @@
-import { Component, OnInit,  } from '@angular/core';
+import { Component} from '@angular/core';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { IPlantsImage } from '../models/iplants-image-model';
+import { SelectImageDialogComponent } from './select-image-dialog/select-image-dialog.component';
 
 @Component({
   selector: 'app-add-new-plant',
@@ -7,23 +10,19 @@ import { Router } from '@angular/router';
   styleUrls: ['./add-new-plant.component.css']
 })
 
-export class AddNewPlantComponent implements OnInit{
+export class AddNewPlantComponent {
   isDirty:boolean = true;
   newPlant!: any;
-
-  monthData!: Month [];
   sowingMonths!: string[];
   harvestingMonths!: string[];
+  imgs: IPlantsImage[] = [];
+  imageURL!: string;
 
-  constructor(private router: Router){
+
+  constructor(private router: Router, public dialog: MatDialog){
   }
 
-  ngOnInit(){
-    this.getMonths();
-  }
-
-  getMonths(){
-    this.monthData=[
+   monthData: Month [] =[
   {
     name: 'January',
     isChecked: false
@@ -35,7 +34,7 @@ export class AddNewPlantComponent implements OnInit{
     {
     name: 'March',
     isChecked: false,
-      },
+    },
     {
     name: 'April',
     isChecked: false,
@@ -72,18 +71,32 @@ export class AddNewPlantComponent implements OnInit{
     {
     name: 'December',
     isChecked: false,
-    },
-]
-}
+    }]
 
-cancel(){
+
+  cancel(){
   this.router.navigate(['/plants-list']);
-}
+  }
 
-savePlant(formValues: any){
+  savePlant(formValues: any){
   console.log(formValues);
-}
+  }
 
+  openSelectImageDialog(){
+
+    let dialogRef = this.dialog.open(SelectImageDialogComponent, {
+    width: '500px',
+    data: {imageURL: this.imageURL}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.imageURL= result;
+      console.log(this.imageURL);
+    })
+
+
+
+  }
 
 }
 
@@ -92,5 +105,6 @@ export interface Month {
   name: string;
   isChecked: boolean;
 }
+
 
 

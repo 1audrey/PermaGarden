@@ -1,5 +1,5 @@
 import { Component, OnInit} from '@angular/core';
-import { IPlantsList } from './shared/iplants-model';
+import { IPlantsList } from './models/iplants-model';
 import { PlantsService } from './shared/plants.service';
 import { ActivatedRoute } from '@angular/router';
 

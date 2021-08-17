@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AddNewPlantComponent } from './add-new-plant/add-new-plant.component';
+import { AddNewPlantComponent } from './garden-list/add-new-plant/add-new-plant.component';
 import { AddToGardenComponent } from './garden-list/add-to-garden/add-to-garden.component';
-import { PlantsListResolver } from './garden-list/plants-list-resolver.service';
+import { PlantsListResolver } from './garden-list/resolver/plants-list-resolver.service';
 import { PlantsListComponent } from './garden-list/plants-list.component';
+import { SelectImageDialogComponent } from './garden-list/add-new-plant/select-image-dialog/select-image-dialog.component';
+import { PlantImageResolverService } from './garden-list/resolver/plant-image-resolver.service';
 
 
 const routes: Routes = [

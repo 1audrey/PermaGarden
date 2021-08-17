@@ -1,0 +1,39 @@
+.select-images{
+  padding: 0 20px;
+  justify-content: center;
+
+}
+
+.pick-image{
+  justify-content: space-between;
+  align-items: center;
+  padding: 25px !important;
+  overflow-x:auto;
+  overflow-y:hidden;
+  font: 400 14px/20px Roboto, "Helvetica Neue", sans-serif;
+}
+
+.mat-list-item {
+  height: auto;
+}
+
+:host ::ng-deep .mat-select-value .ng-tns-c105-1 {
+  color: white;
+}
+
+::ng-deep .mat-accent .mat-pseudo-checkbox-checked,
+.mat-accent .mat-pseudo-checkbox-indeterminate {
+  background: #DAA520;
+}
+
+::ng-deep .mat-accent .mat-pseudo-checkbox.mat-pseudo-checkbox-checked,
+.mat-accent .mat-pseudo-checkbox.mat-pseudo-checkbox-indeterminate {
+  border-color: #DAA520;
+}
+
+::ng-deep .mat-accent .mat-pseudo-checkbox::after {
+  color: white;
+}
+
+
+
