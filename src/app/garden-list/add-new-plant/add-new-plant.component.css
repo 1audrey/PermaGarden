@@ -93,6 +93,21 @@ input
   border-color: #DAA520;
   background-color: #FFD700;
   font-size: 12px;
-  font-weight:0px;
+  font-weight:500 !important;
+}
 
+.save-new-plant-button{
+  font-size: 12px;
+  color: white !important;
+  border-color: #6B8E23;
+  background-color:#6B8E23;
+  font-weight: 500;
+}
+
+.save-new-plant-button:hover{
+  color: white;
+  border-color: transparent;
+  background-color: darkolivegreen;
+  cursor: pointer;
+  font-weight: 500;
 }
