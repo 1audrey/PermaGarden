@@ -70,3 +70,29 @@ h1{
 ::ng-deep .mat-accent .mat-pseudo-checkbox::after {
   color: white;
 }
+
+label
+{
+  margin-bottom: 5px;
+}
+
+input
+{
+  width: auto;
+  padding: 12px 20px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  display: block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.select-image{
+  color: darkolivegreen;
+  border-color: #DAA520;
+  background-color: #FFD700;
+  font-size: 12px;
+  font-weight:0px;
+
+}

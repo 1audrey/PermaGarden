@@ -1,7 +1,7 @@
 import { SelectionModel } from '@angular/cdk/collections';
-import { Component, Inject, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Component, OnInit, ViewChild } from '@angular/core';
+
+import { MatDialogRef } from '@angular/material/dialog';
 import { MatListOption, MatSelectionList } from '@angular/material/list';
 import { IPlantsImage } from '../../models/iplants-image-model';
 import { PlantImageService } from '../../shared/plant-image.service';
@@ -14,9 +14,8 @@ import { PlantImageService } from '../../shared/plant-image.service';
 })
 export class SelectImageDialogComponent implements OnInit {
   imgs: IPlantsImage[] = [];
-  form!: FormGroup;
-  imageUrl:string = '';
-  imageURL!: string[];
+  imageUrl!:string ;
+
   @ViewChild(MatSelectionList, {static: true}) imageSelected!: MatSelectionList;
 
   constructor(
@@ -25,16 +24,15 @@ export class SelectImageDialogComponent implements OnInit {
     ) {}
 
   ngOnInit(): void {
-    this._imgService.getPlantsImage().subscribe(res => {
-      this.imgs = res;
+    this._imgService.getPlantsImage().subscribe(result => {
+      this.imgs = result;
     });
 
     this.imageSelected.selectedOptions = new SelectionModel<MatListOption>(false);
   }
 
   save() {
-    this.dialogRef.close(this.imageSelected._value);
-
+    this.dialogRef.close((this.imageSelected._value)?.toString());
   }
 
   cancel(){

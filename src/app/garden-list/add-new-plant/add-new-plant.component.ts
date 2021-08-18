@@ -1,5 +1,6 @@
-import { Component} from '@angular/core';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { Component, } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { IPlantsImage } from '../models/iplants-image-model';
 import { SelectImageDialogComponent } from './select-image-dialog/select-image-dialog.component';
@@ -10,13 +11,15 @@ import { SelectImageDialogComponent } from './select-image-dialog/select-image-d
   styleUrls: ['./add-new-plant.component.css']
 })
 
-export class AddNewPlantComponent {
+export class AddNewPlantComponent{
   isDirty:boolean = true;
   newPlant!: any;
   sowingMonths!: string[];
   harvestingMonths!: string[];
   imgs: IPlantsImage[] = [];
   imageURL!: string;
+  private sowingPeriodInDays!: FormControl;
+
 
 
   constructor(private router: Router, public dialog: MatDialog){
@@ -46,7 +49,6 @@ export class AddNewPlantComponent {
     {
     name: 'June',
     isChecked: false,
-
     },
     {
     name: 'July',
@@ -73,7 +75,6 @@ export class AddNewPlantComponent {
     isChecked: false,
     }]
 
-
   cancel(){
   this.router.navigate(['/plants-list']);
   }
@@ -85,17 +86,13 @@ export class AddNewPlantComponent {
   openSelectImageDialog(){
 
     let dialogRef = this.dialog.open(SelectImageDialogComponent, {
-    width: '500px',
+    width: '1000px',
     data: {imageURL: this.imageURL}
     });
 
     dialogRef.afterClosed().subscribe(result => {
       this.imageURL= result;
-      console.log(this.imageURL);
     })
-
-
-
   }
 
 }
