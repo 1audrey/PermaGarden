@@ -25,7 +25,7 @@ const routes: Routes = [
 
   {path: 'add-new-plant',
   component: AddNewPlantComponent,
-  canDeactivate:['canDeactivateAddToGarden']
+  resolve: {plants: PlantImageResolverService}
   },
 
   {path: 'user',

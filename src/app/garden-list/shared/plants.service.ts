@@ -13,6 +13,12 @@ export class PlantsService{
     return subject;
   }
 
+
+
+  savePlant(newPlant: IPlantsList){
+    PLANTS.push(newPlant)
+  }
+
 }
   const PLANTS : IPlantsList[] =
   [

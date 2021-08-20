@@ -1,8 +1,9 @@
 import { Component, } from '@angular/core';
-import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { IPlantsImage } from '../models/iplants-image-model';
+import { IPlantsList } from '../models/iplants-model';
+import { PlantsService } from '../shared/plants.service';
 import { SelectImageDialogComponent } from './select-image-dialog/select-image-dialog.component';
 
 @Component({
@@ -18,11 +19,10 @@ export class AddNewPlantComponent{
   harvestingMonths!: string[];
   imgs: IPlantsImage[] = [];
   imageURL!: string;
-  private sowingPeriodInDays!: FormControl;
 
 
 
-  constructor(private router: Router, public dialog: MatDialog){
+  constructor(private router: Router, public dialog: MatDialog, private plantService: PlantsService){
   }
 
    monthData: Month [] =[
@@ -79,22 +79,25 @@ export class AddNewPlantComponent{
   this.router.navigate(['/plants-list']);
   }
 
-  savePlant(formValues: any){
-  console.log(formValues);
+  savePlant(formValues: IPlantsList){
+  console.log(formValues)
+  this.plantService.savePlant(formValues);
+  this.isDirty = false;
+  this.router.navigate(['/plants-list']);
   }
 
   openSelectImageDialog(){
-
     let dialogRef = this.dialog.open(SelectImageDialogComponent, {
     width: '1000px',
-    data: {imageURL: this.imageURL}
+    data: {imageURL: this.imageURL},
+    autoFocus: false,
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.imageURL= result;
+      console.log('Image Url:', this.imageURL);
+      this.imageURL = result;
     })
   }
-
 }
 
 

@@ -1,7 +1,7 @@
 <h1>New Plant</h1>
 <hr>
 <div class="col-md-6">
-  <form #newPlantForm="ngForm" (ngSubmit)="savePlant(newPlantForm.value)" autocomplete="off" novalidate>
+  <form #newPlantForm="ngForm"  autocomplete="off" novalidate>
 
     <div class="form-group" [ngClass]="{'error': newPlantForm.controls.name?.invalid && newPlantForm.controls.name?.touched}">
       <label for="plantName">Plant Name:</label>
@@ -9,7 +9,7 @@
       <input (ngModel)="newPlant.name" name="name" required id="name" type="text" class="form-control" placeholder="Name of your plant..." />
     </div>
 
-    <div class="form-group" [ngClass]="{'error': newPlantForm.controls.sowingMonths?.invalid}">Tick the sowing month(s)
+    <div class="form-group" [ngClass]="{'error': newPlantForm.controls.sowingMonths?.invalid}">Tick the sowing month(s):
       <mat-selection-list class="sowing-months" name="sowingMonths"  (ngModel)="newPlant.sowingMonths" required >
         <mat-list-option class="sowing-months-check" checkboxPosition="before" *ngFor="let month of monthData" [value]="month.name">
           {{month.name}}
@@ -25,7 +25,7 @@
       <input (ngModel)="newPlant.sowingPeriodInDays" required name="sowingPeriodInDays"  id="sowingPeriodInDays" type="text" class="form-control" pattern = "[0-9]+" placeholder="For 3 months write 90..." />
     </div>
 
-    <div class="form-group" [ngClass]="{'error': newPlantForm.controls.harvestingMonths?.invalid}">Tick the harvesting month(s)
+    <div class="form-group" [ngClass]="{'error': newPlantForm.controls.harvestingMonths?.invalid}">Tick the harvesting month(s):
       <mat-selection-list class="harvesting-months" name="harvestingMonths" (ngModel)="harvestingMonths" required >
         <mat-list-option class="harvesting-months-check" checkboxPosition="before" *ngFor="let month of monthData" [value]="month.name">
           {{month.name}}
@@ -42,15 +42,15 @@
     </div>
 
     <div class="form-group" [ngClass]="{'error': newPlantForm.controls.imageURL?.invalid && newPlantForm.controls.imageURL?.touched}" >
-        <label for="ImageURL">Plant image</label>
-        <em *ngIf="newPlantForm.controls.imageURL?.invalid && newPlantForm.controls.imageURL?.touched">*Required</em>
-        <input [(ngModel)]="imageURL" [value]="imageURL" name="imageURL" id="imageURL" type="text" required class="form-control" placeholder="Select an image"/>
-        <button mat-button class="select-image" #imageUrlSelected  (click)="openSelectImageDialog()" >Select Image</button>
-    </div>
+      <label for="ImageURL">Plant image</label>
+      <em *ngIf="newPlantForm.controls.imageURL?.invalid && newPlantForm.controls.imageURL?.touched">*Required</em>
+      <input [(ngModel)]="imageURL" [value]="imageURL" name="imageURL" id="imageURL" type="text" required class="form-control" placeholder="Select an image"/>
+      <button mat-button class="select-image" #imageUrlSelected (click)="openSelectImageDialog()" >Select Image:</button>
+  </div>
 
     <div class="form-group">
       <div class="buttons">
-        <button mat-button type="submit" class="save-new-plant-button" [disabled]="newPlantForm.invalid" >Save</button>
+        <button mat-button type="submit" class="save-new-plant-button" [disabled]="newPlantForm.invalid" (click)="savePlant(newPlantForm.value)" >Save</button>
         <button mat-button type="button" class="btn btn-default" (click)="cancel()">Cancel</button>
       </div>
     </div>
