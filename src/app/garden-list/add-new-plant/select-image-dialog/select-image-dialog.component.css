@@ -51,3 +51,26 @@
   font-weight: 500;
 }
 
+.title{
+  width: 100%;
+  display: flex;
+}
+
+.title-left{
+  width: 50%;
+  float:left;
+  height:100%;
+  padding-left:25px;
+  padding-right:25px;
+}
+
+.title-right{
+  width: 50%;
+  float:right;
+  vertical-align: middle;
+  margin: 0 0 16px;
+  height:100%;
+  text-align:right;
+  padding-left:25px;
+  padding-right:25px;
+}

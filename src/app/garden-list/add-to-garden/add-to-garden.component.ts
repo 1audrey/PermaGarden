@@ -1,5 +1,4 @@
 import { Component, Inject } from '@angular/core';
-import { Router } from '@angular/router';
 import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { IPlantsList } from '../models/iplants-model';
 
@@ -15,7 +14,7 @@ newPlant: any;
 plants: IPlantsList[] = [];
 
 
-  constructor(private router: Router,
+  constructor(
     public dialog: MatDialogRef<AddToGardenComponent>,
     @Inject(MAT_DIALOG_DATA) public plant: IPlantsList
     ) { }

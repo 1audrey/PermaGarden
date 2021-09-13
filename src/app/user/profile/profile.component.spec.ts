@@ -1,4 +1,8 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, inject, TestBed } from '@angular/core/testing';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterTestingModule } from '@angular/router/testing';
+
+import { AuthService } from '../auth.service';
 
 import { ProfileComponent } from './profile.component';
 
@@ -8,7 +12,16 @@ describe('ProfileComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ProfileComponent ]
+      declarations: [ ProfileComponent ],
+      imports: [
+        RouterTestingModule,
+        FormsModule,
+        ReactiveFormsModule,
+
+      ],
+      providers:[
+        {provide: AuthService, useValue:{}},
+      ]
     })
     .compileComponents();
   });
@@ -16,10 +29,15 @@ describe('ProfileComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ProfileComponent);
     component = fixture.componentInstance;
+    component.ngOnInit();
     fixture.detectChanges();
+
   });
 
-  it('should create', () => {
+  it('should create', (() => {
     expect(component).toBeTruthy();
-  });
+  }));
+
 });
+
+

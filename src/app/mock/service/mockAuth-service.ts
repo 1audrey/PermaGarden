@@ -1,10 +1,7 @@
 import { Injectable } from '@angular/core';
-import { IUser } from './user.model';
+import { IUser } from 'src/app/user/user.model';
 
-@Injectable({
-  providedIn: 'root'
-})
-export class AuthService {
+export class MockAuthService {
   currentUser!: IUser;
 
   loginUser(userName: string, password: string){
@@ -18,11 +15,5 @@ export class AuthService {
 
   isAuthenticated(): any{
     return !!this.currentUser;
-  }
-
-  updateCurrentUser(firstName: string, lastName: string){
-    this.currentUser.firstName = firstName;
-    this.currentUser.lastName = lastName;
-
   }
 }

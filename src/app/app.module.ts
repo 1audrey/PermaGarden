@@ -23,7 +23,7 @@ import { AddToGardenComponent } from './garden-list/add-to-garden/add-to-garden.
 import { PlantsListResolver } from './garden-list/resolver/plants-list-resolver.service';
 import { AuthService } from './user/auth.service';
 import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
-import {MatDialogModule} from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { AddNewPlantComponent } from './garden-list/add-new-plant/add-new-plant.component';
 
@@ -32,7 +32,11 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import { SelectImageDialogComponent } from './garden-list/add-new-plant/select-image-dialog/select-image-dialog.component';
 import { PlantImageService } from './garden-list/shared/plant-image.service';
 import { PlantImageResolverService } from './garden-list/resolver/plant-image-resolver.service';
-import {MatRadioModule} from '@angular/material/radio';
+import { FilterPipe } from './garden-list/pipe/filter.pipe';
+import { HttpClientModule } from '@angular/common/http';
+
+
+
 
 
 
@@ -45,6 +49,8 @@ import {MatRadioModule} from '@angular/material/radio';
     AddToGardenComponent,
     AddNewPlantComponent,
     SelectImageDialogComponent,
+    FilterPipe,
+
 
   ],
   imports: [
@@ -65,7 +71,9 @@ import {MatRadioModule} from '@angular/material/radio';
     MatDialogModule,
     MatFormFieldModule,
     MatCheckboxModule,
-    MatRadioModule
+    HttpClientModule
+
+
 
 
   ],
@@ -75,7 +83,8 @@ import {MatRadioModule} from '@angular/material/radio';
     PlantsListResolver,
     AuthService,
     PlantImageService,
-    PlantImageResolverService
+    PlantImageResolverService,
+
   ],
   bootstrap: [PermagardenAppComponent]
 })

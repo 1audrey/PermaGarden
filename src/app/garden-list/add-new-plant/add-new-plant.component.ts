@@ -76,14 +76,14 @@ export class AddNewPlantComponent{
     }]
 
   cancel(){
-  this.router.navigate(['/plants-list']);
+  this.router.navigate(['plants-list']);
   }
 
   savePlant(formValues: IPlantsList){
   console.log(formValues)
   this.plantService.savePlant(formValues);
   this.isDirty = false;
-  this.router.navigate(['/plants-list']);
+  this.router.navigate(['plants-list']);
   }
 
   openSelectImageDialog(){

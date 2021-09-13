@@ -8,5 +8,5 @@ import { Component } from '@angular/core';
 
 })
 export class PermagardenAppComponent {
-  title = 'PermaGarden';
+  title = 'My Perma Garden';
 }

@@ -14,6 +14,8 @@ import { ActivatedRoute } from '@angular/router';
 export class PlantsListComponent implements OnInit{
   plants: IPlantsList[] = [];
 
+  public static readonly ADDNEWPLANT_WEBSITE_URL: string = '/add-new-plant';
+
   constructor(private plantsService: PlantsService, private route: ActivatedRoute){
 
   }
@@ -22,9 +24,12 @@ export class PlantsListComponent implements OnInit{
     this.plants = this.route.snapshot.data['plants']
   }
 
-
-
-
+  openAddNewPlant(){
+    const link = document.createElement('a');
+    link.href = PlantsListComponent.ADDNEWPLANT_WEBSITE_URL;
+    link.setAttribute('visibility', 'hidden');
+    link.click();
+  }
 
 }
 

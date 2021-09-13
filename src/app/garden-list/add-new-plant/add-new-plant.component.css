@@ -19,8 +19,6 @@
 
 em {
   color:#dd553d;
-  padding-left:5px;
-  padding-right:5px;
 }
 
 .sowing-months{
@@ -94,6 +92,10 @@ input
   background-color: #FFD700;
   font-size: 12px;
   font-weight:500 !important;
+  vertical-align: middle;
+  margin-left:12px;
+  margin-top: 7px;
+
 }
 
 .save-new-plant-button{
@@ -111,3 +113,18 @@ input
   cursor: pointer;
   font-weight: 500;
 }
+
+.buttons{
+  display: inline;
+}
+
+#select-image-dialog{
+  display: inline-flex;
+  width: 25%;
+  vertical-align: middle;
+}
+
+#imageURL{
+float: left;
+}
+
