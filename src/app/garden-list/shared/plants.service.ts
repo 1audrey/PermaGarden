@@ -8,7 +8,6 @@ import * as plants from "./plants-list.json";
 @Injectable()
 export class PlantsService{
 
-  plantsUrl = 'assets/plants-list.json';
   static PLANTS: any = [];
 
   constructor(){}
@@ -22,7 +21,7 @@ export class PlantsService{
   }
 
   savePlant(newPlant: IPlantsList){
-    PlantsService.PLANTS.push(newPlant)
+    this.PLANTS.push(newPlant)
   }
 
   PLANTS = (plants as any).default;

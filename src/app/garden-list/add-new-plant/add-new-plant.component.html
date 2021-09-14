@@ -22,7 +22,7 @@
     <div class="form-group" id="sowingPeriodInDays" [ngClass]="{'error': newPlantForm.controls.sowingPeriodInDays?.invalid && newPlantForm.controls.sowingPeriodInDays?.touched}">
       <label for="sowingPeriodInDays">Sowing period (in days):</label>
       <em *ngIf="newPlantForm.controls.sowingPeriodInDays?.invalid && newPlantForm.controls.sowingPeriodInDays?.touched">*Required</em>
-      <em *ngIf="newPlantForm.controls.sowingPeriodInDays?.invalid && newPlantForm.controls.sowingPeriodInDays.errors?.pattern">**Must be numbers</em>
+      <em *ngIf="newPlantForm.controls.sowingPeriodInDays?.invalid && newPlantForm.controls.sowingPeriodInDays.errors?.pattern"> **Must be numbers</em>
       <input (ngModel)="newPlant.sowingPeriodInDays" required name="sowingPeriodInDays"  id="sowingPeriodInDays" type="text" class="form-control" pattern = "[0-9]+" placeholder="For 3 months write 90..." />
     </div>
 
@@ -39,15 +39,16 @@
     <div class="form-group" [ngClass]="{'error': newPlantForm.controls.harvestingPeriodInDays?.invalid && newPlantForm.controls.harvestingPeriodInDays?.touched}">
       <label for="harvestingPeriodInDays">Harvesting period(in days):</label>
       <em *ngIf="newPlantForm.controls.harvestingPeriodInDays?.invalid && newPlantForm.controls.harvestingPeriodInDays?.touched">*Required</em>
-      <em *ngIf="newPlantForm.controls.harvestingPeriodInDays?.invalid && newPlantForm.controls.harvestingPeriodInDays.errors?.pattern">**Must be numbers</em>
-      <input (ngModel)="newPlant.harvestingPeriodInDays" name="harvestingPeriodInDays" required id="harvestingPeriodInDays" type="text" class="form-control" pattern = "[0-9]+"placeholder="For 3 months write 90..." />
+      <em *ngIf="newPlantForm.controls.harvestingPeriodInDays?.invalid && newPlantForm.controls.harvestingPeriodInDays.errors?.pattern"> **Must be numbers</em>
+      <input (ngModel)="newPlant.harvestingPeriodInDays" name="harvestingPeriodInDays" required id="harvestingPeriodInDays" type="text" class="form-control" pattern = "[0-9]+" placeholder="For 3 months write 90..." />
     </div>
 
     <div class="form-group" [ngClass]="{'error': newPlantForm.controls.imageURL?.invalid && newPlantForm.controls.imageURL?.touched}" >
       <label for="ImageURL">Plant image</label>
       <em *ngIf="newPlantForm.controls.imageURL?.invalid && newPlantForm.controls.imageURL?.touched">*Required</em>
+      <em *ngIf=" newPlantForm.controls.imageURL?.errors?.pattern"> **You need to select a picture from the library</em>
       <div class="select-image-dialog">
-      <input [(ngModel)]="imageURL" [value]="imageURL" name="imageURL" id="imageURL" type="text" required class="form-control" placeholder="Select an image"/>
+      <input [(ngModel)]="imageURL" [value]="imageURL" name="imageURL" id="imageURL" type="text" required class="form-control" pattern="^(assets).*$" placeholder="Select an image"/>
       <button mat-button class="select-image" #imageUrlSelected (click)="openSelectImageDialog()" >Select Image:</button>
     </div>
     </div>
