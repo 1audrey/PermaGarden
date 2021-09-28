@@ -4,6 +4,6 @@ export interface IPlantsList {
   sowingPeriodInDays: number,
   harvestingMonths: string[],
   harvestingPeriodInDays: number,
-  imageURL: string,
+  imageUrl: string,
 }
 

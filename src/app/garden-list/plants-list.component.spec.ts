@@ -1,6 +1,8 @@
+import { DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
+import { PlantThumbnailComponent } from './plant-thumbnail/plant-thumbnail.component';
 
 import { PlantsListComponent } from './plants-list.component';
 import { PlantsListResolver } from './resolver/plants-list-resolver.service';
@@ -9,6 +11,7 @@ import { PlantsService } from './shared/plants.service';
 describe('GardenListComponent', () => {
   let component: PlantsListComponent;
   let fixture: ComponentFixture<PlantsListComponent>;
+  let de: DebugElement;
   let mockPlants = [{
     name: "Spring Onions",
     sowingMonths: [
@@ -19,7 +22,7 @@ describe('GardenListComponent', () => {
       "January",
     ],
     harvestingPeriodInDays: 120,
-    imageURL: "assets/images/spring-onions.jpg"
+    imageUrl: "assets/images/spring-onions.jpg"
   },
   {
     name: "Test no Month",
@@ -31,7 +34,7 @@ describe('GardenListComponent', () => {
       "January",
     ],
     harvestingPeriodInDays: 120,
-    imageURL: "assets/images/spring-onions.jpg"
+    imageUrl: "assets/images/spring-onions.jpg"
   }]
 
   beforeEach(async () => {
@@ -99,6 +102,32 @@ describe('GardenListComponent', () => {
     fixture.debugElement.query(By.css('.see-all')).nativeElement.click();
 
     expect(spy).toHaveBeenCalledTimes(1);
+  });
+
+  fit('should be called with whatever the plantDeleted emits', () => {
+    spyOn(component, 'onPlantDeleted');
+    const deletedPlant = de.query(By.directive(PlantThumbnailComponent));
+    const cmp = deletedPlant.componentInstance;
+    cmp.change.emit(1);
+    expect(component.onPlantDeleted).toHaveBeenCalledTimes(1)
+  });
+
+  fit('should decrement the plant list array by one', () => {
+    component.plants.length = 3;
+    component.onPlantDeleted(
+      {
+      name: "Spring Onions",
+      sowingMonths: [
+        "September"
+      ],
+      sowingPeriodInDays: 21,
+      harvestingMonths: [
+        "January",
+      ],
+      harvestingPeriodInDays: 120,
+      imageUrl: "assets/images/spring-onions.jpg"
+     });
+    expect(component.plants.length).toEqual(2);
   });
 
   it('should return plants of specified month when the filterBySowingMonths method is called', () => {

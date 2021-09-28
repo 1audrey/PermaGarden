@@ -49,7 +49,13 @@ export class PlantsListComponent implements OnInit {
 
   filterAll() {
     this.plants = this.route.snapshot.data['plants']
+  }
 
+  onPlantDeleted(plant: IPlantsList){
+    var index = this.plants.findIndex((deletedPlant) => (deletedPlant === plant));
+    if (index != -1) {
+      this.plants.splice(index, 1);
+    }
   }
 
 }

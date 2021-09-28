@@ -21,7 +21,7 @@
       "October"
     ],
     "harvestingPeriodInDays":120,
-    "imageURL":"assets/images/spring-onions.jpg"
+    "imageUrl":"assets/images/spring-onions.jpg"
   },
   {
     "name":"Carrots",
@@ -43,7 +43,7 @@
       "October"
     ],
     "harvestingPeriodInDays":77,
-    "imageURL":"assets/images/carrots.jpg"
+    "imageUrl":"assets/images/carrots.jpg"
   },
   {
     "name":"Spring Onions",
@@ -67,7 +67,7 @@
       "October"
     ],
     "harvestingPeriodInDays":120,
-    "imageURL":"assets/images/spring-onions.jpg"
+    "imageUrl":"assets/images/spring-onions.jpg"
   },
   {
     "name":"Carrots",
@@ -89,6 +89,6 @@
       "October"
     ],
     "harvestingPeriodInDays":77,
-    "imageURL":"assets/images/carrots.jpg"
+    "imageUrl":"assets/images/carrots.jpg"
   }
 ]

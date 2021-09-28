@@ -1,7 +1,9 @@
 <div>
       <mat-card class="plant-list">
         <mat-card-content>
-          <img mat-card-image [src]="plant.imageURL" alt={{plant.name}}>
+          <button class="delete" (click)="delete()"><mat-icon>delete_outline</mat-icon></button>
+          <img mat-card-image [src]="plant.imageUrl" alt={{plant.name}}>
+
 
           <div [@bodyExpansion]="state" class="plants-info">
             <table>

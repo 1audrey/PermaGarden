@@ -1,9 +1,8 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { IPlantsList } from '../models/iplants-model';
 import { AddToGardenComponent } from '../add-to-garden/add-to-garden.component';
 import { MatDialog } from '@angular/material/dialog';
-import { PlantImageResolverService } from '../resolver/plant-image-resolver.service';
 
 @Component({
   selector: 'app-plant-thumbnail',
@@ -22,6 +21,7 @@ import { PlantImageResolverService } from '../resolver/plant-image-resolver.serv
 export class PlantThumbnailComponent{
 
   @Input()  plant!: IPlantsList;
+  @Output() plantDeleted: EventEmitter<any> = new EventEmitter();
 
 state = 'collapsed';
 todayDate : Date = new Date();
@@ -40,31 +40,11 @@ addToGarden(): void{
   });
 }
 
-// ngOnChanges(){
-//   if(this.plant)
-//   {
-//     this.filterPlants(this.filterBy);
-//   }
-// }
+delete(){
+  this.plantDeleted.emit();
 
-// filterPlants(filter :string){
-//   if(filter.length === 11)
-//   {
-//     return this.visiblePlants.slice(0);
-//   }
-//   else
-//   {
-//     return this.visiblePlants.filter(plants => plants.sowingMonths.includes(this.month));
-
-//   }
-
-//   }
+}
 
 
-
-
-
-};
-
-
+}
 

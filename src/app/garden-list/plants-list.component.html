@@ -23,9 +23,13 @@
 
   <div class="my-garden-list">
     <div fxLayout="row wrap" fxLayoutGap="16px grid">
-      <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="50%" fxFlex.md="50%" *ngFor="let plant of plants">
+      <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="50%" fxFlex.md="50%" *ngFor="let plant of (plants | filter:search) as plants">" >
         <div class="my-garden-list">
-          <app-plant-thumbnail [plant]="plant" ></app-plant-thumbnail>
+          <app-plant-thumbnail
+          [plant]="plant"
+          (plantDeleted)="onPlantDeleted(plant)" >
+
+        </app-plant-thumbnail>
         </div>
       </div>
     </div>

@@ -12,8 +12,10 @@ import { PlantsListResolver } from '../resolver/plants-list-resolver.service';
 import { PlantsService } from '../shared/plants.service';
 import { MatDialog, MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatCardModule } from '@angular/material/card';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { ElementRef, NO_ERRORS_SCHEMA } from '@angular/core';
 import { PlantsListComponent } from '../plants-list.component';
+import { By } from '@angular/platform-browser';
+
 
 
 describe('PlantThumbnailComponent', () => {
@@ -46,6 +48,7 @@ describe('PlantThumbnailComponent', () => {
         { provide: PlantsService, useValue: {} },
         { provide: MAT_DIALOG_DATA, useValue: {} },
         { provide: MatDialogRef, useValue: {} },
+
       ],
       schemas: [NO_ERRORS_SCHEMA]
     })
@@ -98,5 +101,15 @@ describe('PlantThumbnailComponent', () => {
     expect(spy).toHaveBeenCalledTimes(1);
 
   }));
+  fit('should call the delete method when the button is clicked', (() => {
+    spyOn(componentThumbnail.plantDeleted, 'emit');
+    fixture.debugElement.query(By.css('.delete')).nativeElement.click();
+    expect(componentThumbnail.plantDeleted.emit).toHaveBeenCalledWith(1);
+  }));
 
+  fit('should emit when delete() is called', () => {
+    spyOn(componentThumbnail.plantDeleted, 'emit');
+    componentThumbnail.delete(); // call the onClick method directly
+    expect(componentThumbnail.plantDeleted.emit).toHaveBeenCalledWith(1);
+  });
 });
