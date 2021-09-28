@@ -12,7 +12,7 @@ export class PlantsService{
 
   constructor(){}
 
-  getPlants(): Observable<IPlantsList[]>{
+   getPlants(): Observable<IPlantsList[]>{
     let subject = new Subject<IPlantsList[]>()
     setTimeout(() => {subject.next(this.PLANTS); subject.complete();},
     100)

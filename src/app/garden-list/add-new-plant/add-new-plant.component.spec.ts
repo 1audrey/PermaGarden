@@ -26,12 +26,16 @@ describe('AddNewPlantComponent', () => {
         FormsModule,
         MatDialogModule,
         NoopAnimationsModule,
+
+
       ],
       providers:[
         {provide: Router, useValue: routerSpy},
         AuthService,
         PlantsService,
-        PlantImageService
+        PlantImageService,
+
+
       ]
     })
     .compileComponents();
@@ -41,6 +45,7 @@ describe('AddNewPlantComponent', () => {
     fixture = TestBed.createComponent(AddNewPlantComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+    let pipe = new FilterPipe();
 
   });
 
@@ -101,7 +106,7 @@ describe('AddNewPlantComponent', () => {
     expect(plantSpy).toHaveBeenCalledOnceWith({name: 'test', sowingMonths: ["March", "April"],sowingPeriodInDays: 21, harvestingMonths: ["January"],harvestingPeriodInDays: 120, imageURL:'assets/images/spring-onions.jpg'});
   }));
 
-  fit('should open the select image dialog when when the Select Image button is clicked', inject([MatDialog], (dialog: MatDialog) => {
+  xit('should open the select image dialog when when the Select Image button is clicked', inject([MatDialog], (dialog: MatDialog) => {
     fixture.detectChanges();
     let spy = spyOn(component.dialog, 'open').and.callThrough();
     component.openSelectImageDialog();

@@ -1,41 +1,85 @@
-.my-garden-list{
+.my-garden-list {
   padding: 0 20px;
   justify-content: center;
-
 }
 
-.plants-list{
+.plants-list {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-end;
   padding-left: 25px !important;
   padding-right: 25px !important;
+  align-content: center;
 }
 
-.mat-h2, .mat-title, h2{
+.mat-h2, .mat-title, h2 {
   font: 500 20px/32px Roboto, "Helvetica Neue", sans-serif;
   letter-spacing: normal;
   padding-top: 4px;
   padding-bottom: 4px;
   padding-left: 16px !important;
-
 }
 
 p {
   padding-left: 16px !important;
 }
 
-.title-right{
-  float:center;
+.title-right {
+  float: center;
   padding-right: 16px !important;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-content: space-between;
+  justify-content: space-evenly;
+  align-items: flex-end;
+
 }
 
-.add-new-plant{
+.add-new-plant {
   color: darkolivegreen;
   border-color: #DAA520;
   background-color: #FFD700;
   font-size: 12px;
-  font-weight:0px;
+  font-weight: 0px;
   float: right;
-  /* margin-right: 5px; */
+  margin-bottom: 5px;
 }
+
+.mat-button-toggle-group {
+  height: 36px;
+  align-items: center;
+  margin-bottom: 5px;
+  margin-left: 16px;
+}
+
+.mat-button-toggle-checked {
+  background-color: darkolivegreen;
+  color: white;
+  border-color: darkolivegreen;
+  font-size: 14px;
+  font-weight: 0px;
+}
+
+.mat-button-toggle-checked:hover {
+  background-color: darkolivegreen !important;
+}
+
+.mat-button-toggle:hover {
+  background-color: darkolivegreen;
+  color: white;
+  border-color: darkolivegreen;
+  font-size: 14px;
+  font-weight: 0px;
+}
+
+.search{
+  margin-bottom: 12px;
+  float: right;
+}
+
+
+
+
+
+

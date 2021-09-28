@@ -60,7 +60,7 @@
 
         <mat-card-footer class="card-footer">
 
-            <span><mat-card-title class="title-left">{{plant.name}}</mat-card-title></span>
+            <span><mat-card-title class="title-left">{{plant.name | titlecase}}</mat-card-title></span>
               <button mat-button class="add-to-garden" (click)="addToGarden()">Add to garden</button>
               <button mat-button class="more-info" id="toggle" (click)="toggle() ">{{this.state == 'collapsed' ? 'More info': 'Less info'}}</button>
 

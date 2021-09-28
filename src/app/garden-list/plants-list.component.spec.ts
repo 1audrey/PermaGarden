@@ -9,31 +9,53 @@ import { PlantsService } from './shared/plants.service';
 describe('GardenListComponent', () => {
   let component: PlantsListComponent;
   let fixture: ComponentFixture<PlantsListComponent>;
+  let mockPlants = [{
+    name: "Spring Onions",
+    sowingMonths: [
+      "September"
+    ],
+    sowingPeriodInDays: 21,
+    harvestingMonths: [
+      "January",
+    ],
+    harvestingPeriodInDays: 120,
+    imageURL: "assets/images/spring-onions.jpg"
+  },
+  {
+    name: "Test no Month",
+    sowingMonths: [
+      "January"
+    ],
+    sowingPeriodInDays: 21,
+    harvestingMonths: [
+      "January",
+    ],
+    harvestingPeriodInDays: 120,
+    imageURL: "assets/images/spring-onions.jpg"
+  }]
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PlantsListComponent ],
+      declarations: [PlantsListComponent],
       imports: [],
       providers:
-      [
-        PlantsService,
-        PlantsListResolver,
-
-        {
-          provide: ActivatedRoute,
-          useValue: {
-            snapshot: {data: 'plants'}
+        [
+          PlantsService,
+          PlantsListResolver,
+          {
+            provide: ActivatedRoute, useValue: { snapshot: { data: PlantsService.PLANTS } }
           }
-        }
-      ]
+        ]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(PlantsListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+
+
   });
 
   it('should create', () => {
@@ -60,7 +82,32 @@ describe('GardenListComponent', () => {
 
   it('should render text in a p tag', () => {
     const text = fixture.debugElement.nativeElement;
-    expect(text.querySelector('p').textContent).toContain('Pick a plant and add them to your garden');
+    expect(text.querySelector('p').textContent).toContain('Select or create a plant and add it to your garden');
+  });
+
+  it('should call the filterBySowingMonths method when the button is clicked', () => {
+    const spy = spyOn(component, 'filterBySowingMonths');
+
+    fixture.debugElement.query(By.css('.see-sow-this-month')).nativeElement.click();
+
+    expect(spy).toHaveBeenCalledTimes(1);
+  });
+
+  it('should call the filterAll method when the button is clicked', () => {
+    const spy = spyOn(component, 'filterAll');
+
+    fixture.debugElement.query(By.css('.see-all')).nativeElement.click();
+
+    expect(spy).toHaveBeenCalledTimes(1);
+  });
+
+  it('should return plants of specified month when the filterBySowingMonths method is called', () => {
+    component.month = 'September';
+    component.plants = mockPlants;
+    component.filterBySowingMonths();
+    const expectedFilteredPlant = [mockPlants[0]];
+
+    expect(component.plants).toEqual(expectedFilteredPlant);
   });
 
 });

@@ -29,7 +29,6 @@ describe('ProfileComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ProfileComponent);
     component = fixture.componentInstance;
-    component.ngOnInit();
     fixture.detectChanges();
 
   });

@@ -9,14 +9,14 @@
       <span class="menu-spacer"></span>
       <div class="menu-buttons" fxShow="true" fxHide.lt-md fxFlex fxLayout>
         <!-- The following menu items will be hidden on both SM and XS screen sizes -->
-          <a href="#" mat-flat-button>Garden</a>
-          <a class="plants-list" id="plants-list" (click)="openPlantsList()" [routerLink]="['/plants-list']" routerLinkActive="active-list-item" mat-flat-button>Plants</a>
-          <a href="#" mat-flat-button>Tasks</a>
-          <a href="#" mat-flat-button>History</a>
+          <a disableRipple="true" href="#" mat-flat-button >Garden</a>
+          <a disableRipple="true" class="plants-list" id="plants-list" (click)="openPlantsList()" [routerLink]="['/plants-list']" routerLinkActive="active-list-item" mat-flat-button>Plants</a>
+          <a disableRipple="true" href="#" mat-flat-button >Tasks</a>
+          <a disableRipple="true" href="#" mat-flat-button >History</a>
       </div>
       <div fxFlex fxLayoutAlign="flex-end center">
-        <a *ngIf="!auth.isAuthenticated()" id="login" (click)="openLogIn()" [routerLink]="['/user/login']" routerLinkActive="active-list-item" mat-flat-button>Login</a>
-        <mat-icon *ngIf="auth.isAuthenticated()" id="user-profile" (click)="openUserProfile()" class="profile" [routerLink]="['/user/profile']" routerLinkActive="active-list-item">account_circle</mat-icon>
+        <a disableRipple="true" *ngIf="!auth.isAuthenticated()" id="login" (click)="openLogIn()" [routerLink]="['/user/login']" routerLinkActive="active-list-item" mat-flat-button>Login</a>
+        <mat-icon disableRipple="true" *ngIf="auth.isAuthenticated()" id="user-profile" (click)="openUserProfile()" class="profile" [routerLink]="['/user/profile']" routerLinkActive="active-list-item">account_circle</mat-icon>
       </div>
     </mat-toolbar-row>
   </mat-toolbar>
@@ -24,10 +24,10 @@
   <mat-sidenav-container fxFlexFill>
     <mat-sidenav #sidenav mode="side">
       <mat-nav-list>
-        <a href="#" mat-button>Garden</a>
-        <a [routerLink]="['/plants-list']" routerLinkActive="active-list-item" mat-button>Plants</a>
-        <a href="#" mat-button>Tasks</a>
-        <a href="#" mat-button>History</a>
+        <a disableRipple="true" href="#" mat-button >Garden</a>
+        <a disableRipple="true" [routerLink]="['/plants-list']" routerLinkActive="active-list-item" mat-button>Plants</a>
+        <a disableRipple="true" href="#" mat-button >Tasks</a>
+        <a disableRipple="true" href="#" mat-button >History</a>
       </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content fxFlexFill><router-outlet></router-outlet></mat-sidenav-content>

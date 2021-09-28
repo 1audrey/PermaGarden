@@ -1,20 +1,37 @@
-<div class="plants-list">
-  <div class="title-left">
-    <h2>List of plants available</h2>
-    <p>Pick a plant and add it to your garden</p>
-  </div>
+<div class="head">
+  <div class="plants-list">
+    <div class="title-left">
+      <h2>List of plants available</h2>
+      <p>Select or create a plant and add it to your garden</p>
+      <div class="show-plants">
+        <mat-button-toggle-group >
+          <mat-button-toggle disableRipple="true" class="see-all" (click)="filterAll()">All</mat-button-toggle>
+          <mat-button-toggle disableRipple="true" class="see-sow-this-month" (click)="filterBySowingMonths()">Plants to sow in {{month}}</mat-button-toggle>
+      </mat-button-toggle-group>
+      </div>
+    </div>
 
-  <div class="title-right">
-    <button mat-button class="add-new-plant" (click)="openAddNewPlant()">Add a new plant</button>
+    <div class="title-right">
+      <input type="search" class="search" [(ngModel)]="search" placeholder="Search"/>
+      <div *ngIf="(plants | filter:search).length <1">
+        Not found
+      </div>
+      <button mat-button class="add-new-plant" (click)="openAddNewPlant()">Add a new plant</button>
+    </div>
+
   </div>
-</div>
 
   <div class="my-garden-list">
     <div fxLayout="row wrap" fxLayoutGap="16px grid">
-    <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="50%" fxFlex.md="50%"  *ngFor="let plant of plants">
-    <div class="my-garden-list"><app-plant-thumbnail [plant]="plant"></app-plant-thumbnail>
-    </div>
+      <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="50%" fxFlex.md="50%" *ngFor="let plant of plants">
+        <div class="my-garden-list">
+          <app-plant-thumbnail [plant]="plant" ></app-plant-thumbnail>
+        </div>
+      </div>
     </div>
   </div>
-</div>
+
+  <ng-template #isCliked>
+    <td><mat-icon class="months-not-included">highlight_off</mat-icon></td>
+  </ng-template>
 

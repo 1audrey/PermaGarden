@@ -3,6 +3,7 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
 import { IPlantsList } from '../models/iplants-model';
 import { AddToGardenComponent } from '../add-to-garden/add-to-garden.component';
 import { MatDialog } from '@angular/material/dialog';
+import { PlantImageResolverService } from '../resolver/plant-image-resolver.service';
 
 @Component({
   selector: 'app-plant-thumbnail',
@@ -18,9 +19,9 @@ import { MatDialog } from '@angular/material/dialog';
     ])
   ]
 })
-export class PlantThumbnailComponent {
-  @Input()
-  plant!: IPlantsList;
+export class PlantThumbnailComponent{
+
+  @Input()  plant!: IPlantsList;
 
 state = 'collapsed';
 todayDate : Date = new Date();
@@ -39,8 +40,31 @@ addToGarden(): void{
   });
 }
 
-}
+// ngOnChanges(){
+//   if(this.plant)
+//   {
+//     this.filterPlants(this.filterBy);
+//   }
+// }
 
+// filterPlants(filter :string){
+//   if(filter.length === 11)
+//   {
+//     return this.visiblePlants.slice(0);
+//   }
+//   else
+//   {
+//     return this.visiblePlants.filter(plants => plants.sowingMonths.includes(this.month));
+
+//   }
+
+//   }
+
+
+
+
+
+};
 
 
 

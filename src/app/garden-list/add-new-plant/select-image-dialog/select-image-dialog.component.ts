@@ -16,7 +16,7 @@ export class SelectImageDialogComponent implements OnInit {
   imageUrl!:string ;
   search='';
 
-  @ViewChild(MatSelectionList, {static: true}) imageSelected!: MatSelectionList;
+  @ViewChild('imageSelected', {static: true}) imageSelected!: MatSelectionList;
 
   constructor(
     private _imgService: PlantImageService,
