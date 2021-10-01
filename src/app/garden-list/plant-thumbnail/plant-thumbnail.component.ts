@@ -3,6 +3,7 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
 import { IPlantsList } from '../models/iplants-model';
 import { AddToGardenComponent } from '../add-to-garden/add-to-garden.component';
 import { MatDialog } from '@angular/material/dialog';
+import { ThrowStmt } from '@angular/compiler';
 
 @Component({
   selector: 'app-plant-thumbnail',
@@ -26,11 +27,20 @@ export class PlantThumbnailComponent{
 state = 'collapsed';
 todayDate : Date = new Date();
 month = this.todayDate.toLocaleString('default', { month: 'long' });
+isStartingMethod= 'Plant';
 
 constructor(public dialog: MatDialog){}
 
+typeOfStarting(){
+  if(this.plant.startingMethod.includes("Sowing"))
+  {
+    this.isStartingMethod = 'Sow';
+  }
+}
+
 toggle(): void {
   this.state = this.state === 'collapsed' ? 'expanded' : 'collapsed';
+  this.typeOfStarting();
 }
 
 addToGarden(): void{

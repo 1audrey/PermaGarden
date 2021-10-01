@@ -9,18 +9,30 @@
       <input (ngModel)="newPlant.name" name="name" required id="name" type="text" class="form-control" placeholder="Name of your plant..." />
     </div>
 
-    <div class="form-group" [ngClass]="{'error': newPlantForm.controls.sowingMonths?.invalid}">Tick the sowing month(s):
-      <em *ngIf="newPlantForm.controls.sowingMonths?.invalid">*At least one month needs to be selected</em>
-      <mat-selection-list class="sowing-months" name="sowingMonths"  (ngModel)="newPlant.sowingMonths" required >
-        <mat-list-option class="sowing-months-check" checkboxPosition="before" *ngFor="let month of monthData" [value]="month.name">
+    <div class="form-group" [ngClass]="{'error': newPlantForm.controls.startingMethod?.invalid}">Select the prefered starting method:
+      <em *ngIf="newPlantForm.controls.startingMethod?.invalid">*At least one option needs to be selected</em>
+      <mat-form-field appearance="fill">
+        <mat-label>Select</mat-label>
+        <mat-select [(ngModel)]="selectedStartingMethods" name="startingMethod">
+          <mat-option *ngFor="let startingMethod of startingMethods" [value]="startingMethod.value">
+            {{startingMethod.value}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="form-group" [ngClass]="{'error': newPlantForm.controls.startingMonths?.invalid}">Tick the sowing or planting month(s):
+      <em *ngIf="newPlantForm.controls.startingMonths?.invalid">*At least one month needs to be selected</em>
+      <mat-selection-list class="starting-months" name="startingMonths"  (ngModel)="newPlant.startingMonths" required >
+        <mat-list-option class="starting-months-check" checkboxPosition="before" *ngFor="let month of monthData" [value]="month.name">
           {{month.name}}
         </mat-list-option>
       </mat-selection-list>
-
     </div>
 
-    <div class="form-group" id="sowingPeriodInDays" [ngClass]="{'error': newPlantForm.controls.sowingPeriodInDays?.invalid && newPlantForm.controls.sowingPeriodInDays?.touched}">
-      <label for="sowingPeriodInDays">Sowing period (in days):</label>
+
+    <div *ngIf="selectedStartingMethods && selectedStartingMethods!== 'Planting'"class="form-group" id="sowingPeriodInDays" [ngClass]="{'error': newPlantForm.controls.sowingPeriodInDays?.invalid && newPlantForm.controls.sowingPeriodInDays?.touched}">
+      <label for="sowingPeriodInDays">Germination period in pots before planting (in days):</label>
       <em *ngIf="newPlantForm.controls.sowingPeriodInDays?.invalid && newPlantForm.controls.sowingPeriodInDays?.touched">*Required</em>
       <em *ngIf="newPlantForm.controls.sowingPeriodInDays?.invalid && newPlantForm.controls.sowingPeriodInDays.errors?.pattern"> **Must be numbers</em>
       <input (ngModel)="newPlant.sowingPeriodInDays" required name="sowingPeriodInDays"  id="sowingPeriodInDays" type="text" class="form-control" pattern = "[0-9]+" placeholder="For 3 months write 90..." />
@@ -48,7 +60,7 @@
       <em *ngIf="newPlantForm.controls.imageURL?.invalid && newPlantForm.controls.imageURL?.touched">*Required</em>
       <em *ngIf=" newPlantForm.controls.imageURL?.errors?.pattern"> **You need to select a picture from the library</em>
       <div class="select-image-dialog">
-      <input [(ngModel)]="imageURL" [value]="imageURL" name="imageURL" id="imageURL" type="text" required class="form-control" pattern="^(assets).*$" placeholder="Select an image"/>
+      <input [(ngModel)]="imageUrl" [value]="imageUrl" name="imageUrl" id="imageUrl" type="text" required class="form-control" pattern="^(assets).*$" placeholder="Select an image"/>
       <button mat-button class="select-image" #imageUrlSelected (click)="openSelectImageDialog()" >Select Image:</button>
     </div>
     </div>

@@ -12,90 +12,96 @@ import { SelectImageDialogComponent } from './select-image-dialog/select-image-d
   styleUrls: ['./add-new-plant.component.css']
 })
 
-export class AddNewPlantComponent{
-  isDirty:boolean = true;
+export class AddNewPlantComponent {
+  isDirty: boolean = true;
   newPlant!: any;
-  sowingMonths!: string[];
+  startingMonths!: string[];
   harvestingMonths!: string[];
   imgs: IPlantsImage[] = [];
-  imageURL!: string;
+  imageUrl!: string;
 
+  selectedStartingMethods!: string;
 
-
-  constructor(private router: Router, public dialog: MatDialog, private plantService: PlantsService){
+  constructor(private router: Router, public dialog: MatDialog, private plantService: PlantsService) {
   }
 
-   monthData: Month [] =[
-  {
-    name: 'January',
-    isChecked: false
+  monthData: Month[] = [
+    {
+      name: 'January',
+      isChecked: false
     },
     {
-    name: 'February',
-    isChecked: false,
+      name: 'February',
+      isChecked: false,
     },
     {
-    name: 'March',
-    isChecked: false,
+      name: 'March',
+      isChecked: false,
     },
     {
-    name: 'April',
-    isChecked: false,
+      name: 'April',
+      isChecked: false,
     },
     {
-    name: 'May',
-    isChecked: false,
+      name: 'May',
+      isChecked: false,
     },
     {
-    name: 'June',
-    isChecked: false,
+      name: 'June',
+      isChecked: false,
     },
     {
-    name: 'July',
-    isChecked: false,
-      },
-    {
-    name: 'August',
-    isChecked: false,
+      name: 'July',
+      isChecked: false,
     },
     {
-    name: 'September',
-    isChecked: false,
+      name: 'August',
+      isChecked: false,
     },
     {
-    name: 'October',
-    isChecked: false,
+      name: 'September',
+      isChecked: false,
     },
     {
-    name: 'November',
-    isChecked: false,
-      },
+      name: 'October',
+      isChecked: false,
+    },
     {
-    name: 'December',
-    isChecked: false,
+      name: 'November',
+      isChecked: false,
+    },
+    {
+      name: 'December',
+      isChecked: false,
     }]
 
-  cancel(){
-  this.router.navigate(['plants-list']);
+  startingMethods: StartingMethods [] = [
+    { value: 'Sowing in pots' },
+    { value: 'Sowing in soil' },
+    { value: 'Planting' }
+  ];
+
+  cancel() {
+    this.router.navigate(['plants-list']);
   }
 
-  savePlant(formValues: IPlantsList){
-  console.log(formValues)
-  this.plantService.savePlant(formValues);
-  this.isDirty = false;
-  this.router.navigate(['plants-list']);
+  savePlant(formValues: IPlantsList) {
+    console.log(formValues)
+    this.plantService.savePlant(formValues);
+    this.isDirty = false;
+    this.router.navigate(['plants-list']);
   }
 
-  openSelectImageDialog(){
+  openSelectImageDialog() {
     let dialogRef = this.dialog.open(SelectImageDialogComponent, {
-    width: '1000px',
-    data: {imageURL: this.imageURL},
-    autoFocus: false,
+      width: '1000px',
+      data: { imageUrl: this.imageUrl },
+      autoFocus: false,
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('Image Url:', this.imageURL);
-      this.imageURL = result;
+      console.log('Image Url:', this.imageUrl);
+      this.imageUrl = result;
     })
   }
 }
@@ -106,5 +112,7 @@ export interface Month {
   isChecked: boolean;
 }
 
-
+interface StartingMethods {
+  value: string;
+}
 

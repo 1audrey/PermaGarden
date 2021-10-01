@@ -21,12 +21,12 @@ em {
   color:#dd553d;
 }
 
-.sowing-months{
+.starting-months{
   display: flex;
   flex-flow: row wrap;
 }
 
-.sowing-months-check{
+.starting-months-check{
   display: initial;
   width: 25%;
   align-items: center;

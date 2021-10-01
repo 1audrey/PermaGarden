@@ -4,7 +4,7 @@
       <h2 class="title-left" mat-dialog-title >Select an image</h2>
       <div class="title-right">
         <input type="search" [(ngModel)]="search" placeholder="Search"/>
-        <div *ngIf="(imgs | filter:search).length <1">
+        <div *ngIf="(imgs | plantFilter:search).length <1">
           Not found
         </div>
     </div>
@@ -15,7 +15,7 @@
         <mat-list-option  class="checkbox"
         fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="50%" fxFlex.md="25%"
         [disableRipple]="true" checkboxPosition="before"
-        *ngFor="let img of (imgs | filter:search) as imgs" [value]="img.imageUrl">
+        *ngFor="let img of (imgs | plantFilter:search) as imgs" [value]="img.imageUrl">
           <p>{{img.title}}</p>
           <img class="img-responsive" [src]=img.imageUrl />
       </mat-list-option>

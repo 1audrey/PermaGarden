@@ -40,7 +40,7 @@ export class PlantsListComponent implements OnInit {
   filterBySowingMonths() {
     var filteredPlant: IPlantsList[] = [];
     for (let plant of this.plants) {
-      if(plant.sowingMonths.includes(this.month)){
+      if(plant.startingMonths.includes(this.month)){
         filteredPlant.push(plant);
       }
     }
@@ -57,5 +57,7 @@ export class PlantsListComponent implements OnInit {
       this.plants.splice(index, 1);
     }
   }
+
+
 
 }

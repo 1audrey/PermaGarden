@@ -14,9 +14,10 @@ describe('GardenListComponent', () => {
   let de: DebugElement;
   let mockPlants = [{
     name: "Spring Onions",
-    sowingMonths: [
+    startingMonths: [
       "September"
     ],
+    startingMethod: "Sowing in pots",
     sowingPeriodInDays: 21,
     harvestingMonths: [
       "January",
@@ -26,9 +27,10 @@ describe('GardenListComponent', () => {
   },
   {
     name: "Test no Month",
-    sowingMonths: [
+    startingMonths: [
       "January"
     ],
+    startingMethod: "Sowing in pots",
     sowingPeriodInDays: 21,
     harvestingMonths: [
       "January",
@@ -117,9 +119,10 @@ describe('GardenListComponent', () => {
     component.onPlantDeleted(
       {
       name: "Spring Onions",
-      sowingMonths: [
+      startingMonths: [
         "September"
       ],
+      startingMethod:"Sowing in pots",
       sowingPeriodInDays: 21,
       harvestingMonths: [
         "January",

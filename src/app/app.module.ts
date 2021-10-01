@@ -35,6 +35,7 @@ import { PlantImageResolverService } from './garden-list/resolver/plant-image-re
 import { FilterPipe } from './garden-list/pipe/filter.pipe';
 import { HttpClientModule } from '@angular/common/http';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import {MatSelectModule} from '@angular/material/select';
 
 
 
@@ -73,7 +74,9 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
     MatFormFieldModule,
     MatCheckboxModule,
     HttpClientModule,
-    MatButtonToggleModule
+    MatButtonToggleModule,
+    MatSelectModule
+
 
 
 

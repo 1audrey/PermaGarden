@@ -7,7 +7,7 @@ import { PlantImageResolverService } from '../../resolver/plant-image-resolver.s
 import { PlantImageService } from '../../shared/plant-image.service';
 import { SelectImageDialogComponent } from './select-image-dialog.component';
 
-describe('SelectImageDialogComponent', () => {
+fdescribe('SelectImageDialogComponent', () => {
   let component: SelectImageDialogComponent;
   let fixture: ComponentFixture<SelectImageDialogComponent>;
   const dialogMock = {

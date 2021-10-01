@@ -26,19 +26,19 @@
               </thead>
               <tbody>
                 <tr>
-                  <td class="table-subtitle">Sow</td>
-                  <td [ngStyle]="{'color': this.month === 'January' ? '#DAA520' : 'darkolivegreen'}" *ngIf="this.plant.sowingMonths.includes('January');else isNotIncluded"><mat-icon class="months-included">check_circle</mat-icon></td>
-                  <td [ngStyle]="{'color': this.month === 'Febuary' ? '#DAA520' : 'darkolivegreen'}" *ngIf="this.plant.sowingMonths.includes('Febuary');else isNotIncluded"><mat-icon class="months-included">check_circle</mat-icon></td>
-                  <td [ngStyle]="{'color': this.month === 'March' ? '#DAA520' : 'darkolivegreen'}" *ngIf="this.plant.sowingMonths.includes('March');else isNotIncluded"><mat-icon class="months-included">check_circle</mat-icon></td>
-                  <td [ngStyle]="{'color': this.month === 'April' ? '#DAA520' : 'darkolivegreen'}" *ngIf="this.plant.sowingMonths.includes('April');else isNotIncluded"><mat-icon class="months-included">check_circle</mat-icon></td>
-                  <td [ngStyle]="{'color': this.month === 'May' ? '#DAA520' : 'darkolivegreen'}" *ngIf="this.plant.sowingMonths.includes('May');else isNotIncluded"><mat-icon class="months-included">check_circle</mat-icon></td>
-                  <td [ngStyle]="{'color': this.month === 'June' ? '#DAA520' : 'darkolivegreen'}" *ngIf="this.plant.sowingMonths.includes('June');else isNotIncluded"><mat-icon class="months-included">check_circle</mat-icon></td>
-                  <td [ngStyle]="{'color': this.month === 'July' ? '#DAA520' : 'darkolivegreen'}" *ngIf="this.plant.sowingMonths.includes('July');else isNotIncluded"><mat-icon class="months-included">check_circle</mat-icon></td>
-                  <td [ngStyle]="{'color': this.month === 'August' ? '#DAA520' : 'darkolivegreen'}" *ngIf="this.plant.sowingMonths.includes('August');else isNotIncluded"><mat-icon class="months-included">check_circle</mat-icon></td>
-                  <td [ngStyle]="{'color': this.month === 'September' ? '#DAA520' : 'darkolivegreen'}" *ngIf="this.plant.sowingMonths.includes('September');else isNotIncluded"><mat-icon class="months-included">check_circle</mat-icon></td>
-                  <td [ngStyle]="{'color': this.month === 'October' ? '#DAA520' : 'darkolivegreen'}" *ngIf="this.plant.sowingMonths.includes('October');else isNotIncluded"><mat-icon class="months-included">check_circle</mat-icon></td>
-                  <td [ngStyle]="{'color': this.month === 'November' ? '#DAA520' : 'darkolivegreen'}" *ngIf="this.plant.sowingMonths.includes('November');else isNotIncluded"><mat-icon class="months-included">check_circle</mat-icon></td>
-                  <td [ngStyle]="{'color': this.month === 'December' ? '#DAA520' : 'darkolivegreen'}" *ngIf="this.plant.sowingMonths.includes('December');else isNotIncluded"><mat-icon class="months-included">check_circle</mat-icon></td>
+                  <td class="table-subtitle">{{isStartingMethod}}</td>
+                  <td [ngStyle]="{'color': this.month === 'January' ? '#DAA520' : 'darkolivegreen'}" *ngIf="this.plant.startingMonths.includes('January');else isNotIncluded"><mat-icon class="months-included">check_circle</mat-icon></td>
+                  <td [ngStyle]="{'color': this.month === 'February' ? '#DAA520' : 'darkolivegreen'}" *ngIf="this.plant.startingMonths.includes('February');else isNotIncluded"><mat-icon class="months-included">check_circle</mat-icon></td>
+                  <td [ngStyle]="{'color': this.month === 'March' ? '#DAA520' : 'darkolivegreen'}" *ngIf="this.plant.startingMonths.includes('March');else isNotIncluded"><mat-icon class="months-included">check_circle</mat-icon></td>
+                  <td [ngStyle]="{'color': this.month === 'April' ? '#DAA520' : 'darkolivegreen'}" *ngIf="this.plant.startingMonths.includes('April');else isNotIncluded"><mat-icon class="months-included">check_circle</mat-icon></td>
+                  <td [ngStyle]="{'color': this.month === 'May' ? '#DAA520' : 'darkolivegreen'}" *ngIf="this.plant.startingMonths.includes('May');else isNotIncluded"><mat-icon class="months-included">check_circle</mat-icon></td>
+                  <td [ngStyle]="{'color': this.month === 'June' ? '#DAA520' : 'darkolivegreen'}" *ngIf="this.plant.startingMonths.includes('June');else isNotIncluded"><mat-icon class="months-included">check_circle</mat-icon></td>
+                  <td [ngStyle]="{'color': this.month === 'July' ? '#DAA520' : 'darkolivegreen'}" *ngIf="this.plant.startingMonths.includes('July');else isNotIncluded"><mat-icon class="months-included">check_circle</mat-icon></td>
+                  <td [ngStyle]="{'color': this.month === 'August' ? '#DAA520' : 'darkolivegreen'}" *ngIf="this.plant.startingMonths.includes('August');else isNotIncluded"><mat-icon class="months-included">check_circle</mat-icon></td>
+                  <td [ngStyle]="{'color': this.month === 'September' ? '#DAA520' : 'darkolivegreen'}" *ngIf="this.plant.startingMonths.includes('September');else isNotIncluded"><mat-icon class="months-included">check_circle</mat-icon></td>
+                  <td [ngStyle]="{'color': this.month === 'October' ? '#DAA520' : 'darkolivegreen'}" *ngIf="this.plant.startingMonths.includes('October');else isNotIncluded"><mat-icon class="months-included">check_circle</mat-icon></td>
+                  <td [ngStyle]="{'color': this.month === 'November' ? '#DAA520' : 'darkolivegreen'}" *ngIf="this.plant.startingMonths.includes('November');else isNotIncluded"><mat-icon class="months-included">check_circle</mat-icon></td>
+                  <td [ngStyle]="{'color': this.month === 'December' ? '#DAA520' : 'darkolivegreen'}" *ngIf="this.plant.startingMonths.includes('December');else isNotIncluded"><mat-icon class="months-included">check_circle</mat-icon></td>
                 </tr>
                 <tr>
                   <td class="table-subtitle">Harvest</td>
@@ -73,5 +73,9 @@
 
   <ng-template #isNotIncluded>
     <td><mat-icon class="months-not-included">highlight_off</mat-icon></td>
+  </ng-template>
+
+  <ng-template #isNotSowing>
+    <td>Plant</td>
   </ng-template>
 </div>

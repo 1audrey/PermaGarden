@@ -1,7 +1,7 @@
 [
   {
     "name":"Spring Onions",
-    "sowingMonths":[
+    "startingMonths":[
       "March",
       "April",
       "May",
@@ -10,6 +10,7 @@
       "August",
       "September"
     ],
+    "startingMethod": "Sowing in pots",
     "sowingPeriodInDays":21,
     "harvestingMonths":[
       "January",
@@ -25,7 +26,7 @@
   },
   {
     "name":"Carrots",
-    "sowingMonths":[
+    "startingMonths":[
       "February",
       "March",
       "April",
@@ -33,6 +34,7 @@
       "June",
       "July"
     ],
+    "startingMethod": "Sowing in soil",
     "sowingPeriodInDays":21,
     "harvestingMonths":[
       "May",
@@ -46,49 +48,21 @@
     "imageUrl":"assets/images/carrots.jpg"
   },
   {
-    "name":"Spring Onions",
-    "sowingMonths":[
-      "March",
-      "April",
-      "May",
-      "June",
-      "July",
-      "August",
-      "September"
-    ],
-    "sowingPeriodInDays":21,
-    "harvestingMonths":[
+    "name":"Apples",
+    "startingMonths":[
       "January",
-      "April",
-      "June",
-      "July",
-      "August",
-      "September",
-      "October"
-    ],
-    "harvestingPeriodInDays":120,
-    "imageUrl":"assets/images/spring-onions.jpg"
-  },
-  {
-    "name":"Carrots",
-    "sowingMonths":[
       "February",
       "March",
-      "April",
-      "May",
-      "June",
-      "July"
+      "November",
+      "December"
     ],
-    "sowingPeriodInDays":21,
     "harvestingMonths":[
-      "May",
-      "June",
-      "July",
       "August",
       "September",
-      "October"
+      "October",
+      "November"
     ],
-    "harvestingPeriodInDays":77,
-    "imageUrl":"assets/images/carrots.jpg"
+    "imageUrl":"assets/images/apples.jpg"
   }
+
 ]

@@ -13,7 +13,7 @@
 
     <div class="title-right">
       <input type="search" class="search" [(ngModel)]="search" placeholder="Search"/>
-      <div *ngIf="(plants | filter:search).length <1">
+      <div *ngIf="(plants | plantFilter:search).length <1">
         Not found
       </div>
       <button mat-button class="add-new-plant" (click)="openAddNewPlant()">Add a new plant</button>
@@ -23,7 +23,7 @@
 
   <div class="my-garden-list">
     <div fxLayout="row wrap" fxLayoutGap="16px grid">
-      <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="50%" fxFlex.md="50%" *ngFor="let plant of (plants | filter:search) as plants">" >
+      <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="50%" fxFlex.md="50%" *ngFor="let plant of (plants | plantFilter:search) as plants">
         <div class="my-garden-list">
           <app-plant-thumbnail
           [plant]="plant"

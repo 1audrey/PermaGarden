@@ -32,11 +32,12 @@ describe('PlantsService', () => {
   it(`should save plant`, () => {
     const newPlant = {
       name: "Spring Onions",
-      sowingMonths: ["March", "April", "May", "June", "July", "August", "September"] ,
+      startingMonths: ["March", "April", "May", "June", "July", "August", "September"] ,
+      startingMethod: "Sowing in pots",
       sowingPeriodInDays: 21,
       harvestingMonths: ["January", "April", "June", "July", "August", "September", "October"],
       harvestingPeriodInDays: 120,
-      imageURL: 'assets/images/spring-onions.jpg',
+      imageUrl: 'assets/images/spring-onions.jpg',
       }
 
     const spy = spyOn(service, 'savePlant');
@@ -48,15 +49,15 @@ describe('PlantsService', () => {
   });
 
   it(`should get plant details`, (done) => {
-    let fakePlant =
-    {
+    const fakePlant = {
       name: "Spring Onions",
-      sowingMonths: ["March", "April", "May", "June", "July", "August", "September"] ,
+      startingMonths: ["March", "April", "May", "June", "July", "August", "September"] ,
+      startingMethod: "Sowing in pots",
       sowingPeriodInDays: 21,
       harvestingMonths: ["January", "April", "June", "July", "August", "September", "October"],
       harvestingPeriodInDays: 120,
-      imageURL: 'assets/images/spring-onions.jpg',
-    }
+      imageUrl: 'assets/images/spring-onions.jpg',
+      }
 
     spyOn(service, 'getPlants').and.returnValue(timer(100).pipe(mapTo([fakePlant])));
     service.getPlants().subscribe(plant => {
