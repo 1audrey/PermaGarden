@@ -75,7 +75,7 @@ import {MatSelectModule} from '@angular/material/select';
     MatCheckboxModule,
     HttpClientModule,
     MatButtonToggleModule,
-    MatSelectModule
+    MatSelectModule,
 
 
 

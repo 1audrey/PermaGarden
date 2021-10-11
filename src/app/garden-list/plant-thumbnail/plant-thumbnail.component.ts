@@ -29,6 +29,7 @@ todayDate : Date = new Date();
 month = this.todayDate.toLocaleString('default', { month: 'long' });
 isStartingMethod= 'Plant';
 
+
 constructor(public dialog: MatDialog){}
 
 typeOfStarting(){

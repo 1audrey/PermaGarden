@@ -101,13 +101,13 @@ describe('PlantThumbnailComponent', () => {
     expect(spy).toHaveBeenCalledTimes(1);
 
   }));
-  fit('should call the delete method when the button is clicked', (() => {
+  it('should call the delete method when the button is clicked', (() => {
     spyOn(componentThumbnail.plantDeleted, 'emit');
     fixture.debugElement.query(By.css('.delete')).nativeElement.click();
     expect(componentThumbnail.plantDeleted.emit).toHaveBeenCalledWith(1);
   }));
 
-  fit('should emit when delete() is called', () => {
+  it('should emit when delete() is called', () => {
     spyOn(componentThumbnail.plantDeleted, 'emit');
     componentThumbnail.delete(); // call the onClick method directly
     expect(componentThumbnail.plantDeleted.emit).toHaveBeenCalledWith(1);

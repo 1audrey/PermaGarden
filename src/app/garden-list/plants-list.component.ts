@@ -2,8 +2,6 @@ import { Component, Input, OnInit } from '@angular/core';
 import { IPlantsList } from './models/iplants-model';
 import { PlantsService } from './shared/plants.service';
 import { ActivatedRoute } from '@angular/router';
-import {MatButtonToggleModule} from '@angular/material/button-toggle';
-
 
 @Component({
   selector: 'app-plants-list',
@@ -13,7 +11,20 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
 
 export class PlantsListComponent implements OnInit {
 
-  plants: IPlantsList[] = [];
+  plants: IPlantsList[] = [{
+    name: "Spring Onions",
+    startingMonths: [
+      "September"
+    ],
+    startingMethod: "Sowing in pots",
+    sowingPeriodInDays: 21,
+    harvestingMonths: [
+      "January",
+    ],
+    harvestingPeriodInDays: 120,
+    imageUrl: "assets/images/spring-onions.jpg"
+
+}];
   todayDate: Date = new Date();
   month = this.todayDate.toLocaleString('default', { month: 'long' });
   plant!: IPlantsList[];
@@ -27,7 +38,7 @@ export class PlantsListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.plants = this.route.snapshot.data['plants']
+    this.plants = this.route.snapshot.data['plants'];
   }
 
   openAddNewPlant() {

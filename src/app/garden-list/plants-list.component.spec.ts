@@ -2,13 +2,14 @@ import { DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
+import { FilterPipe } from './pipe/filter.pipe';
 import { PlantThumbnailComponent } from './plant-thumbnail/plant-thumbnail.component';
 
 import { PlantsListComponent } from './plants-list.component';
 import { PlantsListResolver } from './resolver/plants-list-resolver.service';
 import { PlantsService } from './shared/plants.service';
 
-describe('GardenListComponent', () => {
+fdescribe('PlantsListComponent', () => {
   let component: PlantsListComponent;
   let fixture: ComponentFixture<PlantsListComponent>;
   let de: DebugElement;
@@ -41,7 +42,8 @@ describe('GardenListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [PlantsListComponent],
+      declarations: [PlantsListComponent,
+      FilterPipe],
       imports: [],
       providers:
         [
@@ -59,7 +61,26 @@ describe('GardenListComponent', () => {
     fixture = TestBed.createComponent(PlantsListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+    component.plants = [{
+        name: "Spring Onions",
+        startingMonths: [
+          "September"
+        ],
+        startingMethod: "Sowing in pots",
+        sowingPeriodInDays: 21,
+        harvestingMonths: [
+          "January",
+        ],
+        harvestingPeriodInDays: 120,
+        imageUrl: "assets/images/spring-onions.jpg"
 
+    }];
+
+    component.ngOnInit();
+    fixture.detectChanges();
+
+    component.search = 'Spring';
+    fixture.detectChanges();
 
   });
 
@@ -106,7 +127,7 @@ describe('GardenListComponent', () => {
     expect(spy).toHaveBeenCalledTimes(1);
   });
 
-  fit('should be called with whatever the plantDeleted emits', () => {
+  it('should be called with whatever the plantDeleted emits', () => {
     spyOn(component, 'onPlantDeleted');
     const deletedPlant = de.query(By.directive(PlantThumbnailComponent));
     const cmp = deletedPlant.componentInstance;
@@ -114,7 +135,7 @@ describe('GardenListComponent', () => {
     expect(component.onPlantDeleted).toHaveBeenCalledTimes(1)
   });
 
-  fit('should decrement the plant list array by one', () => {
+  it('should decrement the plant list array by one', () => {
     component.plants.length = 3;
     component.onPlantDeleted(
       {

@@ -1,4 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { IPlantsList } from '../models/iplants-model';
 
 @Pipe({
   name: 'plantFilter'
@@ -9,7 +10,6 @@ export class FilterPipe implements PipeTransform {
 
     if (!searchValue) return value;
     return value.filter((v: { imageUrl: string; }) => v.imageUrl.toLowerCase().indexOf(searchValue.toLowerCase()) > -1)
-
   }
 
 }
