@@ -93,7 +93,11 @@ export class AddNewPlantComponent {
     console.log(formValues);
     this.plantService.savePlant(formValues);
     this.isDirty = false;
-    if(formValues.name === null)
+    if(formValues.name === null ||
+      formValues.imageUrl === null ||
+      formValues.startingMethod === null ||
+      formValues.startingMonths === null ||
+      formValues.harvestingMonths === null)
     {
       this.notifications.showError(`Oops something went wrong, try again`);
     }
