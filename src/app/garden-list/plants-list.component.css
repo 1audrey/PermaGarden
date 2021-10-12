@@ -1,6 +1,7 @@
 .my-garden-list {
   padding: 0 20px;
   justify-content: center;
+  color: #000409;
 }
 
 .plants-list {
@@ -37,13 +38,19 @@ p {
 }
 
 .add-new-plant {
-  color: darkolivegreen;
-  border-color: #DAA520;
-  background-color: #FFD700;
+  color: white;
+  border-color: #a4dbe4;
+  background-color: #a4dbe4;
   font-size: 12px;
   font-weight: 0px;
   float: right;
   margin-bottom: 5px;
+}
+
+.add-new-plant:hover {
+  color: white;
+  border-color: #5fc3d3;
+  background-color: #5fc3d3;
 }
 
 .mat-button-toggle-group {
@@ -51,24 +58,26 @@ p {
   align-items: center;
   margin-bottom: 5px;
   margin-left: 16px;
+  color: #114b0b;
 }
 
 .mat-button-toggle-checked {
-  background-color: darkolivegreen;
+  background-color: #114b0b;
   color: white;
-  border-color: darkolivegreen;
+  border-color: #114b0b;
   font-size: 14px;
   font-weight: 0px;
 }
 
 .mat-button-toggle-checked:hover {
-  background-color: darkolivegreen !important;
+  background-color: #114b0b !important;
+  color: white;
 }
 
 .mat-button-toggle:hover {
-  background-color: darkolivegreen;
+  background-color: #114b0b;
   color: white;
-  border-color: darkolivegreen;
+  border-color: #114b0b;
   font-size: 14px;
   font-weight: 0px;
 }

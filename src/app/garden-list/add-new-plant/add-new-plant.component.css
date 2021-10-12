@@ -19,6 +19,9 @@
 
 em {
   color:#dd553d;
+  font-weight: lighter;
+  font-style: italic;
+  font-size: 10px;
 }
 
 .starting-months{
@@ -46,7 +49,7 @@ em {
 }
 
 .form-group{
-  padding:10px;
+  padding-left:40px;
   font-weight: bold;
 }
 
@@ -57,12 +60,12 @@ h1{
 
 ::ng-deep .mat-accent .mat-pseudo-checkbox-checked,
 .mat-accent .mat-pseudo-checkbox-indeterminate {
-  background: #DAA520;
+  background: #fa990e;
 }
 
 ::ng-deep .mat-accent .mat-pseudo-checkbox.mat-pseudo-checkbox-checked,
 .mat-accent .mat-pseudo-checkbox.mat-pseudo-checkbox-indeterminate {
-  border-color: #DAA520;
+  border-color: #fa990e;
 }
 
 ::ng-deep .mat-accent .mat-pseudo-checkbox::after {
@@ -78,38 +81,42 @@ input
 {
   width: auto;
   padding: 12px 20px;
-  margin-top: 5px;
-  margin-bottom: 5px;
-  display: block;
+  margin-left: 5px;
   border: 1px solid #ccc;
   border-radius: 4px;
   box-sizing: border-box;
+  margin-bottom:10px;
 }
 
 .select-image{
-  color: darkolivegreen;
-  border-color: #DAA520;
-  background-color: #FFD700;
+  color: white;
+  border-color: #fecc47;
+  background-color: #fecc47;
   font-size: 12px;
   font-weight:500 !important;
   vertical-align: middle;
   margin-left:12px;
-  margin-top: 7px;
+}
+
+.select-image:hover{
+  color: white;
+  border-color: #fa990e;
+  background-color: #fa990e;
 
 }
 
 .save-new-plant-button{
   font-size: 12px;
   color: white !important;
-  border-color: #6B8E23;
-  background-color:#6B8E23;
+  border-color: #5b8d27;
+  background-color:#5b8d27;
   font-weight: 500;
 }
 
 .save-new-plant-button:hover{
   color: white;
-  border-color: transparent;
-  background-color: darkolivegreen;
+  border-color: #114b0b;
+  background-color: #114b0b;
   cursor: pointer;
   font-weight: 500;
 }
@@ -118,14 +125,16 @@ input
   display: inline;
 }
 
-#select-image-dialog{
-  display: inline-flex;
-  width: 25%;
-  vertical-align: middle;
-}
 
 #imageURL{
 float: left;
 }
 
+h2 {
+  font: 500 20px/32px Roboto, "Helvetica Neue", sans-serif;
+  letter-spacing: normal;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 40px !important;
+}
 

@@ -1,7 +1,7 @@
 <div class="head">
   <div class="plants-list">
     <div class="title-left">
-      <h2>List of plants available</h2>
+      <h2>Plants</h2>
       <p>Select or create a plant and add it to your garden</p>
       <div class="show-plants">
         <mat-button-toggle-group >
@@ -12,7 +12,7 @@
     </div>
 
     <div class="title-right">
-      <input type="search" class="search" [(ngModel)]="search" placeholder="Search"/>
+      <input type="search" class="search" [(ngModel)]="search" placeholder="Search plants"/>
       <div *ngIf="(plants | plantFilter:search).length <1">
         Not found
       </div>

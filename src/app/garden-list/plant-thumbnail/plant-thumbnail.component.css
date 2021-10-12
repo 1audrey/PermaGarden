@@ -24,7 +24,7 @@ mat-card-footer{
 }
 
 .card-footer{
-  color: darkolivegreen;
+  color: #114b0b;
   margin-top: 12px;
   margin-bottom: 0px;
   margin-left: 5px;
@@ -46,15 +46,25 @@ mat-card-footer{
   font-size: 12px;
   font-weight:0px;
   color: white;
-  border-color: #6B8E23;
-  background-color:#6B8E23;
+  border-color: #a4dbe4;
+  background-color:#a4dbe4;
   float:right;
 }
 
 .more-info{
-  color: darkolivegreen;
-  border-color: #DAA520;
-  background-color: #FFD700;
+  color: white;
+  border-color: #fecc47;
+  background-color: #fecc47;
+  font-size: 12px;
+  font-weight:0px;
+  float: right;
+  margin-right: 5px;
+}
+
+.more-info:hover{
+  color: white;
+  border-color: #fa990e;
+  background-color: #fa990e;
   font-size: 12px;
   font-weight:0px;
   float: right;
@@ -64,7 +74,7 @@ mat-card-footer{
 .add-to-garden:hover{
   color: white;
   border-color: transparent;
-  background-color: darkolivegreen;
+  background-color: #5fc3d3;
   cursor: pointer;
 }
 
@@ -72,7 +82,7 @@ mat-card-content{
   margin-bottom: 0px;
   width:100%;
   object-fit: cover;
-  color:darkolivegreen;
+  color:#114b0b;
 }
 
 img.mat-card-image{

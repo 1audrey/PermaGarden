@@ -23,12 +23,12 @@
 
 ::ng-deep .mat-accent .mat-pseudo-checkbox-checked,
 .mat-accent .mat-pseudo-checkbox-indeterminate {
-  background: #DAA520;
+  background: #fa990e;
 }
 
 ::ng-deep .mat-accent .mat-pseudo-checkbox.mat-pseudo-checkbox-checked,
 .mat-accent .mat-pseudo-checkbox.mat-pseudo-checkbox-indeterminate {
-  border-color: #DAA520;
+  border-color: #fa990e;
 }
 
 ::ng-deep .mat-accent .mat-pseudo-checkbox::after {
@@ -38,15 +38,15 @@
 .save-image-button{
   font-size: 12px;
   color: white !important;
-  border-color: #6B8E23;
-  background-color:#6B8E23;
+  border-color: #5b8d27;
+  background-color:#5b8d27;
   font-weight: 500;
 }
 
 .save-image-button:hover{
   color: white;
-  border-color: transparent;
-  background-color: darkolivegreen;
+  border-color: #114b0b;
+  background-color: #114b0b;
   cursor: pointer;
   font-weight: 500;
 }
