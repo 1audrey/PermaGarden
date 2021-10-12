@@ -37,10 +37,8 @@ import { HttpClientModule } from '@angular/common/http';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatSelectModule} from '@angular/material/select';
 
-
-
-
-
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { NotificationsService } from './garden-list/shared/notifications.service';
 
 @NgModule({
   declarations: [
@@ -76,9 +74,7 @@ import {MatSelectModule} from '@angular/material/select';
     HttpClientModule,
     MatButtonToggleModule,
     MatSelectModule,
-
-
-
+    MatSnackBarModule
 
 
   ],
@@ -89,8 +85,10 @@ import {MatSelectModule} from '@angular/material/select';
     AuthService,
     PlantImageService,
     PlantImageResolverService,
+    NotificationsService
 
   ],
+
   bootstrap: [PermagardenAppComponent]
 })
 export class AppModule { }

@@ -1,29 +1,33 @@
-import { Component, } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewContainerRef, ViewEncapsulation, } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { IPlantsImage } from '../models/iplants-image-model';
 import { IPlantsList } from '../models/iplants-model';
 import { PlantsService } from '../shared/plants.service';
 import { SelectImageDialogComponent } from './select-image-dialog/select-image-dialog.component';
+import { NotificationsService } from '../shared/notifications.service';
 
 @Component({
   selector: 'app-add-new-plant',
   templateUrl: './add-new-plant.component.html',
-  styleUrls: ['./add-new-plant.component.css']
+  styleUrls: ['./add-new-plant.component.css'],
 })
 
 export class AddNewPlantComponent {
+
   isDirty: boolean = true;
   newPlant!: any;
   startingMonths!: string[];
   harvestingMonths!: string[];
   imgs: IPlantsImage[] = [];
   imageUrl!: string;
-
   selectedStartingMethods!: string;
 
-  constructor(private router: Router, public dialog: MatDialog, private plantService: PlantsService) {
-  }
+  constructor(private router: Router,
+    public dialog: MatDialog,
+    private plantService: PlantsService,
+    private notifications: NotificationsService,
+  ) { }
 
   monthData: Month[] = [
     {
@@ -75,7 +79,7 @@ export class AddNewPlantComponent {
       isChecked: false,
     }]
 
-  startingMethods: StartingMethods [] = [
+  startingMethods: StartingMethods[] = [
     { value: 'Sowing in pots' },
     { value: 'Sowing in soil' },
     { value: 'Planting' }
@@ -86,10 +90,19 @@ export class AddNewPlantComponent {
   }
 
   savePlant(formValues: IPlantsList) {
-    console.log(formValues)
+    console.log(formValues);
     this.plantService.savePlant(formValues);
     this.isDirty = false;
-    this.router.navigate(['plants-list']);
+    if(formValues.name === null)
+    {
+      this.notifications.showError(`Oops something went wrong, try again`);
+    }
+    else
+    {
+      this.notifications.showSuccess(`${formValues.name} has been added to your plant list`);
+      this.router.navigate(['plants-list']);
+    }
+
   }
 
   openSelectImageDialog() {
