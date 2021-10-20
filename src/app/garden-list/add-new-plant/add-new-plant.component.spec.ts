@@ -1,31 +1,35 @@
 import { ComponentFixture, fakeAsync, inject, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { MatDialog, MatDialogModule, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 
 import { AuthService } from 'src/app/user/auth.service';
+import { IPlantsList } from '../models/iplants-model';
 import { FilterPipe } from '../pipe/filter.pipe';
+import { NotificationsService } from '../shared/notifications.service';
 import { PlantImageService } from '../shared/plant-image.service';
 import { PlantsService } from '../shared/plants.service';
 
 import { AddNewPlantComponent } from './add-new-plant.component';
 
-describe('AddNewPlantComponent', () => {
+fdescribe('AddNewPlantComponent', () => {
   let component: AddNewPlantComponent;
   let fixture: ComponentFixture<AddNewPlantComponent>;
   let routerSpy = {navigate: jasmine.createSpy('navigate')};
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AddNewPlantComponent, FilterPipe ],
+      declarations: [ AddNewPlantComponent],
       imports: [
         RouterTestingModule,
         FormsModule,
         MatDialogModule,
         NoopAnimationsModule,
+        MatSnackBarModule
 
 
       ],
@@ -34,6 +38,8 @@ describe('AddNewPlantComponent', () => {
         AuthService,
         PlantsService,
         PlantImageService,
+        NotificationsService,
+
 
 
       ]
@@ -45,7 +51,6 @@ describe('AddNewPlantComponent', () => {
     fixture = TestBed.createComponent(AddNewPlantComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-    let pipe = new FilterPipe();
 
   });
 
@@ -75,36 +80,38 @@ describe('AddNewPlantComponent', () => {
     expect(component.savePlant).toHaveBeenCalledTimes(1);
   }));
 
-  // it('should navigate to the plant list page when the save button is clicked',inject ([Router], () => {
-  //   const formValues = {
-  //     name: "test",
-  //     startingMonths: ["March", "April", "May", "June", "July", "August", "September"] ,
-  //     sowingPeriodInDays: 21,
-  //     harvestingMonths: ["January", "April", "June", "July", "August", "September", "October"],
-  //     harvestingPeriodInDays: 120,
-  //     imageUrl: 'assets/images/spring-onions.jpg',
-  //     }
-  //   component.savePlant(formValues);
-  //   expect(routerSpy.navigate).toHaveBeenCalledWith(['plants-list']);
-  // }));
+  it('should navigate to the plant list page when the save button is clicked',inject ([Router], () => {
+    const formValues = {
+      name: "test",
+      startingMethod: "Sowing in pots",
+      startingMonths: ["March", "April", "May", "June", "July", "August", "September"] ,
+      sowingPeriodInDays: 21,
+      harvestingMonths: ["January", "April", "June", "July", "August", "September", "October"],
+      harvestingPeriodInDays: 120,
+      imageUrl: 'assets/images/spring-onions.jpg',
+      }
+    component.savePlant(formValues);
+    expect(routerSpy.navigate).toHaveBeenCalledWith(['plants-list']);
+  }));
 
-  // it('should save the new plant when when the save button is clicked', inject([PlantsService], (plantService: PlantsService) => {
-  //   let plantSpy = spyOn(plantService, 'savePlant').and.callThrough();
+  it('should save the new plant when when the save button is clicked', inject([PlantsService], (plantService: PlantsService) => {
+    let plantSpy = spyOn(plantService, 'savePlant').and.callThrough();
 
-  //   component.savePlant({
-  //     name: "test",
-  //     startingMonths: ["March", "April"] ,
-  //     sowingPeriodInDays: 21,
-  //     harvestingMonths: ["January"],
-  //     harvestingPeriodInDays: 120,
-  //     imageUrl: 'assets/images/spring-onions.jpg',
-  //   });
+    component.savePlant({
+      name: "test",
+      startingMethod: "Sowing in pots",
+      startingMonths: ["March", "April"] ,
+      sowingPeriodInDays: 21,
+      harvestingMonths: ["January"],
+      harvestingPeriodInDays: 120,
+      imageUrl: 'assets/images/spring-onions.jpg',
+    });
 
-  //   fixture.detectChanges();
+    fixture.detectChanges();
 
-  //   expect(plantSpy).toHaveBeenCalledTimes(1);
-  //   expect(plantSpy).toHaveBeenCalledOnceWith({name: 'test', startingMonths: ["March", "April"],sowingPeriodInDays: 21, harvestingMonths: ["January"],harvestingPeriodInDays: 120, imageURL:'assets/images/spring-onions.jpg'});
-  // }));
+    expect(plantSpy).toHaveBeenCalledTimes(1);
+    expect(plantSpy).toHaveBeenCalledOnceWith({name: 'test', startingMethod: "Sowing in pots", startingMonths: ["March", "April"],sowingPeriodInDays: 21, harvestingMonths: ["January"],harvestingPeriodInDays: 120, imageUrl:'assets/images/spring-onions.jpg'});
+  }));
 
   xit('should open the select image dialog when when the Select Image button is clicked', inject([MatDialog], (dialog: MatDialog) => {
     fixture.detectChanges();
@@ -123,6 +130,21 @@ describe('AddNewPlantComponent', () => {
     expect(dialogSpy).toHaveBeenCalledTimes(1);
   }));
 
+  it('should call the snackbar showSuccess method when the save button is clicked with formValues', inject([NotificationsService], (notifications: NotificationsService) => {
+    let spy = spyOn(notifications, 'showSuccess');
 
+    component.savePlant({
+      name: "test",
+      startingMethod: "Sowing in pots",
+      startingMonths: ["March", "April"] ,
+      sowingPeriodInDays: 21,
+      harvestingMonths: ["January"],
+      harvestingPeriodInDays: 120,
+      imageUrl: 'assets/images/spring-onions.jpg',
+    });
+
+    expect(spy).toHaveBeenCalledTimes(1);
+
+  }));
 
 });

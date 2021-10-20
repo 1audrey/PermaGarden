@@ -9,7 +9,7 @@ import { PlantsListComponent } from './plants-list.component';
 import { PlantsListResolver } from './resolver/plants-list-resolver.service';
 import { PlantsService } from './shared/plants.service';
 
-fdescribe('PlantsListComponent', () => {
+describe('PlantsListComponent', () => {
   let component: PlantsListComponent;
   let fixture: ComponentFixture<PlantsListComponent>;
   let de: DebugElement;
@@ -43,12 +43,13 @@ fdescribe('PlantsListComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [PlantsListComponent,
-      FilterPipe],
+      ],
       imports: [],
       providers:
         [
           PlantsService,
           PlantsListResolver,
+          FilterPipe,
           {
             provide: ActivatedRoute, useValue: { snapshot: { data: PlantsService.PLANTS } }
           }
