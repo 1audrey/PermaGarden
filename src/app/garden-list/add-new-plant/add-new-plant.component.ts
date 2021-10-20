@@ -90,19 +90,15 @@ export class AddNewPlantComponent {
   }
 
   savePlant(formValues: IPlantsList) {
-    console.log(formValues);
-    this.plantService.savePlant(formValues);
     this.isDirty = false;
-    if(formValues.name === null ||
-      formValues.imageUrl === null ||
-      formValues.startingMethod === null ||
-      formValues.startingMonths === null ||
-      formValues.harvestingMonths === null)
+    if(formValues.name === null )
     {
-      this.notifications.showError(`Oops something went wrong, try again`);
+      this.notifications.showError(`Oops something went wrong, please fill all the required fields`);
     }
     else
     {
+      console.log(formValues);
+      this.plantService.savePlant(formValues);
       this.notifications.showSuccess(`${formValues.name} has been added to your plant list`);
       this.router.navigate(['plants-list']);
     }
