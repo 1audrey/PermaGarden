@@ -2,9 +2,9 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { ComponentFixture, fakeAsync, inject, TestBed, tick } from '@angular/core/testing';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatListOption, MatSelectionList } from '@angular/material/list';
-import { FilterPipe } from '../../pipe/filter.pipe';
-import { PlantImageResolverService } from '../../resolver/plant-image-resolver.service';
-import { PlantImageService } from '../../shared/plant-image.service';
+import { FilterPipe } from '../../../pipe/filter.pipe';
+import { PlantImageResolverService } from '../../../resolver/plant-image-resolver.service';
+import { PlantImageService } from '../../../shared/plant-image.service';
 import { SelectImageDialogComponent } from './select-image-dialog.component';
 
 describe('SelectImageDialogComponent', () => {

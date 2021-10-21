@@ -2,12 +2,12 @@ import { DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
-import { FilterPipe } from './pipe/filter.pipe';
+import { FilterPipe } from '../pipe/filter.pipe';
 import { PlantThumbnailComponent } from './plant-thumbnail/plant-thumbnail.component';
 
 import { PlantsListComponent } from './plants-list.component';
-import { PlantsListResolver } from './resolver/plants-list-resolver.service';
-import { PlantsService } from './shared/plants.service';
+import { PlantsListResolver } from '../resolver/plants-list-resolver.service';
+import { PlantsService } from '../shared/plants.service';
 
 describe('PlantsListComponent', () => {
   let component: PlantsListComponent;

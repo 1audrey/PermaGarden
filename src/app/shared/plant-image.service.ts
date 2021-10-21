@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
-import { IPlantsImage } from '../models/iplants-image-model';
+import { IPlantsImage } from '../garden-list/models/iplants-image-model';
 
 @Injectable()
 export class PlantImageService {

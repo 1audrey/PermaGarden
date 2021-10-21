@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { IPlantsList } from '../models/iplants-model';
+import { IPlantsList } from '../garden-list/models/iplants-model';
 
 @Pipe({
   name: 'plantFilter'

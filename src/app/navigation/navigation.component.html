@@ -9,7 +9,7 @@
       <span class="menu-spacer"></span>
       <div class="menu-buttons" fxShow="true" fxHide.lt-md fxFlex fxLayout>
         <!-- The following menu items will be hidden on both SM and XS screen sizes -->
-          <a disableRipple="true" href="#" mat-flat-button >Garden</a>
+          <a disableRipple="true" (click)="openGarden()" [routerLink]="['/garden-footprint']" routerLinkActive="active-list-item" mat-flat-button >Garden</a>
           <a disableRipple="true" class="plants-list" id="plants-list" (click)="openPlantsList()" [routerLink]="['/plants-list']" routerLinkActive="active-list-item" mat-flat-button>Plants</a>
           <a disableRipple="true" href="#" mat-flat-button >Tasks</a>
           <a disableRipple="true" href="#" mat-flat-button >History</a>
@@ -24,8 +24,8 @@
   <mat-sidenav-container fxFlexFill>
     <mat-sidenav #sidenav mode="side">
       <mat-nav-list>
-        <a disableRipple="true" href="#" mat-button >Garden</a>
-        <a disableRipple="true" [routerLink]="['/plants-list']" routerLinkActive="active-list-item" id="side" mat-button>Plants</a>
+        <a disableRipple="true" (click)="openGarden()" [routerLink]="['/garden-footprint']" routerLinkActive="active-list-item" mat-button >Garden</a>
+        <a disableRipple="true" (click)="openPlantsList()" [routerLink]="['/plants-list']" routerLinkActive="active-list-item" id="side" mat-button>Plants</a>
         <a disableRipple="true" href="#" mat-button >Tasks</a>
         <a disableRipple="true" href="#" mat-button >History</a>
       </mat-nav-list>

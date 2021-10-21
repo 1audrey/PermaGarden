@@ -3,7 +3,6 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
 import { IPlantsList } from '../models/iplants-model';
 import { AddToGardenComponent } from '../add-to-garden/add-to-garden.component';
 import { MatDialog } from '@angular/material/dialog';
-import { ThrowStmt } from '@angular/compiler';
 
 @Component({
   selector: 'app-plant-thumbnail',

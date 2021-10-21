@@ -18,9 +18,9 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { NavigationComponent } from './navigation/navigation.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { PlantThumbnailComponent } from './garden-list/plant-thumbnail/plant-thumbnail.component';
-import { PlantsService } from './garden-list/shared/plants.service';
+import { PlantsService } from './shared/plants.service';
 import { AddToGardenComponent } from './garden-list/add-to-garden/add-to-garden.component';
-import { PlantsListResolver } from './garden-list/resolver/plants-list-resolver.service';
+import { PlantsListResolver } from './resolver/plants-list-resolver.service';
 import { AuthService } from './user/auth.service';
 import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -30,15 +30,20 @@ import { AddNewPlantComponent } from './garden-list/add-new-plant/add-new-plant.
 import {MatCheckboxModule} from '@angular/material/checkbox';
 
 import { SelectImageDialogComponent } from './garden-list/add-new-plant/select-image-dialog/select-image-dialog.component';
-import { PlantImageService } from './garden-list/shared/plant-image.service';
-import { PlantImageResolverService } from './garden-list/resolver/plant-image-resolver.service';
-import { FilterPipe } from './garden-list/pipe/filter.pipe';
+import { PlantImageService } from './shared/plant-image.service';
+import { PlantImageResolverService } from './resolver/plant-image-resolver.service';
+import { FilterPipe } from './pipe/filter.pipe';
 import { HttpClientModule } from '@angular/common/http';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatSelectModule} from '@angular/material/select';
 
 import {MatSnackBarModule} from '@angular/material/snack-bar';
-import { NotificationsService } from './garden-list/shared/notifications.service';
+import { NotificationsService } from './shared/notifications.service';
+import { GardenFootprintComponent } from './garden/garden-footprint/garden-footprint.component';
+import { PatchListComponent } from './garden/patch-list/patch-list.component';
+import { PatchResolverService } from './resolver/patch-resolver.service';
+import { PatchesService } from './shared/patches.service';
+
 
 @NgModule({
   declarations: [
@@ -50,7 +55,8 @@ import { NotificationsService } from './garden-list/shared/notifications.service
     AddNewPlantComponent,
     SelectImageDialogComponent,
     FilterPipe,
-
+    GardenFootprintComponent,
+    PatchListComponent,
 
   ],
   imports: [
@@ -85,7 +91,9 @@ import { NotificationsService } from './garden-list/shared/notifications.service
     AuthService,
     PlantImageService,
     PlantImageResolverService,
-    NotificationsService
+    NotificationsService,
+    PatchResolverService,
+    PatchesService
 
   ],
 

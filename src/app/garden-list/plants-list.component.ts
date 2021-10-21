@@ -1,6 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { IPlantsList } from './models/iplants-model';
-import { PlantsService } from './shared/plants.service';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -11,20 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 
 export class PlantsListComponent implements OnInit {
 
-  plants: IPlantsList[] = [{
-    name: "Spring Onions",
-    startingMonths: [
-      "September"
-    ],
-    startingMethod: "Sowing in pots",
-    sowingPeriodInDays: 21,
-    harvestingMonths: [
-      "January",
-    ],
-    harvestingPeriodInDays: 120,
-    imageUrl: "assets/images/spring-onions.jpg"
-
-}];
+  plants!: IPlantsList[];
   todayDate: Date = new Date();
   month = this.todayDate.toLocaleString('default', { month: 'long' });
   plant!: IPlantsList[];
@@ -33,7 +19,7 @@ export class PlantsListComponent implements OnInit {
   public static readonly ADDNEWPLANT_WEBSITE_URL: string = '/add-new-plant';
   public static readonly FULL_YEAR_ARRAY: number = 11;
 
-  constructor(private plantsService: PlantsService, private route: ActivatedRoute) {
+  constructor(private route: ActivatedRoute) {
 
   }
 

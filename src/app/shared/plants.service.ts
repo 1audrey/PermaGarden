@@ -1,7 +1,7 @@
 
 import { Injectable } from "@angular/core";
 import { Observable, Subject} from "rxjs";
-import { IPlantsList } from "../models/iplants-model";
+import { IPlantsList } from "../garden-list/models/iplants-model";
 import * as plants from "./plants-list.json";
 
 

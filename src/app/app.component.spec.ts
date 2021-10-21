@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { PlantsListResolver } from './garden-list/resolver/plants-list-resolver.service';
+import { PlantsListResolver } from './resolver/plants-list-resolver.service';
 import {  PermagardenAppComponent } from './permagarden-app.component';
 
 describe('AppComponent', () => {

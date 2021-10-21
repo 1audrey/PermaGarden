@@ -2,36 +2,49 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AddNewPlantComponent } from './garden-list/add-new-plant/add-new-plant.component';
 import { AddToGardenComponent } from './garden-list/add-to-garden/add-to-garden.component';
-import { PlantsListResolver } from './garden-list/resolver/plants-list-resolver.service';
+import { PlantsListResolver } from './resolver/plants-list-resolver.service';
 import { PlantsListComponent } from './garden-list/plants-list.component';
-import { SelectImageDialogComponent } from './garden-list/add-new-plant/select-image-dialog/select-image-dialog.component';
-import { PlantImageResolverService } from './garden-list/resolver/plant-image-resolver.service';
+import { PlantImageResolverService } from './resolver/plant-image-resolver.service';
+import { GardenFootprintComponent } from './garden/garden-footprint/garden-footprint.component';
+import { PatchResolverService } from './resolver/patch-resolver.service';
+
 
 
 const routes: Routes = [
-  {path: 'add-to-garden',
-  component: AddToGardenComponent,
-  canDeactivate:['canDeactivateAddToGarden']
+  {
+    path: 'add-to-garden',
+    component: AddToGardenComponent,
+    canDeactivate: ['canDeactivateAddToGarden']
   },
 
-  {path: 'plants-list',
-  component: PlantsListComponent,
-  resolve: {plants: PlantsListResolver}
+  {
+    path: 'plants-list',
+    component: PlantsListComponent,
+    resolve: { plants: PlantsListResolver }
   },
 
-  {path: '',
-  redirectTo:'/plants-list', pathMatch: 'full'
+  {
+    path: '',
+    redirectTo: '/', pathMatch: 'full'
   },
 
-  {path: 'add-new-plant',
-  component: AddNewPlantComponent,
-  resolve: {plants: PlantImageResolverService}
+  {
+    path: 'add-new-plant',
+    component: AddNewPlantComponent,
+    resolve: { plants: PlantImageResolverService }
   },
 
-  {path: 'user',
-  loadChildren: () => import('./user/user.module')
-  .then(m => m.UserModule)
-}
+  {
+    path: 'user',
+    loadChildren: () => import('./user/user.module')
+      .then(m => m.UserModule)
+  },
+
+  {
+    path: 'garden-footprint',
+    component: GardenFootprintComponent,
+    resolve: { patches: PatchResolverService }
+  },
 
 ];
 

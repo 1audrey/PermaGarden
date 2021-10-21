@@ -1,0 +1,12 @@
+[
+  {
+    "name": "Patch 1",
+    "shape": "square",
+    "icon": "assets/shapes/square-shape.png"
+  },
+  {
+    "name": "Patch 2",
+    "shape": "hexagon",
+    "icon": "assets/shapes/hexagon-shape.png"
+  }
+]

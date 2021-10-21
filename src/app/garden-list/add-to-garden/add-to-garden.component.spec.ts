@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { PlantsListResolver } from '../resolver/plants-list-resolver.service';
-import { PlantsService } from '../shared/plants.service';
+import { PlantsListResolver } from '../../resolver/plants-list-resolver.service';
+import { PlantsService } from '../../shared/plants.service';
 
 import { AddToGardenComponent } from './add-to-garden.component';
 

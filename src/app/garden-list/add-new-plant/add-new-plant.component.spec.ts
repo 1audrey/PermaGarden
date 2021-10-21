@@ -9,10 +9,10 @@ import { of } from 'rxjs';
 
 import { AuthService } from 'src/app/user/auth.service';
 import { IPlantsList } from '../models/iplants-model';
-import { FilterPipe } from '../pipe/filter.pipe';
-import { NotificationsService } from '../shared/notifications.service';
-import { PlantImageService } from '../shared/plant-image.service';
-import { PlantsService } from '../shared/plants.service';
+import { FilterPipe } from '../../pipe/filter.pipe';
+import { NotificationsService } from '../../shared/notifications.service';
+import { PlantImageService } from '../../shared/plant-image.service';
+import { PlantsService } from '../../shared/plants.service';
 
 import { AddNewPlantComponent } from './add-new-plant.component';
 
