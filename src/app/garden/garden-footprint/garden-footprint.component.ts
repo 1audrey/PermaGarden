@@ -17,7 +17,7 @@ search!: '';
   }
 
   ngOnInit() {
-    this.patches= this.route.snapshot.data['patches'];
+    this.patches = this.route.snapshot.data['patches'];
   }
 
 }

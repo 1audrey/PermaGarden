@@ -1,8 +1,119 @@
 img{
-  width: 25%;
+  width: 50%;
+  vertical-align: middle;
+}
+
+.patch{
+  padding-bottom: 0px;
+  padding-top: 0px;
+
 }
 
 .mat-card-title {
-  display: block;
-  margin-bottom: 0px;
+  position: absolute;
+  text-align: center;
+  font-weight: bold;
+  font-size: 16px;
+  text-align: center;
 }
+
+mat-card-footer{
+  padding-bottom:0px;
+  vertical-align: middle;
+}
+
+.card-footer{
+  color: #114b0b;
+  margin-top: 12px;
+  margin-bottom: 0px;
+  margin-left: 5px;
+  margin-right: 5px;
+  padding-bottom: 12px;
+  width: 100%;
+  vertical-align: middle;
+  text-align: center;
+  display:inline-block;
+}
+
+.title{
+  font-weight: bold;
+  font-size: 16px;
+  float:left;
+}
+
+.add-to-garden{
+  font-size: 12px;
+  font-weight:0px;
+  color: white;
+  border-color: #a4dbe4;
+  background-color:#a4dbe4;
+  float:right;
+}
+
+.more-info{
+  color: white;
+  border-color: #fecc47;
+  background-color: #fecc47;
+  font-size: 12px;
+  font-weight:0px;
+  float: right;
+  margin-right: 5px;
+}
+
+.more-info:hover{
+  color: white;
+  border-color: #fa990e;
+  background-color: #fa990e;
+  font-size: 12px;
+  font-weight:0px;
+  float: right;
+  margin-right: 5px;
+}
+
+.add-to-garden:hover{
+  color: white;
+  border-color: transparent;
+  background-color: #5fc3d3;
+  cursor: pointer;
+}
+
+mat-card-content{
+  margin-bottom: 0px;
+  width:100%;
+  object-fit: cover;
+  color:#114b0b;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: nowrap;
+}
+
+
+.patch-info{
+  width:100%;
+  overflow-x:auto;
+  overflow-y:hidden;
+}
+
+.mat-button, .mat-icon-button, .mat-stroked-button, .mat-flat-button{
+  padding-left:4px;
+  padding-right:4px;
+}
+
+.delete{
+  position: absolute;
+  top: 12px;
+  left: 87%;
+  border-radius: 5px;
+  border-color: transparent;
+  background-color: white;
+}
+
+.delete:hover{
+  cursor:pointer;
+  background-color:#fafafa;
+}
+
+
+

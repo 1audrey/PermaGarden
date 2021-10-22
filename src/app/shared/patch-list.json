@@ -1,8 +1,35 @@
 [
   {
-    "name": "Patch 1",
+    "name": "Patch 1 in the left corner of the garden",
     "shape": "square",
-    "icon": "assets/shapes/square-shape.png"
+    "icon": "assets/shapes/square-shape.png",
+    "plantlist": [
+      {
+        "name": "Spring Onions",
+        "startingMonths": [
+          "March",
+          "April",
+          "May",
+          "June",
+          "July",
+          "August",
+          "September"
+        ],
+        "startingMethod": "Sowing in pots",
+        "sowingPeriodInDays": 21,
+        "harvestingMonths": [
+          "January",
+          "April",
+          "June",
+          "July",
+          "August",
+          "September",
+          "October"
+        ],
+        "harvestingPeriodInDays": 120,
+        "imageUrl": "assets/images/spring-onions.jpg"
+      }
+    ]
   },
   {
     "name": "Patch 2",

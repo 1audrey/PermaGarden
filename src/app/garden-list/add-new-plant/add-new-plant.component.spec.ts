@@ -16,7 +16,7 @@ import { PlantsService } from '../../shared/plants.service';
 
 import { AddNewPlantComponent } from './add-new-plant.component';
 
-fdescribe('AddNewPlantComponent', () => {
+describe('AddNewPlantComponent', () => {
   let component: AddNewPlantComponent;
   let fixture: ComponentFixture<AddNewPlantComponent>;
   let routerSpy = {navigate: jasmine.createSpy('navigate')};
