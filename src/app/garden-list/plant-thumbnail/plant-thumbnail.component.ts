@@ -46,7 +46,15 @@ toggle(): void {
 addToGarden(): void{
     this.dialog.open(AddToGardenComponent, {
     width: '250px',
-    data: {name: this.plant.name }
+    data: {
+      name: this.plant.name,
+      startingMonths: this.plant.startingMonths,
+      startingMethod: this.plant.startingMethod,
+      sowingPeriodInDays: this.plant.sowingPeriodInDays,
+      harvestingMonths:this.plant.harvestingMonths,
+      harvestingPeriodInDays: this.plant.harvestingPeriodInDays,
+      imageUrl: this.plant.imageUrl
+    }
   });
 }
 

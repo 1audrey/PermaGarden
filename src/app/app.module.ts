@@ -43,6 +43,7 @@ import { GardenFootprintComponent } from './garden/garden-footprint/garden-footp
 import { PatchListComponent } from './garden/patch-list/patch-list.component';
 import { PatchResolverService } from './resolver/patch-resolver.service';
 import { PatchesService } from './shared/patches.service';
+import { CreatePatchComponent } from './garden/create-patch/create-patch.component';
 
 
 @NgModule({
@@ -57,6 +58,7 @@ import { PatchesService } from './shared/patches.service';
     FilterPipe,
     GardenFootprintComponent,
     PatchListComponent,
+    CreatePatchComponent,
 
   ],
   imports: [

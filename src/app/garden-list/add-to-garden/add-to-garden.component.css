@@ -1,1 +1,31 @@
+mat-dialog-content{
+display: flex;
+flex-direction: column;
+align-content: center;
+justify-content: center;
+align-items: center;
 
+}
+
+p{
+  text-align: center;
+}
+
+.create-patch{
+  font-size: 12px;
+  font-weight: 0px;
+  color: white;
+  border-color: #a4dbe4;
+  background-color: #a4dbe4;
+  margin-left:5px;
+}
+
+.create-patch:hover {
+  color: white;
+  border-color: #5fc3d3;
+  background-color: #5fc3d3;
+}
+
+.buttons{
+  display:inline;
+}

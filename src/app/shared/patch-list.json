@@ -34,6 +34,8 @@
   {
     "name": "Patch 2",
     "shape": "hexagon",
-    "icon": "assets/shapes/hexagon-shape.png"
+    "icon": "assets/shapes/hexagon-shape.png",
+    "plantlist": [""]
+
   }
 ]
