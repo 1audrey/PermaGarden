@@ -48,8 +48,6 @@ export class AddToGardenComponent implements OnInit {
       this.patchService.savePlantInPatch(patchName, plant);
       this.dialog.close();
       this.router.navigate(['garden-footprint']);
-
-
   }
 
   onSelection() {

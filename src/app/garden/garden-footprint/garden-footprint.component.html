@@ -17,7 +17,8 @@
       <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="50%" fxFlex.md="50%" *ngFor="let patch of patches">
         <div class="my-patches">
           <app-patch-list
-          [patch]="patch">
+          [patch]="patch"
+          (patchDeleted)="onPatchDeleted(patch)">
         </app-patch-list>
       </div>
       </div>

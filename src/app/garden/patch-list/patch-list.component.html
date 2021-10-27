@@ -2,7 +2,7 @@
   <mat-card class="patch">
     <mat-card-content class="box">
       <mat-card-title class="title">{{patch.name | titlecase}}</mat-card-title>
-      <button class="delete"><mat-icon>delete_outline</mat-icon></button>
+      <button class="delete" (click)="delete()" ><mat-icon>delete_outline</mat-icon></button>
       <img mat-card-image [src]="patch.icon" alt={{patch.name}}>
     </mat-card-content>
 

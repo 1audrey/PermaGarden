@@ -1,5 +1,7 @@
 import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { FormControl } from '@angular/forms';
 import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { IPatch } from 'src/app/garden/garden-footprint/models/ipatch-model';
 import { PatchResolverService } from 'src/app/resolver/patch-resolver.service';
@@ -160,5 +162,13 @@ fdescribe('AddToGardenComponent', () => {
     expect(routerSpy.navigate).toHaveBeenCalled();
 
   });
+
+  // it('should set patchName to selected option when onSelection method is called ', () => {
+
+  //   let expected = component.patch.name;
+
+  //   expect(component.patchName).toBe(expected);
+
+  // });
 
 });
