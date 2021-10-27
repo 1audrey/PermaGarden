@@ -1,5 +1,5 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { IPatch } from '../garden-footprint/models/ipatch-model';
 
 
@@ -20,6 +20,7 @@ import { IPatch } from '../garden-footprint/models/ipatch-model';
 })
 export class PatchListComponent {
   @Input() patch!: IPatch;
+  @Output() patchDeleted: EventEmitter<any> = new EventEmitter();
 
   state = 'collapsed';
 
@@ -27,6 +28,11 @@ export class PatchListComponent {
 
   toggle(): void {
     this.state = this.state === 'collapsed' ? 'expanded' : 'collapsed';
+  }
+
+  delete(){
+    this.patchDeleted.emit();
+
 
   }
 

@@ -20,4 +20,14 @@ search!: '';
     this.patches = this.route.snapshot.data['patches'];
   }
 
+  onPatchDeleted(patch: IPatch){
+    var index = this.patches.findIndex((deletedPatch) => (deletedPatch === patch));
+    console.log(`${patch.name} has been deleted`);
+    if (index != -1) {
+      this.patches.splice(index, 1);
+    }
+  }
+
 }
+
+
