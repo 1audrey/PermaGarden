@@ -46,6 +46,7 @@ import { PatchesService } from './shared/patches.service';
 import { CreatePatchComponent } from './garden/create-patch/create-patch.component';
 
 
+
 @NgModule({
   declarations: [
     PermagardenAppComponent,
@@ -95,7 +96,8 @@ import { CreatePatchComponent } from './garden/create-patch/create-patch.compone
     PlantImageResolverService,
     NotificationsService,
     PatchResolverService,
-    PatchesService
+    PatchesService,
+
 
   ],
 

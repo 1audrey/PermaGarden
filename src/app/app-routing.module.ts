@@ -9,8 +9,6 @@ import { GardenFootprintComponent } from './garden/garden-footprint/garden-footp
 import { PatchResolverService } from './resolver/patch-resolver.service';
 import { CreatePatchComponent } from './garden/create-patch/create-patch.component';
 
-
-
 const routes: Routes = [
   {
     path: 'add-to-garden',

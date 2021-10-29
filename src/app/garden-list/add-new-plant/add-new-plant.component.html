@@ -11,17 +11,18 @@
     </div>
     </div>
 
-    <div class="form-group" [ngClass]="{'error': newPlantForm.controls.startingMethod?.invalid}">Select the prefered starting method:
+    <div class="form-group" [ngClass]="{'error': newPlantForm.controls.startingMethods?.invalid}">Select the prefered starting method:
       <mat-form-field appearance="fill">
         <mat-label>Select</mat-label>
-        <mat-select [(ngModel)]="selectedStartingMethods" name="startingMethod">
+        <em *ngIf="newPlantForm.controls.startingMethods?.invalid"> *Required</em>
+        <mat-select [(ngModel)]="selectedStartingMethods" name="startingMethod" required>
           <mat-option *ngFor="let startingMethod of startingMethods" [value]="startingMethod.value">
             {{startingMethod.value}}
           </mat-option>
         </mat-select>
       </mat-form-field>
-      <em *ngIf="newPlantForm.controls.startingMethod?.invalid"> *At least one option needs to be selected</em>
     </div>
+
 
     <div class="form-group" [ngClass]="{'error': newPlantForm.controls.startingMonths?.invalid}">Tick the sowing or planting month(s):
       <em *ngIf="newPlantForm.controls.startingMonths?.invalid"> *At least one month needs to be selected</em>

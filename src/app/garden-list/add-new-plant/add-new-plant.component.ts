@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ViewContainerRef, ViewEncapsulation, } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { IPlantsImage } from '../models/iplants-image-model';
@@ -6,6 +6,7 @@ import { IPlantsList } from '../models/iplants-model';
 import { PlantsService } from '../../shared/plants.service';
 import { SelectImageDialogComponent } from './select-image-dialog/select-image-dialog.component';
 import { NotificationsService } from '../../shared/notifications.service';
+
 
 @Component({
   selector: 'app-add-new-plant',
