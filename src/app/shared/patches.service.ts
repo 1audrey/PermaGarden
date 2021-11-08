@@ -1,11 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { IPlantsList } from '../garden-list/models/iplants-model';
-import { IPatch } from '../garden/garden-footprint/models/ipatch-model';
+import { IPatch } from '../garden/models/ipatch-model';
 import * as patches from "./patch-list.json";
 
 @Injectable()
 export class PatchesService {
+  getPlants() {
+    throw new Error('Method not implemented.');
+  }
   static PATCHES: any = [];
   constructor() { }
 
@@ -28,6 +31,11 @@ export class PatchesService {
     }
     this.PATCHES = newPatches;
 
+  }
+
+  savePatch(newPatch: IPatch){
+    this.PATCHES.push(newPatch)
+    console.log(newPatch);
   }
 
 

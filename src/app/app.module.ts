@@ -44,6 +44,7 @@ import { PatchListComponent } from './garden/patch-list/patch-list.component';
 import { PatchResolverService } from './resolver/patch-resolver.service';
 import { PatchesService } from './shared/patches.service';
 import { CreatePatchComponent } from './garden/create-patch/create-patch.component';
+import { ManagePatchTasksComponent } from './task/manage-patch-tasks/manage-patch-tasks.component';
 
 
 
@@ -60,6 +61,7 @@ import { CreatePatchComponent } from './garden/create-patch/create-patch.compone
     GardenFootprintComponent,
     PatchListComponent,
     CreatePatchComponent,
+    ManagePatchTasksComponent,
 
   ],
   imports: [

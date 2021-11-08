@@ -94,7 +94,7 @@ describe('AddNewPlantComponent', () => {
     expect(routerSpy.navigate).toHaveBeenCalledWith(['plants-list']);
   }));
 
-  it('should save the new plant when when the save button is clicked', inject([PlantsService], (plantService: PlantsService) => {
+  it('should save the new plant when the save button is clicked', inject([PlantsService], (plantService: PlantsService) => {
     let plantSpy = spyOn(plantService, 'savePlant').and.callThrough();
 
     component.savePlant({

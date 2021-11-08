@@ -102,3 +102,11 @@ em {
   cursor: pointer;
   font-weight: 500;
 }
+
+::ng-deep .mat-primary .mat-pseudo-checkbox-checked, .mat-primary .mat-pseudo-checkbox-indeterminate {
+  background: #fa990e !important;
+}
+
+::ng-deep .mat-primary .mat-option.mat-selected:not(.mat-option-disabled) {
+  color: #fa990e !important;
+}

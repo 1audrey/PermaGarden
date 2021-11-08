@@ -1,7 +1,6 @@
 [
   {
     "name": "Patch 1 in the left corner of the garden",
-    "shape": "square",
     "icon": "assets/shapes/square-shape.png",
     "plantlist": [
       {
@@ -28,12 +27,35 @@
         ],
         "harvestingPeriodInDays": 120,
         "imageUrl": "assets/images/spring-onions.jpg"
+      },
+
+      {
+        "name":"Carrots",
+        "startingMonths":[
+          "February",
+          "March",
+          "April",
+          "May",
+          "June",
+          "July"
+        ],
+        "startingMethod": "Sowing in soil",
+        "sowingPeriodInDays":21,
+        "harvestingMonths":[
+          "May",
+          "June",
+          "July",
+          "August",
+          "September",
+          "October"
+        ],
+        "harvestingPeriodInDays":77,
+        "imageUrl":"assets/images/carrots.jpg"
       }
     ]
   },
   {
     "name": "Patch 2",
-    "shape": "hexagon",
     "icon": "assets/shapes/hexagon-shape.png",
     "plantlist": [""]
 

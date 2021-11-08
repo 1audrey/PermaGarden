@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { IPatch } from './models/ipatch-model';
+import { IPatch } from '../models/ipatch-model';
 
 @Component({
   selector: 'app-garden-footprint',

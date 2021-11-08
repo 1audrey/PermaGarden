@@ -7,7 +7,7 @@
     </mat-card-content>
 
     <mat-card-actions class="actions">
-      <button mat-button class="tasks">Tasks</button>
+      <button mat-button class="tasks" (click)="openTask()" [routerLink]="['/task']">Tasks</button>
       <button mat-button class="edit-patch">Edit patch</button>
       <button mat-button class="more-info" (click)="toggle() ">{{this.state == 'collapsed' ? 'More info': 'Less info'}}</button>
     </mat-card-actions>

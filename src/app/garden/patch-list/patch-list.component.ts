@@ -1,6 +1,6 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { IPatch } from '../garden-footprint/models/ipatch-model';
+import { IPatch } from '../models/ipatch-model';
 
 
 
@@ -23,6 +23,7 @@ export class PatchListComponent {
   @Output() patchDeleted: EventEmitter<any> = new EventEmitter();
 
   state = 'collapsed';
+  public static readonly TASK_URL: string = '/task';
 
   constructor() { }
 
@@ -33,6 +34,13 @@ export class PatchListComponent {
   delete(){
     this.patchDeleted.emit();
 
+  }
+
+  openTask(){
+    const link = document.createElement('a');
+    link.href = PatchListComponent.TASK_URL;
+    link.setAttribute('visibility', 'hidden');
+    link.click();
   }
 
 }

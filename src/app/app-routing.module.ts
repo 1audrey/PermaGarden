@@ -8,6 +8,7 @@ import { PlantImageResolverService } from './resolver/plant-image-resolver.servi
 import { GardenFootprintComponent } from './garden/garden-footprint/garden-footprint.component';
 import { PatchResolverService } from './resolver/patch-resolver.service';
 import { CreatePatchComponent } from './garden/create-patch/create-patch.component';
+import { ManagePatchTasksComponent } from './task/manage-patch-tasks/manage-patch-tasks.component';
 
 const routes: Routes = [
   {
@@ -49,7 +50,11 @@ const routes: Routes = [
     path: 'create-patch',
     component: CreatePatchComponent,
     resolve: { patches: PatchResolverService }
+  },
 
+  {
+    path: 'task',
+    component: ManagePatchTasksComponent,
   },
 
 ];

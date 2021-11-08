@@ -2,7 +2,7 @@ import { Component, Inject, Input, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { IPatch } from 'src/app/garden/garden-footprint/models/ipatch-model';
+import { IPatch } from 'src/app/garden/models/ipatch-model';
 import { PatchesService } from 'src/app/shared/patches.service';
 import { IPlantsList } from '../models/iplants-model';
 

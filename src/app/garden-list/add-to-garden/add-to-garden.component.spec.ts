@@ -3,7 +3,7 @@ import { FormControl } from '@angular/forms';
 import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-import { IPatch } from 'src/app/garden/garden-footprint/models/ipatch-model';
+import { IPatch } from 'src/app/garden/models/ipatch-model';
 import { PatchResolverService } from 'src/app/resolver/patch-resolver.service';
 import { PatchesService } from 'src/app/shared/patches.service';
 import { PlantsListResolver } from '../../resolver/plants-list-resolver.service';
@@ -11,7 +11,7 @@ import { PlantsService } from '../../shared/plants.service';
 
 import { AddToGardenComponent } from './add-to-garden.component';
 
-fdescribe('AddToGardenComponent', () => {
+describe('AddToGardenComponent', () => {
   let component: AddToGardenComponent;
   let fixture: ComponentFixture<AddToGardenComponent>;
   const mockDialogRef = { close: jasmine.createSpy('close') };
