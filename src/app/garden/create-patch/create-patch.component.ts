@@ -21,7 +21,7 @@ export class CreatePatchComponent implements OnInit{
   plants!: Observable<Array<IPlantsList>>
 
   selectedIcon!: string;
-  selectedPlants!: string;
+  selectedPlants!: IPlantsList[];
 
   constructor(private router: Router,
     private notifications: NotificationsService,
@@ -45,7 +45,7 @@ export class CreatePatchComponent implements OnInit{
   }
 
   cancel() {
-    this.router.navigate(['garden-footprint']);
+    this.router.navigate(['garden']);
   }
 
   savePatch(formValues: IPatch){
@@ -59,7 +59,7 @@ export class CreatePatchComponent implements OnInit{
       formValues.plantlist === [];
       this.patchService.savePatch(formValues);
       this.notifications.showSuccess(`${formValues.name} has been added to your garden`);
-      this.router.navigate(['garden-footprint']);
+      this.router.navigate(['garden']);
       console.log(formValues);
     }
   }

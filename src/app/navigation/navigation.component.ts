@@ -12,7 +12,7 @@ export class NavigationComponent  {
 public static readonly PLANTS_WEBSITE_URL: string = '/plants-list';
 public static readonly LOGIN_WEBSITE_URL: string = '/user/login';
 public static readonly USERPROFILE_WEBSITE_URL: string = '/user/profile';
-public static readonly GARDEN_WEBSITE_URL: string = '/garden-footprint';
+public static readonly GARDEN_WEBSITE_URL: string = '/garden';
 
 
 constructor(public auth: AuthService){}

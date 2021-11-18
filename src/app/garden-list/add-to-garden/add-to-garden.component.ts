@@ -47,7 +47,7 @@ export class AddToGardenComponent implements OnInit {
       console.log(this.patchName);
       this.patchService.savePlantInPatch(patchName, plant);
       this.dialog.close();
-      this.router.navigate(['garden-footprint']);
+      this.router.navigate(['garden']);
   }
 
   onSelection() {

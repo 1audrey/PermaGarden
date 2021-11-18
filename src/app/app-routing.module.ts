@@ -9,6 +9,8 @@ import { GardenFootprintComponent } from './garden/garden-footprint/garden-footp
 import { PatchResolverService } from './resolver/patch-resolver.service';
 import { CreatePatchComponent } from './garden/create-patch/create-patch.component';
 import { ManagePatchTasksComponent } from './task/manage-patch-tasks/manage-patch-tasks.component';
+import { PatchListComponent } from './garden/patch-list/patch-list.component';
+import { PatchListDetailsComponent } from './garden/patch-list-details/patch-list-details.component';
 
 const routes: Routes = [
   {
@@ -41,9 +43,14 @@ const routes: Routes = [
   },
 
   {
-    path: 'garden-footprint',
+    path: 'garden',
     component: GardenFootprintComponent,
     resolve: { patches: PatchResolverService }
+  },
+
+  {
+    path: 'garden/:patchName',
+    component: PatchListDetailsComponent
   },
 
   {

@@ -45,6 +45,7 @@ import { PatchResolverService } from './resolver/patch-resolver.service';
 import { PatchesService } from './shared/patches.service';
 import { CreatePatchComponent } from './garden/create-patch/create-patch.component';
 import { ManagePatchTasksComponent } from './task/manage-patch-tasks/manage-patch-tasks.component';
+import { PatchListDetailsComponent } from './garden/patch-list-details/patch-list-details.component';
 
 
 
@@ -62,6 +63,7 @@ import { ManagePatchTasksComponent } from './task/manage-patch-tasks/manage-patc
     PatchListComponent,
     CreatePatchComponent,
     ManagePatchTasksComponent,
+    PatchListDetailsComponent,
 
   ],
   imports: [

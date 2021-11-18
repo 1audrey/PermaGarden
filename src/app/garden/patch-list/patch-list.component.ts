@@ -1,6 +1,8 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { IPatch } from '../models/ipatch-model';
+import { ActivatedRoute } from '@angular/router';
+import { PatchesService } from 'src/app/shared/patches.service';
 
 
 
@@ -23,9 +25,8 @@ export class PatchListComponent {
   @Output() patchDeleted: EventEmitter<any> = new EventEmitter();
 
   state = 'collapsed';
-  public static readonly TASK_URL: string = '/task';
 
-  constructor() { }
+  constructor(private route: ActivatedRoute) { }
 
   toggle(): void {
     this.state = this.state === 'collapsed' ? 'expanded' : 'collapsed';
@@ -33,14 +34,14 @@ export class PatchListComponent {
 
   delete(){
     this.patchDeleted.emit();
-
   }
 
-  openTask(){
-    const link = document.createElement('a');
-    link.href = PatchListComponent.TASK_URL;
-    link.setAttribute('visibility', 'hidden');
-    link.click();
+  editPatch(){
+    this.route.snapshot.params['patchName'];
   }
+
+  // openTask(){
+  //  this.route.snapshot.params[this.patch.name];
+  // }
 
 }

@@ -6,9 +6,7 @@ import * as patches from "./patch-list.json";
 
 @Injectable()
 export class PatchesService {
-  getPlants() {
-    throw new Error('Method not implemented.');
-  }
+  patch!: IPatch;
   static PATCHES: any = [];
   constructor() { }
 
@@ -18,6 +16,10 @@ export class PatchesService {
       100)
 
     return subject;
+  }
+
+  getSinglePatch(patchName: string){
+    return this.PATCHES.find((patch: { name: string; }) => patch.name ===patchName)
   }
 
   savePlantInPatch(patchName: string, plant: IPlantsList) {
