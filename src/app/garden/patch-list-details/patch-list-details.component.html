@@ -1,26 +1,27 @@
-<div class="col-md-6">
+<div class="header">
+<h1>Edit</h1>
+</div>
+
+<div class="content">
+<div class="whole-page">
   <form #patchForm="ngForm" autocomplete="off" novalidate>
 
     <div class="edit">
-      <h2>Edit</h2>
-
-      <div class="patchName">
-        <div class="form-group"
-          [ngClass]="{'error': patchForm.controls.name?.invalid && patchForm.controls.name?.touched}">
-          <div class="plant-name-group">
-            <label for="patchName">Patch Name: </label>
+      <div class="editing-fields">
+        <div class="patch-name">
+          <div class="form-group"
+            [ngClass]="{'error': patchForm.controls.name?.invalid && patchForm.controls.name?.touched}">
+            <label for="patch-name">Edit the patch name: </label>
             <em *ngIf="patchForm.controls.name?.invalid && patchForm.controls.name?.touched"> *Required</em>
             <input [(ngModel)]="patch.name" name="name" required id="name" type="text" class="form-control" />
           </div>
         </div>
-      </div>
 
-      <div class="icon">
-        <img [src]="selectedIcon">
         <div class="form-group"
           [ngClass]="{'error': patchForm.controls.icon?.invalid && patchForm.controls.icon?.touched}">Edit the shape:
           <em *ngIf="patchForm.controls.icon?.invalid && patchForm.controls.icon?.touched"> *Required</em>
           <mat-form-field appearance="fill">
+            <mat-label>Select</mat-label>
             <mat-select ngDefaultControl [(ngModel)]="selectedIcon" name="icon" required>
               <mat-option class="icon" *ngFor="let icon of icons" [value]="icon.url">
                 <p class="icon-name">{{icon.name}}</p>
@@ -29,14 +30,10 @@
             </mat-select>
           </mat-form-field>
         </div>
-      </div>
 
-      <div class="plant-list-details">
-        <div *ngFor="let plantlist of patch.plantlist">
-          {{plantlist.name}}
-        </div>
 
-        <div class="form-group">Select a plant:
+
+        <div class="form-group">Edit the plant list:
           <mat-form-field appearance="fill">
             <mat-label>Select</mat-label>
             <mat-select ngDefaultControl [(ngModel)]="selectedPlants" name="plantlist" multiple>
@@ -46,16 +43,37 @@
             </mat-select>
           </mat-form-field>
         </div>
+      </div>
 
-        <div class="form-group">
-          <div class="buttons">
-            <button id="save-plant" mat-button type="submit" class="save-new-patch-button"
-              [disabled]="patchForm.invalid" (click)="saveEditedPatch(patchForm.value)">Save</button>
-            <button id="cancel-button" mat-button type="button" class="btn btn-default"
-              (click)="cancel()">Cancel</button>
+      <div class="vertical-line"></div>
+
+
+      <div class="edited-fields">
+      <div class="form-group">
+        <div class="name-patch">
+          <h2>{{patch.name}}</h2>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="icon-group">
+          <img [src]="selectedIcon" class="icon-selected">
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="plant-list-details">
+          <div *ngFor="let plants of selectedPlants">
+            {{plants.name}}
           </div>
+        </div>
         </div>
       </div>
     </div>
+
   </form>
+</div>
+<div class="buttons">
+  <button id="save-plant" mat-button type="submit" class="save-edit-button" [disabled]="patchForm.invalid"
+    (click)="saveEditedPatch(patchForm.value)">Save</button>
+  <button id="cancel-button" mat-button type="button" class="btn btn-default" (click)="cancel()">Cancel</button>
+</div>
 </div>
