@@ -1,0 +1,77 @@
+::ng-deep .mat-option-text {
+  display: flex !important;
+  flex-grow: 1 !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  align-content: space-between !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+}
+
+::ng-deep .mat-accent .mat-pseudo-checkbox-checked,
+.mat-accent .mat-pseudo-checkbox-indeterminate {
+  background: #fa990e;
+}
+
+::ng-deep .mat-accent .mat-pseudo-checkbox.mat-pseudo-checkbox-checked,
+.mat-accent .mat-pseudo-checkbox.mat-pseudo-checkbox-indeterminate {
+  border-color: #fa990e;
+}
+
+::ng-deep .mat-primary .mat-pseudo-checkbox-checked, .mat-primary .mat-pseudo-checkbox-indeterminate {
+  background: #fa990e !important;
+}
+
+::ng-deep .mat-primary .mat-option.mat-selected:not(.mat-option-disabled) {
+  color: #fa990e !important;
+}
+
+::ng-deep .mat-accent .mat-pseudo-checkbox::after {
+  color: white;
+}
+
+.error input{
+  border-color:#dd553d;
+}
+.error ::-webkit-input-placeholder{
+  color: #a19f9f;
+}
+
+.error ::-moz-placeholder{
+  color: #a19f9f;
+}
+
+.error :-moz-placeholder{
+  color: #a19f9f;
+}
+
+.error :-ms-input-placeholder{
+  color: #a19f9f;
+}
+
+em {
+  color:#dd553d;
+  font-weight: lighter;
+  font-style: italic;
+  font-size: 10px;
+}
+
+.form-group{
+  padding-left:40px;
+  padding-right:40px;
+  font-weight: bold;
+  text-align: center;
+}
+
+input
+{
+  width: auto;
+  padding: 12px 20px;
+  margin-left: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-bottom: 1.34375em;
+}

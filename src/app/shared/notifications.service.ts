@@ -30,6 +30,9 @@ export class NotificationsService {
   }
 
   showWarning(message: string) {
-    this._snackBar.open(message)
+    this._snackBar.open(message, '', {
+      duration: 5000,
+      panelClass: 'orange-snackbar',
+    });
   }
 }

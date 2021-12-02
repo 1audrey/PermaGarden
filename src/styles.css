@@ -12,3 +12,8 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   color: white;
   background-color: #FF6347;
   }
+
+  .orange-snackbar {
+    color: white;
+    background-color: #fa990e;
+    }
