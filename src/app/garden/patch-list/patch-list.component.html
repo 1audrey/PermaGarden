@@ -7,18 +7,29 @@
     </mat-card-content>
 
     <mat-card-actions class="actions">
-      <button mat-button class="tasks">Tasks</button>
-      <button mat-button class="edit-patch" (click)="editPatch()" [routerLink]="['/garden', patch.name]" >Edit patch</button>
+      <button *ngIf="patch.tasklist?.length;else noTasks" mat-button class="tasks" (click)="openTask()" [routerLink]="['/tasks', patch.name]">Tasks</button>
+      <button mat-button class="edit-patch" (click)="editPatch()"[routerLink]="['/garden', patch.name]" >Edit patch</button>
       <button mat-button class="more-info" (click)="toggle() ">{{this.state == 'collapsed' ? 'More info': 'Less info'}}</button>
     </mat-card-actions>
 
     <mat-card-footer class="card-footer">
       <div class="patch-info" [@bodyExpansion]="state">
         <div>
+          <h3 *ngIf="patch.plantlist?.length">Plant(s) in this patch:</h3>
           <div *ngFor="let plantlist of patch.plantlist">
             {{plantlist.name}}
+          </div>
+        </div>
+        <div>
+
+          <div *ngFor="let tasklist of patch.tasklist">
+            <h3>You have {{patch.tasklist?.length}} task in this patch</h3>
           </div>
         </div>
       </div>
     </mat-card-footer>
   </mat-card>
+
+  <ng-template #noTasks>
+    <button mat-button class="tasks" (click)="openTask()" [routerLink]="['/create-task']" >Tasks</button>
+  </ng-template>

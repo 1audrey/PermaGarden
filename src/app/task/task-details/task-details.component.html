@@ -1,0 +1,17 @@
+<div>
+  <mat-card class="task">
+    <mat-card-content class="box">
+      <mat-card-title class="title"> {{task.name | titlecase}}</mat-card-title>
+      <button class="delete" ><mat-icon>delete_outline</mat-icon></button>
+    </mat-card-content>
+
+
+    <mat-card-footer class="card-footer">
+      <div class="task-info">
+      <p>Plant: {{task.plant.name}}</p>
+      <p>Task: {{task.action}}</p>
+      <p>Starting date: {{task.startingDate}}</p>
+      <p>Next task: planting in soil </p>
+      </div>
+    </mat-card-footer>
+  </mat-card>

@@ -1,0 +1,55 @@
+.my-tasks{
+  padding: 0 20px;
+  justify-content: center;
+  color: #000409;
+}
+
+.tasks {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 25px !important;
+  align-content: center;
+  flex-direction: column;
+}
+
+.title-right {
+  float: left;
+  padding-right: 16px !important;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-content: space-between;
+  justify-content: space-evenly;
+  align-items: flex-end;
+}
+
+.create-task {
+  color: white;
+  border-color: #a4dbe4;
+  background-color: #a4dbe4;
+  font-size: 12px;
+  font-weight: 0px;
+  float: right;
+  margin-bottom: 5px;
+}
+
+.create-task:hover {
+  color: white;
+  border-color: #5fc3d3;
+  background-color: #5fc3d3;
+}
+
+.whole-page{
+  display: flex;
+  flex-direction: column;
+  align-content: stretch;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.go-back{
+  float:left;
+  padding: 0 20px;
+}
+

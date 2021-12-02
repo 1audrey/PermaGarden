@@ -11,6 +11,8 @@ import { CreatePatchComponent } from './garden/create-patch/create-patch.compone
 import { ManagePatchTasksComponent } from './task/manage-patch-tasks/manage-patch-tasks.component';
 import { PatchListComponent } from './garden/patch-list/patch-list.component';
 import { PatchListDetailsComponent } from './garden/patch-list-details/patch-list-details.component';
+import { AllTasksComponent } from './task/all-tasks/all-tasks.component';
+import { CreateTaskComponent } from './task/create-task/create-task.component';
 
 const routes: Routes = [
   {
@@ -60,8 +62,18 @@ const routes: Routes = [
   },
 
   {
-    path: 'task',
+    path: 'tasks',
+    component: AllTasksComponent,
+  },
+
+  {
+    path: 'tasks/:patchName',
     component: ManagePatchTasksComponent,
+  },
+
+  {
+    path: 'create-task',
+    component: CreateTaskComponent,
   },
 
 ];

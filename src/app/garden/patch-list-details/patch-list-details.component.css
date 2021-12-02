@@ -38,6 +38,7 @@ h2{
   padding-left:40px;
   padding-right:40px;
   font-weight: bold;
+  text-align: center;
 }
 
 .icon{
@@ -122,8 +123,8 @@ em {
 
 .icon-selected{
   width: 25%;
-  float: right;
   margin-bottom: 1.34375em;
+
 }
 
 .whole-page{
@@ -178,9 +179,10 @@ form{
 .edited-fields{
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: space-around;
   align-content: space-between;
-  align-items: flex-end;
+  align-items: center;
+  flex-wrap: wrap;
 
 }
 

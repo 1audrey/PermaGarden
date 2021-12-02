@@ -1,1 +1,30 @@
-<p>manage-patch-tasks works!</p>
+<div class="whole-page">
+<div class="head">
+  <div class="tasks">
+    <div class="title-left">
+      <h2>{{patch.name}}</h2>
+    </div>
+
+    <div class="title-right">
+      <button mat-button class="create-task">Create a task</button>
+    </div>
+  </div>
+
+  <div class="my-tasks">
+    <div fxLayout="row wrap" fxLayoutGap="16px grid">
+      <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="50%" fxFlex.md="50%" *ngFor="let task of patch.tasklist">
+        <div class="my-patches">
+          <app-task-details [task]="task">
+          </app-task-details>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</div>
+<div class="go-back">
+<button id="cancel-button" mat-button type="button" class="btn btn-default" (click)="cancel()">Go back</button>
+</div>
+</div>
+

@@ -1,3 +1,5 @@
+import { ITask } from "src/app/task/models/itask-model";
+
 export interface IPlantsList {
   name: string,
   startingMonths: string[],

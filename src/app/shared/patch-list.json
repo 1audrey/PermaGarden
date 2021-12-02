@@ -51,13 +51,82 @@
         ],
         "harvestingPeriodInDays":77,
         "imageUrl":"assets/images/carrots.jpg"
+      },
+      {
+        "name":"Apples",
+        "startingMonths":[
+          "January",
+          "February",
+          "March",
+          "November",
+          "December"
+        ],
+        "harvestingMonths":[
+          "August",
+          "September",
+          "October",
+          "November"
+        ],
+        "imageUrl":"assets/images/apples.jpg"
+      }
+    ],
+    "tasklist": [
+      {
+        "name": "Sowing the spring onions in pots",
+        "plant": {
+          "name": "Spring Onions",
+          "startingMonths": [
+            "March",
+            "April",
+            "May",
+            "June",
+            "July",
+            "August",
+            "September"
+          ],
+          "startingMethod": "Sowing in pots",
+          "sowingPeriodInDays": 21,
+          "harvestingMonths": [
+            "January",
+            "April",
+            "June",
+            "July",
+            "August",
+            "September",
+            "October"
+          ],
+          "harvestingPeriodInDays": 120,
+          "imageUrl": "assets/images/spring-onions.jpg"
+        },
+        "action": "Sowing in pots",
+        "startingDate": "01/12/2021"
+      },
+      {
+        "name": "Task for the apple tree",
+        "plant": {
+          "name":"Apples",
+          "startingMonths":[
+            "January",
+            "February",
+            "March",
+            "November",
+            "December"
+          ],
+          "harvestingMonths":[
+            "August",
+            "September",
+            "October",
+            "November"
+          ],
+          "imageUrl":"assets/images/apples.jpg"
+        },
+        "action": "Planting",
+        "startingDate": "07/12/2021"
       }
     ]
   },
   {
     "name": "Patch 2",
-    "icon": "assets/shapes/hexagon-shape.png",
-    "plantlist": [""]
-
+    "icon": "assets/shapes/hexagon-shape.png"
   }
 ]
