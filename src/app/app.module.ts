@@ -49,6 +49,9 @@ import { PatchListDetailsComponent } from './garden/patch-list-details/patch-lis
 import { AllTasksComponent } from './task/all-tasks/all-tasks.component';
 import { TaskDetailsComponent } from './task/task-details/task-details.component';
 import { CreateTaskComponent } from './task/create-task/create-task.component';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import {MatInputModule} from '@angular/material/input';
 
 
 
@@ -93,7 +96,10 @@ import { CreateTaskComponent } from './task/create-task/create-task.component';
     HttpClientModule,
     MatButtonToggleModule,
     MatSelectModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatInputModule
 
 
   ],

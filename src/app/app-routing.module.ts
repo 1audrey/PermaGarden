@@ -72,7 +72,7 @@ const routes: Routes = [
   },
 
   {
-    path: 'create-task',
+    path: 'create-task/:patchName',
     component: CreateTaskComponent,
   },
 

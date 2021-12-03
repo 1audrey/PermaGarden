@@ -2,13 +2,11 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { IPlantsList } from 'src/app/garden-list/models/iplants-model';
-import { PatchResolverService } from 'src/app/resolver/patch-resolver.service';
 import { NotificationsService } from 'src/app/shared/notifications.service';
 import { PatchesService } from 'src/app/shared/patches.service';
 import { PlantsService } from 'src/app/shared/plants.service';
 import { IPatch } from '../models/ipatch-model';
 import { IPatchShape } from '../models/ipatch-shape';
-import { PatchListComponent } from '../patch-list/patch-list.component';
 
 @Component({
   selector: 'app-patch-list-details',
@@ -33,7 +31,8 @@ export class PatchListDetailsComponent implements OnInit {
     }
     ];
 
-  constructor(private patchService: PatchesService, private route: ActivatedRoute,
+  constructor(private patchService: PatchesService,
+    private route: ActivatedRoute,
     private router: Router,
     private notifications: NotificationsService,
     private plantService: PlantsService) { }

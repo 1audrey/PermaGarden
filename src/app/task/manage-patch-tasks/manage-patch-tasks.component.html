@@ -6,7 +6,8 @@
     </div>
 
     <div class="title-right">
-      <button mat-button class="create-task" (click)="createTask()">Create a task</button>
+      <button mat-button class="create-task" (click)="createTask()" *ngIf="patch.plantlist.length != 0" [routerLink]="['/create-task', patch.name]">Create a task</button>
+      <button mat-button class="create-task" *ngIf="patch.plantlist.length === 0" (click)="notificationForMissingPlants()">Create a task</button>
     </div>
   </div>
 

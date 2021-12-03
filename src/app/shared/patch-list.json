@@ -127,6 +127,7 @@
   },
   {
     "name": "Patch 2",
-    "icon": "assets/shapes/hexagon-shape.png"
+    "icon": "assets/shapes/hexagon-shape.png",
+    "plantlist": []
   }
 ]

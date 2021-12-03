@@ -41,13 +41,8 @@ export class PatchListComponent {
   }
 
   openTask(){
-    if(this.patch.tasklist?.length){
    this.route.snapshot.params['patchName'];
-    }
-    else
-    {
-      this.route.snapshot.params['create-task'];
-    }
+
   }
 
 }

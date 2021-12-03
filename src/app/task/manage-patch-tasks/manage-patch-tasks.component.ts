@@ -17,7 +17,6 @@ export class ManagePatchTasksComponent implements OnInit {
   constructor(private patchService: PatchesService,
     private route: ActivatedRoute,
     private router: Router,
-    public dialog: MatDialog,
     private notification: NotificationsService) { }
 
   ngOnInit(): void {
@@ -28,26 +27,12 @@ export class ManagePatchTasksComponent implements OnInit {
     this.router.navigate(['garden']);
   }
 
-  createTask(){
-    var plantListInPatch = this.patch.plantlist;
-    if(plantListInPatch !== undefined){
-    const dialogConfig = new MatDialogConfig();
-      dialogConfig.disableClose = true;
-      dialogConfig.autoFocus = true;
-      dialogConfig.width = '50%';
-      dialogConfig.height = '50%';
-
-      dialogConfig.data = {
-       patch: this.patch
-
-    };
-
-        this.dialog.open(CreateTaskComponent, dialogConfig);
+  createTask() {
+    this.route.snapshot.params['patchName'];
   }
-  else
-  {
+
+  notificationForMissingPlants() {
     this.notification.showWarning('You need to add a plant to your patch before creating a task');
   }
-}
 
 }
