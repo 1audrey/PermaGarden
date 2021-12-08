@@ -24,7 +24,7 @@
     <mat-form-field appearance="fill">
         <mat-label>Select</mat-label>
         <mat-select ngDefaultControl [(ngModel)]="selectedPlant" name="plant" required>
-          <mat-option class="plants-name" *ngFor="let plant of patch.plantlist" [value]="plant" (click)="getPlantStartingMethod()" >
+          <mat-option class="plants-name" *ngFor="let plant of patch.plantlist" [value]="plant" (click)="getPlantStartingMethod()"  >
             <p class="plant-name">{{plant.name}}</p>
           </mat-option>
         </mat-select>
@@ -59,7 +59,7 @@
 
     <div class="form-group">
       <div class="buttons">
-        <button id="cancel-button" mat-button type="button" class="btn btn-default">Cancel</button>
+        <button id="cancel-button" mat-button type="button" class="btn btn-default" [routerLink]="['/tasks', patch.name]" >Cancel</button>
         <button id="save-task" mat-button type="submit" class="save-new-task-button" [disabled]="newTaskForm.invalid" (click)="saveTask(patch.name, newTaskForm.value)">Save</button>
       </div>
     </div>
