@@ -50,8 +50,9 @@ import { AllTasksComponent } from './task/all-tasks/all-tasks.component';
 import { TaskDetailsComponent } from './task/task-details/task-details.component';
 import { CreateTaskComponent } from './task/create-task/create-task.component';
 import {MatDatepickerModule} from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
+import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import {MatInputModule} from '@angular/material/input';
+import {MatMenuModule} from '@angular/material/menu';
 
 
 
@@ -99,7 +100,8 @@ import {MatInputModule} from '@angular/material/input';
     MatSnackBarModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatInputModule
+    MatInputModule,
+    MatMenuModule
 
 
   ],
@@ -113,6 +115,7 @@ import {MatInputModule} from '@angular/material/input';
     NotificationsService,
     PatchResolverService,
     PatchesService,
+    {provide: MAT_DATE_LOCALE, useValue: 'en-GB'}
 
 
   ],

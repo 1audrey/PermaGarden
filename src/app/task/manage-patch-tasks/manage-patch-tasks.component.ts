@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ActivatedRoute, Route, Router } from '@angular/router';
+import { IPlantsList } from 'src/app/garden-list/models/iplants-model';
 import { NotificationsService } from 'src/app/shared/notifications.service';
 import { PatchesService } from 'src/app/shared/patches.service';
 import { CreateTaskComponent } from '../create-task/create-task.component';
@@ -12,7 +13,6 @@ import { CreateTaskComponent } from '../create-task/create-task.component';
 })
 export class ManagePatchTasksComponent implements OnInit {
   patch!: any;
-  public static readonly CREATETASK_WEBSITE_URL: string = '/create-task';
 
   constructor(private patchService: PatchesService,
     private route: ActivatedRoute,

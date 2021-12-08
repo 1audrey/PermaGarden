@@ -5,7 +5,9 @@ import { Observable } from 'rxjs';
 import { IPlantsList } from 'src/app/garden-list/models/iplants-model';
 import { IPatch } from 'src/app/garden/models/ipatch-model';
 import { PatchesService } from 'src/app/shared/patches.service';
-import { DateAdapter } from '@angular/material/core';
+import { ITask } from '../models/itask-model';
+import { NotificationsService } from 'src/app/shared/notifications.service';
+import {DateAdapter, MAT_DATE_LOCALE} from '@angular/material/core';
 
 @Component({
   selector: 'app-create-task',
@@ -18,31 +20,56 @@ export class CreateTaskComponent implements OnInit {
   selectedPlant!: IPlantsList;
   selectedTask!: string;
   selectedDate!: Date;
+  plants!: IPlantsList[];
+  tasks!: any;
 
   @Input() patch!: IPatch;
 
-  tasks: TasksMethods[] = [
-    { value: 'Sowing in pots' },
-    { value: 'Sowing in soil' },
-    { value: 'Planting' },
-    { value: 'Other' }
-  ];
+  constructor(private patchService: PatchesService,
+    private notifications: NotificationsService,
+    private route: ActivatedRoute,
+    private router: Router,
+  ) {
 
-  constructor(private patchService: PatchesService, private route: ActivatedRoute,
-    private dateAdapter: DateAdapter<Date>
-    ){
-      this.dateAdapter.setLocale('en-GB'); //dd/MM/yyyy
-
-    }
+  }
 
   ngOnInit(): void {
     this.patch = this.patchService.getSinglePatch(this.route.snapshot.params['patchName']);
+    this.plants = this.patchService.getSinglePatch(this.route.snapshot.params['patchName'].plantlist)
+  }
+
+  getPlantStartingMethod() {
+    let patchPlantList: string;
+    if (this.patch.plantlist?.length && this.selectedPlant) {
+      for (let plant of this.patch.plantlist) {
+        if (plant.name == this.selectedPlant.name) {
+          patchPlantList = plant.startingMethod;
+
+          this.tasks =
+          [
+            { value: patchPlantList },
+            { value: 'Planting' },
+            { value: 'Other' }
+          ];
+        }
+      }
+    }
+}
+
+  saveTask(patchName: string, formValues: ITask) {
+    this.isDirty = false;
+    if (formValues.name === null) {
+      this.notifications.showError(`Oops something went wrong, please fill all the required fields`);
+    }
+    else {
+      this.patchService.saveTaskInPatch(patchName, formValues);
+      this.notifications.showSuccess(`${formValues.name} has been added to ${this.patch.name}`);
+      this.router.navigate(['garden']);
+      console.log(formValues);
+    }
   }
 
 
 }
 
-interface TasksMethods {
-  value: string;
-}
 

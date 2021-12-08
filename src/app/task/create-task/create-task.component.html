@@ -24,7 +24,7 @@
     <mat-form-field appearance="fill">
         <mat-label>Select</mat-label>
         <mat-select ngDefaultControl [(ngModel)]="selectedPlant" name="plant" required>
-          <mat-option class="plants-name" *ngFor="let plant of patch.plantlist" [value]="plant">
+          <mat-option class="plants-name" *ngFor="let plant of patch.plantlist" [value]="plant" (click)="getPlantStartingMethod()" >
             <p class="plant-name">{{plant.name}}</p>
           </mat-option>
         </mat-select>
@@ -32,12 +32,13 @@
     </div>
 
     <div class="form-group"
-    [ngClass]="{'error': newTaskForm.controls.task?.invalid && newTaskForm.controls.task?.touched}">Initial task:
-    <em *ngIf="newTaskForm.controls.task?.invalid && newTaskForm.controls.task?.touched"> *Required</em>
+    [ngClass]="{'error': newTaskForm.controls.action?.invalid && newTaskForm.controls.action?.touched}">Initial task:
+    <em *ngIf="newTaskForm.controls.action?.invalid && newTaskForm.controls.action?.touched"> *Required</em>
+    <em *ngIf="!selectedPlant"> *Select a plant</em>
     <mat-form-field appearance="fill">
         <mat-label>Select</mat-label>
-        <mat-select ngDefaultControl [(ngModel)]="selectedTask" name="task" required>
-          <mat-option class="plants-name" *ngFor="let task of tasks" [value]="task">
+        <mat-select ngDefaultControl [(ngModel)]="selectedTask" name="action" required>
+          <mat-option class="plants-name" *ngFor="let task of tasks" [value]="task.value" >
             <p class="plant-name">{{task.value}}</p>
           </mat-option>
         </mat-select>
@@ -45,11 +46,11 @@
     </div>
 
     <div class="form-group"
-      [ngClass]="{'error': newTaskForm.controls.date?.invalid && newTaskForm.controls.date?.touched}">Starting date:
-    <em *ngIf="newTaskForm.controls.date?.invalid && newTaskForm.controls.date?.touched"> *Required</em>
+      [ngClass]="{'error': newTaskForm.controls.startingDate?.invalid && newTaskForm.controls.startingDate?.touched}">Starting date:
+    <em *ngIf="newTaskForm.controls.startingDate?.invalid && newTaskForm.controls.startingDate?.touched"> *Required</em>
     <mat-form-field appearance="fill">
-      <mat-label>Choose a date</mat-label>
-      <input matInput [(ngModel)]="selectedDate" ngDefaultControl [matDatepicker]="picker" name="date" required />
+      <mat-label >Choose a date</mat-label>
+      <input class="date-input" matInput [(ngModel)]="selectedDate" ngDefaultControl [matDatepicker]="picker" name="startingDate" required />
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
@@ -58,8 +59,8 @@
 
     <div class="form-group">
       <div class="buttons">
-        <button id="save-plant" mat-button type="submit" class="save-new-patch-button" [disabled]="newTaskForm.invalid">Save</button>
         <button id="cancel-button" mat-button type="button" class="btn btn-default">Cancel</button>
+        <button id="save-task" mat-button type="submit" class="save-new-task-button" [disabled]="newTaskForm.invalid" (click)="saveTask(patch.name, newTaskForm.value)">Save</button>
       </div>
     </div>
   </form>

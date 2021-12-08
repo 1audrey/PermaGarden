@@ -10,7 +10,7 @@
       <div class="task-info">
       <p>Plant: {{task.plant.name}}</p>
       <p>Task: {{task.action}}</p>
-      <p>Starting date: {{task.startingDate}}</p>
+      <p>Starting date: {{task.startingDate | date:'dd/MM/yyyy'}}</p>
       <p>Next task: planting in soil </p>
       </div>
     </mat-card-footer>

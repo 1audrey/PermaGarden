@@ -1,7 +1,9 @@
+import { ContentObserver } from '@angular/cdk/observers';
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { IPlantsList } from '../garden-list/models/iplants-model';
 import { IPatch } from '../garden/models/ipatch-model';
+import { ITask } from '../task/models/itask-model';
 import * as patches from "./patch-list.json";
 
 @Injectable()
@@ -40,6 +42,19 @@ export class PatchesService {
     console.log(newPatch);
   }
 
+  saveTaskInPatch(patchName: string, task: ITask){
+    var newPatches: IPatch[] = [];
+
+    for (let patch of this.PATCHES) {
+      if (patch.name === patchName) {
+        patch.tasklist.push(task);
+      }
+      newPatches.push(patch);
+
+    }
+    this.PATCHES = newPatches;
+    console.log(this.PATCHES);
+  }
 
   PATCHES = (patches as any).default;
 }
