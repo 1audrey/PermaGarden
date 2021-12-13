@@ -13,7 +13,7 @@ public static readonly PLANTS_WEBSITE_URL: string = '/plants-list';
 public static readonly LOGIN_WEBSITE_URL: string = '/user/login';
 public static readonly USERPROFILE_WEBSITE_URL: string = '/user/profile';
 public static readonly GARDEN_WEBSITE_URL: string = '/garden';
-
+public static readonly TASKS_WEBSITE_URL: string ='/tasks';
 
 constructor(public auth: AuthService){}
 
@@ -41,6 +41,13 @@ openUserProfile(){
 openGarden() {
   const link = document.createElement('a');
   link.href = NavigationComponent.GARDEN_WEBSITE_URL;
+  link.setAttribute('visibility', 'hidden');
+  link.click();
+}
+
+openTasksList(){
+  const link = document.createElement('a');
+  link.href = NavigationComponent.TASKS_WEBSITE_URL;
   link.setAttribute('visibility', 'hidden');
   link.click();
 }

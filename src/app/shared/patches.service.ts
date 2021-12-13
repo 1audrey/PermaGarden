@@ -56,6 +56,31 @@ export class PatchesService {
     console.log(this.PATCHES);
   }
 
+  // getNextTask(patch: IPatch){
+  //   if (patch.tasklist?.length) {
+  //     for (let task of patch.tasklist) {
+  //       if(task.action == 'Sowing in pots' || task.action == 'Sowing in soil'){
+  //         return 'Planting';
+  //       }
+  //       return 'Harvesting';
+
+        // switch(task.action){
+        //   case 'Sowing in pots':
+        //     return 'Planting';
+
+        //   case 'Sowing in soil':
+        //     return 'Planting';
+
+        //   case 'Planting':
+        //     return 'Harvesting';
+        // }
+
+  //     }
+  //     return '';
+  //   }
+  //   return '';
+  // }
+
   PATCHES = (patches as any).default;
 }
 

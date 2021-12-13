@@ -61,6 +61,7 @@
           "November",
           "December"
         ],
+        "startingMethod": "Planting",
         "harvestingMonths":[
           "August",
           "September",
@@ -99,7 +100,9 @@
           "imageUrl": "assets/images/spring-onions.jpg"
         },
         "action": "Sowing in pots",
-        "startingDate": "01/12/2021"
+        "startingDate": "01/12/2021",
+        "nextTask": "",
+        "nextDate": ""
       },
       {
         "name": "Task for the apple tree",
@@ -112,6 +115,7 @@
             "November",
             "December"
           ],
+          "startingMethod": "Planting",
           "harvestingMonths":[
             "August",
             "September",
@@ -121,7 +125,9 @@
           "imageUrl":"assets/images/apples.jpg"
         },
         "action": "Planting",
-        "startingDate": "07/12/2021"
+        "startingDate": "07/12/2021",
+        "nextTask": "",
+        "nextDate": ""
       }
     ]
   },

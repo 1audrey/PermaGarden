@@ -35,7 +35,6 @@ export class CreateTaskComponent implements OnInit {
 
   ngOnInit(): void {
     this.patch = this.patchService.getSinglePatch(this.route.snapshot.params['patchName']);
-    this.plants = this.patchService.getSinglePatch(this.route.snapshot.params['patchName'].plantlist)
   }
 
   getPlantStartingMethod() {
@@ -48,8 +47,6 @@ export class CreateTaskComponent implements OnInit {
           this.tasks =
           [
             { value: patchPlantList },
-            { value: 'Planting' },
-            { value: 'Other' }
           ];
         }
       }
@@ -62,6 +59,7 @@ export class CreateTaskComponent implements OnInit {
       this.notifications.showError(`Oops something went wrong, please fill all the required fields`);
     }
     else {
+      formValues.nextTask === "";
       this.patchService.saveTaskInPatch(patchName, formValues);
       this.notifications.showSuccess(`${formValues.name} has been added to ${this.patch.name}`);
       this.router.navigate(['garden']);
