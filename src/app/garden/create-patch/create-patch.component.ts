@@ -56,7 +56,6 @@ export class CreatePatchComponent implements OnInit{
     }
     else
     {
-      formValues.plantlist === [];
       this.patchService.savePatch(formValues);
       this.notifications.showSuccess(`${formValues.name} has been added to your garden`);
       this.router.navigate(['garden']);

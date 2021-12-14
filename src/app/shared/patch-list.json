@@ -101,7 +101,7 @@
         },
         "action": "Sowing in pots",
         "startingDate": "01/12/2021",
-        "nextTask": "",
+        "nextTask": "Planting",
         "nextDate": ""
       },
       {
@@ -126,7 +126,7 @@
         },
         "action": "Planting",
         "startingDate": "07/12/2021",
-        "nextTask": "",
+        "nextTask": "Harvesting",
         "nextDate": ""
       }
     ]

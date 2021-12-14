@@ -5,6 +5,6 @@ export interface ITask {
   plant: IPlantsList,
   action: string,
   startingDate: Date,
-  nextTask?: string,
-  nextDate?: Date
+  nextTask: string,
+  nextDate: Date,
  }

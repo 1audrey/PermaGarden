@@ -3,23 +3,19 @@
     <div class="title-left">
       <h2>All the tasks in your garden</h2>
     </div>
-
     <div class="title-right">
-
       <button mat-button class="create-patch">Create a task</button>
     </div>
   </div>
-
 
   <div class="my-tasks">
     <div fxLayout="row wrap" fxLayoutGap="16px grid">
       <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="50%" fxFlex.md="50%" *ngFor="let task of allTasks">
         <div class="my-tasks">
-          <app-task-details
-          [task]="task">
-        </app-task-details>
-      </div>
+          <app-task-details [task]="task">
+          </app-task-details>
+        </div>
       </div>
     </div>
   </div>
-  </div>
+</div>

@@ -6,6 +6,7 @@ import { IPatch } from '../garden/models/ipatch-model';
 import { ITask } from '../task/models/itask-model';
 import * as patches from "./patch-list.json";
 
+
 @Injectable()
 export class PatchesService {
   patch!: IPatch;
@@ -20,8 +21,8 @@ export class PatchesService {
     return subject;
   }
 
-  getSinglePatch(patchName: string){
-    return this.PATCHES.find((patch: { name: string; }) => patch.name ===patchName)
+  getSinglePatch(patchName: string) {
+    return this.PATCHES.find((patch: { name: string; }) => patch.name === patchName)
   }
 
   savePlantInPatch(patchName: string, plant: IPlantsList) {
@@ -37,16 +38,18 @@ export class PatchesService {
 
   }
 
-  savePatch(newPatch: IPatch){
+  savePatch(newPatch: IPatch) {
     this.PATCHES.push(newPatch)
     console.log(newPatch);
   }
 
-  saveTaskInPatch(patchName: string, task: ITask){
+  saveTaskInPatch(patchName: string, task: ITask) {
     var newPatches: IPatch[] = [];
 
     for (let patch of this.PATCHES) {
       if (patch.name === patchName) {
+        this.givesNextTask(task);
+        this.calculateNextDate(patch, task);
         patch.tasklist.push(task);
       }
       newPatches.push(patch);
@@ -56,30 +59,33 @@ export class PatchesService {
     console.log(this.PATCHES);
   }
 
-  // getNextTask(patch: IPatch){
-  //   if (patch.tasklist?.length) {
-  //     for (let task of patch.tasklist) {
-  //       if(task.action == 'Sowing in pots' || task.action == 'Sowing in soil'){
-  //         return 'Planting';
-  //       }
-  //       return 'Harvesting';
+  givesNextTask(task: ITask) {
+    if (task.action == 'Sowing in pots' || task.action == 'Sowing in soil') {
+      task.nextTask = 'Planting';
+    }
+    else {
+      task.nextTask = 'Harvesting';
+    }
+  }
 
-        // switch(task.action){
-        //   case 'Sowing in pots':
-        //     return 'Planting';
+  calculateNextDate(patch: IPatch, task: ITask) {
+    var startDate = task.startingDate;
+    var numberOfDaysToAdd = 0;
+    var nextDate;
+    var isoTime;
 
-        //   case 'Sowing in soil':
-        //     return 'Planting';
-
-        //   case 'Planting':
-        //     return 'Harvesting';
-        // }
-
-  //     }
-  //     return '';
-  //   }
-  //   return '';
-  // }
+    if (patch.plantlist) {
+      for (let plant of patch.plantlist) {
+        if (plant.sowingPeriodInDays) {
+          numberOfDaysToAdd = plant.sowingPeriodInDays;
+          isoTime = Date.UTC(startDate.getFullYear(), startDate.getMonth(), startDate.getDate(), startDate.getHours(), startDate.getMinutes());
+          nextDate = new Date(isoTime);
+          nextDate.setDate(nextDate.getDate() + numberOfDaysToAdd);
+          task.nextDate = nextDate
+        }
+      }
+    }
+  };
 
   PATCHES = (patches as any).default;
 }

@@ -13,8 +13,6 @@ import { ITask } from '../models/itask-model';
 export class TaskDetailsComponent implements OnInit {
   @Input() task!: ITask;
   @Input() patch!: IPatch;
-  nextTask = 'next task';
-  nextDate: Date = new Date('12/12/2022')
   constructor(private patchService: PatchesService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
