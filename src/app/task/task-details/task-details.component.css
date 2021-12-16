@@ -82,3 +82,41 @@ mat-card-actions{
   flex-direction: column;
   align-items: center;
 }
+
+.today{
+  padding-bottom: 0px;
+  padding-top: 0px;
+  background-color: #fa990e;
+  opacity: 80%;
+  color:#114b0b;
+}
+
+.this-week{
+  padding-bottom: 0px;
+  padding-top: 0px;
+  background-color: #fecc47 ;
+  opacity: 80%;
+  color:#114b0b;
+
+}
+
+.later{
+  padding-bottom: 0px;
+  padding-top: 0px;
+  background-color: white ;
+}
+
+.next-task{
+  padding-bottom: 0px;
+  padding-top: 0px;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.past{
+  padding-bottom: 0px;
+  padding-top: 0px;
+  background-color: #fa450e;
+  opacity: 80%;
+  color:#114b0b;
+}

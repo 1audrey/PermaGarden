@@ -1,9 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute} from '@angular/router';
-import { Action } from 'rxjs/internal/scheduler/Action';
+import { ActivatedRoute } from '@angular/router';
 import { IPatch } from 'src/app/garden/models/ipatch-model';
 import { PatchesService } from 'src/app/shared/patches.service';
 import { ITask } from '../models/itask-model';
+import * as moment from 'moment';
+
 
 @Component({
   selector: 'app-task-details',
@@ -13,14 +14,16 @@ import { ITask } from '../models/itask-model';
 export class TaskDetailsComponent implements OnInit {
   @Input() task!: ITask;
   @Input() patch!: IPatch;
+
+  diffInDays!: number;
+  isGettingDate: boolean = false;
+
   constructor(private patchService: PatchesService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.patch = this.patchService.getSinglePatch(this.route.snapshot.params['patchName']);
-
-    ///needs to be calculated and returned from backend
-    ///needs to do the same for the nextDate
-    // this.nextTask = this.patchService.getNextTask(this.patch);
+    // this.diffInDays = this.patchService.getDifferenceBetweenTaskDateAndTodaydate(this.patch);
 
   }
+
 }

@@ -1,17 +1,16 @@
 <div>
-  <mat-card class="task">
+  <mat-card [ngClass]=" {
+    'past': task.daysDifferenceBetweenTaskAndToday < 0 ,'today': task.daysDifferenceBetweenTaskAndToday === 0 ,'this-week': task.daysDifferenceBetweenTaskAndToday >= 1 && task.daysDifferenceBetweenTaskAndToday <= 7 , 'later': task.daysDifferenceBetweenTaskAndToday >= 8}">
     <mat-card-content class="box">
       <mat-card-title class="title"> {{task.name | titlecase}}</mat-card-title>
       <button class="delete" ><mat-icon>delete_outline</mat-icon></button>
     </mat-card-content>
 
-
     <mat-card-footer class="card-footer">
       <div class="task-info">
       <p>Plant: {{task.plant.name}}</p>
-      <p>Task: {{task.action}}</p>
-      <p>Starting date: {{task.startingDate | date:'dd/MM/yyyy'}}</p>
-      <p>Next task: {{task.nextTask}} on {{task.nextDate | date:'dd/MM/yyyy' }}</p>
+      <p>Current task: {{task.action}} started on {{task.startingDate | date:'dd/MM/yyyy'}}</p>
+      <p class="next-task">Next task: {{task.nextTask}} on {{task.nextDate | date:'dd/MM/yyyy' }}</p>
       </div>
     </mat-card-footer>
   </mat-card>

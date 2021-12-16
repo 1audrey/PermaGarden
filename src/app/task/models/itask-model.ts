@@ -7,4 +7,5 @@ export interface ITask {
   startingDate: Date,
   nextTask: string,
   nextDate: Date,
+  daysDifferenceBetweenTaskAndToday: number;
  }

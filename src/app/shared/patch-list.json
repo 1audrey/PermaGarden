@@ -28,10 +28,9 @@
         "harvestingPeriodInDays": 120,
         "imageUrl": "assets/images/spring-onions.jpg"
       },
-
       {
-        "name":"Carrots",
-        "startingMonths":[
+        "name": "Carrots",
+        "startingMonths": [
           "February",
           "March",
           "April",
@@ -40,8 +39,8 @@
           "July"
         ],
         "startingMethod": "Sowing in soil",
-        "sowingPeriodInDays":21,
-        "harvestingMonths":[
+        "sowingPeriodInDays": 21,
+        "harvestingMonths": [
           "May",
           "June",
           "July",
@@ -49,12 +48,12 @@
           "September",
           "October"
         ],
-        "harvestingPeriodInDays":77,
-        "imageUrl":"assets/images/carrots.jpg"
+        "harvestingPeriodInDays": 77,
+        "imageUrl": "assets/images/carrots.jpg"
       },
       {
-        "name":"Apples",
-        "startingMonths":[
+        "name": "Apples",
+        "startingMonths": [
           "January",
           "February",
           "March",
@@ -62,13 +61,13 @@
           "December"
         ],
         "startingMethod": "Planting",
-        "harvestingMonths":[
+        "harvestingMonths": [
           "August",
           "September",
           "October",
           "November"
         ],
-        "imageUrl":"assets/images/apples.jpg"
+        "imageUrl": "assets/images/apples.jpg"
       }
     ],
     "tasklist": [
@@ -100,34 +99,41 @@
           "imageUrl": "assets/images/spring-onions.jpg"
         },
         "action": "Sowing in pots",
-        "startingDate": "01/12/2021",
+        "startingDate": "Tue Nov 23 2021 00:00:00 GMT+0000 (Greenwich Mean Time)",
         "nextTask": "Planting",
-        "nextDate": ""
+        "nextDate": "Tue Dec 14 2021 00:00:00 GMT+0000 (Greenwich Mean Time)"
       },
       {
-        "name": "Task for the apple tree",
+        "name": "Sowing the onions in pots",
         "plant": {
-          "name":"Apples",
-          "startingMonths":[
-            "January",
-            "February",
+          "name": "Spring Onions",
+          "startingMonths": [
             "March",
-            "November",
-            "December"
+            "April",
+            "May",
+            "June",
+            "July",
+            "August",
+            "September"
           ],
-          "startingMethod": "Planting",
-          "harvestingMonths":[
+          "startingMethod": "Sowing in pots",
+          "sowingPeriodInDays": 21,
+          "harvestingMonths": [
+            "January",
+            "April",
+            "June",
+            "July",
             "August",
             "September",
-            "October",
-            "November"
+            "October"
           ],
-          "imageUrl":"assets/images/apples.jpg"
+          "harvestingPeriodInDays": 120,
+          "imageUrl": "assets/images/spring-onions.jpg"
         },
-        "action": "Planting",
-        "startingDate": "07/12/2021",
-        "nextTask": "Harvesting",
-        "nextDate": ""
+        "action": "Sowing in pots",
+        "startingDate": "Tue Dec 7 2021 00:00:00 GMT+0000 (Greenwich Mean Time)",
+        "nextTask": "Planting",
+        "nextDate": "Tue Dec 28 2021 00:00:00 GMT+0000 (Greenwich Mean Time)"
       }
     ]
   },
@@ -136,5 +142,66 @@
     "icon": "assets/shapes/hexagon-shape.png",
     "plantlist": [],
     "tasklist": []
+  },
+  {
+    "name": "Patch 3",
+    "icon": "assets/shapes/square-shape.png",
+    "plantlist": [
+      {
+        "name": "Carrots",
+        "startingMonths": [
+          "February",
+          "March",
+          "April",
+          "May",
+          "June",
+          "July"
+        ],
+        "startingMethod": "Sowing in soil",
+        "sowingPeriodInDays": 21,
+        "harvestingMonths": [
+          "May",
+          "June",
+          "July",
+          "August",
+          "September",
+          "October"
+        ],
+        "harvestingPeriodInDays": 77,
+        "imageUrl": "assets/images/carrots.jpg"
+      }
+    ],
+    "tasklist": [
+      {
+        "name": "Sowing the carrots in soil",
+        "plant": {
+          "name": "Carrots",
+          "startingMonths": [
+            "February",
+            "March",
+            "April",
+            "May",
+            "June",
+            "July"
+          ],
+          "startingMethod": "Sowing in soil",
+          "sowingPeriodInDays": 21,
+          "harvestingMonths": [
+            "May",
+            "June",
+            "July",
+            "August",
+            "September",
+            "October"
+          ],
+          "harvestingPeriodInDays": 77,
+          "imageUrl": "assets/images/carrots.jpg"
+        },
+        "action": "Sowing in soil",
+        "startingDate": "Sun Nov 28 2021 00:00:00 GMT+0000 (Greenwich Mean Time)",
+        "nextTask": "Planting",
+        "nextDate": "Sat Dec 18 2021 00:00:00 GMT+0000 (Greenwich Mean Time)"
+      }
+    ]
   }
 ]

@@ -5,12 +5,21 @@ import { IPlantsList } from '../garden-list/models/iplants-model';
 import { IPatch } from '../garden/models/ipatch-model';
 import { ITask } from '../task/models/itask-model';
 import * as patches from "./patch-list.json";
+import * as moment from 'moment';
+import { AllTasksComponent } from '../task/all-tasks/all-tasks.component';
 
 
 @Injectable()
 export class PatchesService {
   patch!: IPatch;
+
   static PATCHES: any = [];
+
+  today = new Date();
+  nextDate!: any;
+  todayDate!: any;
+  diffInDays!: number;
+
   constructor() { }
 
   getPatch(): Observable<IPatch[]> {
@@ -22,7 +31,8 @@ export class PatchesService {
   }
 
   getSinglePatch(patchName: string) {
-    return this.PATCHES.find((patch: { name: string; }) => patch.name === patchName)
+    this.getDifferenceBetweenTaskDateAndTodaydate(patchName);
+    return this.PATCHES.find((patch: { name: string; }) => patch.name === patchName);
   }
 
   savePlantInPatch(patchName: string, plant: IPlantsList) {
@@ -49,7 +59,7 @@ export class PatchesService {
     for (let patch of this.PATCHES) {
       if (patch.name === patchName) {
         this.givesNextTask(task);
-        this.calculateNextDate(patch, task);
+        this.calculateNextDate(task);
         patch.tasklist.push(task);
       }
       newPatches.push(patch);
@@ -60,7 +70,7 @@ export class PatchesService {
   }
 
   givesNextTask(task: ITask) {
-    if (task.action == 'Sowing in pots' || task.action == 'Sowing in soil') {
+    if (task.action == 'Sowing in pots') {
       task.nextTask = 'Planting';
     }
     else {
@@ -68,24 +78,49 @@ export class PatchesService {
     }
   }
 
-  calculateNextDate(patch: IPatch, task: ITask) {
-    var startDate = task.startingDate;
-    var numberOfDaysToAdd = 0;
-    var nextDate;
-    var isoTime;
-
-    if (patch.plantlist) {
-      for (let plant of patch.plantlist) {
-        if (plant.sowingPeriodInDays) {
-          numberOfDaysToAdd = plant.sowingPeriodInDays;
-          isoTime = Date.UTC(startDate.getFullYear(), startDate.getMonth(), startDate.getDate(), startDate.getHours(), startDate.getMinutes());
-          nextDate = new Date(isoTime);
-          nextDate.setDate(nextDate.getDate() + numberOfDaysToAdd);
-          task.nextDate = nextDate
+  getAllTasks() {
+    var allTasks: ITask[] = [];
+    for (let patch of this.PATCHES) {
+      if (patch.tasklist?.length) {
+        for (let task of patch.tasklist) {
+          allTasks.push(task);
+          this.getDifferenceBetweenTaskDateAndTodaydate(patch.name);
         }
       }
     }
-  };
+    return allTasks;
+  }
+
+  getDifferenceBetweenTaskDateAndTodaydate(patchName: string){
+  for(let patch of this.PATCHES){
+    if(patch.name == patchName){
+      for(let task of patch.tasklist){
+        this.nextDate = moment(task.nextDate.toString());
+        this.todayDate = moment(this.today.toString()) ;
+        this.diffInDays = Math.ceil(this.nextDate.diff(this.todayDate, 'days'));
+        task.daysDifferenceBetweenTaskAndToday= this.diffInDays;
+        console.log(`the difference between planting and sowing dates ${this.diffInDays} for ${task.name}`);
+    }
+  }
+}
+    return this.diffInDays;
+}
+
+
+  calculateNextDate(task: ITask) {
+    var startDate = task.startingDate;
+    var numberOfDaysToAdd: number;
+    var nextDateForTask;
+    var isoTime;
+
+        if (task.plant.sowingPeriodInDays) {
+          numberOfDaysToAdd = Number(task.plant.sowingPeriodInDays);
+          isoTime = Date.UTC(startDate.getFullYear(), startDate.getMonth(), startDate.getDate(), startDate.getHours(), startDate.getMinutes());
+          nextDateForTask = new Date(isoTime);
+          nextDateForTask.setDate(nextDateForTask.getDate() + numberOfDaysToAdd);
+          task.nextDate = nextDateForTask;
+    }
+  }
 
   PATCHES = (patches as any).default;
 }
