@@ -91,35 +91,52 @@ export class PatchesService {
     return allTasks;
   }
 
-  getDifferenceBetweenTaskDateAndTodaydate(patchName: string){
-  for(let patch of this.PATCHES){
-    if(patch.name == patchName){
-      for(let task of patch.tasklist){
-        this.nextDate = moment(task.nextDate.toString());
-        this.todayDate = moment(this.today.toString()) ;
-        this.diffInDays = Math.ceil(this.nextDate.diff(this.todayDate, 'days'));
-        task.daysDifferenceBetweenTaskAndToday= this.diffInDays;
-        console.log(`the difference between planting and sowing dates ${this.diffInDays} for ${task.name}`);
+  getDifferenceBetweenTaskDateAndTodaydate(patchName: string) {
+    for (let patch of this.PATCHES) {
+      if (patch.name == patchName) {
+        for (let task of patch.tasklist) {
+          this.nextDate = moment(task.nextDate.toString());
+          this.todayDate = moment(this.today.toString());
+          this.diffInDays = Math.ceil(this.nextDate.diff(this.todayDate, 'days'));
+          task.daysDifferenceBetweenTaskAndToday = this.diffInDays;
+          console.log(`the difference between planting and sowing dates ${this.diffInDays} for ${task.name}`);
+        }
+      }
     }
-  }
-}
     return this.diffInDays;
-}
+  }
 
 
   calculateNextDate(task: ITask) {
     var startDate = task.startingDate;
     var numberOfDaysToAdd: number;
+
+    switch (task.plant.startingMethod) {
+      case ('Sowing in pots'):
+        numberOfDaysToAdd = Number(task.plant.sowingPeriodInDays);
+        this.calculateDate(task, startDate, numberOfDaysToAdd);
+        break;
+
+      case ('Sowing in soil'):
+        numberOfDaysToAdd = Number(task.plant.harvestingPeriodInDays);
+        this.calculateDate(task, startDate, numberOfDaysToAdd);
+        break;
+
+      case ('Planting'):
+        numberOfDaysToAdd = Number(task.plant.harvestingPeriodInDays);
+        break
+    }
+
+  }
+
+  calculateDate(task: ITask, startDate: Date, numberOfDays: number) {
     var nextDateForTask;
     var isoTime;
 
-        if (task.plant.sowingPeriodInDays) {
-          numberOfDaysToAdd = Number(task.plant.sowingPeriodInDays);
-          isoTime = Date.UTC(startDate.getFullYear(), startDate.getMonth(), startDate.getDate(), startDate.getHours(), startDate.getMinutes());
-          nextDateForTask = new Date(isoTime);
-          nextDateForTask.setDate(nextDateForTask.getDate() + numberOfDaysToAdd);
-          task.nextDate = nextDateForTask;
-    }
+    isoTime = Date.UTC(startDate.getFullYear(), startDate.getMonth(), startDate.getDate(), startDate.getHours(), startDate.getMinutes());
+    nextDateForTask = new Date(isoTime);
+    nextDateForTask.setDate(nextDateForTask.getDate() + numberOfDays);
+    task.nextDate = nextDateForTask;
   }
 
   PATCHES = (patches as any).default;
