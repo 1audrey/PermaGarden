@@ -96,8 +96,8 @@ export class PatchesService {
     for (let patch of this.PATCHES) {
       if (patch.name == patchName) {
         for (let task of patch.tasklist) {
-          this.nextDate = moment(task.nextDate.toString().substring(0,10));
-          this.todayDate = moment(this.today.toString().substring(0,10));
+          this.nextDate = moment(task.nextDate.toString().substring(0,15));
+          this.todayDate = moment(this.today.toString().substring(0,15));
           this.diffInDays = Math.ceil(this.nextDate.diff(this.todayDate, 'days'));
           task.daysDifferenceBetweenTaskAndToday = this.diffInDays;
           console.log(`the difference between planting and sowing dates ${this.diffInDays} for ${task.name}`);
