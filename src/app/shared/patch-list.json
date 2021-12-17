@@ -99,9 +99,9 @@
           "imageUrl": "assets/images/spring-onions.jpg"
         },
         "action": "Sowing in pots",
-        "startingDate": "Tue Nov 23 2021 00:00:00 GMT+0000 (Greenwich Mean Time)",
+        "startingDate": "Fri Nov 26 2021 00:00:00 GMT+0000 (Greenwich Mean Time)",
         "nextTask": "Planting",
-        "nextDate": "Tue Dec 14 2021 00:00:00 GMT+0000 (Greenwich Mean Time)"
+        "nextDate": "Fri Dec 17 2021 00:00:00 GMT+0000 (Greenwich Mean Time)"
       },
       {
         "name": "Sowing the onions in pots",
