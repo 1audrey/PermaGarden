@@ -149,10 +149,21 @@ export class PatchesService {
     var nextDateForTask;
 
     if (startDate.getMonth() < harvestingFirstMonth) {
-      nextDateForTask = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate(), startDate.getHours(), startDate.getMinutes());
-      console.log("Current date:", nextDateForTask);
-      nextDateForTask.setMonth(nextDateForTask.getMonth() + harvestingFirstMonth);
-      console.log("Date after " + harvestingFirstMonth + " months:", nextDateForTask);
+      nextDateForTask = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate());
+
+      nextDateForTask.setMonth(nextDateForTask.getMonth() - nextDateForTask.getMonth() + harvestingFirstMonth - 1);
+      nextDateForTask.setDate(nextDateForTask.getDate() - nextDateForTask.getDate() + 1);
+
+      task.nextDate = nextDateForTask;
+    }
+    else if(startDate.getMonth() > harvestingFirstMonth){
+      nextDateForTask = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate());
+
+      nextDateForTask.setFullYear(nextDateForTask.getFullYear() + 1);
+      nextDateForTask.setMonth(nextDateForTask.getMonth() - nextDateForTask.getMonth() + harvestingFirstMonth - 1);
+      nextDateForTask.setDate(nextDateForTask.getDate() - nextDateForTask.getDate() + 1);
+
+      task.nextDate = nextDateForTask;
     }
   }
 
