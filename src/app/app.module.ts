@@ -53,6 +53,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import {MatInputModule} from '@angular/material/input';
 import {MatMenuModule} from '@angular/material/menu';
+import { CompleteTaskDialogComponent } from './task/complete-task-dialog/complete-task-dialog.component';
 
 
 
@@ -74,6 +75,7 @@ import {MatMenuModule} from '@angular/material/menu';
     AllTasksComponent,
     TaskDetailsComponent,
     CreateTaskComponent,
+    CompleteTaskDialogComponent,
 
   ],
   imports: [

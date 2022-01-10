@@ -72,7 +72,7 @@
     ],
     "tasklist": [
       {
-        "name": "Sowing the spring onions in pots",
+        "patchName": "Patch 1 in the left corner of the garden",
         "plant": {
           "name": "Spring Onions",
           "startingMonths": [
@@ -104,7 +104,7 @@
         "nextDate": "Fri Dec 17 2021 00:00:00 GMT+0000 (Greenwich Mean Time)"
       },
       {
-        "name": "Sowing the onions in pots",
+        "patchName": "Patch 1 in the left corner of the garden",
         "plant": {
           "name": "Spring Onions",
           "startingMonths": [
@@ -173,7 +173,7 @@
     ],
     "tasklist": [
       {
-        "name": "Sowing the carrots in soil",
+        "patchName": "Patch 3",
         "plant": {
           "name": "Carrots",
           "startingMonths": [
@@ -199,7 +199,7 @@
         },
         "action": "Sowing in soil",
         "startingDate": "Sun Nov 28 2021 00:00:00 GMT+0000 (Greenwich Mean Time)",
-        "nextTask": "Planting",
+        "nextTask": "Harvesting",
         "nextDate": "Sun Feb 13 2022 00:00:00 GMT+0000 (Greenwich Mean Time)"
       }
     ]

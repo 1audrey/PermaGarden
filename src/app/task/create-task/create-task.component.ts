@@ -23,6 +23,7 @@ export class CreateTaskComponent implements OnInit {
   plants!: IPlantsList[];
   tasks!: any;
 
+
   @Input() patch!: IPatch;
 
   constructor(private patchService: PatchesService,
@@ -55,15 +56,12 @@ export class CreateTaskComponent implements OnInit {
 
   saveTask(patchName: string, formValues: ITask) {
     this.isDirty = false;
-    if (formValues.name === null) {
-      this.notifications.showError(`Oops something went wrong, please fill all the required fields`);
-    }
-    else {
-      this.patchService.saveTaskInPatch(patchName, formValues);
-      this.notifications.showSuccess(`${formValues.name} has been added to ${this.patch.name}`);
-      this.router.navigate(['garden']);
-      console.log(formValues);
-    }
+    formValues.patchName = patchName;
+    this.patchService.saveTaskInPatch(patchName, formValues);
+    this.notifications.showSuccess(`${formValues.action} has been added to ${this.patch.name}`);
+    this.router.navigate(['garden']);
+    console.log(formValues);
+
   }
 
   cancel() {

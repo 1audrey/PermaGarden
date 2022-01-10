@@ -1,17 +1,23 @@
 <div>
-  <mat-card [ngClass]=" {
+  <mat-card
+    [ngClass]=" {
     'past': task.daysDifferenceBetweenTaskAndToday < 0 ,'today': task.daysDifferenceBetweenTaskAndToday === 0 ,'this-week': task.daysDifferenceBetweenTaskAndToday >= 1 && task.daysDifferenceBetweenTaskAndToday <= 7 , 'later': task.daysDifferenceBetweenTaskAndToday >= 8}">
-    <mat-card-content class="box">
-      <mat-card-title class="title"> {{task.name | titlecase}}</mat-card-title>
-      <button class="delete" ><mat-icon>delete_outline</mat-icon></button>
-    </mat-card-content>
+    <mat-card-header>
+      <mat-card-title class="title"> {{task.patchName | titlecase}}</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-actions class="actions">
+      <div class="task-info">
+        <p>{{task.plant.name}}</p>
+        <p>Current task: {{task.action}} started on {{task.startingDate | date:'dd/MM/yyyy'}}</p>
+        <p class="next-task">Next task: {{task.nextTask}} from {{task.nextDate | date:'dd/MM/yyyy' }}</p>
+      </div>
+    </mat-card-actions>
 
     <mat-card-footer class="card-footer">
-      <div class="task-info">
-      <p>Plant: {{task.plant.name}}</p>
-      <p>Current task: {{task.action}} started on {{task.startingDate | date:'dd/MM/yyyy'}}</p>
-      <p class="next-task">Next task: {{task.nextTask}} from {{task.nextDate | date:'dd/MM/yyyy' }}</p>
-      </div>
+      <button mat-button class="open-button" (click)="openTask()">Complete</button>
+      <button mat-button class="edit-patch">Abort</button>
+
     </mat-card-footer>
   </mat-card>
-  </div>
+</div>

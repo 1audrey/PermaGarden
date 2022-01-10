@@ -9,18 +9,22 @@
   font-size: 16px;
   text-align: center;
   padding-top:12px;
+  width:100%;
 }
 
 mat-card-footer{
   padding-bottom:0px;
   vertical-align: middle;
+  background-color: white;
+  margin: 0px;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+
 }
 
 .card-footer{
-  margin-top: 12px;
+  padding-top: 12px;
   margin-bottom: 0px;
-  margin-left: 5px;
-  margin-right: 5px;
   padding-bottom: 12px;
   width: 100%;
   vertical-align: middle;
@@ -34,46 +38,6 @@ mat-card-footer{
   float:left;
 }
 
-mat-card-content{
-  margin-bottom: 0px;
-  width:100%;
-  object-fit: cover;
-  color:#114b0b;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: nowrap;
-}
-
-mat-card-actions{
-  margin-bottom: 0px;
-  width:100%;
-  object-fit: cover;
-  color:#114b0b;
-  display: flex;
-  flex-wrap: nowrap;
-  align-content: center;
-  justify-content: center;
-  align-items: center;
-  flex-direction: row;
-  margin-left: 0px;
-}
-
-.delete{
-  position: absolute;
-  top: 12px;
-  left: 87%;
-  border-radius: 5px;
-  border-color: transparent;
-  background-color: white;
-}
-
-.delete:hover{
-  cursor:pointer;
-  background-color:#fafafa;
-}
-
 .task-info{
   width:100%;
   overflow-x:auto;
@@ -81,6 +45,9 @@ mat-card-actions{
   display: flex;
   flex-direction: column;
   align-items: center;
+  text-align: center;
+  padding-left: 8px;
+  padding-right: 8px;
 }
 
 .today{
@@ -88,7 +55,7 @@ mat-card-actions{
   padding-top: 0px;
   background-color: #fa990e;
   opacity: 80%;
-  color:#114b0b;
+  color:black;
 }
 
 .this-week{
@@ -96,14 +63,15 @@ mat-card-actions{
   padding-top: 0px;
   background-color: #fecc47 ;
   opacity: 80%;
-  color:#114b0b;
-
+  color:black;
 }
 
 .later{
   padding-bottom: 0px;
   padding-top: 0px;
   background-color: white ;
+  color:black;
+  opacity: 80%;
 }
 
 .next-task{
@@ -118,5 +86,45 @@ mat-card-actions{
   padding-top: 0px;
   background-color: #fa450e;
   opacity: 80%;
-  color:#114b0b;
+  color:black;
+}
+
+mat-card-actions{
+  margin-left:16px;
+  margin-right:16px;
+  margin-bottom: 0px;
+  width:100%;
+  object-fit: cover;
+  color:black;
+  display: flex;
+  flex-wrap: nowrap;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  margin-left: 0px;
+}
+
+mat-card-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+mat-card{
+  padding: 0px;
+}
+
+.open-button{
+  color: white;
+  border-color: #a4dbe4;
+  background-color: #a4dbe4;
+  font-size: 12px;
+  font-weight: 0px;
+  margin-right: 8px;
+}
+
+.open-button:hover {
+  color: white;
+  border-color: #5fc3d3;
+  background-color: #5fc3d3;
 }
