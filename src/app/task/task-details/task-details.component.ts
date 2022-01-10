@@ -32,7 +32,7 @@ export class TaskDetailsComponent implements OnInit {
 
   openTask(){
     const dialogRef = this.dialog.open(CompleteTaskDialogComponent, {
-      width: '250px',
+      width: '50%',
       data: {
         patchName: this.task.patchName,
         action: this.task.action,
@@ -44,15 +44,16 @@ export class TaskDetailsComponent implements OnInit {
         realHarvestingDate: this.task.realHarvestingDate,
         transplantDate: this.task.transplantDate,
         firstTaskSuccess: this.task.firstTaskSuccess,
-
        },
     });
 
     dialogRef.afterClosed().subscribe(result => {
+      if(result){
       this.task = result;
-      if(result.firstTaskSuccess === 'No'){
+      if(result.firstTaskSuccess === 'No' || result.harvestingWeight != null){
         this.taskDeleted.emit();
       }
+    }
 
     });
 

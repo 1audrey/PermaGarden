@@ -16,8 +16,6 @@ export class CompleteTaskDialogComponent {
   selectedHarvestingDate!: Array<Date>;
   selectedTransplantDate!: Date;
 
-  @Output() taskDeleted: EventEmitter<any> = new EventEmitter();
-
   answers: string[] = [
     "Yes",
     "No"
@@ -29,6 +27,10 @@ export class CompleteTaskDialogComponent {
     private patchService: PatchesService,
     private notifications: NotificationsService
     ) { }
+
+  cancel(){
+    this.dialogRef.close();
+    }
 
   save(formValues: ITask){
     if(this.selectedTransplantDate){
@@ -49,7 +51,6 @@ export class CompleteTaskDialogComponent {
   }
 
   failedTask(formValues: ITask){
-    if(this.selectedAnswer == "No"){
       this.isDirty = false;
       formValues.patchName = this.task.patchName;
       formValues.action = this.task.action;
@@ -59,12 +60,25 @@ export class CompleteTaskDialogComponent {
       formValues.nextDate = this.task.nextDate;
       formValues.daysDifferenceBetweenTaskAndToday = this.task.daysDifferenceBetweenTaskAndToday;
       console.log(formValues);
-      this.taskDeleted.emit();
-      this.patchService.saveFailedTaskInPatch(this.taskDeleted, formValues);
+      this.patchService.saveFailedTaskInPatch(formValues);
       this.notifications.showSuccess(`${formValues.patchName} has been successfully updated`);
       this.dialogRef.close(formValues);
-    }
   }
+
+  saveHarvestTask(formValues: ITask){
+    this.isDirty = false;
+    formValues.patchName = this.task.patchName;
+    formValues.action = this.task.action;
+    formValues.nextTask = this.task.nextTask;
+    formValues.plant = this.task.plant;
+    formValues.startingDate = this.task.startingDate;
+    formValues.nextDate = this.task.nextDate;
+    console.log(formValues);
+    this.patchService.saveHarvestedTaskInPatch(formValues);
+    this.notifications.showSuccess(`${formValues.patchName} has been successfully updated`);
+    this.dialogRef.close(formValues);
+  }
+
 
 
 }

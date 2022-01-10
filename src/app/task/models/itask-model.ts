@@ -8,9 +8,10 @@ export interface ITask {
   nextTask: string,
   nextDate: Date,
   daysDifferenceBetweenTaskAndToday: number,
-  realHarvestingDate: Date,
+  realHarvestingDate?: Date,
   transplantDate?: Date,
   firstTaskSuccess?: boolean,
   failure?: string
+  harvestingWeight?: number
 
  }

@@ -228,7 +228,7 @@ export class PatchesService {
     this.PATCHES = newPatches;
   }
 
-  saveFailedTaskInPatch(taskDeleted:any, task: ITask){
+  saveFailedTaskInPatch(task: ITask){
     var newFailedPatches: IPatch[] = [];
 
     for (let patch of this.PATCHES) {
@@ -239,6 +239,19 @@ export class PatchesService {
     }
     this.PATCHES = newFailedPatches;
   }
+
+  saveHarvestedTaskInPatch(task: ITask){
+    var newHarvestedPatches: IPatch[] = [];
+
+    for (let patch of this.PATCHES) {
+      if (patch.name === task.patchName ) {
+        patch.tasklist.push(task);
+      }
+      newHarvestedPatches.push(patch);
+    }
+    this.PATCHES = newHarvestedPatches;
+  }
+
 
   PATCHES = (patches as any).default;
 }

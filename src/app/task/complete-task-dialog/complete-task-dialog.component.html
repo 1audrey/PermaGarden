@@ -2,8 +2,9 @@
 
   <div class="form-group"
     [ngClass]="{'error': nextTaskForm.controls.firstTaskSuccess?.invalid && nextTaskForm.controls.firstTaskSuccess?.touched}">
-    <p>Have the current task '{{task.action | lowercase }}' for the {{task.plant.name | lowercase }} been successfull? </p>
-    <em *ngIf="nextTaskForm.controls.firstTaskSuccess?.invalid && nextTaskForm.controls.firstTaskSuccess?.touched"> *Required</em>
+    <p>Have '{{task.action | lowercase }}' been successfull? </p>
+    <em *ngIf="nextTaskForm.controls.firstTaskSuccess?.invalid && nextTaskForm.controls.firstTaskSuccess?.touched">
+      *Required </em>
     <mat-form-field appearance="fill">
       <mat-label>Select</mat-label>
       <mat-select ngDefaultControl [(ngModel)]="selectedAnswer" name="firstTaskSuccess" required>
@@ -15,58 +16,81 @@
   </div>
 
   <div class="form-group" *ngIf="selectedAnswer == 'Yes';else answerIsNo"
-  [ngClass]="{'error': nextTaskForm.controls.transplantDate?.invalid && nextTaskForm.controls.transplantDate?.touched}">
-  <div class="sowing-in-pots" *ngIf="task.action == 'Sowing in pots';else IsHarvesting">
-    <p>Select the date from which you have/want to transplant the {{task.plant.name}}?</p>
-<em *ngIf="nextTaskForm.controls.transplantDate?.invalid && nextTaskForm.controls.transplantDate?.touched"> *Required</em>
-<mat-form-field appearance="fill">
-  <mat-label >Choose a date</mat-label>
-  <input class="date-input" matInput [(ngModel)]="selectedTransplantDate" ngDefaultControl [matDatepicker]="picker" name="transplantDate" required />
-  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-  <mat-datepicker #picker></mat-datepicker>
-</mat-form-field>
-</div>
+    [ngClass]="{'error': nextTaskForm.controls.transplantDate?.invalid && nextTaskForm.controls.transplantDate?.touched}">
+    <div class="sowing-in-pots" *ngIf="task.action == 'Sowing in pots';else IsHarvesting">
+      <p>Select the date from which you have/want to transplant the {{task.plant.name}}?</p>
+      <em *ngIf="nextTaskForm.controls.transplantDate?.invalid && nextTaskForm.controls.transplantDate?.touched">
+        *Required </em>
+      <mat-form-field appearance="fill">
+        <mat-label>Choose a date</mat-label>
+        <input class="date-input" matInput [(ngModel)]="selectedTransplantDate" ngDefaultControl
+          [matDatepicker]="picker" name="transplantDate" required />
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+    </div>
 
-<div *ngIf="selectedTransplantDate">
-  <p>Thank you, the data will be saved in your history and the next task will be automatically set up</p>
-</div>
+    <div *ngIf="selectedTransplantDate">
+      <p>Thank you, the data will be saved in your history and the next task will be automatically set up.</p>
 
-
-    <div>
-      <button id="cancel-button" mat-button type="button" class="btn btn-default" >Cancel</button>
-      <button id="save-task" mat-button type="submit" class="save-new-task-button" [disabled]="nextTaskForm.invalid" (click)="save(nextTaskForm.value)">Save</button>
+      <div>
+        <button id="cancel-button" mat-button type="button" class="btn btn-default" (click)="cancel()">Cancel</button>
+        <button id="save-task" mat-button type="submit" class="save-new-task-button" [disabled]="nextTaskForm.invalid"
+          (click)="save(nextTaskForm.value)">Save</button>
+      </div>
     </div>
 
     <ng-template #IsHarvesting>
-    <div class="harvesting">
-      <div class="form-group"
-      [ngClass]="{'error': nextTaskForm.controls.realHarvestingDate?.invalid && nextTaskForm.controls.startingDate?.touched}">When did you harvest?:
-    <em *ngIf="nextTaskForm.controls.startingDate?.invalid && nextTaskForm.controls.startingDate?.touched"> *Required</em>
-    <mat-form-field appearance="fill">
-      <mat-label >Choose a date</mat-label>
-      <input class="date-input" matInput [(ngModel)]="selectedHarvestingDate" ngDefaultControl [matDatepicker]="picker" name="startingDate" required />
-      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
-    </mat-form-field>
-  </div>
-      <button id="cancel-button" mat-button type="button" class="btn btn-default" >Cancel</button>
-      <button id="save-task" mat-button type="submit" class="save-new-task-button" [disabled]="nextTaskForm.invalid">Save</button>
-    </div>
-  </ng-template>
-  </div>
+      <div class="harvesting">
+        <div class="form-group"
+          [ngClass]="{'error': nextTaskForm.controls.realHarvestingDate?.invalid && nextTaskForm.controls.startingDate?.touched}">
+          When did you harvest?:
+          <em *ngIf="nextTaskForm.controls.startingDate?.invalid && nextTaskForm.controls.startingDate?.touched">
+            *Required </em>
+          <mat-form-field appearance="fill">
+            <mat-label>Choose a date</mat-label>
+            <input class="date-input" matInput [(ngModel)]="selectedHarvestingDate" ngDefaultControl
+              [matDatepicker]="picker" name="startingDate" required />
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
 
+          <div class="form-group"
+            [ngClass]="{'error': nextTaskForm.controls.harvestingWeight?.invalid && nextTaskForm.controls.harvestingWeight?.touched}">
+            <div class="harvesting-weight">
+              <div class="label-error">
+                <label for="harvestingWeight">Harvest weight :</label>
+                <em
+                  *ngIf="nextTaskForm.controls.harvestingWeight?.invalid && nextTaskForm.controls.harvestingWeight?.touched">
+                  *Required </em>
+              </div>
+              <input (ngModel)="task.harvestingWeight" name="harvestingWeight" required id="harvestingWeight"
+                type="number" class="form-control" placeholder="Enter the weight..." />
+            </div>
+          </div>
+        </div>
+        <button id="cancel-button" mat-button type="button" class="btn btn-default" (click)="cancel()">Cancel</button>
+        <button id="save-task" mat-button type="submit" class="save-new-task-button" [disabled]="nextTaskForm.invalid"
+          (click)="saveHarvestTask(nextTaskForm.value)">Save</button>
+      </div>
+    </ng-template>
+  </div>
 
   <ng-template #answerIsNo>
-    <div *ngIf="selectedAnswer == 'No'" class="form-group" [ngClass]="{'error': nextTaskForm.controls.failure?.invalid && nextTaskForm.controls.failure?.touched}">
-      <label for="failure">Reason why</label>
-      <em *ngIf="nextTaskForm.controls.failure?.invalid && nextTaskForm.controls.failure?.touched"> *Required</em>
-      <textarea (ngModel)="task.failure" name="failure" required id="failure" type="text" class="form-control" placeholder="Reason why it might have fail..." >
+    <div *ngIf="selectedAnswer == 'No'" class="form-group"
+      [ngClass]="{'error': nextTaskForm.controls.failure?.invalid && nextTaskForm.controls.failure?.touched}">
+      <div class="label-error">
+        <label for="failure">Reason why?</label>
+        <em *ngIf="nextTaskForm.controls.failure?.invalid && nextTaskForm.controls.failure?.touched"> *Required </em>
+      </div>
+      <textarea (ngModel)="task.failure" name="failure" required id="failure" type="text" class="form-control"
+        placeholder="Reason why it might have fail...">
       </textarea>
+      <button id="cancel-button" mat-button type="button" class="btn btn-default" (click)="cancel()">Cancel</button>
+      <button id="save-task" mat-button type="submit" class="save-new-task-button" [disabled]="nextTaskForm.invalid"
+        (click)="failedTask(nextTaskForm.value)">Save</button>
+
     </div>
-  <div>
-  <button id="cancel-button" mat-button type="button" class="btn btn-default" >Cancel</button>
-  <button id="save-task" mat-button type="submit" class="save-new-task-button" [disabled]="nextTaskForm.invalid" (click)="failedTask(nextTaskForm.value)">Save</button>
-</div>
   </ng-template>
 
 </form>
