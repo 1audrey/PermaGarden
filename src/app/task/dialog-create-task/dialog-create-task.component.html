@@ -1,12 +1,9 @@
-
 <div *ngIf="isLoading">
-<div *ngIf="patches.length; else noPatches"  >
-<h1 mat-dialog-title>Add {{plant.name}} to my garden</h1>
-
+  <div *ngIf="patches.length ;else noPatches"  >
 <mat-dialog-content>
   <mat-form-field appearance="fill">
     <mat-label>Select a patch</mat-label>
-    <mat-select class="select" [formControl]="patchControl" [(ngModel)]="patchName" (valueChange)="onSelection()" required>
+    <mat-select class="select" [formControl]="patchControl" [(ngModel)]="patchName" required>
       <mat-option *ngFor="let patch of patches" [value]="patch.name">
         {{patch.name}}
       </mat-option>
@@ -18,13 +15,14 @@
 
 <div mat-dialog-actions>
   <button mat-button id="cancel" (click)="cancel()">No Thanks</button>
-  <button mat-button (click)="patchControl.valid && addOnGardenPage(patchName, plant)" cdkFocusInitial>Save</button>
+  <button mat-button (click)="patchControl.valid && createTaskPage(patchName)"  cdkFocusInitial>Save</button>
 </div>
 </div>
 
+<div>
 <ng-template #noPatches class="no-patches">
   <mat-dialog-content>
-    <p>You need to have at least one patch in your garden before adding plants</p>
+    <p>You need to have at least one patch in your garden before creating a task</p>
     <div class="buttons">
     <button mat-button (click)="cancel()">Cancel</button>
     <button mat-button class="create-patch"(click)="createPatch()">Create a patch</button>

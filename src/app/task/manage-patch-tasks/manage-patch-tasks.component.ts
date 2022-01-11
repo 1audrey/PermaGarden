@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ActivatedRoute, Route, Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { IPlantsList } from 'src/app/garden-list/models/iplants-model';
+import { IPatch } from 'src/app/garden/models/ipatch-model';
 import { NotificationsService } from 'src/app/shared/notifications.service';
 import { PatchesService } from 'src/app/shared/patches.service';
 import { CreateTaskComponent } from '../create-task/create-task.component';
+import { ITask } from '../models/itask-model';
 
 @Component({
   selector: 'app-manage-patch-tasks',
@@ -13,6 +16,7 @@ import { CreateTaskComponent } from '../create-task/create-task.component';
 })
 export class ManagePatchTasksComponent implements OnInit {
   patch!: any;
+  task!: ITask;
 
   constructor(private patchService: PatchesService,
     private route: ActivatedRoute,
@@ -35,4 +39,10 @@ export class ManagePatchTasksComponent implements OnInit {
     this.notification.showWarning('You need to add a plant to your patch before creating a task');
   }
 
+  onTaskDeleted(task: ITask){
+    var index = this.patch.tasklist.findIndex((deletedTask: ITask) => (deletedTask === task));
+    if (index != -1) {
+      this.patch.tasklist.splice(index, 1);
+    }
+  }
 }

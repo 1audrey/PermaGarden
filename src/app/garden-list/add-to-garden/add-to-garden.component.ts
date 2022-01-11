@@ -31,8 +31,8 @@ export class AddToGardenComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.patchService.getPatch().subscribe(result => {
-      this.patches = result;
+    this.patchService.getPatch().subscribe(allPatches => {
+      this.patches = allPatches;
       this.isLoading = true;
     });
   }

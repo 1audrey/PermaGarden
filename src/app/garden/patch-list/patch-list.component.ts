@@ -1,7 +1,7 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { IPatch } from '../models/ipatch-model';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PatchesService } from 'src/app/shared/patches.service';
 
 
@@ -26,7 +26,7 @@ export class PatchListComponent {
 
   state = 'collapsed';
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute, private router: Router) { }
 
   toggle(): void {
     this.state = this.state === 'collapsed' ? 'expanded' : 'collapsed';
@@ -41,7 +41,8 @@ export class PatchListComponent {
   }
 
   openTask(){
-   this.route.snapshot.params['patchName'];
+   this.route.snapshot.params['patchName' ];
+  //  this.router.navigate(['/patchName'], { queryParams: { openFromPatch: true } });
 
   }
 

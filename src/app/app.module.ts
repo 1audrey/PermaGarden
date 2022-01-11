@@ -54,6 +54,7 @@ import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import {MatInputModule} from '@angular/material/input';
 import {MatMenuModule} from '@angular/material/menu';
 import { CompleteTaskDialogComponent } from './task/complete-task-dialog/complete-task-dialog.component';
+import { DialogCreateTaskComponent } from './task/dialog-create-task/dialog-create-task.component';
 
 
 
@@ -76,6 +77,7 @@ import { CompleteTaskDialogComponent } from './task/complete-task-dialog/complet
     TaskDetailsComponent,
     CreateTaskComponent,
     CompleteTaskDialogComponent,
+    DialogCreateTaskComponent,
 
   ],
   imports: [

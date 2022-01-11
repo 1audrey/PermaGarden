@@ -3,10 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { IPatch } from 'src/app/garden/models/ipatch-model';
 import { PatchesService } from 'src/app/shared/patches.service';
 import { ITask } from '../models/itask-model';
-import * as moment from 'moment';
 import { MatDialog } from '@angular/material/dialog';
 import { CompleteTaskDialogComponent } from '../complete-task-dialog/complete-task-dialog.component';
-
 
 @Component({
   selector: 'app-task-details',
@@ -25,9 +23,8 @@ export class TaskDetailsComponent implements OnInit {
     private route: ActivatedRoute,
     public dialog: MatDialog) { }
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.patch = this.patchService.getSinglePatch(this.route.snapshot.params['patchName']);
-
   }
 
   openTask(){
@@ -50,14 +47,17 @@ export class TaskDetailsComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if(result){
       this.task = result;
+
       if(result.firstTaskSuccess === 'No' || result.harvestingWeight != null){
         this.taskDeleted.emit();
       }
     }
 
     });
-
-
   }
 
+  deleteTask(){
+    this.taskDeleted.emit();
+
+  }
 }

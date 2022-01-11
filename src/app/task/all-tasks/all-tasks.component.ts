@@ -1,11 +1,9 @@
-import { Component, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
-import { IPatch } from 'src/app/garden/models/ipatch-model';
 import { PatchesService } from 'src/app/shared/patches.service';
 import { ITask } from '../models/itask-model';
-import * as moment from 'moment';
-import { TaskDetailsComponent } from '../task-details/task-details.component';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogCreateTaskComponent } from '../dialog-create-task/dialog-create-task.component';
 
 @Component({
   selector: 'app-all-tasks',
@@ -15,7 +13,9 @@ import { TaskDetailsComponent } from '../task-details/task-details.component';
 export class AllTasksComponent implements OnInit {
   allTasks: ITask[] = [];
 
-  constructor(private route: ActivatedRoute, private patchService: PatchesService) { }
+  constructor(public dialog: MatDialog,
+    private patchService: PatchesService,
+   ) { }
 
    ngOnInit(){
     this.allTasks = this.patchService.getAllTasks();
@@ -26,5 +26,11 @@ export class AllTasksComponent implements OnInit {
     if (index != -1) {
       this.allTasks.splice(index, 1);
     }
+  }
+
+  createTask(){
+    this.dialog.open(DialogCreateTaskComponent, {
+      width: '250px',
+    });
   }
 }

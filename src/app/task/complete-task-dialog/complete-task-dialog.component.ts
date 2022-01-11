@@ -46,7 +46,6 @@ export class CompleteTaskDialogComponent {
       this.patchService.saveNextTaskInPatch(formValues);
       this.notifications.showSuccess(`${formValues.patchName} has been successfully updated`);
       this.dialogRef.close(formValues);
-
     }
   }
 
