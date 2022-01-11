@@ -1,0 +1,20 @@
+.save-button{
+  font-size: 12px;
+  color: white !important;
+  border-color: #5b8d27;
+  background-color:#5b8d27;
+  font-weight: 500;
+}
+
+.save-button:hover{
+  color: white;
+  border-color: #114b0b;
+  background-color: #114b0b;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.add-plants-button{
+  color: #114b0b;
+}
+

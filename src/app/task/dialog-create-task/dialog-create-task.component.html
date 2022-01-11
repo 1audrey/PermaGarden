@@ -1,32 +1,42 @@
 <div *ngIf="isLoading">
-  <div *ngIf="patches.length ;else noPatches"  >
-<mat-dialog-content>
-  <mat-form-field appearance="fill">
-    <mat-label>Select a patch</mat-label>
-    <mat-select class="select" [formControl]="patchControl" [(ngModel)]="patchName" required>
-      <mat-option *ngFor="let patch of patches" [value]="patch.name">
-        {{patch.name}}
-      </mat-option>
-    </mat-select>
-    <mat-error *ngIf="patchControl.hasError('required')">Please choose a patch</mat-error>
-  </mat-form-field>
+  <div *ngIf="patches.length ;else noPatches">
+    <mat-dialog-content>
+      <mat-form-field appearance="fill">
+        <mat-label>Select a patch</mat-label>
+        <mat-select class="select" [formControl]="patchControl" [(ngModel)]="patchName" required>
+          <mat-option *ngFor="let patch of patches" [value]="patch.name">
+            {{patch.name}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="patchControl.hasError('required')">Please choose a patch</mat-error>
+      </mat-form-field>
+      <div *ngFor="let patch of patches">
+        <div *ngIf="patch.name === patchName && !patch.plantlist?.length">
+          You need to add a plant to your patch before creating a task!
+          <br>
+          <a disableRipple="true" (click)="goToPlantsPage()"  mat-flat-button class="add-plants-button">
+            Click here to add plants</a>
+        </div>
+      </div>
+    </mat-dialog-content>
 
-</mat-dialog-content>
+    <div mat-dialog-actions>
+      <button mat-button (click)="cancel()">No Thanks</button>
+      <button mat-button class="save-button" (click)="patchControl.valid && createTaskPage(patchName)"
+        cdkFocusInitial>Save</button>
+    </div>
 
-<div mat-dialog-actions>
-  <button mat-button id="cancel" (click)="cancel()">No Thanks</button>
-  <button mat-button (click)="patchControl.valid && createTaskPage(patchName)"  cdkFocusInitial>Save</button>
-</div>
-</div>
 
-<div>
-<ng-template #noPatches class="no-patches">
-  <mat-dialog-content>
-    <p>You need to have at least one patch in your garden before creating a task</p>
-    <div class="buttons">
-    <button mat-button (click)="cancel()">Cancel</button>
-    <button mat-button class="create-patch"(click)="createPatch()">Create a patch</button>
   </div>
-  </mat-dialog-content>
-</ng-template>
-</div>
+
+  <div>
+    <ng-template #noPatches class="no-patches">
+      <mat-dialog-content>
+        <p>You need to have at least one patch in your garden before creating a task</p>
+        <div class="buttons">
+          <button mat-button (click)="cancel()">Cancel</button>
+          <button mat-button class="create-patch" (click)="createPatch()">Create a patch</button>
+        </div>
+      </mat-dialog-content>
+    </ng-template>
+  </div>
