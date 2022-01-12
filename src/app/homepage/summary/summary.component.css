@@ -1,0 +1,19 @@
+.summary-main{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: nowrap;
+  border-radius: 4px;
+  width: 100%;
+  height: auto;
+  background-color: white;
+  border-color: #114b0b;
+  border-width: 1px;
+  border-style: groove;
+  color: #114b0b;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  font-size: 14px;
+}
+

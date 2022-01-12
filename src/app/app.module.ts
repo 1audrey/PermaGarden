@@ -55,6 +55,9 @@ import {MatInputModule} from '@angular/material/input';
 import {MatMenuModule} from '@angular/material/menu';
 import { CompleteTaskDialogComponent } from './task/complete-task-dialog/complete-task-dialog.component';
 import { DialogCreateTaskComponent } from './task/dialog-create-task/dialog-create-task.component';
+import { HomepageComponent } from './homepage/homepage/homepage.component';
+import { WeatherComponent } from './homepage/weather/weather.component';
+import { SummaryComponent } from './homepage/summary/summary.component';
 
 
 
@@ -78,6 +81,9 @@ import { DialogCreateTaskComponent } from './task/dialog-create-task/dialog-crea
     CreateTaskComponent,
     CompleteTaskDialogComponent,
     DialogCreateTaskComponent,
+    HomepageComponent,
+    WeatherComponent,
+    SummaryComponent,
 
   ],
   imports: [

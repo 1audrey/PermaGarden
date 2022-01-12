@@ -91,8 +91,9 @@ export class PatchesService {
     for (let patch of this.PATCHES) {
       if (patch.tasklist?.length) {
         for (let task of patch.tasklist) {
-          allTasks.push(task);
           this.getDifferenceBetweenTaskDateAndTodaydate(patch.name);
+          allTasks.push(task);
+
         }
       }
     }
@@ -240,12 +241,13 @@ export class PatchesService {
     this.PATCHES = newFailedPatches;
   }
 
-  saveHarvestedTaskInPatch(task: ITask){
+  saveHarvestedTaskInPatch(form: any){
     var newHarvestedPatches: IPatch[] = [];
 
     for (let patch of this.PATCHES) {
-      if (patch.name === task.patchName ) {
-        patch.tasklist.push(task);
+      if (patch.name === form.patchName ) {
+        patch.tasklist.push(form);
+        console.log(patch);
       }
       newHarvestedPatches.push(patch);
     }

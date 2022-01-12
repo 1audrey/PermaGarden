@@ -16,7 +16,6 @@ export class TaskDetailsComponent implements OnInit {
   @Output() taskDeleted: EventEmitter<any> = new EventEmitter();
 
   patch!: IPatch;
-  diffInDays!: number;
   isGettingDate: boolean = false;
 
   constructor(private patchService: PatchesService,
@@ -41,6 +40,7 @@ export class TaskDetailsComponent implements OnInit {
         realHarvestingDate: this.task.realHarvestingDate,
         transplantDate: this.task.transplantDate,
         firstTaskSuccess: this.task.firstTaskSuccess,
+        harvestingWeight: this.task.harvestingWeight
        },
     });
 
@@ -48,10 +48,12 @@ export class TaskDetailsComponent implements OnInit {
       if(result){
       this.task = result;
 
+      }
       if(result.firstTaskSuccess === 'No' || result.harvestingWeight != null){
         this.taskDeleted.emit();
       }
-    }
+
+
 
     });
   }

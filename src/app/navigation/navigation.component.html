@@ -5,18 +5,25 @@
         <mat-icon id="navbar-hamburger-link" *ngIf="!sidenav.opened">menu</mat-icon>
         <mat-icon id="navbar-close" *ngIf="sidenav.opened">close</mat-icon>
       </button>
-      <a mat-flat-button id="app-title"><h1>My Perma Garden</h1></a>
+      <a mat-flat-button id="app-title" [routerLink]="['/home']">
+        <h1>My Perma Garden</h1>
+      </a>
       <span class="menu-spacer"></span>
       <div class="menu-buttons" fxShow="true" fxHide.lt-md fxFlex fxLayout>
         <!-- The following menu items will be hidden on both SM and XS screen sizes -->
-          <a disableRipple="true" (click)="openGarden()" [routerLink]="['/garden']" routerLinkActive="active-list-item" mat-flat-button >Garden</a>
-          <a disableRipple="true" class="plants-list" id="plants-list" (click)="openPlantsList()" [routerLink]="['/plants-list']" routerLinkActive="active-list-item" mat-flat-button>Plants</a>
-          <a disableRipple="true" href="#" mat-flat-button (click)="openTasksList()" [routerLink]="['/tasks']" routerLinkActive="active-list-item" >Tasks</a>
-          <a disableRipple="true" href="#" mat-flat-button >History</a>
+        <a disableRipple="true" (click)="openGarden()" [routerLink]="['/garden']" routerLinkActive="active-list-item"
+          mat-flat-button>Garden</a>
+        <a disableRipple="true" class="plants-list" id="plants-list" (click)="openPlantsList()"
+          [routerLink]="['/plants-list']" routerLinkActive="active-list-item" mat-flat-button>Plants</a>
+        <a disableRipple="true" href="#" mat-flat-button (click)="openTasksList()" [routerLink]="['/tasks']"
+          routerLinkActive="active-list-item">Tasks</a>
+        <a disableRipple="true" href="#" mat-flat-button>History</a>
       </div>
       <div fxFlex fxLayoutAlign="flex-end center">
-        <a disableRipple="true" *ngIf="!auth.isAuthenticated()" id="login" (click)="openLogIn()" [routerLink]="['/user/login']" routerLinkActive="active-list-item" mat-flat-button>Login</a>
-        <mat-icon disableRipple="true" *ngIf="auth.isAuthenticated()" id="user-profile" (click)="openUserProfile()" class="profile" [routerLink]="['/user/profile']" routerLinkActive="active-list-item">account_circle</mat-icon>
+        <a disableRipple="true" *ngIf="!auth.isAuthenticated()" id="login" (click)="openLogIn()"
+          [routerLink]="['/user/login']" routerLinkActive="active-list-item" mat-flat-button>Login</a>
+        <mat-icon disableRipple="true" *ngIf="auth.isAuthenticated()" id="user-profile" (click)="openUserProfile()"
+          class="profile" [routerLink]="['/user/profile']" routerLinkActive="active-list-item">account_circle</mat-icon>
       </div>
     </mat-toolbar-row>
   </mat-toolbar>
@@ -24,13 +31,18 @@
   <mat-sidenav-container fxFlexFill>
     <mat-sidenav #sidenav mode="side">
       <mat-nav-list>
-        <a disableRipple="true" (click)="openGarden()" [routerLink]="['/garden']" routerLinkActive="active-list-item" mat-button >Garden</a>
-        <a disableRipple="true" (click)="openPlantsList()" [routerLink]="['/plants-list']" routerLinkActive="active-list-item" id="side" mat-button>Plants</a>
-        <a disableRipple="true" mat-button (click)="openTasksList()" [routerLink]="['/tasks']" routerLinkActive="active-list-item" >Tasks</a>
-        <a disableRipple="true" href="#" mat-button >History</a>
+        <a disableRipple="true" (click)="openGarden()" [routerLink]="['/garden']" routerLinkActive="active-list-item"
+          mat-button>Garden</a>
+        <a disableRipple="true" (click)="openPlantsList()" [routerLink]="['/plants-list']"
+          routerLinkActive="active-list-item" id="side" mat-button>Plants</a>
+        <a disableRipple="true" mat-button (click)="openTasksList()" [routerLink]="['/tasks']"
+          routerLinkActive="active-list-item">Tasks</a>
+        <a disableRipple="true" href="#" mat-button>History</a>
       </mat-nav-list>
     </mat-sidenav>
-    <mat-sidenav-content fxFlexFill><router-outlet></router-outlet></mat-sidenav-content>
+    <mat-sidenav-content fxFlexFill>
+      <router-outlet>
+      </router-outlet>
+    </mat-sidenav-content>
   </mat-sidenav-container>
 </div>
-

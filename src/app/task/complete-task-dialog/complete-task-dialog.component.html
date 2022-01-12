@@ -68,6 +68,22 @@
                 type="number" class="form-control" placeholder="Enter the weight..." />
             </div>
           </div>
+
+          <!-- <div class="form-group"
+          [ngClass]="{'error': nextTaskForm.controls.moreHarvest?.invalid && nextTaskForm.controls.moreHarvest?.touched}">
+          <p>Is it the last time you harvest this plant? </p>
+          <em *ngIf="nextTaskForm.controls.moreHarvest?.invalid && nextTaskForm.controls.moreHarvest?.touched">
+            *Required </em>
+          <mat-form-field appearance="fill">
+            <mat-label>Select</mat-label>
+            <mat-select ngDefaultControl [(ngModel)]="harvestSelectedAnswer" name="harvestSelectedAnswer" required>
+              <mat-option class="answers" *ngFor="let answer of answers" [value]="answer">
+                <p class="answer">{{answer}}</p>
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div> -->
+
         </div>
         <button id="cancel-button" mat-button type="button" class="btn btn-default" (click)="cancel()">Cancel</button>
         <button id="save-task" mat-button type="submit" class="save-new-task-button" [disabled]="nextTaskForm.invalid"

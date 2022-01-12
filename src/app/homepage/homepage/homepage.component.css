@@ -1,0 +1,41 @@
+.homepage-layout{
+  padding: 0 25px;
+  justify-content: center;
+  color: #000409;
+
+}
+
+h1{
+  font: 500 20px/36px Roboto, "Helvetica Neue", sans-serif;
+  letter-spacing: normal;
+}
+
+.body{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 4px;
+  padding-bottom: 4px;
+
+}
+
+.right-column{
+  width:15%;
+  margin-bottom:16px;
+  margin-left:16px;
+  margin-right:16px;
+  float:right;
+}
+
+.tasks-list{
+  width:85%;
+  padding: 0 20px;
+}
+
+.weather{
+  margin-bottom: 16px;
+}
+
+

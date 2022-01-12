@@ -15,6 +15,7 @@ export class CompleteTaskDialogComponent {
   selectedAnswer!: string;
   selectedHarvestingDate!: Array<Date>;
   selectedTransplantDate!: Date;
+  harvestSelectedAnswer!: string;
 
   answers: string[] = [
     "Yes",
@@ -64,7 +65,7 @@ export class CompleteTaskDialogComponent {
       this.dialogRef.close(formValues);
   }
 
-  saveHarvestTask(formValues: ITask){
+  saveHarvestTask(formValues: any){
     this.isDirty = false;
     formValues.patchName = this.task.patchName;
     formValues.action = this.task.action;
@@ -72,6 +73,7 @@ export class CompleteTaskDialogComponent {
     formValues.plant = this.task.plant;
     formValues.startingDate = this.task.startingDate;
     formValues.nextDate = this.task.nextDate;
+    formValues.daysDifferenceBetweenTaskAndToday = this.task.daysDifferenceBetweenTaskAndToday;
     console.log(formValues);
     this.patchService.saveHarvestedTaskInPatch(formValues);
     this.notifications.showSuccess(`${formValues.patchName} has been successfully updated`);

@@ -13,7 +13,7 @@ export class PlantsListComponent implements OnInit {
   plants!: IPlantsList[];
   todayDate: Date = new Date();
   month = this.todayDate.toLocaleString('default', { month: 'long' });
-  plant!: IPlantsList[];
+  plant!: IPlantsList;
   search='';
 
   public static readonly ADDNEWPLANT_WEBSITE_URL: string = '/add-new-plant';
@@ -25,6 +25,7 @@ export class PlantsListComponent implements OnInit {
 
   ngOnInit() {
     this.plants = this.route.snapshot.data['plants'];
+
   }
 
   openAddNewPlant() {

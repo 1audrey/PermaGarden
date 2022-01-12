@@ -19,6 +19,7 @@ export class AllTasksComponent implements OnInit {
 
    ngOnInit(){
     this.allTasks = this.patchService.getAllTasks();
+
   }
 
   onTaskDeleted(task: ITask){

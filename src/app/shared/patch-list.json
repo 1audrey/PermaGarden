@@ -102,6 +102,7 @@
         "startingDate": "Fri Nov 26 2021 00:00:00 GMT+0000 (Greenwich Mean Time)",
         "nextTask": "Planting",
         "nextDate": "Fri Dec 17 2021 00:00:00 GMT+0000 (Greenwich Mean Time)"
+
       },
       {
         "patchName": "Patch 1 in the left corner of the garden",
@@ -134,6 +135,34 @@
         "startingDate": "Tue Dec 7 2021 00:00:00 GMT+0000 (Greenwich Mean Time)",
         "nextTask": "Planting",
         "nextDate": "Tue Dec 28 2021 00:00:00 GMT+0000 (Greenwich Mean Time)"
+      },
+      {
+        "patchName": "Patch 1 in the left corner of the garden",
+        "plant": {
+          "name": "Apples",
+          "startingMonths": [
+          "January",
+          "February",
+          "March",
+          "November",
+          "December"
+        ],
+          "startingMethod": "Planting",
+          "harvestingMonths": [
+          "August",
+          "September",
+          "October",
+          "November"
+        ],
+          "imageUrl": "assets/images/apples.jpg"
+
+        },
+        "action": "Planting",
+        "startingDate": "Tue Dec 7 2021 00:00:00 GMT+0000 (Greenwich Mean Time)",
+        "nextTask": "Harvesting",
+        "nextDate": "Thu Sep 1 2022 00:00:00 GMT+0000 (Greenwich Mean Time)",
+        "harvestingWeight": []
+
       }
     ]
   },
@@ -201,6 +230,7 @@
         "startingDate": "Sun Nov 28 2021 00:00:00 GMT+0000 (Greenwich Mean Time)",
         "nextTask": "Harvesting",
         "nextDate": "Sun Feb 13 2022 00:00:00 GMT+0000 (Greenwich Mean Time)"
+
       }
     ]
   }

@@ -13,6 +13,8 @@ import { PatchListComponent } from './garden/patch-list/patch-list.component';
 import { PatchListDetailsComponent } from './garden/patch-list-details/patch-list-details.component';
 import { AllTasksComponent } from './task/all-tasks/all-tasks.component';
 import { CreateTaskComponent } from './task/create-task/create-task.component';
+import { HomepageComponent } from './homepage/homepage/homepage.component';
+import { SummaryComponent } from './homepage/summary/summary.component';
 
 const routes: Routes = [
   {
@@ -28,8 +30,19 @@ const routes: Routes = [
   },
 
   {
+    path: 'home',
+    component: HomepageComponent,
+    resolve: { plants: PlantsListResolver, patches: PatchResolverService }
+  },
+
+  {
+    path: 'summary',
+    component: SummaryComponent,
+  },
+
+  {
     path: '',
-    redirectTo: '/', pathMatch: 'full'
+    redirectTo: '/home', pathMatch: 'full'
   },
 
   {
