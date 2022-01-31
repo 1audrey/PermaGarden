@@ -15,9 +15,9 @@
         <mat-list-option  class="checkbox"
         fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="50%" fxFlex.md="25%"
         [disableRipple]="true" checkboxPosition="before"
-        *ngFor="let img of (imgs | plantFilter:search) as imgs" [value]="img.imageUrl">
-          <p>{{img.title}}</p>
-          <img class="img-responsive" [src]=img.imageUrl />
+        *ngFor="let img of (imgs | plantFilter:search) as imgs" [value]="img.plantImagePicture">
+          <p>{{img.plantImageTitle}}</p>
+          <img class="img-responsive" [src]=img.plantImagePicture />
       </mat-list-option>
     </mat-selection-list>
   </mat-dialog-content>

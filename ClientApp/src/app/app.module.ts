@@ -111,7 +111,8 @@ import { SummaryComponent } from './homepage/summary/summary.component';
     MatDatepickerModule,
     MatNativeDateModule,
     MatInputModule,
-    MatMenuModule
+    MatMenuModule,
+    HttpClientModule,
 
 
   ],

@@ -24,8 +24,9 @@ export class SelectImageDialogComponent implements OnInit {
     ) {}
 
   ngOnInit(): void {
-    this._imgService.getPlantsImage().subscribe(result => {
+    this._imgService.getAllPlantsImages().subscribe(result => {
       this.imgs = result;
+      console.log(this.imgs);
     });
 
     this.imageSelected.selectedOptions = new SelectionModel<MatListOption>(false);

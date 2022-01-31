@@ -4,11 +4,11 @@ GO
 MERGE INTO PlantsImages AS Target
 USING (
 	VALUES
-		(1, 'Green Beans', 'green-beans.jpg')
-		, (2, 'Apples', 'apples.jpg')
-		, (3, 'Carrots', 'carrots.jpg')
-		, (4, 'Spring Onions','spring-onions.jpg')
-		, (5, 'Navy Beans','navy-beans.jpg')
+		(1, 'Green Beans', 'assets/images/green-beans.jpg')
+		, (2, 'Apples', 'assets/images/apples.jpg')
+		, (3, 'Carrots', 'assets/images/carrots.jpg')
+		, (4, 'Spring Onions','assets/images/spring-onions.jpg')
+		, (5, 'Navy Beans','assets/images/navy-beans.jpg')
 
 )
 AS Source (PlantImageId, PlantImageTitle, PlantImagePicture)

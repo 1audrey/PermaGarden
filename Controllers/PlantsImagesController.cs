@@ -7,11 +7,11 @@ namespace perma_garden_app.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class PlantsImageController : ControllerBase
+    public class PlantsImagesController : ControllerBase
     {
         private readonly IPermaGardenRepositery<PlantsImagesRecord> _plantsImages;
 
-        public PlantsImageController(IPermaGardenRepositery<PlantsImagesRecord> plantsImages)
+        public PlantsImagesController(IPermaGardenRepositery<PlantsImagesRecord> plantsImages)
         {
             _plantsImages = plantsImages;
         }

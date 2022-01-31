@@ -82,11 +82,11 @@ describe('SelectImageDialogComponent', () => {
     expect(spy).toHaveBeenCalledTimes(1);
   });
 
-  it('should call the plant image service when ngOnInit is initialized', inject([PlantImageService], (plantImageService: PlantImageService) => {
-    const spy = spyOn(plantImageService, 'getPlantsImage').and.callThrough();
-    component.ngOnInit();
-    fixture.detectChanges();
-    expect(spy).toHaveBeenCalledTimes(1);
-  }));
+  //it('should call the plant image service when ngOnInit is initialized', inject([PlantImageService], (plantImageService: PlantImageService) => {
+  //  const spy = spyOn(plantImageService, 'getPlantsImage').and.callThrough();
+  //  component.ngOnInit();
+  //  fixture.detectChanges();
+  //  expect(spy).toHaveBeenCalledTimes(1);
+  //}));
 });
 

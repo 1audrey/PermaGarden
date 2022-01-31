@@ -9,7 +9,7 @@ export class PlantImageResolverService implements Resolve<any>{
   constructor(private plantImageService: PlantImageService) { }
 
   resolve(){
-    return this.plantImageService.getPlantsImage().pipe(map(images => images))
+    return this.plantImageService.getAllPlantsImages().pipe(map(images => images))
   }
 
 
