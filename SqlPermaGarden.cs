@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace perma_garden_app
 {
-    public class SqlPermaGarden : IPermaGardenRepositery<PlantsImagesRecord>
+    public class SqlPermaGarden : IPermaGardenRepositery<PlantsImagesRecord, PlantsRecord>
     {
         public SqlPermaGarden(string connectionString)
         {
@@ -17,7 +17,7 @@ namespace perma_garden_app
         public async Task<IEnumerable<PlantsImagesRecord>> GetAllPlantsImages(CancellationToken token)
         {
             var command = @"SELECT
-                                plantImage.PlantImageId
+                                plantImage.PlantId
                                 , plantImage.PlantImageTitle
                                 , plantImage.PlantImagePicture
                             FROM
@@ -25,6 +25,32 @@ namespace perma_garden_app
 
 
             return await SqlConnection.QueryAsync<PlantsImagesRecord>(new CommandDefinition(command,
+                cancellationToken: token));
+        }
+
+        public async Task<IEnumerable<PlantsRecord>> GetAllPlants(CancellationToken token)
+        {
+            var command = @"SELECT
+                                plant.PlantId
+                                , plant.PlantName
+                                , plant.PlantStartingMethod
+                                , plant.PlantSowingPeriod
+                                , plant.PlantGrowingPeriod
+                                , plant.PlantStartingMonths
+                                , plant.PlantHarvestingMonths
+                                , plantsImages.PlantImagePicture
+                
+                            FROM
+                                dbo.Plants plant
+
+                            INNER JOIN
+                                dbo.PlantsImages plantsImages
+
+                            ON
+                                plant.PlantId = plantsImages.PlantId";
+
+
+            return await SqlConnection.QueryAsync<PlantsRecord>(new CommandDefinition(command,
                 cancellationToken: token));
         }
 

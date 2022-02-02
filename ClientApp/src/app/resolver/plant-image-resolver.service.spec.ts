@@ -30,18 +30,18 @@ describe('PlantImageResolverService', () => {
     expect(spy).toHaveBeenCalledTimes(1);
   });
 
-  it(`should get plant image details`, (done) => {
-    let fakePlantImage =
-    {
-        title: 'Green Beans',
-        imageUrl: 'assets/images/green-beans.jpg'
-    }
+  //it(`should get plant image details`, (done) => {
+  //  let fakePlantImage =
+  //  {
+  //      title: 'Green Beans',
+  //      imageUrl: 'assets/images/green-beans.jpg'
+  //  }
 
-    spyOn(service, 'resolve').and.returnValue(timer(100).pipe(mapTo([fakePlantImage])));
-    service.resolve().subscribe(plantImage => {
-      console.log(plantImage);
-      expect(plantImage).toEqual([fakePlantImage]);
-      done();
-    });
-  });
+  //  spyOn(service, 'resolve').and.returnValue(timer(100).pipe(mapTo([fakePlantImage])));
+  //  service.resolve().subscribe(plantImage => {
+  //    console.log(plantImage);
+  //    expect(plantImage).toEqual([fakePlantImage]);
+  //    done();
+  //  });
+  //});
 });

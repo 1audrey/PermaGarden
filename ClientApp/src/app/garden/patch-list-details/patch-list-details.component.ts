@@ -50,7 +50,7 @@ export class PatchListDetailsComponent implements OnInit {
     this.plants.subscribe(plants => {
       for (let plant of plants) {
         for (let patchName of this.patch.plantlist) {
-          if (patchName.name === plant.name) {
+          if (patchName.name === plant.plantName) {
             this.selectedPlants.push(plant);
           }
         }

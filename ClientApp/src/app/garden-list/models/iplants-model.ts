@@ -1,12 +1,10 @@
-import { ITask } from "src/app/task/models/itask-model";
-
 export interface IPlantsList {
-  name: string,
-  startingMonths: string[],
-  startingMethod: string;
-  sowingPeriodInDays?: number,
-  harvestingMonths: string[],
-  harvestingPeriodInDays?: number,
-  imageUrl: string,
+  plantName: string,
+  plantStartingMonths: string,
+  plantStartingMethod: string,
+  plnatSowingPeriod?: number,
+  plantHarvestingMonths: string,
+  plantGrowingPeriod: number,
+  plantImagePicture: string,
 }
 

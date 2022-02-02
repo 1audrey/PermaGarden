@@ -37,7 +37,7 @@ describe('PlantsService', () => {
       sowingPeriodInDays: 21,
       harvestingMonths: ["January", "April", "June", "July", "August", "September", "October"],
       harvestingPeriodInDays: 120,
-      imageUrl: 'assets/images/spring-onions.jpg',
+      plantImagePicture: 'assets/images/spring-onions.jpg',
       }
 
     const spy = spyOn(service, 'savePlant');
@@ -56,7 +56,7 @@ describe('PlantsService', () => {
       sowingPeriodInDays: 21,
       harvestingMonths: ["January", "April", "June", "July", "August", "September", "October"],
       harvestingPeriodInDays: 120,
-      imageUrl: 'assets/images/spring-onions.jpg',
+      plantImagePicture: 'assets/images/spring-onions.jpg',
       }
 
     spyOn(service, 'getPlants').and.returnValue(timer(100).pipe(mapTo([fakePlant])));

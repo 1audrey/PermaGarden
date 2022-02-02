@@ -123,26 +123,26 @@ export class PatchesService {
     var numberOfDaysToAdd: number;
     var harvestingFirstMonth: number;
 
-    switch (task.plant.startingMethod) {
+    switch (task.plant.plantStartingMethod) {
       case ('Sowing in pots'):
-        numberOfDaysToAdd = Number(task.plant.sowingPeriodInDays);
+        numberOfDaysToAdd = Number(task.plant.plnatSowingPeriod);
         if(transplantDate === undefined){
         this.calculateDate(task, startDate, numberOfDaysToAdd);
         break;
         }
-        numberOfDaysToAdd = Number(task.plant.harvestingPeriodInDays);
+        numberOfDaysToAdd = Number(task.plant.plantGrowingPeriod);
         this.calculateDate(task, transplantDate, numberOfDaysToAdd);
         break;
 
       case ('Sowing in soil'):
-        numberOfDaysToAdd = Number(task.plant.harvestingPeriodInDays);
+        numberOfDaysToAdd = Number(task.plant.plantGrowingPeriod);
         this.calculateDate(task, startDate, numberOfDaysToAdd);
         break;
 
       case ('Planting'):
-        var firstMonth = task.plant.harvestingMonths[0];
+        var firstMonth = task.plant.plantHarvestingMonths[0];
         var harvestingFirstMonth: number  = this.givesMonthANumber(firstMonth);
-        // harvestingLastMonth = task.plant.harvestingMonths[task.plant.harvestingMonths.length - 1];
+        // harvestingLastMonth = task.plant.plantHarvestingMonths[task.plant.plantHarvestingMonths.length - 1];
         this.getFirstDayOfFirstHarvestingMonth(task, startDate, harvestingFirstMonth);
         break;
     }

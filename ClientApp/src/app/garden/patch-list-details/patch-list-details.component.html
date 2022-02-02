@@ -38,7 +38,7 @@
               <mat-label>Select</mat-label>
               <mat-select ngDefaultControl [(ngModel)]="selectedPlants" name="plantlist" multiple>
                 <mat-option class="plants-name" *ngFor="let plant of plants | async" [value]="plant">
-                  <p class="plant-name">{{plant.name}}</p>
+                  <p class="plant-name">{{plant.plantName}}</p>
                 </mat-option>
               </mat-select>
             </mat-form-field>
@@ -63,7 +63,7 @@
             <div class="form-group">
               <div class="plant-list-details">
                 <div *ngFor="let plants of selectedPlants">
-                  {{plants.name}}
+                  {{plants.plantName}}
                 </div>
               </div>
             </div>

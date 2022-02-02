@@ -14,6 +14,36 @@ USING (
 AS Source (PlantImageId, PlantImageTitle, PlantImagePicture)
 ON Target.PlantImageId = Source.PlantImageId
 
+
+WHEN MATCHED THEN
+UPDATE SET
+	PlantImageTitle = Source.PlantImageTitle,
+	PlantImagePicture = Source.PlantImagePicture
+
+WHEN NOT MATCHED BY TARGET THEN
+INSERT
+	(PlantImageId
+	, PlantImageTitle
+	, PlantImagePicture)
+
+VALUES
+	(Source.PlantImageId
+	, Source.PlantImageTitle
+	, Source.PlantImagePicture);
+GO
+
+SET IDENTITY_INSERT PlantsImages ON
+GO
+
+MERGE INTO PlantsImages AS Target
+USING (
+	VALUES
+		(6, 'Tomatoes', 'assets/images/tomatoes.jpg')
+)
+AS Source (PlantImageId, PlantImageTitle, PlantImagePicture)
+ON Target.PlantImageId = Source.PlantImageId
+
+
 WHEN MATCHED THEN
 UPDATE SET
 	PlantImageTitle = Source.PlantImageTitle,

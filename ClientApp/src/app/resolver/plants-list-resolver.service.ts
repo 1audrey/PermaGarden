@@ -11,6 +11,6 @@ export class PlantsListResolver implements Resolve<any> {
   }
 
   resolve(){
-    return this.plantsService.getPlants().pipe(map(plants => plants))
+    return this.plantsService.getAllPlants().pipe(map(plants => plants))
   }
 }

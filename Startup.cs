@@ -29,7 +29,7 @@ namespace perma_garden_app
             }
             );
 
-            services.AddTransient<IPermaGardenRepositery<PlantsImagesRecord>>(_ =>
+            services.AddTransient<IPermaGardenRepositery<PlantsImagesRecord, PlantsRecord>>(_ =>
                 new SqlPermaGarden(Configuration.GetConnectionString("PermaGarden")));
 
             // In production, the Angular files will be served from this directory

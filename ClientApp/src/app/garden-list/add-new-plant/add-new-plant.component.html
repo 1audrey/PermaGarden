@@ -3,11 +3,11 @@
 <div class="col-md-6">
   <form #newPlantForm="ngForm"  autocomplete="off" novalidate>
 
-    <div class="form-group" [ngClass]="{'error': newPlantForm.controls.name?.invalid && newPlantForm.controls.name?.touched}">
+    <div class="form-group" [ngClass]="{'error': newPlantForm.controls.plantName?.invalid && newPlantForm.controls.plantName?.touched}">
       <div class="plant-name-group">
       <label for="plantName">Plant Name:</label>
-      <em *ngIf="newPlantForm.controls.name?.invalid && newPlantForm.controls.name?.touched"> *Required</em>
-      <input (ngModel)="newPlant.name" name="name" required id="name" type="text" class="form-control" placeholder="Name of your plant..." />
+      <em *ngIf="newPlantForm.controls.name?.invalid && newPlantForm.controls.plantName?.touched"> *Required</em>
+      <input (ngModel)="newPlant.plantName" name="plantName" required id="plantName" type="text" class="form-control" placeholder="Name of your plant..." />
     </div>
     </div>
 

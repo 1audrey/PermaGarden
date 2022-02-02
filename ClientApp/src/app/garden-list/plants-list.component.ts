@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { IPlantsList } from './models/iplants-model';
 import { ActivatedRoute } from '@angular/router';
+import { PlantsService } from '../shared/plants.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-plants-list',
@@ -14,18 +16,19 @@ export class PlantsListComponent implements OnInit {
   todayDate: Date = new Date();
   month = this.todayDate.toLocaleString('default', { month: 'long' });
   plant!: IPlantsList;
-  search='';
+  search = '';
+  startMonths: string[] = []
 
   public static readonly ADDNEWPLANT_WEBSITE_URL: string = '/add-new-plant';
   public static readonly FULL_YEAR_ARRAY: number = 11;
 
-  constructor(private route: ActivatedRoute) {
+  constructor(private plantService: PlantsService, private route: ActivatedRoute) {
 
   }
 
   ngOnInit() {
-    this.plants = this.route.snapshot.data['plants'];
-
+    this.plants = this.route.snapshot.data['plants']
+    console.log(this.plants);
   }
 
   openAddNewPlant() {
@@ -38,7 +41,7 @@ export class PlantsListComponent implements OnInit {
   filterBySowingMonths() {
     var filteredPlant: IPlantsList[] = [];
     for (let plant of this.plants) {
-      if(plant.startingMonths.includes(this.month)){
+      if(plant.plantStartingMonths.includes(this.month)){
         filteredPlant.push(plant);
       }
     }

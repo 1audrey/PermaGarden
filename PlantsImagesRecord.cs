@@ -6,7 +6,7 @@ namespace perma_garden_app
     public class PlantsImagesRecord
     {
         [Key]
-        public int PlantImageId { get; set; }
+        public int PlantId { get; set; }
 
         public string PlantImageTitle { get; set; }
 

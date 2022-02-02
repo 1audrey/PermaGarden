@@ -11,7 +11,7 @@ export class PlantImageService {
   constructor(private http: HttpClient) { }
 
   public getAllPlantsImages(): Observable<IPlantsImage[]> {
-    return this.http.get<IPlantsImage[]>(this.baseUrl + '/PlantsImages');
+    return this.http.get<IPlantsImage[]>(this.baseUrl + '/Plants/all-plants-images');
   }
 }
 

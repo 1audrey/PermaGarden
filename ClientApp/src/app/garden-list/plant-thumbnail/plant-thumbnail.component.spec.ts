@@ -94,7 +94,7 @@ describe('PlantThumbnailComponent', () => {
   });
 
   xit('should open the select image dialog when when the Select Image button is clicked', inject([MatDialog], (dialog: MatDialog) => {
-    componentThumbnail.plant.name = 'Carrots';
+    componentThumbnail.plant.plantName = 'Carrots';
     let spy = spyOn(componentThumbnail.dialog, 'open').and.callThrough();
 
     componentThumbnail.addToGarden();

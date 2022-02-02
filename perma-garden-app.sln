@@ -20,6 +20,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Entities", "Entities", "{9EF5A60E-48D3-46C5-9A46-4F9567E49173}"
 	ProjectSection(SolutionItems) = preProject
 		PlantsImagesRecord.cs = PlantsImagesRecord.cs
+		PlantsRecord.cs = PlantsRecord.cs
 	EndProjectSection
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Database.Schema", "Database.Schema\Database.Schema.sqlproj", "{07AA2B5D-5DB7-4D0F-89C9-03DDF66F3701}"

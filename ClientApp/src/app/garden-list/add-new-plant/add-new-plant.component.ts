@@ -92,7 +92,7 @@ export class AddNewPlantComponent {
 
   savePlant(formValues: IPlantsList) {
     this.isDirty = false;
-    if(formValues.name === null )
+    if(formValues.plantName === null )
     {
       this.notifications.showError(`Oops something went wrong, please fill all the required fields`);
     }
@@ -100,7 +100,7 @@ export class AddNewPlantComponent {
     {
       console.log(formValues);
       this.plantService.savePlant(formValues);
-      this.notifications.showSuccess(`${formValues.name} has been added to your plant list`);
+      this.notifications.showSuccess(`${formValues.plantName} has been added to your plant list`);
       this.router.navigate(['plants-list']);
     }
 

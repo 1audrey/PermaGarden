@@ -1,8 +1,9 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { IPlantsList } from '../models/iplants-model';
 import { AddToGardenComponent } from '../add-to-garden/add-to-garden.component';
 import { MatDialog } from '@angular/material/dialog';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-plant-thumbnail',
@@ -18,51 +19,54 @@ import { MatDialog } from '@angular/material/dialog';
     ])
   ]
 })
-export class PlantThumbnailComponent{
-
-  @Input()  plant!: IPlantsList;
+export class PlantThumbnailComponent {
+  @Input() plant!: IPlantsList;
   @Output() plantDeleted: EventEmitter<any> = new EventEmitter();
 
-state = 'collapsed';
-todayDate : Date = new Date();
-month = this.todayDate.toLocaleString('default', { month: 'long' });
-isStartingMethod= 'Plant';
+  state = 'collapsed';
+  todayDate: Date = new Date();
+  month = this.todayDate.toLocaleString('default', { month: 'long' });
+  isStartingMethod = 'Plant';
 
+  constructor(public dialog: MatDialog) { }
 
-constructor(public dialog: MatDialog){}
-
-typeOfStarting(){
-  if(this.plant.startingMethod.includes("Sowing"))
-  {
-    this.isStartingMethod = 'Sow';
+  isSowingMonthIncluded(month: string): boolean {
+    return this.plant.plantStartingMonths.split(', ').includes(month);
   }
-}
 
-toggle(): void {
-  this.state = this.state === 'collapsed' ? 'expanded' : 'collapsed';
-  this.typeOfStarting();
-}
+  isHarvestingMonthIncluded(month: string): boolean{
+    return this.plant.plantHarvestingMonths.split(', ').includes(month);
+  }
 
-addToGarden(): void{
-    this.dialog.open(AddToGardenComponent, {
-    width: '250px',
-    data: {
-      name: this.plant.name,
-      startingMonths: this.plant.startingMonths,
-      startingMethod: this.plant.startingMethod,
-      sowingPeriodInDays: this.plant.sowingPeriodInDays,
-      harvestingMonths:this.plant.harvestingMonths,
-      harvestingPeriodInDays: this.plant.harvestingPeriodInDays,
-      imageUrl: this.plant.imageUrl
+  typeOfStarting() {
+    if (this.plant.plantStartingMethod.includes("Sowing")) {
+      this.isStartingMethod = 'Sow';
     }
-  });
-}
+  }
 
-delete(){
-  this.plantDeleted.emit();
+  toggle(): void {
+    this.state = this.state === 'collapsed' ? 'expanded' : 'collapsed';
+    this.typeOfStarting();
+  }
 
-}
+  addToGarden(): void {
+    this.dialog.open(AddToGardenComponent, {
+      width: '250px',
+      data: {
+        name: this.plant.plantName,
+        startingMonths: this.plant.plantStartingMonths,
+        startingMethod: this.plant.plantStartingMethod,
+        sowingPeriodInDays: this.plant.plnatSowingPeriod,
+        harvestingMonths: this.plant.plantHarvestingMonths,
+        harvestingPeriodInDays: this.plant.plantGrowingPeriod,
+        imageUrl: this.plant.plantImagePicture
+      }
+    });
+  }
 
+  delete() {
+    this.plantDeleted.emit();
+  }
 
 }
 

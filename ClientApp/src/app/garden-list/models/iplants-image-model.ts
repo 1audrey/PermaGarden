@@ -1,4 +1,5 @@
 export interface IPlantsImage {
-    title: string,
-    imageUrl: string
-   }
+  id: number,
+  title: string,
+  imageUrl: string,
+}

@@ -38,7 +38,7 @@ export class CreateTaskComponent implements OnInit {
     this.patch = this.patchService.getSinglePatch(this.route.snapshot.params['patchName']);
     // this.patchService.getPatch().forEach(patches => {
     //   patches.forEach(specificPatch=> {
-    //     if(specificPatch.name = this.route.snapshot.params['patchName']){
+    //     if(specificPatch.plantName = this.route.snapshot.params['patchName']){
     //    this.patch = specificPatch;
     //   }
     //  });
@@ -49,8 +49,8 @@ export class CreateTaskComponent implements OnInit {
     let patchPlantList: string;
     if (this.patch.plantlist?.length && this.selectedPlant) {
       for (let plant of this.patch.plantlist) {
-        if (plant.name == this.selectedPlant.name) {
-          patchPlantList = plant.startingMethod;
+        if (plant.plantName == this.selectedPlant.plantName) {
+          patchPlantList = plant.plantStartingMethod;
 
           this.tasks =
           [

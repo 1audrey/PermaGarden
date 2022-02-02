@@ -19,8 +19,8 @@ describe('PlantImageService', () => {
   });
 
   it(`should get plant image`, () => {
-    const spy = spyOn(service, 'getPlantsImage');
-    service.getPlantsImage();
+    const spy = spyOn(service, 'getAllPlantsImages')
+    service.getAllPlantsImages();
 
     expect(spy).toBeDefined();
     expect(spy).toHaveBeenCalledTimes(1);
