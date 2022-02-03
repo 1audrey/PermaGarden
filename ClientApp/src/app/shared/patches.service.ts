@@ -1,4 +1,4 @@
-import { EventEmitter, Injectable, Output } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { IPlantsList } from '../garden-list/models/iplants-model';
 import { IPatch } from '../garden/models/ipatch-model';
@@ -9,8 +9,6 @@ import * as moment from 'moment';
 @Injectable()
 export class PatchesService {
   patch!: IPatch;
-
-
   static PATCHES: any = [];
 
   today = new Date();
@@ -125,7 +123,7 @@ export class PatchesService {
 
     switch (task.plant.plantStartingMethod) {
       case ('Sowing in pots'):
-        numberOfDaysToAdd = Number(task.plant.plnatSowingPeriod);
+        numberOfDaysToAdd = Number(task.plant.plantSowingPeriod);
         if(transplantDate === undefined){
         this.calculateDate(task, startDate, numberOfDaysToAdd);
         break;

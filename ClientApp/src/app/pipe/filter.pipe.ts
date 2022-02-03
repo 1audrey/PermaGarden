@@ -8,7 +8,7 @@ export class FilterPipe implements PipeTransform {
   transform(value: any, searchValue: string): any {
 
     if (!searchValue) return value;
-    return value.filter((v: { plantImageTitle: string; }) => v.plantImageTitle.toLowerCase().indexOf(searchValue.toLowerCase()) > -1)
+    return value.filter((v: { plantName: string; }) => v.plantName.toLowerCase().indexOf(searchValue.toLowerCase()) > -1)
   }
 
 }

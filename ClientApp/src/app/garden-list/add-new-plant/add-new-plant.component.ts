@@ -18,10 +18,8 @@ export class AddNewPlantComponent {
 
   isDirty: boolean = true;
   newPlant!: any;
-  startingMonths!: string[];
-  harvestingMonths!: string[];
   imgs: IPlantsImage[] = [];
-  imageUrl!: string;
+  plantImagePicture!: string;
   selectedStartingMethods!: string;
 
   constructor(private router: Router,
@@ -31,54 +29,19 @@ export class AddNewPlantComponent {
   ) { }
 
   monthData: Month[] = [
-    {
-      name: 'January',
-      isChecked: false
-    },
-    {
-      name: 'February',
-      isChecked: false,
-    },
-    {
-      name: 'March',
-      isChecked: false,
-    },
-    {
-      name: 'April',
-      isChecked: false,
-    },
-    {
-      name: 'May',
-      isChecked: false,
-    },
-    {
-      name: 'June',
-      isChecked: false,
-    },
-    {
-      name: 'July',
-      isChecked: false,
-    },
-    {
-      name: 'August',
-      isChecked: false,
-    },
-    {
-      name: 'September',
-      isChecked: false,
-    },
-    {
-      name: 'October',
-      isChecked: false,
-    },
-    {
-      name: 'November',
-      isChecked: false,
-    },
-    {
-      name: 'December',
-      isChecked: false,
-    }]
+    { name: 'January', isChecked: false },
+    { name: 'February', isChecked: false },
+    { name: 'March', isChecked: false },
+    { name: 'April', isChecked: false },
+    { name: 'May', isChecked: false },
+    { name: 'June', isChecked: false },
+    { name: 'July', isChecked: false },
+    { name: 'August', isChecked: false },
+    { name: 'September', isChecked: false },
+    { name: 'October', isChecked: false },
+    { name: 'November', isChecked: false },
+    { name: 'December', isChecked: false }
+  ]
 
   startingMethods: StartingMethods[] = [
     { value: 'Sowing in pots' },
@@ -90,36 +53,34 @@ export class AddNewPlantComponent {
     this.router.navigate(['plants-list']);
   }
 
-  savePlant(formValues: IPlantsList) {
+  saveNewPlant(formValues: IPlantsList) {
     this.isDirty = false;
-    if(formValues.plantName === null )
-    {
+    if (formValues.plantName === null) {
       this.notifications.showError(`Oops something went wrong, please fill all the required fields`);
     }
-    else
-    {
+    else {
+      formValues.plantStartingMonths = formValues.plantStartingMonths.toString();
+      formValues.plantHarvestingMonths = formValues.plantHarvestingMonths.toString();
       console.log(formValues);
-      this.plantService.savePlant(formValues);
+      this.plantService.saveNewPlant(formValues).subscribe();
       this.notifications.showSuccess(`${formValues.plantName} has been added to your plant list`);
       this.router.navigate(['plants-list']);
     }
-
   }
 
   openSelectImageDialog() {
     let dialogRef = this.dialog.open(SelectImageDialogComponent, {
       width: '1000px',
-      data: { imageUrl: this.imageUrl },
+      data: { imageUrl: this.plantImagePicture },
       autoFocus: false,
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('Image Url:', this.imageUrl);
-      this.imageUrl = result;
+      console.log('Image Url:', this.plantImagePicture);
+      this.plantImagePicture = result;
     })
   }
 }
-
 
 export interface Month {
   name: string;

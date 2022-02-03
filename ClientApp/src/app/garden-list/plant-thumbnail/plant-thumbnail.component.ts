@@ -56,7 +56,7 @@ export class PlantThumbnailComponent {
         name: this.plant.plantName,
         startingMonths: this.plant.plantStartingMonths,
         startingMethod: this.plant.plantStartingMethod,
-        sowingPeriodInDays: this.plant.plnatSowingPeriod,
+        sowingPeriodInDays: this.plant.plantSowingPeriod,
         harvestingMonths: this.plant.plantHarvestingMonths,
         harvestingPeriodInDays: this.plant.plantGrowingPeriod,
         imageUrl: this.plant.plantImagePicture

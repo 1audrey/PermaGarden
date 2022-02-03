@@ -47,11 +47,38 @@ namespace perma_garden_app
                                 dbo.PlantsImages plantsImages
 
                             ON
-                                plant.PlantId = plantsImages.PlantId";
+                                plant.PlantImagePicture = plantsImages.PlantImagePicture";
 
 
             return await SqlConnection.QueryAsync<PlantsRecord>(new CommandDefinition(command,
                 cancellationToken: token));
+        }
+
+        public async Task SaveNewPlant(PlantsRecord plant, CancellationToken token)
+        {
+            var command = @"INSERT INTO dbo.Plants (
+                                PlantName
+                                , PlantStartingMethod
+                                , PlantSowingPeriod
+                                , PlantGrowingPeriod
+                                , PlantStartingMonths
+                                , PlantHarvestingMonths
+                                , PlantImagePicture)
+
+                            VALUES (
+                                @PlantName
+                                , @PlantStartingMethod
+                                , @PlantSowingPeriod
+                                , @PlantGrowingPeriod
+                                , @PlantStartingMonths
+                                , @PlantHarvestingMonths
+                                , @PlantImagePicture)";
+
+            await SqlConnection.ExecuteAsync(
+                new CommandDefinition(
+                    command,
+                    new { plant.PlantName, plant.PlantStartingMethod, plant.PlantSowingPeriod, plant.PlantGrowingPeriod, plant.PlantStartingMonths, plant.PlantHarvestingMonths, plant.PlantImagePicture },
+                    cancellationToken: token));
         }
 
     }

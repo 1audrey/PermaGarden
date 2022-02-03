@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using System.Threading;
+using Microsoft.AspNetCore.Http;
 
 namespace perma_garden_app.Controllers
 {
@@ -18,6 +19,9 @@ namespace perma_garden_app.Controllers
         }
 
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [Route("all-plants-images")]
         public async Task<IActionResult> GetPlantsImages(CancellationToken token)
         {
@@ -28,6 +32,9 @@ namespace perma_garden_app.Controllers
         }
 
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [Route("all-plants")]
         public async Task<IActionResult> GetAllPlants(CancellationToken token)
         {
@@ -37,6 +44,34 @@ namespace perma_garden_app.Controllers
             return Ok(plantsImages.ToList());
         }
 
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Route("save-plant")]
+        public async Task<IActionResult> SaveNewPlant([FromBody] PlantsRecord plant, CancellationToken token)
+        {
+                if (plant != null)
+                {
+
+                var newPlant = new PlantsRecord
+                {
+                    PlantName = plant.PlantName,
+                    PlantStartingMethod = plant.PlantStartingMethod,
+                    PlantSowingPeriod = plant.PlantSowingPeriod,
+                    PlantGrowingPeriod = plant.PlantGrowingPeriod,
+                    PlantStartingMonths = plant.PlantStartingMonths,
+                    PlantHarvestingMonths = plant.PlantHarvestingMonths,
+                    PlantImagePicture = plant.PlantImagePicture  
+                };
+
+                await _plantsRepositery.SaveNewPlant(newPlant, token);
+
+                    return Ok();
+                }
+
+                return BadRequest("Plant is invalid");
+        }
 
     }
 }

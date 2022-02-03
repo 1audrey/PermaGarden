@@ -10,5 +10,7 @@ namespace perma_garden_app
         public Task<IEnumerable<TPlantsImages>> GetAllPlantsImages(CancellationToken token);
 
         public Task<IEnumerable<TPlants>> GetAllPlants(CancellationToken token);
+
+        public Task SaveNewPlant(PlantsRecord plant, CancellationToken token);
     }
 }

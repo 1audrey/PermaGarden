@@ -28,7 +28,6 @@ export class PlantsListComponent implements OnInit {
 
   ngOnInit() {
     this.plants = this.route.snapshot.data['plants']
-    console.log(this.plants);
   }
 
   openAddNewPlant() {
