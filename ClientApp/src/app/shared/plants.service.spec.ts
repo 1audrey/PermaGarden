@@ -31,14 +31,14 @@ describe('PlantsService', () => {
 
   it(`should save plant`, () => {
     const newPlant = {
-      name: "Spring Onions",
-      startingMonths: ["March", "April", "May", "June", "July", "August", "September"] ,
-      startingMethod: "Sowing in pots",
-      sowingPeriodInDays: 21,
-      harvestingMonths: ["January", "April", "June", "July", "August", "September", "October"],
-      harvestingPeriodInDays: 120,
+      plantName: "Spring Onions",
+      plantStartingMonths: "March, April, May, June, July, August, September" ,
+      plantStartingMethod: "Sowing in pots",
+      plantSowingPeriod: 21,
+      plantHarvestingMonths: "January, April, June, July, August, September, October",
+      plantGrowingPeriod: 120,
       plantImagePicture: 'assets/images/spring-onions.jpg',
-      }
+    }
 
     const spy = spyOn(service, 'savePlant');
     service.savePlant(newPlant);
@@ -50,12 +50,12 @@ describe('PlantsService', () => {
 
   it(`should get plant details`, (done) => {
     const fakePlant = {
-      name: "Spring Onions",
-      startingMonths: ["March", "April", "May", "June", "July", "August", "September"] ,
-      startingMethod: "Sowing in pots",
-      sowingPeriodInDays: 21,
-      harvestingMonths: ["January", "April", "June", "July", "August", "September", "October"],
-      harvestingPeriodInDays: 120,
+      plantName: "Spring Onions",
+      plantStartingMonths: "March, April, May, June, July, August, September",
+      plantStartingMethod: "Sowing in pots",
+      plantSowingPeriod: 21,
+      plantHarvestingMonths: "January, April, June, July, August, September, October",
+      plantGrowingPeriod: 120,
       plantImagePicture: 'assets/images/spring-onions.jpg',
       }
 

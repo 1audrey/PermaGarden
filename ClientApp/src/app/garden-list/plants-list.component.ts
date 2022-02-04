@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { IPlantsList } from './models/iplants-model';
 import { ActivatedRoute } from '@angular/router';
 import { PlantsService } from '../shared/plants.service';
-import { Observable } from 'rxjs';
+import { NotificationsService } from '../shared/notifications.service';
 
 @Component({
   selector: 'app-plants-list',
@@ -22,12 +22,14 @@ export class PlantsListComponent implements OnInit {
   public static readonly ADDNEWPLANT_WEBSITE_URL: string = '/add-new-plant';
   public static readonly FULL_YEAR_ARRAY: number = 11;
 
-  constructor(private plantService: PlantsService, private route: ActivatedRoute) {
+  constructor(private plantService: PlantsService,
+    private route: ActivatedRoute,
+    private notifications: NotificationsService) {
 
   }
 
   ngOnInit() {
-    this.plants = this.route.snapshot.data['plants']
+    this.plants = this.route.snapshot.data['plants'];
   }
 
   openAddNewPlant() {
@@ -48,7 +50,7 @@ export class PlantsListComponent implements OnInit {
   }
 
   filterAll() {
-    this.plants = this.route.snapshot.data['plants']
+    this.plants = this.route.snapshot.data['plants'];
   }
 
   onPlantDeleted(plant: IPlantsList){
@@ -58,6 +60,11 @@ export class PlantsListComponent implements OnInit {
     }
   }
 
+  plantToDelete(plant: IPlantsList) {
+    this.plantService.plantToDelete(plant.plantName).subscribe();
+    this.onPlantDeleted(plant);
+    this.notifications.showSuccess(`${plant.plantName} has been deleted`);
+  }
 
 
 }

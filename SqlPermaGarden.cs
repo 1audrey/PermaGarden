@@ -81,5 +81,18 @@ namespace perma_garden_app
                     cancellationToken: token));
         }
 
+        public async Task DeletePlant(string plantName, CancellationToken token)
+        {
+            var command = @"DELETE FROM dbo.Plants
+                            WHERE 
+                            PlantName = @PlantName";
+
+            await SqlConnection.ExecuteAsync(
+                new CommandDefinition(
+                    command,
+                    new { PlantName = plantName },
+                    cancellationToken: token));
+        }
+
     }
 }

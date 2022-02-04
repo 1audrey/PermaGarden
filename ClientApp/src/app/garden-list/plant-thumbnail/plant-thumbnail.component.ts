@@ -31,11 +31,11 @@ export class PlantThumbnailComponent {
   constructor(public dialog: MatDialog) { }
 
   isSowingMonthIncluded(month: string): boolean {
-    return this.plant.plantStartingMonths.split(', ').includes(month);
+    return this.plant.plantStartingMonths.split(',').includes(month);
   }
 
   isHarvestingMonthIncluded(month: string): boolean{
-    return this.plant.plantHarvestingMonths.split(', ').includes(month);
+    return this.plant.plantHarvestingMonths.split(',').includes(month);
   }
 
   typeOfStarting() {
