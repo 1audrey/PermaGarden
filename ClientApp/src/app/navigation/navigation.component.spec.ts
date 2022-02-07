@@ -51,13 +51,13 @@ describe('NavigationComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should show correct title', () => {
-    const title = fixture.debugElement.nativeElement.querySelector('#app-title');
+  it('should show correct patchImageTitle', () => {
+    const title = fixture.debugElement.nativeElement.querySelector('#app-patchImageTitle');
 
     expect(title.innerText).toEqual('My Perma Garden');
   });
 
-  it('should render title in a h1 tag', () => {
+  it('should render patchImageTitle in a h1 tag', () => {
     const title = fixture.debugElement.nativeElement;
     expect(title.querySelector('h1').textContent).toContain('My Perma Garden');
   });

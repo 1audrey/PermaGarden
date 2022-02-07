@@ -3,7 +3,8 @@ import { FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { IPatch } from 'src/app/garden/models/ipatch-model';
-import { PatchesService } from 'src/app/shared/patches.service';
+import { PatchesService } from '../../services/patches/patches.service';
+
 import { IPlantsList } from '../models/iplants-model';
 
 @Component({

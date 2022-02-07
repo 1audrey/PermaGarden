@@ -24,7 +24,7 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'My Perma Garden'`, () => {
+  it(`should have as patchImageTitle 'My Perma Garden'`, () => {
     const fixture = TestBed.createComponent( PermagardenAppComponent);
     const app = fixture.componentInstance;
     expect(app.title).toEqual('My Perma Garden');

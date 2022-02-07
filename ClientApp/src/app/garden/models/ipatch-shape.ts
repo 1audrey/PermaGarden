@@ -1,5 +1,6 @@
 export interface IPatchShape {
-  name: string,
-  url: string
-
+  patchImageId: number
+  patchImageTitle: string,
+  patchImagePicture: string
  }
+

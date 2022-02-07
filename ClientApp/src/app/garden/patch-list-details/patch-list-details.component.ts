@@ -2,9 +2,9 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { IPlantsList } from 'src/app/garden-list/models/iplants-model';
-import { NotificationsService } from 'src/app/shared/notifications.service';
-import { PatchesService } from 'src/app/shared/patches.service';
-import { PlantsService } from 'src/app/shared/plants.service';
+import { NotificationsService } from '../../services/notifications/notifications.service';
+import { PatchesService } from '../../services/patches/patches.service';
+
 import { IPatch } from '../models/ipatch-model';
 import { IPatchShape } from '../models/ipatch-shape';
 
@@ -22,28 +22,29 @@ export class PatchListDetailsComponent implements OnInit {
 
   icons: IPatchShape[] =
     [{
-      name: 'square',
-      url: 'assets/shapes/square-shape.png'
+      patchImageId:1,
+      patchImageTitle: 'square',
+      patchImagePicture: 'assets/shapes/square-shape.png'
     },
-    {
-      name: 'hexagone',
-      url: 'assets/shapes/hexagon-shape.png'
+      {
+       patchImageId: 2,
+      patchImageTitle: 'hexagone',
+      patchImagePicture: 'assets/shapes/hexagon-shape.png'
     }
     ];
 
   constructor(private patchService: PatchesService,
     private route: ActivatedRoute,
     private router: Router,
-    private notifications: NotificationsService,
-    private plantService: PlantsService) { }
+    private notifications: NotificationsService) { }
 
   ngOnInit() {
     this.patch = this.patchService.getSinglePatch(this.route.snapshot.params['patchName']);
-    this.plants = this.plantService.getPlants();
+    this.plants = this.route.snapshot.data['plants'];
 
     for (let icon of this.icons) {
-      if (this.patch.icon === icon.url) {
-        this.selectedIcon = icon.url
+      if (this.patch.icon === icon.patchImagePicture) {
+        this.selectedIcon = icon.patchImagePicture
       }
     }
 

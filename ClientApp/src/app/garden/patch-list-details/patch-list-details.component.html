@@ -23,9 +23,9 @@
             <mat-form-field appearance="fill">
               <mat-label>Select</mat-label>
               <mat-select ngDefaultControl [(ngModel)]="selectedIcon" name="icon" required>
-                <mat-option class="icon" *ngFor="let icon of icons" [value]="icon.url">
-                  <p class="icon-name">{{icon.name}}</p>
-                  <img class="icon-url" [src]=icon.url />
+                <mat-option class="icon" *ngFor="let icon of icons" [value]="icon.patchImagePicture">
+                  <p class="icon-name">{{icon.patchImageTitle}}</p>
+                  <img class="icon-url" [src]=icon.patchImagePicture />
                 </mat-option>
               </mat-select>
             </mat-form-field>

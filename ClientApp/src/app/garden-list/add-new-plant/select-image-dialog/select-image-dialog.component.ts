@@ -2,8 +2,9 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatListOption, MatSelectionList } from '@angular/material/list';
+import { PlantImageService } from '../../../services/plants/plant-image.service';
 import { IPlantsImage } from '../../models/iplants-image-model';
-import { PlantImageService } from '../../../shared/plant-image.service';
+
 
 
 @Component({

@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { NotificationsService } from '../../services/notifications/notifications.service';
+import { PlantsService } from '../../services/plants/plants.service';
 import { IPlantsImage } from '../models/iplants-image-model';
 import { IPlantsList } from '../models/iplants-model';
-import { PlantsService } from '../../shared/plants.service';
+
 import { SelectImageDialogComponent } from './select-image-dialog/select-image-dialog.component';
-import { NotificationsService } from '../../shared/notifications.service';
+
 
 
 @Component({

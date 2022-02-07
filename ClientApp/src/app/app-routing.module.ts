@@ -9,7 +9,6 @@ import { GardenFootprintComponent } from './garden/garden-footprint/garden-footp
 import { PatchResolverService } from './resolver/patch-resolver.service';
 import { CreatePatchComponent } from './garden/create-patch/create-patch.component';
 import { ManagePatchTasksComponent } from './task/manage-patch-tasks/manage-patch-tasks.component';
-import { PatchListComponent } from './garden/patch-list/patch-list.component';
 import { PatchListDetailsComponent } from './garden/patch-list-details/patch-list-details.component';
 import { AllTasksComponent } from './task/all-tasks/all-tasks.component';
 import { CreateTaskComponent } from './task/create-task/create-task.component';

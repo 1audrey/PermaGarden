@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace perma_garden_app
 {
-    public class SqlPermaGarden : IPermaGardenRepositery<PlantsImagesRecord, PlantsRecord>
+    public class SqlPermaGarden : IPermaGardenRepositery<PlantsImagesRecord, PlantsRecord, PatchesImagesRecord>
     {
         public SqlPermaGarden(string connectionString)
         {
@@ -92,6 +92,20 @@ namespace perma_garden_app
                     command,
                     new { PlantName = plantName },
                     cancellationToken: token));
+        }
+
+        public async Task<IEnumerable<PatchesImagesRecord>> GetAllPatchesImages(CancellationToken token)
+        {
+            var command = @"SELECT
+                                patchImage.PatchImageId
+                                , patchImage.PatchImageTitle
+                                , patchImage.PatchImagePicture
+                            FROM
+                                dbo.PatchesImages patchImage";
+
+
+            return await SqlConnection.QueryAsync<PatchesImagesRecord>(new CommandDefinition(command,
+                cancellationToken: token));
         }
 
     }

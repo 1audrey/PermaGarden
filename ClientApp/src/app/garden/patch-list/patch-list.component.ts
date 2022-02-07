@@ -2,9 +2,6 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { IPatch } from '../models/ipatch-model';
 import { ActivatedRoute, Router } from '@angular/router';
-import { PatchesService } from 'src/app/shared/patches.service';
-
-
 
 @Component({
   selector: 'app-patch-list',

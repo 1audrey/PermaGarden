@@ -1,12 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { ActivatedRoute, Route, Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { IPlantsList } from 'src/app/garden-list/models/iplants-model';
-import { IPatch } from 'src/app/garden/models/ipatch-model';
-import { NotificationsService } from 'src/app/shared/notifications.service';
-import { PatchesService } from 'src/app/shared/patches.service';
-import { CreateTaskComponent } from '../create-task/create-task.component';
+import { ActivatedRoute, Router } from '@angular/router';
+import { NotificationsService } from '../../services/notifications/notifications.service';
+import { PatchesService } from '../../services/patches/patches.service';
 import { ITask } from '../models/itask-model';
 
 @Component({

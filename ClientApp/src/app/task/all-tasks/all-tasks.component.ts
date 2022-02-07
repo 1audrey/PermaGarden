@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { PatchesService } from 'src/app/shared/patches.service';
 import { ITask } from '../models/itask-model';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogCreateTaskComponent } from '../dialog-create-task/dialog-create-task.component';
+import { PatchesService } from '../../services/patches/patches.service';
 
 @Component({
   selector: 'app-all-tasks',

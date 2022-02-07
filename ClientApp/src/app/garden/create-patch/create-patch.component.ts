@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { IPlantsList } from 'src/app/garden-list/models/iplants-model';
-import { NotificationsService } from 'src/app/shared/notifications.service';
-import { PatchesService } from 'src/app/shared/patches.service';
-import { PlantsService } from 'src/app/shared/plants.service';
+import { NotificationsService } from '../../services/notifications/notifications.service';
+import { PatchImageService } from '../../services/patches/patch-image.service';
+import { PatchesService } from '../../services/patches/patches.service';
+import { PlantsService } from '../../services/plants/plants.service';
+
 import { IPatch } from '../models/ipatch-model';
 import { IPatchShape } from '../models/ipatch-shape';
 
@@ -17,31 +17,25 @@ import { IPatchShape } from '../models/ipatch-shape';
 export class CreatePatchComponent implements OnInit{
   isDirty: boolean = true;
   newPatch!: any;
-  icon!: IPatchShape[];
-  plants!: Observable<Array<IPlantsList>>
-
+  icons!: IPatchShape[];
+  plants!: IPlantsList[];
   selectedIcon!: string;
-  selectedPlants!: IPlantsList[];
+  selectedPlant!: IPlantsList[];
 
   constructor(private router: Router,
     private notifications: NotificationsService,
     private patchService: PatchesService,
-    private plantService: PlantsService
+    private plantService: PlantsService,
+    private patchImageService: PatchImageService
 ) { }
 
-  icons: IPatchShape[] =
-    [{
-      name: 'square',
-      url: 'assets/shapes/square-shape.png'
-    },
-    {
-      name: 'hexagone',
-      url: 'assets/shapes/hexagon-shape.png'
-    }
-    ]
-
-   ngOnInit(){
-    this.plants = this.plantService.getPlants();
+  ngOnInit() {
+     this.plantService.getAllPlants().subscribe(plants => {
+       this.plants = plants;
+     });
+    this.patchImageService.getAllPlantsImages().subscribe(images => {
+      this.icons = images;
+    });
   }
 
   cancel() {

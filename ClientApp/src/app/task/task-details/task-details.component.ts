@@ -1,10 +1,10 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { IPatch } from 'src/app/garden/models/ipatch-model';
-import { PatchesService } from 'src/app/shared/patches.service';
 import { ITask } from '../models/itask-model';
 import { MatDialog } from '@angular/material/dialog';
 import { CompleteTaskDialogComponent } from '../complete-task-dialog/complete-task-dialog.component';
+import { PatchesService } from '../../services/patches/patches.service';
 
 @Component({
   selector: 'app-task-details',

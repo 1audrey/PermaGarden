@@ -1,8 +1,6 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { IPlantsList } from 'src/app/garden-list/models/iplants-model';
-import { PatchesService } from 'src/app/shared/patches.service';
+import { Component, OnInit } from '@angular/core';
 import { ITask } from 'src/app/task/models/itask-model';
+import { PatchesService } from '../../services/patches/patches.service';
 
 @Component({
   selector: 'app-homepage',

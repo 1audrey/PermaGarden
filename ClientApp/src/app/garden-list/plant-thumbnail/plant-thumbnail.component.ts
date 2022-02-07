@@ -1,9 +1,9 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { IPlantsList } from '../models/iplants-model';
 import { AddToGardenComponent } from '../add-to-garden/add-to-garden.component';
 import { MatDialog } from '@angular/material/dialog';
-import { Observable } from 'rxjs';
+
 
 @Component({
   selector: 'app-plant-thumbnail',

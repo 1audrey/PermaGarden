@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { IPlantsList } from 'src/app/garden-list/models/iplants-model';
 import { IPatch } from 'src/app/garden/models/ipatch-model';
-import { PatchesService } from 'src/app/shared/patches.service';
-import { PlantsService } from 'src/app/shared/plants.service';
+
 import { ITask } from 'src/app/task/models/itask-model';
+import { PatchesService } from '../../services/patches/patches.service';
+import { PlantsService } from '../../services/plants/plants.service';
 
 @Component({
   selector: 'app-summary',

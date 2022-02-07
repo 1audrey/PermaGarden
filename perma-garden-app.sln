@@ -25,6 +25,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Entities", "Entities", "{9E
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Database.Schema", "Database.Schema\Database.Schema.sqlproj", "{07AA2B5D-5DB7-4D0F-89C9-03DDF66F3701}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Patches", "Patches", "{FE5618A6-69BA-48F5-AA93-A475D94AA6DE}"
+	ProjectSection(SolutionItems) = preProject
+		PatchesImagesRecord.cs = PatchesImagesRecord.cs
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plants", "Plants", "{8A2B1E25-8C24-4DC6-A6A7-F051B8208EBA}"
+	ProjectSection(SolutionItems) = preProject
+		PlantsImagesRecord.cs = PlantsImagesRecord.cs
+		PlantsRecord.cs = PlantsRecord.cs
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,6 +60,8 @@ Global
 		{D92CED5A-1320-43A7-B79D-77092F44543E} = {46E9CC14-EE8C-40CB-B954-B4FBE8E0B433}
 		{23543CCF-2CDB-4AB6-B910-2B6B667D20E1} = {46E9CC14-EE8C-40CB-B954-B4FBE8E0B433}
 		{9EF5A60E-48D3-46C5-9A46-4F9567E49173} = {46E9CC14-EE8C-40CB-B954-B4FBE8E0B433}
+		{FE5618A6-69BA-48F5-AA93-A475D94AA6DE} = {9EF5A60E-48D3-46C5-9A46-4F9567E49173}
+		{8A2B1E25-8C24-4DC6-A6A7-F051B8208EBA} = {9EF5A60E-48D3-46C5-9A46-4F9567E49173}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BB474B85-E617-462B-BB90-0FDF34902ECF}

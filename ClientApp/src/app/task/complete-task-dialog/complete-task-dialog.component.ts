@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { NotificationsService } from 'src/app/shared/notifications.service';
-import { PatchesService } from 'src/app/shared/patches.service';
+import { NotificationsService } from '../../services/notifications/notifications.service';
+import { PatchesService } from '../../services/patches/patches.service';
+
 import { ITask } from '../models/itask-model';
 
 @Component({

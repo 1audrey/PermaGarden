@@ -1,30 +1,16 @@
 
-import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from "@angular/common/http";
+import { HttpClient, HttpErrorResponse, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable, Subject, throwError} from "rxjs";
+import { Observable, throwError} from "rxjs";
 import { catchError, tap } from "rxjs/operators";
-import { IPlantsList } from "../garden-list/models/iplants-model";
-import * as plants from "./plants-list.json";
+import { IPlantsList } from "../../garden-list/models/iplants-model";
 
 
 @Injectable()
 export class PlantsService{
   baseUrl = 'https://localhost:5001/Plants/'
-  static PLANTS: any = [];
 
   constructor(private http: HttpClient){}
-
-   getPlants(): Observable<IPlantsList[]>{
-    let subject = new Subject<IPlantsList[]>()
-    setTimeout(() => {subject.next(this.PLANTS); subject.complete();},
-    100)
-
-    return subject;
-  }
-
-  savePlant(newPlant: IPlantsList) {
-    this.PLANTS.push(newPlant)
-  }
 
   saveNewPlant(plant: IPlantsList): Observable<IPlantsList> {
     console.log(`Setting the ${plant.plantName} from the plant service`);
@@ -47,10 +33,7 @@ export class PlantsService{
       tap(() => console.log('Plant service delete plant success')),
       catchError((error: HttpErrorResponse) => throwError(error)),
     );
-   
   }
-
-  PLANTS = (plants as any).default;
 
 }
 

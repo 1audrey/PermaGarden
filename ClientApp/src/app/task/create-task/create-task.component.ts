@@ -1,13 +1,11 @@
-import { Component, Inject, Input, OnInit } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs';
 import { IPlantsList } from 'src/app/garden-list/models/iplants-model';
 import { IPatch } from 'src/app/garden/models/ipatch-model';
-import { PatchesService } from 'src/app/shared/patches.service';
+import { NotificationsService } from '../../services/notifications/notifications.service';
+import { PatchesService } from '../../services/patches/patches.service';
 import { ITask } from '../models/itask-model';
-import { NotificationsService } from 'src/app/shared/notifications.service';
-import {DateAdapter, MAT_DATE_LOCALE} from '@angular/material/core';
+
 
 @Component({
   selector: 'app-create-task',

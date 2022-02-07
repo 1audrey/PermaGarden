@@ -18,7 +18,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { NavigationComponent } from './navigation/navigation.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { PlantThumbnailComponent } from './garden-list/plant-thumbnail/plant-thumbnail.component';
-import { PlantsService } from './shared/plants.service';
+
 import { AddToGardenComponent } from './garden-list/add-to-garden/add-to-garden.component';
 import { PlantsListResolver } from './resolver/plants-list-resolver.service';
 import { AuthService } from './user/auth.service';
@@ -30,7 +30,7 @@ import { AddNewPlantComponent } from './garden-list/add-new-plant/add-new-plant.
 import {MatCheckboxModule} from '@angular/material/checkbox';
 
 import { SelectImageDialogComponent } from './garden-list/add-new-plant/select-image-dialog/select-image-dialog.component';
-import { PlantImageService } from './shared/plant-image.service';
+
 import { PlantImageResolverService } from './resolver/plant-image-resolver.service';
 import { FilterPipe } from './pipe/filter.pipe';
 import { HttpClientModule } from '@angular/common/http';
@@ -38,11 +38,11 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatSelectModule} from '@angular/material/select';
 
 import {MatSnackBarModule} from '@angular/material/snack-bar';
-import { NotificationsService } from './shared/notifications.service';
+
 import { GardenFootprintComponent } from './garden/garden-footprint/garden-footprint.component';
 import { PatchListComponent } from './garden/patch-list/patch-list.component';
 import { PatchResolverService } from './resolver/patch-resolver.service';
-import { PatchesService } from './shared/patches.service';
+
 import { CreatePatchComponent } from './garden/create-patch/create-patch.component';
 import { ManagePatchTasksComponent } from './task/manage-patch-tasks/manage-patch-tasks.component';
 import { PatchListDetailsComponent } from './garden/patch-list-details/patch-list-details.component';
@@ -58,6 +58,10 @@ import { DialogCreateTaskComponent } from './task/dialog-create-task/dialog-crea
 import { HomepageComponent } from './homepage/homepage/homepage.component';
 import { WeatherComponent } from './homepage/weather/weather.component';
 import { SummaryComponent } from './homepage/summary/summary.component';
+import { PlantsService } from './services/plants/plants.service';
+import { PlantImageService } from './services/plants/plant-image.service';
+import { NotificationsService } from './services/notifications/notifications.service';
+import { PatchesService } from './services/patches/patches.service';
 
 
 

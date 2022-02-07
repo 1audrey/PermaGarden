@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { IPlantsList } from './models/iplants-model';
 import { ActivatedRoute } from '@angular/router';
-import { PlantsService } from '../shared/plants.service';
-import { NotificationsService } from '../shared/notifications.service';
+import { PlantsService } from '../services/plants/plants.service';
+import { NotificationsService } from '../services/notifications/notifications.service';
+
 
 @Component({
   selector: 'app-plants-list',

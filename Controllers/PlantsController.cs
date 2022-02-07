@@ -10,11 +10,11 @@ namespace perma_garden_app.Controllers
     [Route("[controller]")]
     public class PlantsController : ControllerBase
     {
-        private readonly IPermaGardenRepositery<PlantsImagesRecord, PlantsRecord> _plantsRepositery;
+        private readonly IPermaGardenRepositery<PlantsImagesRecord, PlantsRecord, PatchesImagesRecord> _permaGardenRepositery;
 
-        public PlantsController(IPermaGardenRepositery<PlantsImagesRecord, PlantsRecord> plantsRepositery)
+        public PlantsController(IPermaGardenRepositery<PlantsImagesRecord, PlantsRecord, PatchesImagesRecord> permaGardenRepositery)
         {
-            _plantsRepositery = plantsRepositery;
+            _permaGardenRepositery = permaGardenRepositery;
             
         }
 
@@ -25,7 +25,7 @@ namespace perma_garden_app.Controllers
         [Route("all-plants-images")]
         public async Task<IActionResult> GetPlantsImages(CancellationToken token)
         {
-            var plantsImages = await _plantsRepositery
+            var plantsImages = await _permaGardenRepositery
                 .GetAllPlantsImages(token);
 
             return Ok(plantsImages.ToList());
@@ -38,7 +38,7 @@ namespace perma_garden_app.Controllers
         [Route("all-plants")]
         public async Task<IActionResult> GetAllPlants(CancellationToken token)
         {
-            var plantsImages = await _plantsRepositery
+            var plantsImages = await _permaGardenRepositery
                 .GetAllPlants(token);
 
             return Ok(plantsImages.ToList());
@@ -65,7 +65,7 @@ namespace perma_garden_app.Controllers
                     PlantImagePicture = plant.PlantImagePicture  
                 };
 
-                await _plantsRepositery.SaveNewPlant(newPlant, token);
+                await _permaGardenRepositery.SaveNewPlant(newPlant, token);
 
                     return Ok();
                 }
@@ -82,7 +82,7 @@ namespace perma_garden_app.Controllers
         {
             if (plantName != null)
             {
-                await _plantsRepositery.DeletePlant(plantName, token);
+                await _permaGardenRepositery.DeletePlant(plantName, token);
 
                 return Ok();
             }
