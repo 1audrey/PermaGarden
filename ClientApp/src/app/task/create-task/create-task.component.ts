@@ -45,8 +45,8 @@ export class CreateTaskComponent implements OnInit {
 
   getPlantStartingMethod() {
     let patchPlantList: string;
-    if (this.patch.plantlist?.length && this.selectedPlant) {
-      for (let plant of this.patch.plantlist) {
+    if (this.patch.plantList?.length && this.selectedPlant) {
+      for (let plant of this.patch.plantList) {
         if (plant.plantName == this.selectedPlant.plantName) {
           patchPlantList = plant.plantStartingMethod;
 
@@ -63,7 +63,7 @@ export class CreateTaskComponent implements OnInit {
     this.isDirty = false;
     formValues.patchName = patchName;
     this.patchService.saveTaskInPatch(patchName, formValues);
-    this.notifications.showSuccess(`${formValues.action} has been added to ${this.patch.name}`);
+    this.notifications.showSuccess(`${formValues.action} has been added to ${this.patch.patchName}`);
     this.router.navigate(['garden']);
     console.log(formValues);
 

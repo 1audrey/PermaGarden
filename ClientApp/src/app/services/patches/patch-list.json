@@ -1,10 +1,10 @@
 [
   {
-    "name": "Patch 1 in the left corner of the garden",
-    "icon": "assets/shapes/square-shape.png",
-    "plantlist": [
+    "patchName": "Patch 1 in the left corner of the garden",
+    "patchImagePicture": "assets/shapes/square-shape.png",
+    "plantList": [
       {
-        "name": "Spring Onions",
+        "plantName": "Spring Onions",
         "startingMonths": [
           "March",
           "April",
@@ -14,7 +14,7 @@
           "August",
           "September"
         ],
-        "startingMethod": "Sowing in pots",
+        "plantStartingMethod": "Sowing in pots",
         "sowingPeriodInDays": 21,
         "harvestingMonths": [
           "January",
@@ -29,7 +29,7 @@
         "imageUrl": "assets/images/spring-onions.jpg"
       },
       {
-        "name": "Carrots",
+        "plantName": "Carrots",
         "startingMonths": [
           "February",
           "March",
@@ -38,7 +38,7 @@
           "June",
           "July"
         ],
-        "startingMethod": "Sowing in soil",
+        "plantStartingMethod": "Sowing in soil",
         "sowingPeriodInDays": 21,
         "harvestingMonths": [
           "May",
@@ -52,7 +52,7 @@
         "imageUrl": "assets/images/carrots.jpg"
       },
       {
-        "name": "Apples",
+        "plantName": "Apples",
         "startingMonths": [
           "January",
           "February",
@@ -60,7 +60,7 @@
           "November",
           "December"
         ],
-        "startingMethod": "Planting",
+        "plantStartingMethod": "Planting",
         "harvestingMonths": [
           "August",
           "September",
@@ -70,11 +70,11 @@
         "imageUrl": "assets/images/apples.jpg"
       }
     ],
-    "tasklist": [
+    "taskList": [
       {
         "patchName": "Patch 1 in the left corner of the garden",
         "plant": {
-          "name": "Spring Onions",
+          "plantName": "Spring Onions",
           "startingMonths": [
             "March",
             "April",
@@ -84,7 +84,7 @@
             "August",
             "September"
           ],
-          "startingMethod": "Sowing in pots",
+          "plantStartingMethod": "Sowing in pots",
           "sowingPeriodInDays": 21,
           "harvestingMonths": [
             "January",
@@ -107,7 +107,7 @@
       {
         "patchName": "Patch 1 in the left corner of the garden",
         "plant": {
-          "name": "Spring Onions",
+          "plantName": "Spring Onions",
           "startingMonths": [
             "March",
             "April",
@@ -117,7 +117,7 @@
             "August",
             "September"
           ],
-          "startingMethod": "Sowing in pots",
+          "plantStartingMethod": "Sowing in pots",
           "sowingPeriodInDays": 21,
           "harvestingMonths": [
             "January",
@@ -139,21 +139,21 @@
       {
         "patchName": "Patch 1 in the left corner of the garden",
         "plant": {
-          "name": "Apples",
+          "plantName": "Apples",
           "startingMonths": [
-          "January",
-          "February",
-          "March",
-          "November",
-          "December"
-        ],
-          "startingMethod": "Planting",
+            "January",
+            "February",
+            "March",
+            "November",
+            "December"
+          ],
+          "plantStartingMethod": "Planting",
           "harvestingMonths": [
-          "August",
-          "September",
-          "October",
-          "November"
-        ],
+            "August",
+            "September",
+            "October",
+            "November"
+          ],
           "imageUrl": "assets/images/apples.jpg"
 
         },
@@ -167,17 +167,17 @@
     ]
   },
   {
-    "name": "Patch 2",
-    "icon": "assets/shapes/hexagon-shape.png",
-    "plantlist": [],
-    "tasklist": []
+    "patchName": "Patch 2",
+    "patchImagePicture": "assets/shapes/hexagone-shape.png",
+    "plantList": [],
+    "taskList": []
   },
   {
-    "name": "Patch 3",
-    "icon": "assets/shapes/square-shape.png",
-    "plantlist": [
+    "patchName": "Patch 3",
+    "patchImagePicture": "assets/shapes/square-shape.png",
+    "plantList": [
       {
-        "name": "Carrots",
+        "plantName": "Carrots",
         "startingMonths": [
           "February",
           "March",
@@ -186,7 +186,7 @@
           "June",
           "July"
         ],
-        "startingMethod": "Sowing in soil",
+        "plantStartingMethod": "Sowing in soil",
         "sowingPeriodInDays": 21,
         "harvestingMonths": [
           "May",
@@ -200,11 +200,11 @@
         "imageUrl": "assets/images/carrots.jpg"
       }
     ],
-    "tasklist": [
+    "taskList": [
       {
         "patchName": "Patch 3",
         "plant": {
-          "name": "Carrots",
+          "plantName": "Carrots",
           "startingMonths": [
             "February",
             "March",
@@ -213,7 +213,7 @@
             "June",
             "July"
           ],
-          "startingMethod": "Sowing in soil",
+          "plantStartingMethod": "Sowing in soil",
           "sowingPeriodInDays": 21,
           "harvestingMonths": [
             "May",

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { IPlantsList } from 'src/app/garden-list/models/iplants-model';
 import { NotificationsService } from '../../services/notifications/notifications.service';
 import { PatchImageService } from '../../services/patches/patch-image.service';
@@ -33,7 +33,7 @@ export class CreatePatchComponent implements OnInit{
      this.plantService.getAllPlants().subscribe(plants => {
        this.plants = plants;
      });
-    this.patchImageService.getAllPlantsImages().subscribe(images => {
+    this.patchImageService.getAllPatchesImages().subscribe(images => {
       this.icons = images;
     });
   }
@@ -44,14 +44,14 @@ export class CreatePatchComponent implements OnInit{
 
   savePatch(formValues: IPatch){
     this.isDirty = false;
-    if(formValues.name === null || formValues.icon === null)
+    if(formValues.patchName === null || formValues.patchImagePicture === null)
     {
       this.notifications.showError(`Oops something went wrong, please fill all the required fields`);
     }
     else
     {
       this.patchService.savePatch(formValues);
-      this.notifications.showSuccess(`${formValues.name} has been added to your garden`);
+      this.notifications.showSuccess(`${formValues.patchName} has been added to your garden`);
       this.router.navigate(['garden']);
       console.log(formValues);
     }

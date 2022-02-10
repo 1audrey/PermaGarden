@@ -2,18 +2,18 @@
 <div class="head">
   <div class="tasks">
     <div class="title-left">
-      <h2>{{patch.name}}</h2>
+      <h2>{{patch.patchName}}</h2>
     </div>
 
     <div class="title-right">
-      <button mat-button class="create-task" (click)="createTask()" *ngIf="patch.plantlist.length != 0" [routerLink]="['/create-task', patch.name]">Create a task</button>
-      <button mat-button class="create-task" *ngIf="patch.plantlist.length === 0" (click)="notificationForMissingPlants()">Create a task</button>
+      <button mat-button class="create-task" (click)="createTask()" *ngIf="patch.plantList.length != 0" [routerLink]="['/create-task', patch.patchName]">Create a task</button>
+      <button mat-button class="create-task" *ngIf="patch.plantList.length === 0" (click)="notificationForMissingPlants()">Create a task</button>
     </div>
   </div>
 
   <div class="my-tasks">
     <div fxLayout="row wrap" fxLayoutGap="16px grid">
-      <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="50%" fxFlex.md="50%" *ngFor="let task of patch.tasklist as tasks">
+      <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="50%" fxFlex.md="50%" *ngFor="let task of patch.taskList as tasks">
         <div class="my-patches">
           <app-task-details
           [task]="task"

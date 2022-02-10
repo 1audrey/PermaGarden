@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
-import { PatchesService } from 'src/app/shared/patches.service';
+import { PatchesService } from '../../services/patches/patches.service';
+
 
 import { GardenFootprintComponent } from './garden-footprint.component';
 

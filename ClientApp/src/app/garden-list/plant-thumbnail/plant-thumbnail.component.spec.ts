@@ -9,12 +9,13 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { PlantThumbnailComponent } from './plant-thumbnail.component';
 import { AppRoutingModule } from 'src/app/app-routing.module';
 import { PlantsListResolver } from '../../resolver/plants-list-resolver.service';
-import { PlantsService } from '../../shared/plants.service';
+
 import { MatDialog, MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatCardModule } from '@angular/material/card';
 import { ElementRef, NO_ERRORS_SCHEMA } from '@angular/core';
 import { PlantsListComponent } from '../plants-list.component';
 import { By } from '@angular/platform-browser';
+import { PlantsService } from '../../services/plants/plants.service';
 
 
 

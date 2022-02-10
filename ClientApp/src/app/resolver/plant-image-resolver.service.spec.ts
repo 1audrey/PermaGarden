@@ -1,7 +1,8 @@
 import { TestBed } from '@angular/core/testing';
 import { timer } from 'rxjs';
 import { mapTo } from 'rxjs/operators';
-import { PlantImageService } from '../shared/plant-image.service';
+import { PlantImageService } from '../services/plants/plant-image.service';
+
 
 import { PlantImageResolverService } from './plant-image-resolver.service';
 

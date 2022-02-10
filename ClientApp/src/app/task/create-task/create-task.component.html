@@ -5,16 +5,16 @@
 
     <div class="form-group">
       <label for="patchName">Patch Name:</label>
-      <p>{{patch.name}}</p>
+      <p>{{patch.patchName}}</p>
     </div>
 
     <div class="form-group"
-    [ngClass]="{'error': newTaskForm.controls.plant?.invalid && newTaskForm.controls.plant?.touched}">Select a plant:
-    <em *ngIf="newTaskForm.controls.plant?.invalid && newTaskForm.controls.plant?.touched"> *Required</em>
+    [ngClass]="{'error': newTaskForm.controls.plantList?.invalid && newTaskForm.controls.plantList?.touched}">Select a plant:
+    <em *ngIf="newTaskForm.controls.plantList?.invalid && newTaskForm.controls.plantList?.touched"> *Required</em>
     <mat-form-field appearance="fill">
         <mat-label>Select</mat-label>
-        <mat-select ngDefaultControl [(ngModel)]="selectedPlant" name="plant" required>
-          <mat-option class="plants-name" *ngFor="let plant of patch.plantlist" [value]="plant" (click)="getPlantStartingMethod()"  >
+        <mat-select ngDefaultControl [(ngModel)]="selectedPlant" name="plantList" required>
+          <mat-option class="plants-name" *ngFor="let plant of patch.plantList" [value]="plant" (click)="getPlantStartingMethod()"  >
             <p class="plant-name">{{plant.plantName}}</p>
           </mat-option>
         </mat-select>
@@ -49,8 +49,8 @@
 
     <div class="form-group">
       <div class="buttons">
-        <button id="cancel-button" mat-button type="button" class="btn btn-default" [routerLink]="['/tasks', patch.name]" >Cancel</button>
-        <button id="save-task" mat-button type="submit" class="save-new-task-button" [disabled]="newTaskForm.invalid" (click)="saveTask(patch.name, newTaskForm.value)">Save</button>
+        <button id="cancel-button" mat-button type="button" class="btn btn-default" [routerLink]="['/tasks', patch.patchName]" >Cancel</button>
+        <button id="save-task" mat-button type="submit" class="save-new-task-button" [disabled]="newTaskForm.invalid" (click)="saveTask(patch.patchName, newTaskForm.value)">Save</button>
       </div>
     </div>
   </form>

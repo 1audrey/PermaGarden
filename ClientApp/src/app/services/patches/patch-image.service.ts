@@ -12,7 +12,7 @@ export class PatchImageService {
 
   constructor(private http: HttpClient) { }
 
-  public getAllPlantsImages(): Observable<IPatchShape[]> {
+  public getAllPatchesImages(): Observable<IPatchShape[]> {
     return this.http.get<IPatchShape[]>(this.baseUrl + 'all-patches-shapes');
   }
 }

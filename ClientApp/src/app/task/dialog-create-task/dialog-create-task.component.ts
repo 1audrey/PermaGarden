@@ -29,7 +29,7 @@ export class DialogCreateTaskComponent implements OnInit {
     private notifications: NotificationsService) { }
 
   ngOnInit(): void {
-    this.patchService.getPatch().subscribe(allPatches => {
+    this.patchService.getAllPatches().subscribe(allPatches => {
       this.patches = allPatches;
       this.isLoading = true;
     });
@@ -56,7 +56,7 @@ export class DialogCreateTaskComponent implements OnInit {
 
   createTaskPage(patchName: string) {
     for (let patch of this.patches) {
-      if (patch.name === patchName && !patch.plantlist?.length) {
+      if (patch.patchName === patchName && !patch.plantList?.length) {
         this.notifications.showWarning(`You need to add plants to ${patchName} before creating tasks`);
         return;
       }

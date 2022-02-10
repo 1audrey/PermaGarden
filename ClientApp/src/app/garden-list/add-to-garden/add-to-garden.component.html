@@ -7,8 +7,8 @@
   <mat-form-field appearance="fill">
     <mat-label>Select a patch</mat-label>
     <mat-select class="select" [formControl]="patchControl" [(ngModel)]="patchName" (valueChange)="onSelection()" required>
-      <mat-option *ngFor="let patch of patches" [value]="patch.name">
-        {{patch.name}}
+      <mat-option *ngFor="let patch of patches" [value]="patch.patchName">
+        {{patch.patchName}}
       </mat-option>
     </mat-select>
     <mat-error *ngIf="patchControl.hasError('required')">Please choose a patch</mat-error>

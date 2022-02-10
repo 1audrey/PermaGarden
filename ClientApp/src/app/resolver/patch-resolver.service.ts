@@ -10,6 +10,6 @@ export class PatchResolverService implements Resolve<any> {
   constructor(private patchService: PatchesService) { }
 
   resolve(){
-    return this.patchService.getPatch().pipe(map(patches => patches));
+    return this.patchService.getAllPatches().pipe(map(patches => patches));
   }
 }

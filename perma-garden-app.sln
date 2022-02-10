@@ -28,6 +28,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Patches", "Patches", "{FE5618A6-69BA-48F5-AA93-A475D94AA6DE}"
 	ProjectSection(SolutionItems) = preProject
 		PatchesImagesRecord.cs = PatchesImagesRecord.cs
+		PatchesRecord.cs = PatchesRecord.cs
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plants", "Plants", "{8A2B1E25-8C24-4DC6-A6A7-F051B8208EBA}"

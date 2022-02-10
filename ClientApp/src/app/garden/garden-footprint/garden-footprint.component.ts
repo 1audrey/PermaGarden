@@ -19,6 +19,7 @@ public static readonly CREATEPATCH_WEBSITE_URL: string = '/create-patch';
 
   ngOnInit() {
     this.patches = this.route.snapshot.data['patches'];
+    console.log(this.patches);
   }
 
   onPatchDeleted(patch: IPatch){
@@ -26,7 +27,7 @@ public static readonly CREATEPATCH_WEBSITE_URL: string = '/create-patch';
     if (index != -1) {
       this.patches.splice(index, 1);
     }
-    console.log(`'${patch.name}' has been deleted`);
+    console.log(`'${patch.patchName}' has been deleted`);
   }
 
   createPatch(){

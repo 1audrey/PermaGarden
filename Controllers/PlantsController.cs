@@ -3,6 +3,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Threading;
 using Microsoft.AspNetCore.Http;
+using perma_garden_app.Models.PatchesModel;
+using perma_garden_app.Models.TasksModel;
 
 namespace perma_garden_app.Controllers
 {
@@ -10,9 +12,21 @@ namespace perma_garden_app.Controllers
     [Route("[controller]")]
     public class PlantsController : ControllerBase
     {
-        private readonly IPermaGardenRepositery<PlantsImagesRecord, PlantsRecord, PatchesImagesRecord> _permaGardenRepositery;
+        private readonly IPermaGardenRepositery<PlantsImagesRecord, 
+            PlantsRecord, 
+            PatchesImagesRecord, 
+            PatchesRecord, 
+            PlantsInPatchesRecord, 
+            TasksRecord, 
+            TasksInPatchesRecord> _permaGardenRepositery;
 
-        public PlantsController(IPermaGardenRepositery<PlantsImagesRecord, PlantsRecord, PatchesImagesRecord> permaGardenRepositery)
+        public PlantsController(IPermaGardenRepositery<PlantsImagesRecord, 
+            PlantsRecord, 
+            PatchesImagesRecord, 
+            PatchesRecord, 
+            PlantsInPatchesRecord, 
+            TasksRecord, 
+            TasksInPatchesRecord> permaGardenRepositery)
         {
             _permaGardenRepositery = permaGardenRepositery;
             

@@ -39,7 +39,6 @@ export class PatchListComponent {
 
   openTask(){
    this.route.snapshot.params['patchName' ];
-  //  this.router.navigate(['/patchName'], { queryParams: { openFromPatch: true } });
 
   }
 

@@ -22,8 +22,8 @@ describe('PlantsService', () => {
   });
 
   it(`should get plant`, () => {
-    const spy = spyOn(service, 'getPlants');
-    service.getPlants();
+    const spy = spyOn(service, 'getAllPlants');
+    service.getAllPlants();
 
     expect(spy).toBeDefined();
     expect(spy).toHaveBeenCalledTimes(1);
@@ -40,8 +40,8 @@ describe('PlantsService', () => {
       plantImagePicture: 'assets/images/spring-onions.jpg',
     }
 
-    const spy = spyOn(service, 'savePlant');
-    service.savePlant(newPlant);
+    const spy = spyOn(service, 'saveNewPlant');
+    service.saveNewPlant(newPlant);
 
     expect(spy).toBeDefined();
     expect(spy).toHaveBeenCalledTimes(1);
@@ -59,8 +59,8 @@ describe('PlantsService', () => {
       plantImagePicture: 'assets/images/spring-onions.jpg',
       }
 
-    spyOn(service, 'getPlants').and.returnValue(timer(100).pipe(mapTo([fakePlant])));
-    service.getPlants().subscribe(plant => {
+    spyOn(service, 'getAllPlants').and.returnValue(timer(100).pipe(mapTo([fakePlant])));
+    service.getAllPlants().subscribe(plant => {
       console.log(plant);
       expect(plant).toEqual([fakePlant]);
       done();

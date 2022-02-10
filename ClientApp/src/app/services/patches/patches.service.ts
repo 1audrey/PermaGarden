@@ -1,16 +1,18 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { Observable} from 'rxjs';
 import * as patches from "./patch-list.json";
 import * as moment from 'moment';
 import { IPatch } from '../../garden/models/ipatch-model';
 import { ITask } from '../../task/models/itask-model';
 import { IPlantsList } from '../../garden-list/models/iplants-model';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class PatchesService {
+  baseUrl = 'https://localhost:5001/Patches/';
+
   patch!: IPatch;
   static PATCHES: any = [];
-
   today = new Date();
   nextDate!: any;
   todayDate!: any;
@@ -19,19 +21,16 @@ export class PatchesService {
   allTasks!: ITask[];
 
 
-  constructor() { }
-
-  getPatch(): Observable<IPatch[]> {
-    let subject = new Subject<IPatch[]>()
-    setTimeout(() => { subject.next(this.PATCHES); subject.complete(); },
-      100)
-
-    return subject;
-  }
+  constructor(private http: HttpClient) { }
 
   getSinglePatch(patchName: string) {
     this.getDifferenceBetweenTaskDateAndTodaydate(patchName);
-    return this.PATCHES.find((patch: { name: string; }) => patch.name === patchName);
+    return this.PATCHES.find((patch: { patchName: string; }) => patch.patchName === patchName);
+  }
+
+  getAllPatches(): Observable<IPatch[]> {
+    return this.http.get<IPatch[]>(this.baseUrl + 'all-patches'); 
+
   }
 
   savePlantInPatch(patchName: string, plant: IPlantsList) {
@@ -87,9 +86,9 @@ export class PatchesService {
   getAllTasks() {
     var allTasks: ITask[] = [];
     for (let patch of this.PATCHES) {
-      if (patch.tasklist?.length) {
-        for (let task of patch.tasklist) {
-          this.getDifferenceBetweenTaskDateAndTodaydate(patch.name);
+      if (patch.taskList?.length) {
+        for (let task of patch.taskList) {
+          this.getDifferenceBetweenTaskDateAndTodaydate(patch.patchName);
           allTasks.push(task);
 
         }
@@ -100,8 +99,8 @@ export class PatchesService {
 
   getDifferenceBetweenTaskDateAndTodaydate(patchName: string) {
     for (let patch of this.PATCHES) {
-      if (patch.name == patchName) {
-        for (let task of patch.tasklist) {
+      if (patch.patchName == patchName) {
+        for (let task of patch.taskList) {
           this.nextDate = moment(task.nextDate.toString().substring(0,15));
           this.todayDate = moment(this.today.toString().substring(0,15));
           this.diffInDays = Math.ceil(this.nextDate.diff(this.todayDate, 'days'));

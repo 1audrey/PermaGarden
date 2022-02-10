@@ -12,7 +12,8 @@ import { MatListModule } from '@angular/material/list';
 import { AppRoutingModule } from '../app-routing.module';
 import { PlantsListResolver } from '../resolver/plants-list-resolver.service';
 import { RouterTestingModule } from '@angular/router/testing';
-import { PlantsService } from '../shared/plants.service';
+import { PlantsService } from '../services/plants/plants.service';
+
 
 
 describe('NavigationComponent', () => {

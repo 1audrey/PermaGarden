@@ -4,7 +4,7 @@ import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatListOption, MatSelectionList } from '@angular/material/list';
 import { FilterPipe } from '../../../pipe/filter.pipe';
 import { PlantImageResolverService } from '../../../resolver/plant-image-resolver.service';
-import { PlantImageService } from '../../../shared/plant-image.service';
+import { PlantImageService } from '../../../services/plants/plant-image.service';
 import { SelectImageDialogComponent } from './select-image-dialog.component';
 
 describe('SelectImageDialogComponent', () => {

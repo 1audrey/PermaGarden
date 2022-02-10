@@ -4,6 +4,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using perma_garden_app.Models.PatchesModel;
+using perma_garden_app.Models.TasksModel;
 
 namespace perma_garden_app
 {
@@ -29,7 +31,7 @@ namespace perma_garden_app
             }
             );
 
-            services.AddTransient<IPermaGardenRepositery<PlantsImagesRecord, PlantsRecord, PatchesImagesRecord>>(_ =>
+            services.AddTransient<IPermaGardenRepositery<PlantsImagesRecord, PlantsRecord, PatchesImagesRecord, PatchesRecord, PlantsInPatchesRecord, TasksRecord, TasksInPatchesRecord>>(_ =>
                 new SqlPermaGarden(Configuration.GetConnectionString("PermaGarden")));
 
             // In production, the Angular files will be served from this directory

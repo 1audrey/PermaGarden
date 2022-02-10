@@ -1,16 +1,16 @@
 <div>
   <mat-card class="patch">
-    <mat-card-title class="title">{{patch.name | titlecase}}</mat-card-title>
+    <mat-card-title class="title">{{patch.patchName | titlecase}}</mat-card-title>
     <button class="delete" (click)="delete()">
       <mat-icon>delete_outline</mat-icon>
     </button>
     <mat-card-content class="box">
-      <img mat-card-image [src]="patch.icon" alt={{patch.name}}>
+      <img mat-card-image [src]="patch.patchImagePicture" alt={{patch.patchName}}>
     </mat-card-content>
 
     <mat-card-actions class="actions">
-      <button mat-button class="tasks" (click)="openTask()" [routerLink]="['/tasks', patch.name]">Tasks</button>
-      <button mat-button class="edit-patch" (click)="editPatch()" [routerLink]="['/garden', patch.name]">
+      <button mat-button class="tasks" (click)="openTask()" [routerLink]="['/tasks', patch.patchName]">Tasks</button>
+      <button mat-button class="edit-patch" (click)="editPatch()" [routerLink]="['/garden', patch.patchName]">
         Edit
         patch
       </button>
@@ -20,15 +20,15 @@
     <mat-card-footer class="card-footer">
       <div class="patch-info" [@bodyExpansion]="state">
         <div>
-          <h3 *ngIf="patch.plantlist?.length">Plant(s) in this patch:</h3>
-          <div *ngFor="let plantlist of patch.plantlist">
-            {{plantlist.plantName}}
+          <h3 *ngIf="patch.plantList?.length">Plant(s) in this patch:</h3>
+          <div *ngFor="let plantList of patch.plantList">
+            {{plantList.plantName}}
           </div>
         </div>
         <div>
 
-          <div *ngIf="patch.tasklist?.length">
-            <h3>You have {{patch.tasklist?.length}} task in this patch</h3>
+          <div *ngIf="patch.taskList?.length">
+            <h3>You have {{patch.taskList?.length}} task in this patch</h3>
           </div>
         </div>
       </div>

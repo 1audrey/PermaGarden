@@ -4,14 +4,14 @@
       <mat-form-field appearance="fill">
         <mat-label>Select a patch</mat-label>
         <mat-select class="select" [formControl]="patchControl" [(ngModel)]="patchName" required>
-          <mat-option *ngFor="let patch of patches" [value]="patch.name">
-            {{patch.name}}
+          <mat-option *ngFor="let patch of patches" [value]="patch.patchName">
+            {{patch.patchName}}
           </mat-option>
         </mat-select>
         <mat-error *ngIf="patchControl.hasError('required')">Please choose a patch</mat-error>
       </mat-form-field>
       <div *ngFor="let patch of patches">
-        <div *ngIf="patch.name === patchName && !patch.plantlist?.length">
+        <div *ngIf="patch.patchName === patchName && !patch.plantList?.length">
           You need to add a plant to your patch before creating a task!
           <br>
           <a disableRipple="true" (click)="goToPlantsPage()"  mat-flat-button class="add-plants-button">
