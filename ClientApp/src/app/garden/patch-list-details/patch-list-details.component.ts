@@ -1,6 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs';
 import { IPlantsList } from 'src/app/garden-list/models/iplants-model';
 import { NotificationsService } from '../../services/notifications/notifications.service';
 import { PatchImageService } from '../../services/patches/patch-image.service';
@@ -15,55 +14,41 @@ import { IPatchShape } from '../models/ipatch-shape';
   styleUrls: ['./patch-list-details.component.css']
 })
 export class PatchListDetailsComponent implements OnInit {
-  patch!: any;
+  patch!: IPatch;
   isDirty: boolean = true;
-  plants!: Observable<Array<IPlantsList>>
+  plants: IPlantsList[] = [];
   selectedIcon!: string;
   selectedPlants: IPlantsList[] = [];
   icons!: IPatchShape[];
-
-  //icons: IPatchShape[] =
-  //  [{
-  //    patchImageId:1,
-  //    patchImageTitle: 'square',
-  //    patchImagePicture: 'assets/shapes/square-shape.png'
-  //  },
-  //    {
-  //     patchImageId: 2,
-  //    patchImageTitle: 'hexagone',
-  //    patchImagePicture: 'assets/shapes/hexagon-shape.png'
-  //  }
-  //  ];
+  selectedPlantsName : string[] = [];
 
   constructor(private patchService: PatchesService,
     private route: ActivatedRoute,
     private router: Router,
     private notifications: NotificationsService,
-    private patchImageService: PatchImageService  ) { }
+    private patchImageService: PatchImageService) { }
 
   ngOnInit() {
-    this.patch = this.patchService.getSinglePatch(this.route.snapshot.params['patchName']);
-    this.plants = this.route.snapshot.data['plants'];
-    this.patchImageService.getAllPatchesImages().subscribe(images => {
-      this.icons = images;
+    this.route.data.forEach((data) => {
+      this.patch = data['patchName'][0];
+      this.plants = data['plants'];
     });
+    
+    this.selectedIcon = this.patch.patchImagePicture;
 
-    for (let icon of this.icons) {
-      if (this.patch.icon === icon.patchImagePicture) {
-        this.selectedIcon = icon.patchImagePicture
-      }
-    }
-
-    this.plants.subscribe(plants => {
-      for (let plant of plants) {
-        for (let patchName of this.patch.plantlist) {
-          if (patchName.name === plant.plantName) {
+    if (this.patch.plantList != undefined) {
+      for (let plant of this.plants) {
+        for (let plantInPatch of this.patch.plantList) {
+          if (plantInPatch.plantName === plant.plantName) {
             this.selectedPlants.push(plant);
           }
         }
       }
-    });
+    }  
 
+    this.patchImageService.getAllPatchesImages().subscribe(images => {
+      this.icons = images;
+    });
   }
 
   cancel() {
@@ -76,9 +61,9 @@ export class PatchListDetailsComponent implements OnInit {
       this.notifications.showError(`Oops something went wrong, please fill all the required fields`);
     }
     else {
-      this.patch.name = formValues.patchName;
-      this.patch.icon = formValues.patchImagePicture;
-      this.patch.plantlist = formValues.plantList;
+      this.patch.patchName = formValues.patchName;
+      this.patch.patchImagePicture = formValues.patchImagePicture;
+      this.patch.plantList = formValues.plantList;
 
       this.notifications.showSuccess(`${formValues.patchName} has been added to your garden`);
       this.router.navigate(['garden']);
@@ -88,6 +73,6 @@ export class PatchListDetailsComponent implements OnInit {
 
 
   }
-}
+  }
 
 

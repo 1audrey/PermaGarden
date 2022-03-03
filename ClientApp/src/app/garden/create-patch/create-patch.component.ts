@@ -33,6 +33,7 @@ export class CreatePatchComponent implements OnInit{
      this.plantService.getAllPlants().subscribe(plants => {
        this.plants = plants;
      });
+
     this.patchImageService.getAllPatchesImages().subscribe(images => {
       this.icons = images;
     });

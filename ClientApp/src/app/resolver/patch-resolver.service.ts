@@ -11,5 +11,6 @@ export class PatchResolverService implements Resolve<any> {
 
   resolve(){
     return this.patchService.getAllPatches().pipe(map(patches => patches));
+    
   }
 }

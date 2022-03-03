@@ -62,6 +62,7 @@ import { PlantsService } from './services/plants/plants.service';
 import { PlantImageService } from './services/plants/plant-image.service';
 import { NotificationsService } from './services/notifications/notifications.service';
 import { PatchesService } from './services/patches/patches.service';
+import { SinglepatchResolverService } from './resolver/singlepatch-resolver.service';
 
 
 
@@ -130,6 +131,7 @@ import { PatchesService } from './services/patches/patches.service';
     NotificationsService,
     PatchResolverService,
     PatchesService,
+    SinglepatchResolverService,
     {provide: MAT_DATE_LOCALE, useValue: 'en-GB'}
 
 

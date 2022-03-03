@@ -116,6 +116,22 @@ namespace perma_garden_app
                 cancellationToken: token));
         }
 
+        public async Task<IEnumerable<PatchesRecord>> GetPatchByPatchName(string patchName, CancellationToken token)
+        {
+            var command = @"SELECT
+                                patch.PatchId
+                                , patch.PatchName
+                                , patch.PatchImagePicture
+                            FROM
+                                dbo.Patches patch
+
+                            WHERE
+                                patch.PatchName = @patchName ";
+
+            return await SqlConnection.QueryAsync<PatchesRecord>(new CommandDefinition(command, new { patchName },
+                cancellationToken: token));
+        }
+
         public async Task<IEnumerable<PatchesRecord>> GetPatches(CancellationToken token)
         {
             var command = @"SELECT

@@ -6,6 +6,7 @@ import { IPatch } from '../../garden/models/ipatch-model';
 import { ITask } from '../../task/models/itask-model';
 import { IPlantsList } from '../../garden-list/models/iplants-model';
 import { HttpClient } from '@angular/common/http';
+import { tap } from 'rxjs/operators';
 
 @Injectable()
 export class PatchesService {
@@ -28,9 +29,15 @@ export class PatchesService {
     return this.PATCHES.find((patch: { patchName: string; }) => patch.patchName === patchName);
   }
 
-  getAllPatches(): Observable<IPatch[]> {
-    return this.http.get<IPatch[]>(this.baseUrl + 'all-patches'); 
+  getASinglePatch(patchName: string): Observable<IPatch[]> {
+    this.getDifferenceBetweenTaskDateAndTodaydate(patchName);
+    return this.http.get<IPatch[]>(this.baseUrl + `${patchName}`);    
+  }
 
+  getAllPatches(): Observable<IPatch[]> {
+    var result = this.http.get<IPatch[]>(this.baseUrl + 'all-patches');
+    console.log(`this is what is coming back from the database when calling all patches : ${result}`);
+    return result;
   }
 
   savePlantInPatch(patchName: string, plant: IPlantsList) {

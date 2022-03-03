@@ -17,6 +17,8 @@ namespace perma_garden_app
 
         public Task<IEnumerable<TPatchesShapes>> GetAllPatchesImages(CancellationToken token);
 
+        public Task<IEnumerable<TPatches>> GetPatchByPatchName(string patchName, CancellationToken token);
+
         public Task<IEnumerable<TPatches>> GetPatches(CancellationToken token);
 
         public Task<IEnumerable<TPlantsInPatches>> GetPlantsInPatches(CancellationToken token);

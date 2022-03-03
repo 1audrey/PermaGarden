@@ -51,6 +51,37 @@ namespace perma_garden_app.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Route("{patchName}")]
+        public async Task<IActionResult> GetPatchByPatchName([FromRoute] string patchName, CancellationToken token)
+        {
+            var patch = await _permaGardenRepositery
+                .GetPatchByPatchName(patchName, token);
+
+            var patchesWithPlants = await _permaGardenRepositery
+                .GetPlantsInPatches(token);
+
+            var patchesWithTasks = await _permaGardenRepositery
+                .GetTasksInPatches(token);
+
+            //var singlePatch = patch.GroupBy(z => z.PatchId).Select(x => x.First()).ToList();
+
+            var newPatch = patch.Select(x => new PatchesRecord()
+            {
+                PatchId = x.PatchId,
+                PatchName = x.PatchName,
+                PatchImagePicture = x.PatchImagePicture,
+                PlantList = GetPlantList(patchesWithPlants, x.PatchId),
+                TaskList = GetTaskList(patchesWithTasks, x.PatchId)
+            }).ToArray();
+
+            return Ok(newPatch);
+
+        }
+
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [Route("all-patches")]
         public async Task<IActionResult> GetPatches(CancellationToken token)
         {
