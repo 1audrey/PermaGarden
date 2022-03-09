@@ -1,4 +1,4 @@
-﻿using System;
+﻿using perma_garden_app.Models.PatchesModel;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -25,8 +25,10 @@ namespace perma_garden_app
 
         public Task<IEnumerable<TTasksInPatches>> GetTasksInPatches(CancellationToken token);
 
+        public Task SaveNewPatch(PatchesRecord patch, CancellationToken token);
 
+        public Task SavePlantInPatch(PlantsInPatchesRecord plantInPatch, CancellationToken token);
 
-
+        
     }
 }

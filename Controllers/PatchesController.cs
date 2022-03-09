@@ -63,8 +63,6 @@ namespace perma_garden_app.Controllers
             var patchesWithTasks = await _permaGardenRepositery
                 .GetTasksInPatches(token);
 
-            //var singlePatch = patch.GroupBy(z => z.PatchId).Select(x => x.First()).ToList();
-
             var newPatch = patch.Select(x => new PatchesRecord()
             {
                 PatchId = x.PatchId,
@@ -108,6 +106,50 @@ namespace perma_garden_app.Controllers
 
             return Ok(newPatches);
         }
+
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Route("save-patch")]
+        public async Task<IActionResult> SaveNewPatch([FromBody] PatchesRecord patch, CancellationToken token)
+        {
+            if (patch != null)
+            {
+
+                var newPatch = new PatchesRecord
+                {
+                    PatchName = patch.PatchName,
+                    PatchImagePicture = patch.PatchImagePicture,
+                };
+
+                await _permaGardenRepositery.SaveNewPatch(newPatch, token);
+
+                var newPlantInPatches = new PlantsInPatchesRecord { };
+                
+                foreach(var plant in patch.PlantList)
+                {
+                    newPlantInPatches.PatchId = patch.PatchId;
+                    newPlantInPatches.PlantId = plant.PlantId;
+                    newPlantInPatches.PatchName = patch.PatchName;
+                    //newPlantInPatches.PatchImagePicture = patch.PatchImagePicture;
+                    //newPlantInPatches.PlantName = plant.PlantName;
+                    //newPlantInPatches.PlantStartingMethod = plant.PlantStartingMethod;
+                    //newPlantInPatches.PlantSowingPeriod = plant.PlantSowingPeriod;
+                    //newPlantInPatches.PlantGrowingPeriod = plant.PlantGrowingPeriod;
+                    //newPlantInPatches.PlantStartingMonths = plant.PlantStartingMonths;
+                    //newPlantInPatches.PlantHarvestingMonths = plant.PlantHarvestingMonths;
+                    //newPlantInPatches.PlantImagePicture = plant.PlantImagePicture;
+
+                    await _permaGardenRepositery.SavePlantInPatch(newPlantInPatches, token);
+                }            
+
+                return Ok();
+            }
+
+            return BadRequest("Patch is invalid");
+        }
+
 
         private List<PlantsRecord> GetPlantList(IEnumerable<PlantsInPatchesRecord> patchesWithPlants, int patchId)
         {

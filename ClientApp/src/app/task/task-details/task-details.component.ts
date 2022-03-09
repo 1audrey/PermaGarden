@@ -23,7 +23,9 @@ export class TaskDetailsComponent implements OnInit {
     public dialog: MatDialog) { }
 
   ngOnInit() {
-    this.patch = this.patchService.getSinglePatch(this.route.snapshot.params['patchName']);
+    this.route.data.forEach((data) => {
+      this.patch = data['patchName'][0];
+    });
   }
 
   openTask(){

@@ -43,7 +43,7 @@ export class CreatePatchComponent implements OnInit{
     this.router.navigate(['garden']);
   }
 
-  savePatch(formValues: IPatch){
+  saveNewPatch(formValues: IPatch){
     this.isDirty = false;
     if(formValues.patchName === null || formValues.patchImagePicture === null)
     {
@@ -51,7 +51,7 @@ export class CreatePatchComponent implements OnInit{
     }
     else
     {
-      this.patchService.savePatch(formValues);
+      this.patchService.saveNewPatch(formValues).subscribe();
       this.notifications.showSuccess(`${formValues.patchName} has been added to your garden`);
       this.router.navigate(['garden']);
       console.log(formValues);

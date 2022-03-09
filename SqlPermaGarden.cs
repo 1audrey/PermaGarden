@@ -161,7 +161,7 @@ namespace perma_garden_app
                                 , plant.PlantSowingPeriod
                                 , plant.PlantStartingMethod
                                 , plant.PlantStartingMonths
-                                , plantsInPatches.PatchId
+                                , plantsInPatches.PatchName
                                 , plantsInPatches.PlantId
 
                             FROM
@@ -170,7 +170,7 @@ namespace perma_garden_app
                             JOIN
                                 dbo.Patches patch
                             ON
-                                patch.PatchId = plantsInPatches.PatchId 
+                                patch.PatchName = plantsInPatches.PatchName 
 
                             JOIN
                                 dbo.Plants plant
@@ -217,6 +217,41 @@ namespace perma_garden_app
 
             return await SqlConnection.QueryAsync<TasksInPatchesRecord>(new CommandDefinition(command,
                 cancellationToken: token));
+        }
+
+        public async Task SaveNewPatch(PatchesRecord patch, CancellationToken token)
+        {
+            var command = @"INSERT INTO dbo.Patches (
+                                PatchName
+                                , PatchImagePicture )
+
+                            VALUES (
+                                @PatchName
+                                , @PatchImagePicture)";
+
+            await SqlConnection.ExecuteAsync(
+                new CommandDefinition(
+                    command,
+                    new { patch.PatchName, patch.PatchImagePicture},
+                    cancellationToken: token));
+        }
+
+        public async Task SavePlantInPatch(PlantsInPatchesRecord plantInPatch, CancellationToken token)
+        {
+            var command = @"INSERT INTO dbo.PlantsInPatches (
+
+                                PatchName
+                                , PlantId)
+
+                            VALUES (
+                                 @PatchName
+                                , @PlantId)";
+
+            await SqlConnection.ExecuteAsync(
+                new CommandDefinition(
+                    command,
+                    new { plantInPatch.PatchName, plantInPatch.PlantId},
+                    cancellationToken: token));
         }
     }
 }

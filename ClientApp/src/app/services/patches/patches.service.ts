@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { Observable} from 'rxjs';
+import { Observable, throwError} from 'rxjs';
 import * as patches from "./patch-list.json";
 import * as moment from 'moment';
 import { IPatch } from '../../garden/models/ipatch-model';
 import { ITask } from '../../task/models/itask-model';
 import { IPlantsList } from '../../garden-list/models/iplants-model';
-import { HttpClient } from '@angular/common/http';
-import { tap } from 'rxjs/operators';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { catchError, tap } from 'rxjs/operators';
 
 @Injectable()
 export class PatchesService {
@@ -24,10 +24,10 @@ export class PatchesService {
 
   constructor(private http: HttpClient) { }
 
-  getSinglePatch(patchName: string) {
-    this.getDifferenceBetweenTaskDateAndTodaydate(patchName);
-    return this.PATCHES.find((patch: { patchName: string; }) => patch.patchName === patchName);
-  }
+  //getSinglePatch(patchName: string) {
+  //  this.getDifferenceBetweenTaskDateAndTodaydate(patchName);
+  //  return this.PATCHES.find((patch: { patchName: string; }) => patch.patchName === patchName);
+  //}
 
   getASinglePatch(patchName: string): Observable<IPatch[]> {
     this.getDifferenceBetweenTaskDateAndTodaydate(patchName);
@@ -51,6 +51,14 @@ export class PatchesService {
     }
     this.PATCHES = newPatches;
 
+  }
+
+  saveNewPatch(patch: IPatch): Observable<IPatch> {
+    console.log(`Setting the ${patch.patchName} from the patch service`);
+    return this.http.post<IPatch>(this.baseUrl + 'save-patch', patch).pipe(
+      tap(() => console.log('Patch service add new patch success')),
+      catchError((error: HttpErrorResponse) => throwError(error))
+    );
   }
 
   savePatch(newPatch: IPatch) {

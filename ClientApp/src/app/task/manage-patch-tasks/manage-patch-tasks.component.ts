@@ -19,7 +19,9 @@ export class ManagePatchTasksComponent implements OnInit {
     private notification: NotificationsService) { }
 
   ngOnInit(): void {
-    this.patch = this.patchService.getSinglePatch(this.route.snapshot.params['patchName']);
+    this.route.data.forEach((data) => {
+      this.patch = data['patchName'][0];
+    });
   }
 
   cancel() {

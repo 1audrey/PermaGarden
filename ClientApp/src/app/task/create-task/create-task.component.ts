@@ -33,14 +33,9 @@ export class CreateTaskComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.patch = this.patchService.getSinglePatch(this.route.snapshot.params['patchName']);
-    // this.patchService.getPatch().forEach(patches => {
-    //   patches.forEach(specificPatch=> {
-    //     if(specificPatch.plantName = this.route.snapshot.params['patchName']){
-    //    this.patch = specificPatch;
-    //   }
-    //  });
-    // });
+    this.route.data.forEach((data) => {
+      this.patch = data['patchName'][0];
+    });
   }
 
   getPlantStartingMethod() {
