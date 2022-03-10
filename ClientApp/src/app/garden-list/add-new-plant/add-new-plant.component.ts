@@ -64,9 +64,10 @@ export class AddNewPlantComponent {
       formValues.plantStartingMonths = formValues.plantStartingMonths.toString();
       formValues.plantHarvestingMonths = formValues.plantHarvestingMonths.toString();
       console.log(formValues);
-      this.plantService.saveNewPlant(formValues).subscribe();
-      this.notifications.showSuccess(`${formValues.plantName} has been added to your plant list`);
-      this.router.navigate(['plants-list']);
+      this.plantService.saveNewPlant(formValues).subscribe(() => {
+        this.notifications.showSuccess(`${formValues.plantName} has been added to your plant list`);
+        this.router.navigate(['plants-list']);
+      });
     }
   }
 

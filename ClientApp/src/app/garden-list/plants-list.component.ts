@@ -62,9 +62,10 @@ export class PlantsListComponent implements OnInit {
   }
 
   plantToDelete(plant: IPlantsList) {
-    this.plantService.plantToDelete(plant.plantName).subscribe();
-    this.onPlantDeleted(plant);
-    this.notifications.showSuccess(`${plant.plantName} has been deleted`);
+    this.plantService.plantToDelete(plant.plantName).subscribe(() => {
+      this.notifications.showSuccess(`${plant.plantName} has been deleted`);
+      this.onPlantDeleted(plant);
+    });  
   }
 
 

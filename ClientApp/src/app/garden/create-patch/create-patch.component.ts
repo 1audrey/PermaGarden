@@ -51,13 +51,11 @@ export class CreatePatchComponent implements OnInit{
     }
     else
     {
-      this.patchService.saveNewPatch(formValues).subscribe();
-      this.notifications.showSuccess(`${formValues.patchName} has been added to your garden`);
-      this.router.navigate(['garden']);
-      console.log(formValues);
+      this.patchService.saveNewPatch(formValues).subscribe(() => {
+        this.notifications.showSuccess(`${formValues.patchName} has been added to your garden`);
+        this.router.navigate(['garden']);
+        console.log(formValues);
+      });
     }
   }
-
-
-
 }

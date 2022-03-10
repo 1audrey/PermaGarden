@@ -129,17 +129,9 @@ namespace perma_garden_app.Controllers
                 
                 foreach(var plant in patch.PlantList)
                 {
-                    newPlantInPatches.PatchId = patch.PatchId;
                     newPlantInPatches.PlantId = plant.PlantId;
                     newPlantInPatches.PatchName = patch.PatchName;
-                    //newPlantInPatches.PatchImagePicture = patch.PatchImagePicture;
-                    //newPlantInPatches.PlantName = plant.PlantName;
-                    //newPlantInPatches.PlantStartingMethod = plant.PlantStartingMethod;
-                    //newPlantInPatches.PlantSowingPeriod = plant.PlantSowingPeriod;
-                    //newPlantInPatches.PlantGrowingPeriod = plant.PlantGrowingPeriod;
-                    //newPlantInPatches.PlantStartingMonths = plant.PlantStartingMonths;
-                    //newPlantInPatches.PlantHarvestingMonths = plant.PlantHarvestingMonths;
-                    //newPlantInPatches.PlantImagePicture = plant.PlantImagePicture;
+                    newPlantInPatches.PatchId = patch.PatchId;
 
                     await _permaGardenRepositery.SavePlantInPatch(newPlantInPatches, token);
                 }            
@@ -150,6 +142,42 @@ namespace perma_garden_app.Controllers
             return BadRequest("Patch is invalid");
         }
 
+        [HttpPut]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Route("edit-patch")]
+        public async Task<IActionResult> EditPatch([FromBody] PatchesRecord patch, CancellationToken token)
+        {
+            if (patch != null)
+            {
+                var patches = await _permaGardenRepositery
+                    .GetPatches(token);
+
+                foreach (var existingPatch in patches)
+                {
+                    if (existingPatch.PatchId == patch.PatchId)
+                    {
+                        if (IsNameOrPictureUpdated(existingPatch, patch))
+                        {
+                            var editedPatch = new PatchesRecord
+                            {
+                                PatchId = patch.PatchId,
+                                PatchName = patch.PatchName,
+                                PatchImagePicture = patch.PatchImagePicture,
+                            };
+
+                            await _permaGardenRepositery.EditPatch(editedPatch, token);
+                            await _permaGardenRepositery.EditPatchNameInPlantsInPatches(editedPatch, token);
+                        }
+                    }
+                }
+
+                return Ok();
+            }
+
+            return BadRequest("Patch is invalid");
+        }
 
         private List<PlantsRecord> GetPlantList(IEnumerable<PlantsInPatchesRecord> patchesWithPlants, int patchId)
         {
@@ -175,7 +203,6 @@ namespace perma_garden_app.Controllers
             }
             return plantList;
         }
-
 
         private List<TasksRecord> GetTaskList(IEnumerable<TasksInPatchesRecord> patchesWithTasks, int patchId)
         {
@@ -204,6 +231,15 @@ namespace perma_garden_app.Controllers
                 }
             }
             return taskList;
+        }
+
+        private static bool IsNameOrPictureUpdated(PatchesRecord existingPatch, PatchesRecord patch)
+        {
+            if (existingPatch.PatchName != patch.PatchName || existingPatch.PatchImagePicture != patch.PatchImagePicture)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

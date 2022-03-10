@@ -10,8 +10,8 @@ namespace perma_garden_app
 {
     public class SqlPermaGarden : IPermaGardenRepositery<PlantsImagesRecord, 
         PlantsRecord, 
-        PatchesImagesRecord, 
-        PatchesRecord, 
+        PatchesImagesRecord,
+        PatchesRecord,
         PlantsInPatchesRecord, 
         TasksRecord, 
         TasksInPatchesRecord>
@@ -239,18 +239,53 @@ namespace perma_garden_app
         public async Task SavePlantInPatch(PlantsInPatchesRecord plantInPatch, CancellationToken token)
         {
             var command = @"INSERT INTO dbo.PlantsInPatches (
-
                                 PatchName
-                                , PlantId)
+                                , PlantId
+                                , PatchId)
 
                             VALUES (
                                  @PatchName
-                                , @PlantId)";
+                                , @PlantId
+                                , @PatchId)";
 
             await SqlConnection.ExecuteAsync(
                 new CommandDefinition(
                     command,
-                    new { plantInPatch.PatchName, plantInPatch.PlantId},
+                    new { plantInPatch.PatchName, plantInPatch.PlantId, plantInPatch.PatchId},
+                    cancellationToken: token));
+        }
+
+        public async Task EditPatch(PatchesRecord patch, CancellationToken token)
+        {
+            var command = @"UPDATE dbo.Patches
+
+                            SET 
+                                PatchName = @PatchName
+                                , PatchImagePicture = @PatchImagePicture
+
+                            WHERE 
+                                PatchId = @PatchId";
+
+            await SqlConnection.ExecuteAsync(
+                new CommandDefinition(
+                    command,
+                    new { patch.PatchId, patch.PatchName, patch.PatchImagePicture },
+                    cancellationToken: token));
+        }
+        public async Task EditPatchNameInPlantsInPatches(PatchesRecord patch, CancellationToken token)
+        {
+            var command = @"UPDATE dbo.PlantsInPatches
+
+                            SET 
+                                PatchName = @PatchName
+
+                            WHERE 
+                                PatchId = @PatchId";
+
+            await SqlConnection.ExecuteAsync(
+                new CommandDefinition(
+                    command,
+                    new { patch.PatchId, patch.PatchName },
                     cancellationToken: token));
         }
     }

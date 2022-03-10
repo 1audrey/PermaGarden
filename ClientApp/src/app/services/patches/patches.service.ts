@@ -24,11 +24,6 @@ export class PatchesService {
 
   constructor(private http: HttpClient) { }
 
-  //getSinglePatch(patchName: string) {
-  //  this.getDifferenceBetweenTaskDateAndTodaydate(patchName);
-  //  return this.PATCHES.find((patch: { patchName: string; }) => patch.patchName === patchName);
-  //}
-
   getASinglePatch(patchName: string): Observable<IPatch[]> {
     this.getDifferenceBetweenTaskDateAndTodaydate(patchName);
     return this.http.get<IPatch[]>(this.baseUrl + `${patchName}`);    
@@ -38,6 +33,22 @@ export class PatchesService {
     var result = this.http.get<IPatch[]>(this.baseUrl + 'all-patches');
     console.log(`this is what is coming back from the database when calling all patches : ${result}`);
     return result;
+  }
+
+  saveNewPatch(patch: IPatch): Observable<IPatch> {
+    console.log(`Setting the ${patch.patchName} from the patch service`);
+    return this.http.post<IPatch>(this.baseUrl + 'save-patch', patch).pipe(
+      tap(() => console.log('Patch service add new patch success')),
+      catchError((error: HttpErrorResponse) => throwError(error))
+    );
+  }
+
+  editPatch(patch: IPatch): Observable<IPatch> {
+    console.log(`Editing the ${patch.patchName} from the patch service`);
+    return this.http.put<IPatch>(this.baseUrl + 'edit-patch', patch).pipe(
+      tap(() => console.log('Patch service edit patch success')),
+      catchError((error: HttpErrorResponse) => throwError(error))
+    );
   }
 
   savePlantInPatch(patchName: string, plant: IPlantsList) {
@@ -51,19 +62,6 @@ export class PatchesService {
     }
     this.PATCHES = newPatches;
 
-  }
-
-  saveNewPatch(patch: IPatch): Observable<IPatch> {
-    console.log(`Setting the ${patch.patchName} from the patch service`);
-    return this.http.post<IPatch>(this.baseUrl + 'save-patch', patch).pipe(
-      tap(() => console.log('Patch service add new patch success')),
-      catchError((error: HttpErrorResponse) => throwError(error))
-    );
-  }
-
-  savePatch(newPatch: IPatch) {
-    this.PATCHES.push(newPatch)
-    console.log(newPatch);
   }
 
   saveTaskInPatch(patchName: string, task: ITask) {

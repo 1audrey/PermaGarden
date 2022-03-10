@@ -18,9 +18,9 @@ export class PatchListDetailsComponent implements OnInit {
   isDirty: boolean = true;
   plants: IPlantsList[] = [];
   selectedIcon!: string;
-  selectedPlants: IPlantsList[] = [];
+/*  selectedPlants: IPlantsList[] = [];*/
   icons!: IPatchShape[];
-  selectedPlantsName : string[] = [];
+ /* selectedPlantsName : string[] = [];*/
 
   constructor(private patchService: PatchesService,
     private route: ActivatedRoute,
@@ -31,20 +31,19 @@ export class PatchListDetailsComponent implements OnInit {
   ngOnInit() {
     this.route.data.forEach((data) => {
       this.patch = data['patchName'][0];
-      this.plants = data['plants'];
     });
     
     this.selectedIcon = this.patch.patchImagePicture;
 
-    if (this.patch.plantList != undefined) {
-      for (let plant of this.plants) {
-        for (let plantInPatch of this.patch.plantList) {
-          if (plantInPatch.plantName === plant.plantName) {
-            this.selectedPlants.push(plant);
-          }
-        }
-      }
-    }  
+    //if (this.patch.plantList != undefined) {
+    //  for (let plant of this.plants) {
+    //    for (let plantInPatch of this.patch.plantList) {
+    //      if (plantInPatch.plantName === plant.plantName) {
+    //        this.selectedPlants.push(plant);
+    //      }
+    //    }
+    //  }
+    //}  
 
     this.patchImageService.getAllPatchesImages().subscribe(images => {
       this.icons = images;
@@ -61,17 +60,16 @@ export class PatchListDetailsComponent implements OnInit {
       this.notifications.showError(`Oops something went wrong, please fill all the required fields`);
     }
     else {
+      formValues.patchId = this.patch.patchId;
       this.patch.patchName = formValues.patchName;
       this.patch.patchImagePicture = formValues.patchImagePicture;
-      this.patch.plantList = formValues.plantList;
-
-      this.notifications.showSuccess(`${formValues.patchName} has been added to your garden`);
-      this.router.navigate(['garden']);
-      console.log(formValues);
+      this.patchService.editPatch(formValues).subscribe(() => {
+        this.notifications.showSuccess(`${formValues.patchName} has been updated`);
+        this.router.navigate(['garden']);
+        console.log(formValues);
+      });
+      
     }
-
-
-
   }
   }
 
