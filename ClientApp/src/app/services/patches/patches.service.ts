@@ -5,7 +5,7 @@ import * as moment from 'moment';
 import { IPatch } from '../../garden/models/ipatch-model';
 import { ITask } from '../../task/models/itask-model';
 import { IPlantsList } from '../../garden-list/models/iplants-model';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { catchError, tap } from 'rxjs/operators';
 
 @Injectable()
@@ -26,19 +26,17 @@ export class PatchesService {
 
   getASinglePatch(patchName: string): Observable<IPatch[]> {
     this.getDifferenceBetweenTaskDateAndTodaydate(patchName);
-    return this.http.get<IPatch[]>(this.baseUrl + `${patchName}`);    
+    return this.http.get<IPatch[]>(this.baseUrl + `${patchName}`);
   }
 
   getAllPatches(): Observable<IPatch[]> {
-    var result = this.http.get<IPatch[]>(this.baseUrl + 'all-patches');
-    console.log(`this is what is coming back from the database when calling all patches : ${result}`);
-    return result;
+    return this.http.get<IPatch[]>(this.baseUrl + 'all-patches');
   }
 
   saveNewPatch(patch: IPatch): Observable<IPatch> {
     console.log(`Setting the ${patch.patchName} from the patch service`);
     return this.http.post<IPatch>(this.baseUrl + 'save-patch', patch).pipe(
-      tap(() => console.log('Patch service add new patch success')),
+      tap(() => console.log(`Patch service added ${patch.patchName} successfully`)),
       catchError((error: HttpErrorResponse) => throwError(error))
     );
   }
@@ -46,8 +44,19 @@ export class PatchesService {
   editPatch(patch: IPatch): Observable<IPatch> {
     console.log(`Editing the ${patch.patchName} from the patch service`);
     return this.http.put<IPatch>(this.baseUrl + 'edit-patch', patch).pipe(
-      tap(() => console.log('Patch service edit patch success')),
+      tap(() => console.log(`Patch service edited ${patch.patchName} successfully`)),
       catchError((error: HttpErrorResponse) => throwError(error))
+    );
+  }
+
+  patchToDelete(patchName: string): Observable<any> {
+    let params = new HttpParams();
+    params = params.set('patchName', patchName);
+
+    console.log(`Deleting the ${patchName} from the patch service`);
+    return this.http.delete<string>(this.baseUrl + 'delete-patch', { params: params }).pipe(
+      tap(() => console.log(`Patch service deleted ${patchName} successfully`)),
+      catchError((error: HttpErrorResponse) => throwError(error)),
     );
   }
 

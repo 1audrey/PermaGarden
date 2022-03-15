@@ -288,5 +288,33 @@ namespace perma_garden_app
                     new { patch.PatchId, patch.PatchName },
                     cancellationToken: token));
         }
+
+        public async Task DeletePatch(string patchName, CancellationToken token)
+        {
+            var command = @"DELETE FROM dbo.Patches
+                            WHERE 
+                            PatchName = @PatchName";
+
+            await SqlConnection.ExecuteAsync(
+                new CommandDefinition(
+                    command,
+                    new { PatchName = patchName },
+                    cancellationToken: token));
+        }
+
+        public async Task DeletePatchOfPlantsInPatches(string patchName, CancellationToken token)
+        {
+            var command = @"DELETE FROM dbo.PlantsInPatches
+                            WHERE 
+                            PatchName = @PatchName";
+
+            await SqlConnection.ExecuteAsync(
+                new CommandDefinition(
+                    command,
+                    new { PatchName = patchName },
+                    cancellationToken: token));
+        }
+
+        
     }
 }

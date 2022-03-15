@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { NotificationsService } from 'src/app/services/notifications/notifications.service';
+import { PatchesService } from 'src/app/services/patches/patches.service';
 import { IPatch } from '../models/ipatch-model';
 
 @Component({
@@ -13,7 +15,9 @@ patch!: IPatch[];
 search!: '';
 public static readonly CREATEPATCH_WEBSITE_URL: string = '/create-patch';
 
-  constructor(private route: ActivatedRoute) {
+  constructor(private route: ActivatedRoute,
+    private patchService: PatchesService,
+    private notifications: NotificationsService) {
 
   }
 
@@ -27,7 +31,6 @@ public static readonly CREATEPATCH_WEBSITE_URL: string = '/create-patch';
     if (index != -1) {
       this.patches.splice(index, 1);
     }
-    console.log(`'${patch.patchName}' has been deleted`);
   }
 
   createPatch(){
@@ -35,6 +38,13 @@ public static readonly CREATEPATCH_WEBSITE_URL: string = '/create-patch';
     link.href = GardenFootprintComponent.CREATEPATCH_WEBSITE_URL;
     link.setAttribute('visibility', 'hidden');
     link.click();
+  }
+
+  patchToDelete(patch: IPatch) {
+    this.patchService.patchToDelete(patch.patchName).subscribe(() => {
+      this.notifications.showSuccess(`${patch.patchName} has been deleted`);
+      this.onPatchDeleted(patch);
+    });
   }
 
 }

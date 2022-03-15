@@ -125,16 +125,16 @@ namespace perma_garden_app.Controllers
 
                 await _permaGardenRepositery.SaveNewPatch(newPatch, token);
 
-                var newPlantInPatches = new PlantsInPatchesRecord { };
+                //var newPlantInPatches = new PlantsInPatchesRecord { };
                 
-                foreach(var plant in patch.PlantList)
-                {
-                    newPlantInPatches.PlantId = plant.PlantId;
-                    newPlantInPatches.PatchName = patch.PatchName;
-                    newPlantInPatches.PatchId = patch.PatchId;
+                //foreach(var plant in patch.PlantList)
+                //{
+                //    newPlantInPatches.PlantId = plant.PlantId;
+                //    newPlantInPatches.PatchName = newPatch.PatchName;
+                //    newPlantInPatches.PatchId = newPatch.PatchId;
 
-                    await _permaGardenRepositery.SavePlantInPatch(newPlantInPatches, token);
-                }            
+                //    await _permaGardenRepositery.SavePlantInPatch(newPlantInPatches, token);
+                //}            
 
                 return Ok();
             }
@@ -177,6 +177,24 @@ namespace perma_garden_app.Controllers
             }
 
             return BadRequest("Patch is invalid");
+        }
+
+        [HttpDelete]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Route("delete-patch")]
+        public async Task<IActionResult> DeletePatch(string patchName, CancellationToken token)
+        {
+            if (patchName != null)
+            {
+                await _permaGardenRepositery.DeletePatch(patchName, token);
+                await _permaGardenRepositery.DeletePatchOfPlantsInPatches(patchName, token);
+
+                return Ok();
+            }
+
+            return BadRequest("PatchName is invalid");
         }
 
         private List<PlantsRecord> GetPlantList(IEnumerable<PlantsInPatchesRecord> patchesWithPlants, int patchId)

@@ -18,9 +18,9 @@ export class PatchListDetailsComponent implements OnInit {
   isDirty: boolean = true;
   plants: IPlantsList[] = [];
   selectedIcon!: string;
-/*  selectedPlants: IPlantsList[] = [];*/
+  /*  selectedPlants: IPlantsList[] = [];*/
   icons!: IPatchShape[];
- /* selectedPlantsName : string[] = [];*/
+  /* selectedPlantsName : string[] = [];*/
 
   constructor(private patchService: PatchesService,
     private route: ActivatedRoute,
@@ -32,7 +32,7 @@ export class PatchListDetailsComponent implements OnInit {
     this.route.data.forEach((data) => {
       this.patch = data['patchName'][0];
     });
-    
+
     this.selectedIcon = this.patch.patchImagePicture;
 
     //if (this.patch.plantList != undefined) {
@@ -43,7 +43,7 @@ export class PatchListDetailsComponent implements OnInit {
     //      }
     //    }
     //  }
-    //}  
+    //}
 
     this.patchImageService.getAllPatchesImages().subscribe(images => {
       this.icons = images;
@@ -68,9 +68,9 @@ export class PatchListDetailsComponent implements OnInit {
         this.router.navigate(['garden']);
         console.log(formValues);
       });
-      
+
     }
   }
-  }
+}
 
 

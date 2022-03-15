@@ -10,17 +10,19 @@
         <div class="editing-fields">
           <div class="patch-name">
             <div class="form-group"
-                 [ngClass]="{'error': patchForm.controls.patchName?.invalid && patchForm.controls.patchName?.touched}">
+              [ngClass]="{'error': patchForm.controls.patchName?.invalid && patchForm.controls.patchName?.touched}">
               <label for="patch-name">Edit the patch name: </label>
               <em *ngIf="patchForm.controls.patchName?.invalid && patchForm.controls.patchName?.touched"> *Required</em>
-              <input [(ngModel)]="patch.patchName" name="patchName" required id="name" type="text" class="form-control" />
+              <input [(ngModel)]="patch.patchName" name="patchName" required id="name" type="text"
+                class="form-control" />
             </div>
           </div>
 
           <div class="form-group"
-               [ngClass]="{'error': patchForm.controls.patchImagePicture?.invalid && patchForm.controls.patchImagePicture?.touched}">
+            [ngClass]="{'error': patchForm.controls.patchImagePicture?.invalid && patchForm.controls.patchImagePicture?.touched}">
             Edit the shape:
-            <em *ngIf="patchForm.controls.patchImagePicture?.invalid && patchForm.controls.patchImagePicture?.touched"> *Required</em>
+            <em *ngIf="patchForm.controls.patchImagePicture?.invalid && patchForm.controls.patchImagePicture?.touched">
+              *Required</em>
             <mat-form-field appearance="fill">
               <mat-label>Select</mat-label>
               <mat-select ngDefaultControl [(ngModel)]="selectedIcon" name="patchImagePicture" required>
@@ -31,32 +33,13 @@
               </mat-select>
             </mat-form-field>
           </div>
-  </div>
-<div>
+        </div>
+        <div>
           <div class="hidden" fxShow="true" fxHide.lt-md fxFlex fxLayout>
-
-            <div class="vertical-line"></div>
-
-            <div class="edited-fields">
-              <div class="form-group">
-                <div class="name-patch">
-                  <h2>{{patch.patchName}}</h2>
-                </div>
-              </div>
-              <div class="form-group">
-
-                <img [src]="selectedIcon" class="icon-selected">
-
-              </div>
+            <div class="buttons">
+              <button id="save-plant" mat-button type="submit" class="save-edit-button" [disabled]="patchForm.invalid"
+                (click)="saveEditedPatch(patchForm.value)">Save</button>
+              <button id="cancel-button" mat-button type="button" class="btn btn-default"
+                (click)="cancel()">Cancel</button>
             </div>
           </div>
-        </div>
-      </div>
-    </form>
-  </div>
-  <div class="buttons">
-    <button id="save-plant" mat-button type="submit" class="save-edit-button" [disabled]="patchForm.invalid"
-      (click)="saveEditedPatch(patchForm.value)">Save</button>
-    <button id="cancel-button" mat-button type="button" class="btn btn-default" (click)="cancel()">Cancel</button>
-  </div>
-</div>
