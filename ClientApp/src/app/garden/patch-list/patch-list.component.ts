@@ -2,6 +2,10 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { IPatch } from '../models/ipatch-model';
 import { ActivatedRoute, Router } from '@angular/router';
+import { IPlantsList } from 'src/app/garden-list/models/iplants-model';
+import { IPlantInPatch } from '../models/iplantinpatch-model';
+import { PatchesService } from 'src/app/services/patches/patches.service';
+import { NotificationsService } from 'src/app/services/notifications/notifications.service';
 
 @Component({
   selector: 'app-patch-list',
@@ -22,8 +26,11 @@ export class PatchListComponent {
   @Output() patchDeleted: EventEmitter<any> = new EventEmitter();
 
   state = 'collapsed';
+  isDirty: boolean = true;
 
-  constructor(private route: ActivatedRoute, private router: Router) { }
+  constructor(private route: ActivatedRoute,
+     private patchService: PatchesService,
+     private notifications: NotificationsService) { }
 
   toggle(): void {
     this.state = this.state === 'collapsed' ? 'expanded' : 'collapsed';
@@ -39,7 +46,23 @@ export class PatchListComponent {
 
   openTask(){
    this.route.snapshot.params['patchName' ];
+  }
 
+  deletePlantInPatch( plantName: string, patchName: string, plantId: number, patchId: number){
+    this.isDirty = false;
+    this.patchService.deletePlantInPatch(plantId, patchId).subscribe(() => {
+      this.onPlantInPatchDeleted(plantId);
+      this.notifications.showSuccess(`${plantName} has been deleted from ${patchName}`);
+    });
+  }
+
+  onPlantInPatchDeleted(plantId: number){
+    if(this.patch.plantList){
+      var index = this.patch.plantList.findIndex((deletedPatch) => (deletedPatch.plantId === plantId));
+      if (index != -1) {
+        this.patch.plantList.splice(index, 1);
+      }
+    }
   }
 
 }

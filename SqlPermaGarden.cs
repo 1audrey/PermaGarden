@@ -315,6 +315,20 @@ namespace perma_garden_app
                     cancellationToken: token));
         }
 
-        
+        public async Task DeletePlantInPatch(int plantId, int patchId, CancellationToken token)
+        {
+            var command = @"DELETE FROM dbo.PlantsInPatches 
+                            WHERE 
+                            PlantId = @PlantId AND
+                            PatchId = @PatchId";
+
+            await SqlConnection.ExecuteAsync(
+                new CommandDefinition(
+                    command,
+                    new { PlantId = plantId, PatchId = patchId },
+                    cancellationToken: token));
+        }
+
+
     }
 }

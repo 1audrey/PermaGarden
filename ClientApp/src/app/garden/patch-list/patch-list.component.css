@@ -66,8 +66,6 @@ mat-card-footer{
   float:right;
   margin-left: 8px !important;
   margin-right: 8px !important;
-
-
 }
 
 .tasks:hover{
@@ -84,8 +82,6 @@ mat-card-footer{
   font-size: 12px;
   font-weight:0px;
   float: right;
-
-
 }
 
 .more-info:hover{
@@ -95,7 +91,6 @@ mat-card-footer{
   font-size: 12px;
   font-weight:0px;
   float: right;
-
 }
 
 mat-card-content{
@@ -161,6 +156,37 @@ h3{
   margin-bottom: 1px;
 }
 
+.plant-list{
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+}
 
+.plant{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: nowrap;
+  align-content: stretch;
+}
 
+.plant p{
+  margin-bottom: 0px;
+}
 
+.plant:hover{
+  background-color: #fafafa;
+  cursor:pointer;
+}
+
+.delete-plant{
+color: rgba(0,0,0,.04);
+}
+
+.delete-plant:hover{
+  color: black;
+  cursor:pointer;
+  }

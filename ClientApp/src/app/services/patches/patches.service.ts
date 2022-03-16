@@ -4,7 +4,7 @@ import * as patches from "./patch-list.json";
 import * as moment from 'moment';
 import { IPatch } from '../../garden/models/ipatch-model';
 import { ITask } from '../../task/models/itask-model';
-import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { catchError, tap } from 'rxjs/operators';
 import { IPlantsList } from 'src/app/garden-list/models/iplants-model';
 import { IPlantInPatch } from '../../garden/models/iplantinpatch-model';
@@ -66,6 +66,14 @@ export class PatchesService {
     return this.http.post<IPlantInPatch>(this.baseUrl + 'save-plant-in-patch', plantInPatch ).pipe(
       tap(() => console.log(`Patch service added ${plantInPatch.plantId} to ${plantInPatch.patchName} successfully`)),
       catchError((error: HttpErrorResponse) => throwError(error))
+    );
+  }
+
+  deletePlantInPatch(plantId: number, patchId: number): Observable<any> {
+    console.log(`Deleting the ${plantId} from the patch service`);
+    return this.http.delete<any>(this.baseUrl + 'delete-plant-in-patch', { params: { plantId: plantId, patchId: patchId } }).pipe(
+      tap(() => console.log(`Patch service deleted ${plantId} from ${patchId} successfully`)),
+      catchError((error: HttpErrorResponse) => throwError(error)),
     );
   }
 

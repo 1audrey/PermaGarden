@@ -37,5 +37,7 @@ namespace perma_garden_app
 
         public Task DeletePatchOfPlantsInPatches(string patchName, CancellationToken token);
 
+        public Task DeletePlantInPatch(int plantId, int patchId, CancellationToken token);
+
     }
 }

@@ -19,10 +19,11 @@
 
     <mat-card-footer class="card-footer">
       <div class="patch-info" [@bodyExpansion]="state">
-        <div>
+        <div class="plant-list" >
           <h3 *ngIf="patch.plantList?.length">Plant(s) in this patch:</h3>
-          <div *ngFor="let plantList of patch.plantList">
-            {{plantList.plantName}}
+          <div class="plant" *ngFor="let plant of patch.plantList">
+            <p>{{plant.plantName}}</p>
+            <mat-icon class="delete-plant" (click)="deletePlantInPatch(plant.plantName, patch.patchName, plant.plantId, patch.patchId)">delete_outline</mat-icon>
           </div>
         </div>
         <div>

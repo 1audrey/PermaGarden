@@ -58,7 +58,6 @@ export class AddToGardenComponent implements OnInit {
       this.dialog.close();
       this.router.navigate(['garden']);
     });
-
   }
 
   onSelection() {
