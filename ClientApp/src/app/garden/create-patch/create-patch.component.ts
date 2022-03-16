@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { IPlantsList } from 'src/app/garden-list/models/iplants-model';
 import { NotificationsService } from '../../services/notifications/notifications.service';
 import { PatchImageService } from '../../services/patches/patch-image.service';
@@ -21,12 +21,14 @@ export class CreatePatchComponent implements OnInit {
   plants!: IPlantsList[];
   selectedIcon!: string;
   selectedPlant!: IPlantsList[];
+  patches!: IPatch[];
 
   constructor(private router: Router,
     private notifications: NotificationsService,
     private patchService: PatchesService,
     private plantService: PlantsService,
-    private patchImageService: PatchImageService
+    private patchImageService: PatchImageService,
+    private route : ActivatedRoute,
   ) { }
 
   ngOnInit() {
@@ -45,6 +47,15 @@ export class CreatePatchComponent implements OnInit {
 
   saveNewPatch(formValues: IPatch) {
     this.isDirty = false;
+
+    this.patches = this.route.snapshot.data['patches'];
+
+    for (let patch of this.patches) {
+      if (this.checkIfPatchWithSameNameExists(patch.patchName, formValues.patchName)) {
+        return;
+      }
+    }
+
     if (formValues.patchName === null || formValues.patchImagePicture === null) {
       this.notifications.showError(`Oops something went wrong, please fill all the required fields`);
     }
@@ -55,5 +66,13 @@ export class CreatePatchComponent implements OnInit {
         console.log(formValues);
       });
     }
+  }
+
+  private checkIfPatchWithSameNameExists(existingPatchName: string, newPatchName: string): boolean {
+    if (existingPatchName === newPatchName) {
+      this.notifications.showWarning(`You already have a patch called ${newPatchName}`);
+      return true;
+    }
+    return false;
   }
 }

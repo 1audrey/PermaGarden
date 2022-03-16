@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NotificationsService } from '../../services/notifications/notifications.service';
 import { PlantsService } from '../../services/plants/plants.service';
 import { IPlantsImage } from '../models/iplants-image-model';
 import { IPlantsList } from '../models/iplants-model';
-
 import { SelectImageDialogComponent } from './select-image-dialog/select-image-dialog.component';
 
 
@@ -23,11 +22,14 @@ export class AddNewPlantComponent {
   imgs: IPlantsImage[] = [];
   plantImagePicture!: string;
   selectedStartingMethods!: string;
+  plants!: IPlantsList[];
+  static plants: any;
 
   constructor(private router: Router,
     public dialog: MatDialog,
     private plantService: PlantsService,
     private notifications: NotificationsService,
+    private route: ActivatedRoute
   ) { }
 
   monthData: Month[] = [
@@ -57,6 +59,14 @@ export class AddNewPlantComponent {
 
   saveNewPlant(formValues: IPlantsList) {
     this.isDirty = false;
+
+    this.plants = this.route.snapshot.data['plants'];
+    for (let plant of this.plants) {
+      if (this.checkIfPlantWithSameNameExists(plant.plantName, formValues.plantName)) {
+        return;
+      }
+    }
+
     if (formValues.plantName === null) {
       this.notifications.showError(`Oops something went wrong, please fill all the required fields`);
     }
@@ -82,6 +92,14 @@ export class AddNewPlantComponent {
       console.log('Image Url:', this.plantImagePicture);
       this.plantImagePicture = result;
     })
+  }
+
+  private checkIfPlantWithSameNameExists(existingPlantName: string, newPlantName: string): boolean {
+    if (existingPlantName === newPlantName) {
+      this.notifications.showWarning(`You already have a plant called ${newPlantName}`);
+      return true;
+    }
+    return false;
   }
 }
 

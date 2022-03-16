@@ -20,7 +20,7 @@ const routes: Routes = [
   {
     path: 'add-to-garden',
     component: AddToGardenComponent,
-    canDeactivate: ['canDeactivateAddToGarden']
+    canDeactivate: ['canDeactivateAddToGarden'],
   },
 
   {
@@ -48,7 +48,7 @@ const routes: Routes = [
   {
     path: 'add-new-plant',
     component: AddNewPlantComponent,
-    resolve: { plants: PlantImageResolverService }
+    resolve: { plants: PlantsListResolver }
   },
 
   {
