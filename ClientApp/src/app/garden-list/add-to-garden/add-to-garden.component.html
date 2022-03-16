@@ -6,19 +6,18 @@
 <mat-dialog-content>
   <mat-form-field appearance="fill">
     <mat-label>Select a patch</mat-label>
-    <mat-select class="select" [formControl]="patchControl" [(ngModel)]="patchName" (valueChange)="onSelection()" required>
-      <mat-option *ngFor="let patch of patches" [value]="patch.patchName">
+    <mat-select class="select" [formControl]="patchControl" [(ngModel)]="patch" (valueChange)="onSelection()" required>
+      <mat-option *ngFor="let patch of patches" [value]="patch">
         {{patch.patchName}}
       </mat-option>
     </mat-select>
     <mat-error *ngIf="patchControl.hasError('required')">Please choose a patch</mat-error>
   </mat-form-field>
-
 </mat-dialog-content>
 
 <div mat-dialog-actions>
   <button mat-button id="cancel" (click)="cancel()">No Thanks</button>
-  <button mat-button (click)="patchControl.valid && addOnGardenPage(patchName, plant)" cdkFocusInitial>Save</button>
+  <button mat-button (click)="patchControl.valid && addOnGardenPage(patch, plant)" cdkFocusInitial>Save</button>
 </div>
 </div>
 

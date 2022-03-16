@@ -11,7 +11,7 @@ import { IPatch } from '../models/ipatch-model';
 })
 export class GardenFootprintComponent implements OnInit {
 patches!: IPatch[];
-patch!: IPatch[];
+patch!: IPatch;
 search!: '';
 public static readonly CREATEPATCH_WEBSITE_URL: string = '/create-patch';
 

@@ -1,8 +1,9 @@
 import { Component, Inject, Input, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { IPatch } from 'src/app/garden/models/ipatch-model';
+import { IPlantInPatch } from '../../garden/models/iplantinpatch-model';
 import { PatchesService } from '../../services/patches/patches.service';
 
 import { IPlantsList } from '../models/iplants-model';
@@ -18,14 +19,17 @@ export class AddToGardenComponent implements OnInit {
 
   addToGardenForm: any;
   isDirty: boolean = true;
-  patches: IPatch[] = [];
+  patches!: IPatch[];
   patch!: IPatch;
   patchName!:string;
   patchControl = new FormControl('', Validators.required);
+  selectedPatch!: IPatch;
   public isLoading: boolean = false;
+  plantInPatch!: IPlantInPatch;
 
   constructor(
     private router: Router,
+    private route: ActivatedRoute,
     private patchService : PatchesService,
     public dialog: MatDialogRef<AddToGardenComponent>,
     @Inject(MAT_DIALOG_DATA) public plant: IPlantsList
@@ -42,18 +46,24 @@ export class AddToGardenComponent implements OnInit {
     this.dialog.close();
   }
 
-  addOnGardenPage(patchName: string, plant:IPlantsList) {
+  addOnGardenPage(patch: IPatch, plant: IPlantsList) {
     this.isDirty = false;
-      console.log(this.plant);
-      console.log(this.patchName);
-      this.patchService.savePlantInPatch(patchName, plant);
+    this.plantInPatch =
+    {
+      patchId: patch.patchId,
+      patchName: patch.patchName,
+      plantId: plant.plantId
+    }
+    this.patchService.savePlantInPatch(this.plantInPatch).subscribe(() => {
       this.dialog.close();
       this.router.navigate(['garden']);
+    });
+
   }
 
   onSelection() {
     this.patchName;
-    }
+  }
 
   createPatch(){
     const link = document.createElement('a');
@@ -61,10 +71,6 @@ export class AddToGardenComponent implements OnInit {
     link.setAttribute('visibility', 'hidden');
     link.click();
   }
-
-
-
-
 
 }
 

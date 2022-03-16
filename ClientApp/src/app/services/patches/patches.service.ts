@@ -4,9 +4,10 @@ import * as patches from "./patch-list.json";
 import * as moment from 'moment';
 import { IPatch } from '../../garden/models/ipatch-model';
 import { ITask } from '../../task/models/itask-model';
-import { IPlantsList } from '../../garden-list/models/iplants-model';
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { catchError, tap } from 'rxjs/operators';
+import { IPlantsList } from 'src/app/garden-list/models/iplants-model';
+import { IPlantInPatch } from '../../garden/models/iplantinpatch-model';
 
 @Injectable()
 export class PatchesService {
@@ -60,17 +61,12 @@ export class PatchesService {
     );
   }
 
-  savePlantInPatch(patchName: string, plant: IPlantsList) {
-    var newPatches: IPatch[] = [];
-
-    for (let patch of this.PATCHES) {
-      if (patch.name === patchName) {
-        patch.plantlist.push(plant);
-      }
-      newPatches.push(patch);
-    }
-    this.PATCHES = newPatches;
-
+  savePlantInPatch(plantInPatch: IPlantInPatch): Observable<IPlantInPatch> {
+    console.log(`Setting the ${plantInPatch.plantId} from the patch service`);
+    return this.http.post<IPlantInPatch>(this.baseUrl + 'save-plant-in-patch', plantInPatch ).pipe(
+      tap(() => console.log(`Patch service added ${plantInPatch.plantId} to ${plantInPatch.patchName} successfully`)),
+      catchError((error: HttpErrorResponse) => throwError(error))
+    );
   }
 
   saveTaskInPatch(patchName: string, task: ITask) {

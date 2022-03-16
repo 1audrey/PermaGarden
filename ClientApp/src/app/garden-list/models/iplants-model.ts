@@ -1,4 +1,5 @@
 export interface IPlantsList {
+  plantId: number,
   plantName: string,
   plantStartingMonths: string,
   plantStartingMethod: string,

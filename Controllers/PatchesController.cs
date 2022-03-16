@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using perma_garden_app.Models.PatchesModel;
 using perma_garden_app.Models.TasksModel;
 using System;
@@ -123,19 +124,31 @@ namespace perma_garden_app.Controllers
                     PatchImagePicture = patch.PatchImagePicture,
                 };
 
-                await _permaGardenRepositery.SaveNewPatch(newPatch, token);
+                await _permaGardenRepositery.SaveNewPatch(newPatch, token);          
 
-                //var newPlantInPatches = new PlantsInPatchesRecord { };
+                return Ok();
+            }
+
+            return BadRequest("Patch is invalid");
+        }
+
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Route("save-plant-in-patch")]
+        public async Task<IActionResult> SavePlantInPatch([FromBody] PlantsInPatchesRecord plantInPatch, CancellationToken token)
+        {
+            if (plantInPatch != null)
+            {
+                var newPlantInPatch = new PlantsInPatchesRecord { };
+
+                newPlantInPatch.PlantId = plantInPatch.PlantId;
+                newPlantInPatch.PatchName = plantInPatch.PatchName;
+                newPlantInPatch.PatchId = plantInPatch.PatchId;
+
+                await _permaGardenRepositery.SavePlantInPatch(newPlantInPatch, token);
                 
-                //foreach(var plant in patch.PlantList)
-                //{
-                //    newPlantInPatches.PlantId = plant.PlantId;
-                //    newPlantInPatches.PatchName = newPatch.PatchName;
-                //    newPlantInPatches.PatchId = newPatch.PatchId;
-
-                //    await _permaGardenRepositery.SavePlantInPatch(newPlantInPatches, token);
-                //}            
-
                 return Ok();
             }
 
