@@ -95,7 +95,7 @@ export class AddNewPlantComponent {
   }
 
   private checkIfPlantWithSameNameExists(existingPlantName: string, newPlantName: string): boolean {
-    if (existingPlantName === newPlantName) {
+    if (existingPlantName.toLowerCase() === newPlantName.toLowerCase()) {
       this.notifications.showWarning(`You already have a plant called ${newPlantName}`);
       return true;
     }

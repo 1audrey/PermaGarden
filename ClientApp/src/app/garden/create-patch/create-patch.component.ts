@@ -69,7 +69,7 @@ export class CreatePatchComponent implements OnInit {
   }
 
   private checkIfPatchWithSameNameExists(existingPatchName: string, newPatchName: string): boolean {
-    if (existingPatchName === newPatchName) {
+    if (existingPatchName.toLowerCase() === newPatchName.toLowerCase()) {
       this.notifications.showWarning(`You already have a patch called ${newPatchName}`);
       return true;
     }
