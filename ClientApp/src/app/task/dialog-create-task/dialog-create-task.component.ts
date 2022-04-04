@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { IPatch } from 'src/app/garden/models/ipatch-model';
 import { NotificationsService } from '../../services/notifications/notifications.service';
 import { PatchesService } from '../../services/patches/patches.service';
@@ -61,8 +61,9 @@ export class DialogCreateTaskComponent implements OnInit {
         return;
       }
     }
-    this.router.navigate(['/create-task', patchName])
+    this.router.navigate(['/create-task', patchName]);
     this.dialogRef.close();
+
   }
 
 }

@@ -262,16 +262,14 @@ namespace perma_garden_app.Controllers
                     var task = new TasksRecord
                     {
                         TaskId = patch.TaskId,
-                        CurrentTaskName = patch.CurrentTaskName,
-                        NextTaskName = patch.NextTaskName,
-                        Plant = patch.Plant,
+                        CurrentTask = patch.CurrentTask,
+                        NextTask = patch.NextTask,
                         StartingDate = patch.StartingDate,
                         NextDate = patch.NextDate,
-                        TransplantDate = patch.TransplantDate,
                         RealHarvestingDate = patch.RealHarvestingDate,
                         DaysDifferenceBetweenTaskAndToday = patch.DaysDifferenceBetweenTaskAndToday,
                         IsFirstTaskSuccess = patch.IsFirstTaskSuccess,
-                        FailureReason = patch.FailureReason,
+                        FailureReasons = patch.FailureReasons,
                         HarvestedWeight = patch.HarvestedWeight
                     };
                     taskList.Add(task);

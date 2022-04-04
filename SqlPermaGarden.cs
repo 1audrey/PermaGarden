@@ -189,16 +189,13 @@ namespace perma_garden_app
                                 , patch.PatchName
                                 , patch.PatchImagePicture
                                 , task.TaskId
-                                , task.CurrentTaskName
-                                , task.NextTaskName
+                                , task.CurrentTask
+                                , task.NextTask
                                 , task.StartingDate
                                 , task.NextDate
-                                , task.TransplantDate
-                                , task.RealHarvestingDate
                                 , task.DaysDifferenceBetweenTaskAndToday
                                 , task.IsFirstTaskSuccess
                                 , task.FailureReasons
-                                , task.HarvestedWeight
                                 , tasksInPatches.PatchId
                                 , tasksInPatches.TaskId
                 
@@ -329,6 +326,72 @@ namespace perma_garden_app
                     cancellationToken: token));
         }
 
+        public async Task SaveNewTask(TasksRecord task, CancellationToken token)
+        {
+            var command = @"INSERT INTO dbo.Tasks (
+                                CurrentTask
+                                , NextTask
+                                , StartingDate
+                                , NextDate
+                                , RealHarvestingDate
+                                , DaysDifferenceBetweenTaskAndToday
+                                , IsFirstTaskSuccess
+                                , FailureReasons
+                                , HarvestedWeight
+                                )
 
+                            VALUES (
+                                @CurrentTask
+                                , @NextTask
+                                , @StartingDate
+                                , @NextDate
+                                , @RealHarvestingDate
+                                , @DaysDifferenceBetweenTaskAndToday
+                                , @IsFirstTaskSuccess
+                                , @FailureReasons
+                                , @HarvestedWeight
+                                );
+                                Select @@IDENTITY as TaskId";
+
+            await SqlConnection.ExecuteAsync(
+                new CommandDefinition(
+                    command,
+                    new { task.CurrentTask, task.NextTask, task.StartingDate, task.NextDate, task.RealHarvestingDate,
+                        task.DaysDifferenceBetweenTaskAndToday, task.IsFirstTaskSuccess, task.FailureReasons, task.HarvestedWeight},
+                    cancellationToken: token));
+
+        }
+
+        public async Task SaveTaskInPatch(TasksInPatchesRecord taskInPatch, CancellationToken token)
+        {
+            var command = @"INSERT INTO dbo.TasksInPatches (
+                                PatchName
+                                , TaskId
+                                , PatchId)
+
+                            VALUES (
+                                 @PatchName
+                                , @TaskId
+                                , @PatchId)";
+
+            await SqlConnection.ExecuteAsync(
+                new CommandDefinition(
+                    command,
+                    new { taskInPatch.PatchName, taskInPatch.TaskId, taskInPatch.PatchId },
+                    cancellationToken: token));
+        }
+
+        public async Task<IEnumerable<int>> GetTasksId(CancellationToken token)
+        {
+            var command = @"SELECT
+                                task.TaskId
+                            FROM
+                                dbo.Tasks task";
+
+            return await SqlConnection.QueryAsync<int>(new CommandDefinition(command,
+                    cancellationToken: token));
+        }
+
+        
     }
 }

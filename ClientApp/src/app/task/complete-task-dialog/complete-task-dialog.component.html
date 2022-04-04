@@ -2,7 +2,7 @@
 
   <div class="form-group"
     [ngClass]="{'error': nextTaskForm.controls.firstTaskSuccess?.invalid && nextTaskForm.controls.firstTaskSuccess?.touched}">
-    <p>Have '{{task.action | lowercase }}' been successfull? </p>
+    <p>Have '{{task.currentTask | lowercase }}' been successfull? </p>
     <em *ngIf="nextTaskForm.controls.firstTaskSuccess?.invalid && nextTaskForm.controls.firstTaskSuccess?.touched">
       *Required </em>
     <mat-form-field appearance="fill">
@@ -17,7 +17,7 @@
 
   <div class="form-group" *ngIf="selectedAnswer == 'Yes';else answerIsNo"
     [ngClass]="{'error': nextTaskForm.controls.transplantDate?.invalid && nextTaskForm.controls.transplantDate?.touched}">
-    <div class="sowing-in-pots" *ngIf="task.action == 'Sowing in pots';else IsHarvesting">
+    <div class="sowing-in-pots" *ngIf="task.currentTask == 'Sowing in pots';else IsHarvesting">
       <p>Select the date from which you have/want to transplant the {{task.plant.plantName}}?</p>
       <em *ngIf="nextTaskForm.controls.transplantDate?.invalid && nextTaskForm.controls.transplantDate?.touched">
         *Required </em>

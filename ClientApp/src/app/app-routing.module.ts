@@ -88,6 +88,7 @@ const routes: Routes = [
   {
     path: 'create-task/:patchName',
     component: CreateTaskComponent,
+    resolve: { patchName: SinglepatchResolverService, plants: PlantsListResolver }
   },
 
 ];

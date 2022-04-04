@@ -77,11 +77,11 @@ export class PatchesService {
     );
   }
 
-  saveTaskInPatch(patchName: string, task: ITask) {
+  saveTaskInPatch(task: ITask) {
     var newPatches: IPatch[] = [];
 
     for (let patch of this.PATCHES) {
-      if (patch.name === patchName) {
+      if (patch.name === task.patchName) {
         this.givesFirstNextTask(task);
         this.calculateNextDate(task);
         patch.tasklist.push(task);
@@ -94,7 +94,7 @@ export class PatchesService {
   }
 
   givesFirstNextTask(task: ITask) {
-    if (task.action == 'Sowing in pots') {
+    if (task.currentTask == 'Sowing in pots') {
       task.nextTask = 'Planting';
     }
     else {
@@ -103,8 +103,8 @@ export class PatchesService {
   }
 
   givesSecondNextTask(task: ITask) {
-    if (task.action == 'Sowing in pots') {
-      task.action = 'Planting'
+    if (task.currentTask == 'Sowing in pots') {
+      task.currentTask = 'Planting'
       task.nextTask = 'Harvesting';
     }
   }
@@ -139,22 +139,15 @@ export class PatchesService {
     return this.diffInDays;
   }
 
-
   calculateNextDate(task: ITask) {
-    var startDate = task.startingDate;
-    var transplantDate = task.transplantDate;
+    var startDate = new Date(task.startingDate);
     var numberOfDaysToAdd: number;
     var harvestingFirstMonth: number;
 
     switch (task.plant.plantStartingMethod) {
       case ('Sowing in pots'):
-        numberOfDaysToAdd = Number(task.plant.plantSowingPeriod);
-        if(transplantDate === undefined){
-        this.calculateDate(task, startDate, numberOfDaysToAdd);
-        break;
-        }
         numberOfDaysToAdd = Number(task.plant.plantGrowingPeriod);
-        this.calculateDate(task, transplantDate, numberOfDaysToAdd);
+        this.calculateDate(task, startDate, numberOfDaysToAdd);
         break;
 
       case ('Sowing in soil'):
@@ -179,7 +172,7 @@ export class PatchesService {
     isoTime = Date.UTC(date.getFullYear(), date.getMonth(), date.getDate());
     nextDateForTask = new Date(isoTime);
     nextDateForTask.setDate(nextDateForTask.getDate() + numberOfDays);
-    task.nextDate = nextDateForTask;
+    task.nextDate = nextDateForTask.toString();
   }
 
   getFirstDayOfFirstHarvestingMonth(task: ITask, startDate: Date, harvestingFirstMonth: number) {
@@ -191,7 +184,7 @@ export class PatchesService {
       nextDateForTask.setMonth(nextDateForTask.getMonth() - nextDateForTask.getMonth() + harvestingFirstMonth -1);
       nextDateForTask.setDate(nextDateForTask.getDate() - nextDateForTask.getDate() + 1);
 
-      task.nextDate = nextDateForTask;
+      task.nextDate = nextDateForTask.toString();
     }
     else if(startDate.getMonth() >= harvestingFirstMonth){
       nextDateForTask = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate());
@@ -201,7 +194,7 @@ export class PatchesService {
       nextDateForTask.setDate(nextDateForTask.getDate() - nextDateForTask.getDate() + 1);
       console.log(nextDateForTask);
 
-      task.nextDate = nextDateForTask;
+      task.nextDate = nextDateForTask.toString();
     }
   }
 

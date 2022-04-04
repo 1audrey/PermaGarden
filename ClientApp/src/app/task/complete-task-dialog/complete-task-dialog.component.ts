@@ -38,7 +38,7 @@ export class CompleteTaskDialogComponent {
     if(this.selectedTransplantDate){
       this.isDirty = false;
       formValues.patchName = this.task.patchName;
-      formValues.action = this.task.action;
+      formValues.currentTask = this.task.currentTask;
       formValues.nextTask = this.task.nextTask;
       formValues.plant = this.task.plant;
       formValues.startingDate = this.task.startingDate;
@@ -54,7 +54,7 @@ export class CompleteTaskDialogComponent {
   failedTask(formValues: ITask){
       this.isDirty = false;
       formValues.patchName = this.task.patchName;
-      formValues.action = this.task.action;
+      formValues.currentTask = this.task.currentTask;
       formValues.nextTask = this.task.nextTask;
       formValues.plant = this.task.plant;
       formValues.startingDate = this.task.startingDate;
@@ -69,7 +69,7 @@ export class CompleteTaskDialogComponent {
   saveHarvestTask(formValues: any){
     this.isDirty = false;
     formValues.patchName = this.task.patchName;
-    formValues.action = this.task.action;
+    formValues.action = this.task.currentTask;
     formValues.nextTask = this.task.nextTask;
     formValues.plant = this.task.plant;
     formValues.startingDate = this.task.startingDate;

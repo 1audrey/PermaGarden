@@ -28,39 +28,35 @@ export class TaskDetailsComponent implements OnInit {
     });
   }
 
-  openTask(){
+  openTask() {
     const dialogRef = this.dialog.open(CompleteTaskDialogComponent, {
       width: '50%',
       data: {
         patchName: this.task.patchName,
-        action: this.task.action,
+        currentTask: this.task.currentTask,
         plant: this.task.plant,
         nextDate: this.task.nextDate,
         nextTask: this.task.nextTask,
         startingDate: this.task.startingDate,
         daysDifferenceBetweenTaskAndToday: this.task.daysDifferenceBetweenTaskAndToday,
         realHarvestingDate: this.task.realHarvestingDate,
-        transplantDate: this.task.transplantDate,
         firstTaskSuccess: this.task.firstTaskSuccess,
         harvestingWeight: this.task.harvestingWeight
-       },
+      },
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if(result){
-      this.task = result;
+      if (result) {
+        this.task = result;
 
       }
-      if(result.firstTaskSuccess === 'No' || result.harvestingWeight != null){
+      if (result.firstTaskSuccess === 'No' || result.harvestingWeight != null) {
         this.taskDeleted.emit();
       }
-
-
-
     });
   }
 
-  deleteTask(){
+  deleteTask() {
     this.taskDeleted.emit();
 
   }

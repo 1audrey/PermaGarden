@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IPlantsList } from 'src/app/garden-list/models/iplants-model';
 import { IPatch } from 'src/app/garden/models/ipatch-model';
+import { TasksService } from 'src/app/services/tasks/tasks.service';
 import { NotificationsService } from '../../services/notifications/notifications.service';
 import { PatchesService } from '../../services/patches/patches.service';
 import { ITask } from '../models/itask-model';
@@ -20,52 +21,39 @@ export class CreateTaskComponent implements OnInit {
   selectedDate!: Date;
   plants!: IPlantsList[];
   tasks!: any;
-
+  currentTask!: string;
 
   @Input() patch!: IPatch;
 
   constructor(private patchService: PatchesService,
+    private tasksService: TasksService,
     private notifications: NotificationsService,
     private route: ActivatedRoute,
     private router: Router,
-  ) {
-
-  }
+  ) {  }
 
   ngOnInit(): void {
     this.route.data.forEach((data) => {
       this.patch = data['patchName'][0];
+      console.log(this.patch);
     });
   }
 
   getPlantStartingMethod() {
-    let patchPlantList: string;
-    if (this.patch.plantList?.length && this.selectedPlant) {
-      for (let plant of this.patch.plantList) {
-        if (plant.plantName == this.selectedPlant.plantName) {
-          patchPlantList = plant.plantStartingMethod;
+  this.currentTask= this.selectedPlant.plantStartingMethod;
+  }
 
-          this.tasks =
-          [
-            { value: patchPlantList },
-          ];
-        }
-      }
-    }
-}
-
-  saveTask(patchName: string, formValues: ITask) {
+  saveTask(formValues: ITask) {
     this.isDirty = false;
-    formValues.patchName = patchName;
-    this.patchService.saveTaskInPatch(patchName, formValues);
-    this.notifications.showSuccess(`${formValues.action} has been added to ${this.patch.patchName}`);
-    this.router.navigate(['garden']);
+    this.tasksService.saveNewTask(formValues).subscribe();
+    this.tasksService.saveTaskInPatch(this.patch.patchName, this.patch.patchId).subscribe();
+    this.notifications.showSuccess(`${formValues.currentTask} has been added to ${this.patch.patchName}`);
+    this.router.navigate(['tasks']);
     console.log(formValues);
-
   }
 
   cancel() {
-    this.route.snapshot.params['patchName'];
+    this.router.navigate(['tasks']);
   }
 
 }

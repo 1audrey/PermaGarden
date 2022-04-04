@@ -1,17 +1,16 @@
 import { IPlantsList } from "src/app/garden-list/models/iplants-model";
 
 export interface ITask {
+  taskId: number,
   patchName: string,
   plant: IPlantsList,
-  action: string,
-  startingDate: Date,
+  currentTask: string,
+  startingDate: string,
   nextTask: string,
-  nextDate: Date,
+  nextDate: string,
   daysDifferenceBetweenTaskAndToday: number,
-  realHarvestingDate?: Date[],
-  transplantDate?: Date,
+  realHarvestingDate?: string[],
   firstTaskSuccess?: boolean,
   failure?: string
   harvestingWeight?: number[]
-
  }

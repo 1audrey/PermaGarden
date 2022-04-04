@@ -31,6 +31,8 @@ export class AllTasksComponent implements OnInit {
   createTask(){
     this.dialog.open(DialogCreateTaskComponent, {
       width: '250px',
+
     });
+
   }
 }
