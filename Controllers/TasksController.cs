@@ -15,7 +15,8 @@ namespace perma_garden_app.Controllers
     public class TasksController : ControllerBase
     {
         private readonly IPermaGardenRepositery<PlantsImagesRecord,
-           PlantsRecord,
+            PlantsRecord,
+           PlantsInTasksRecord,
            PatchesImagesRecord,
            PatchesRecord,
            PlantsInPatchesRecord,
@@ -24,6 +25,7 @@ namespace perma_garden_app.Controllers
 
         public TasksController(IPermaGardenRepositery<PlantsImagesRecord,
             PlantsRecord,
+            PlantsInTasksRecord,
             PatchesImagesRecord,
             PatchesRecord,
             PlantsInPatchesRecord,
@@ -41,10 +43,8 @@ namespace perma_garden_app.Controllers
         [Route("save-task")]
         public async Task<IActionResult> SaveNewTask([FromBody] TasksRecord task, CancellationToken token)
         {
-            ///need to fix issue with the date format, check if convert to string works in the controller and not the service
             if (task != null)
             {
-
                 var newTask = new TasksRecord
                 {
                     CurrentTask = task.CurrentTask,
@@ -75,15 +75,15 @@ namespace perma_garden_app.Controllers
         {
             if (taskInPatch != null)
             {
-                
-                var newTaskInPatch = new TasksInPatchesRecord { };
 
                 var tasksId = await _permaGardenRepositery.GetTasksId(token);
-                var lastTask = tasksId.Last();
+                var lastTaskId = tasksId.Last();
 
-                newTaskInPatch.TaskId = lastTask;
+                var newTaskInPatch = new TasksInPatchesRecord { };
+
                 newTaskInPatch.PatchName = taskInPatch.PatchName;
                 newTaskInPatch.PatchId = taskInPatch.PatchId;
+                newTaskInPatch.TaskId = lastTaskId;
 
                 await _permaGardenRepositery.SaveTaskInPatch(newTaskInPatch, token);
                               
@@ -91,6 +91,44 @@ namespace perma_garden_app.Controllers
             }
 
             return BadRequest("Task in patch is invalid");
+        }
+
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Route("save-plant-in-task")]
+        public async Task<IActionResult> SavePlantInTask([FromBody] PlantsInTasksRecord plantInTask, CancellationToken token)
+        {
+            if (plantInTask != null)
+            {
+                var tasksId = await _permaGardenRepositery.GetTasksId(token);
+                var lastTaskId = tasksId.Last();
+
+                var newPlantInTask = new PlantsInTasksRecord { };
+
+                newPlantInTask.PlantId = plantInTask.PlantId;
+                newPlantInTask.TaskId = lastTaskId;
+
+                await _permaGardenRepositery.SavePlantInTask(newPlantInTask, token);
+
+                return Ok();
+            }
+
+            return BadRequest("Plant in task is invalid");
+        }
+
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Route("all-tasks")]
+        public async Task<IActionResult> GetAllTasks(CancellationToken token)
+        {
+            var tasks = await _permaGardenRepositery
+                .GetAllTasks(token);
+
+            return Ok(tasks.ToList());
         }
     }
 }

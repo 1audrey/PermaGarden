@@ -10,11 +10,10 @@
 
   <div class="my-tasks">
     <div fxLayout="row wrap" fxLayoutGap="16px grid">
-      <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="50%" fxFlex.md="50%" *ngFor="let task of allTasks as tasks">
-        <div class="my-tasks" >
+      <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="50%" fxFlex.md="50%" *ngFor="let patchWithoutParams of patches">
+        <div class="my-tasks">
           <app-task-details
-          [task]="task"
-          (taskDeleted)="onTaskDeleted(task)"
+          [patchWithoutParams]="patchWithoutParams"
           >
           </app-task-details>
         </div>

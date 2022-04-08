@@ -3,6 +3,8 @@ import { ITask } from '../models/itask-model';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogCreateTaskComponent } from '../dialog-create-task/dialog-create-task.component';
 import { PatchesService } from '../../services/patches/patches.service';
+import { IPatch } from '../../garden/models/ipatch-model';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-all-tasks',
@@ -11,14 +13,15 @@ import { PatchesService } from '../../services/patches/patches.service';
 })
 export class AllTasksComponent implements OnInit {
   allTasks: ITask[] = [];
+  patches!: IPatch[];
 
   constructor(public dialog: MatDialog,
     private patchService: PatchesService,
+    private route: ActivatedRoute
    ) { }
 
-   ngOnInit(){
-    this.allTasks = this.patchService.getAllTasks();
-
+  ngOnInit() {
+    this.patches = this.route.snapshot.data['patches'];
   }
 
   onTaskDeleted(task: ITask){

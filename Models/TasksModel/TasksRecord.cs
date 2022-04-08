@@ -11,7 +11,7 @@ namespace perma_garden_app.Models.TasksModel
 
         public string NextTask { get; set; }
 
-        //public PlantsRecord Plant { get; set; }
+        public PlantsRecord Plant { get; set; }
 
         public string StartingDate { get; set; }
 

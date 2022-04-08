@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 using perma_garden_app.Models.PatchesModel;
 using perma_garden_app.Models.TasksModel;
 using System;
@@ -16,15 +15,17 @@ namespace perma_garden_app.Controllers
     public class PatchesController : ControllerBase
     {
         private readonly IPermaGardenRepositery<PlantsImagesRecord,
-            PlantsRecord, 
+            PlantsRecord,
+            PlantsInTasksRecord, 
             PatchesImagesRecord, 
             PatchesRecord, 
             PlantsInPatchesRecord,
             TasksRecord,
             TasksInPatchesRecord> _permaGardenRepositery;
 
-        public PatchesController(IPermaGardenRepositery<PlantsImagesRecord, 
-            PlantsRecord, 
+        public PatchesController(IPermaGardenRepositery<PlantsImagesRecord,
+            PlantsRecord,
+            PlantsInTasksRecord, 
             PatchesImagesRecord, 
             PatchesRecord, 
             PlantsInPatchesRecord, 
@@ -64,13 +65,16 @@ namespace perma_garden_app.Controllers
             var patchesWithTasks = await _permaGardenRepositery
                 .GetTasksInPatches(token);
 
+            var plantInTask = await _permaGardenRepositery
+                .GetPlantsInTasks(token);
+
             var newPatch = patch.Select(x => new PatchesRecord()
             {
                 PatchId = x.PatchId,
                 PatchName = x.PatchName,
                 PatchImagePicture = x.PatchImagePicture,
                 PlantList = GetPlantList(patchesWithPlants, x.PatchId),
-                TaskList = GetTaskList(patchesWithTasks, x.PatchId)
+                TaskList = GetTaskList(patchesWithTasks, x.PatchId, plantInTask)
             }).ToArray();
 
             return Ok(newPatch);
@@ -93,6 +97,9 @@ namespace perma_garden_app.Controllers
             var patchesWithTasks = await _permaGardenRepositery
                 .GetTasksInPatches(token);
 
+            var plantInTask = await _permaGardenRepositery
+                .GetPlantsInTasks(token); 
+
             var singlePatches = patches.GroupBy(z => z.PatchId).Select(x => x.First()).ToList();
 
             var newPatches = singlePatches.Select(x => new PatchesRecord()
@@ -101,7 +108,7 @@ namespace perma_garden_app.Controllers
                 PatchName = x.PatchName,
                 PatchImagePicture = x.PatchImagePicture,
                 PlantList = GetPlantList(patchesWithPlants, x.PatchId),
-                TaskList = GetTaskList(patchesWithTasks, x.PatchId)
+                TaskList = GetTaskList(patchesWithTasks, x.PatchId, plantInTask)
 
         }).ToArray();          
 
@@ -251,7 +258,7 @@ namespace perma_garden_app.Controllers
             return plantList;
         }
 
-        private List<TasksRecord> GetTaskList(IEnumerable<TasksInPatchesRecord> patchesWithTasks, int patchId)
+        private List<TasksRecord> GetTaskList(IEnumerable<TasksInPatchesRecord> patchesWithTasks, int patchId, IEnumerable<PlantsInTasksRecord> plantInTask)
         {
             var taskList = new List<TasksRecord>();
 
@@ -266,6 +273,7 @@ namespace perma_garden_app.Controllers
                         NextTask = patch.NextTask,
                         StartingDate = patch.StartingDate,
                         NextDate = patch.NextDate,
+                        Plant = GetPlantInTask(plantInTask, patch.TaskId),
                         RealHarvestingDate = patch.RealHarvestingDate,
                         DaysDifferenceBetweenTaskAndToday = patch.DaysDifferenceBetweenTaskAndToday,
                         IsFirstTaskSuccess = patch.IsFirstTaskSuccess,
@@ -276,6 +284,28 @@ namespace perma_garden_app.Controllers
                 }
             }
             return taskList;
+        }
+
+        private PlantsRecord GetPlantInTask(IEnumerable<PlantsInTasksRecord> plantInTask, int taskId)
+        {
+            var matchingPlant= new PlantsRecord() { };
+
+            foreach (var plant in plantInTask)
+            {
+                if (plant.TaskId == taskId)
+                {
+                        matchingPlant.PlantId = plant.PlantId;
+                        matchingPlant.PlantName = plant.PlantName;
+                        matchingPlant.PlantStartingMethod = plant.PlantStartingMethod;
+                        matchingPlant.PlantSowingPeriod = plant.PlantSowingPeriod;
+                        matchingPlant.PlantStartingMonths = plant.PlantStartingMonths;
+                        matchingPlant.PlantGrowingPeriod = plant.PlantGrowingPeriod;
+                        matchingPlant.PlantHarvestingMonths = plant.PlantHarvestingMonths;
+                        matchingPlant.PlantImagePicture = plant.PlantImagePicture;
+                }
+            }
+            return matchingPlant;
+
         }
 
         private static bool IsNameOrPictureUpdated(PatchesRecord existingPatch, PatchesRecord patch)

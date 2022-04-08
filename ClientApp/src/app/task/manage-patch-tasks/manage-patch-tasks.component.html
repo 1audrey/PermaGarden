@@ -13,11 +13,9 @@
 
   <div class="my-tasks">
     <div fxLayout="row wrap" fxLayoutGap="16px grid">
-      <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="50%" fxFlex.md="50%" *ngFor="let task of patch.taskList as tasks">
+      <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="50%" fxFlex.md="50%">
         <div class="my-patches">
           <app-task-details
-          [task]="task"
-          (taskDeleted)="onTaskDeleted(task)"
           >
           </app-task-details>
         </div>

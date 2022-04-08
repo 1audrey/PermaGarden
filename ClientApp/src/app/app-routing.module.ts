@@ -4,7 +4,6 @@ import { AddNewPlantComponent } from './garden-list/add-new-plant/add-new-plant.
 import { AddToGardenComponent } from './garden-list/add-to-garden/add-to-garden.component';
 import { PlantsListResolver } from './resolver/plants-list-resolver.service';
 import { PlantsListComponent } from './garden-list/plants-list.component';
-import { PlantImageResolverService } from './resolver/plant-image-resolver.service';
 import { GardenFootprintComponent } from './garden/garden-footprint/garden-footprint.component';
 import { PatchResolverService } from './resolver/patch-resolver.service';
 import { CreatePatchComponent } from './garden/create-patch/create-patch.component';
@@ -15,6 +14,7 @@ import { CreateTaskComponent } from './task/create-task/create-task.component';
 import { HomepageComponent } from './homepage/homepage/homepage.component';
 import { SummaryComponent } from './homepage/summary/summary.component';
 import { SinglepatchResolverService } from './resolver/singlepatch-resolver.service';
+import { TaskDetailsComponent } from './task/task-details/task-details.component';
 
 const routes: Routes = [
   {
@@ -78,11 +78,19 @@ const routes: Routes = [
   {
     path: 'tasks',
     component: AllTasksComponent,
+    resolve: { patches: PatchResolverService }
   },
 
   {
     path: 'tasks/:patchName',
     component: ManagePatchTasksComponent,
+    resolve: { patchName: SinglepatchResolverService, patches: PatchResolverService }
+  },
+
+  {
+    path: 'tasks/:patchName',
+    component: TaskDetailsComponent,
+    resolve: { patchName: SinglepatchResolverService }
   },
 
   {

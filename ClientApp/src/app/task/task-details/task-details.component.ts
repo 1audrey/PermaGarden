@@ -12,20 +12,37 @@ import { PatchesService } from '../../services/patches/patches.service';
   styleUrls: ['./task-details.component.css']
 })
 export class TaskDetailsComponent implements OnInit {
-  @Input() task!: ITask;
+  @Input() patchWithoutParams!: IPatch;
   @Output() taskDeleted: EventEmitter<any> = new EventEmitter();
-
-  patch!: IPatch;
   isGettingDate: boolean = false;
+  patchName!: string;
+  patch!: IPatch;
+  task!: ITask;
 
-  constructor(private patchService: PatchesService,
-    private route: ActivatedRoute,
+  constructor(private route: ActivatedRoute,
+    private patchService: PatchesService,
     public dialog: MatDialog) { }
 
   ngOnInit() {
-    this.route.data.forEach((data) => {
-      this.patch = data['patchName'][0];
-    });
+    var params = this.route.snapshot.params['patchName'];
+    if (params) {
+      this.route.data.forEach((data) => {
+          this.patch = data['patchName'][0];
+        });
+
+      if (params === this.patch.patchName) {
+          if (this.patch.taskList) {
+            this.task = this.patch.taskList[0];
+            this.patchName = this.patch.patchName;
+          }
+      }
+    }
+    if (this.patchWithoutParams.taskList) {
+      for (let taskWithParams of this.patchWithoutParams.taskList) {
+        this.task = taskWithParams;
+        this.patchName = this.patchWithoutParams.patchName
+      } 
+    }
   }
 
   openTask() {
@@ -60,4 +77,6 @@ export class TaskDetailsComponent implements OnInit {
     this.taskDeleted.emit();
 
   }
+
+
 }

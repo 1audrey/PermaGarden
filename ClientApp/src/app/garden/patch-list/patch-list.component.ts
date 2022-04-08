@@ -1,9 +1,7 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { IPatch } from '../models/ipatch-model';
-import { ActivatedRoute, Router } from '@angular/router';
-import { IPlantsList } from 'src/app/garden-list/models/iplants-model';
-import { IPlantInPatch } from '../models/iplantinpatch-model';
+import { ActivatedRoute } from '@angular/router';
 import { PatchesService } from 'src/app/services/patches/patches.service';
 import { NotificationsService } from 'src/app/services/notifications/notifications.service';
 
@@ -30,7 +28,7 @@ export class PatchListComponent {
 
   constructor(private route: ActivatedRoute,
      private patchService: PatchesService,
-     private notifications: NotificationsService) { }
+    private notifications: NotificationsService) { }
 
   toggle(): void {
     this.state = this.state === 'collapsed' ? 'expanded' : 'collapsed';
@@ -45,7 +43,7 @@ export class PatchListComponent {
   }
 
   openTask(){
-   this.route.snapshot.params['patchName' ];
+    this.route.snapshot.params['patchName'];
   }
 
   deletePlantInPatch( plantName: string, patchName: string, plantId: number, patchId: number){

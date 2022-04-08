@@ -12,16 +12,18 @@ namespace perma_garden_app.Controllers
     [Route("[controller]")]
     public class PlantsController : ControllerBase
     {
-        private readonly IPermaGardenRepositery<PlantsImagesRecord, 
-            PlantsRecord, 
+        private readonly IPermaGardenRepositery<PlantsImagesRecord,
+            PlantsRecord,
+            PlantsInTasksRecord, 
             PatchesImagesRecord, 
             PatchesRecord, 
             PlantsInPatchesRecord, 
             TasksRecord, 
             TasksInPatchesRecord> _permaGardenRepositery;
 
-        public PlantsController(IPermaGardenRepositery<PlantsImagesRecord, 
-            PlantsRecord, 
+        public PlantsController(IPermaGardenRepositery<PlantsImagesRecord,
+            PlantsRecord,
+            PlantsInTasksRecord, 
             PatchesImagesRecord, 
             PatchesRecord, 
             PlantsInPatchesRecord, 

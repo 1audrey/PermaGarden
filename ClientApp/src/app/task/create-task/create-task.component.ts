@@ -7,7 +7,6 @@ import { NotificationsService } from '../../services/notifications/notifications
 import { PatchesService } from '../../services/patches/patches.service';
 import { ITask } from '../models/itask-model';
 
-
 @Component({
   selector: 'app-create-task',
   templateUrl: './create-task.component.html',
@@ -47,6 +46,7 @@ export class CreateTaskComponent implements OnInit {
     this.isDirty = false;
     this.tasksService.saveNewTask(formValues).subscribe();
     this.tasksService.saveTaskInPatch(this.patch.patchName, this.patch.patchId).subscribe();
+    this.tasksService.savePlantInTask(this.selectedPlant.plantId).subscribe();
     this.notifications.showSuccess(`${formValues.currentTask} has been added to ${this.patch.patchName}`);
     this.router.navigate(['tasks']);
     console.log(formValues);

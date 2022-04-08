@@ -3,7 +3,7 @@
   [ngClass]=" {
   'past': task.daysDifferenceBetweenTaskAndToday < 0 ,'today': task.daysDifferenceBetweenTaskAndToday === 0 ,'this-week': task.daysDifferenceBetweenTaskAndToday >= 1 && task.daysDifferenceBetweenTaskAndToday <= 7 , 'later': task.daysDifferenceBetweenTaskAndToday >= 8}">
   <mat-card-header>
-  <mat-card-title class="title"> {{task.patchName | titlecase}}</mat-card-title>
+  <mat-card-title class="title"> {{patchName | titlecase}}</mat-card-title>
   </mat-card-header>
 
   <mat-card-actions class="actions">

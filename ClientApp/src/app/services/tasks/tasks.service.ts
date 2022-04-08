@@ -4,12 +4,14 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { ITaskInPatch } from 'src/app/garden/models/itaskinpatch-models';
 import { ITask } from 'src/app/task/models/itask-model';
+import { IPlantsInTasks } from '../../task/models/IPlantsInTasks-model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TasksService {
   baseUrl = 'https://localhost:5001/Tasks/';
+  taskId: number = 0;
 
   constructor(private http: HttpClient) { }
 
@@ -17,7 +19,6 @@ export class TasksService {
     task.startingDate = task.startingDate.toString();
     task.nextTask = this.givesFirstNextTask(task);
     task.nextDate = this.calculateNextDate(task).toString();
-    console.log(`task just before the service sends it: ${task}`);
 
     console.log(`Setting the ${task.currentTask} from the task service`);
     return this.http.post<ITask>(this.baseUrl + 'save-task', task).pipe(
@@ -32,7 +33,17 @@ export class TasksService {
     taskInPatch.patchId = patchId;
 
     return this.http.post<ITaskInPatch>(this.baseUrl + 'save-task-in-patch', taskInPatch ).pipe(
-      tap(() => console.log(`Patch service added ${taskInPatch.taskId} to ${taskInPatch.patchName} successfully`)),
+      tap(() => console.log(`Task service added ${taskInPatch.taskId} to ${taskInPatch.patchName} successfully`)),
+      catchError((error: HttpErrorResponse) => throwError(error))
+    );
+  }
+
+  savePlantInTask(plantId: number): Observable<IPlantsInTasks> {
+    var plantInTask: IPlantsInTasks = { taskId: 0, plantId: 0 };
+    plantInTask.plantId = plantId;
+
+    return this.http.post<IPlantsInTasks>(this.baseUrl + 'save-plant-in-task', plantInTask).pipe(
+      tap(() => console.log(`Task service added ${plantInTask.plantId} to task successfully`)),
       catchError((error: HttpErrorResponse) => throwError(error))
     );
   }

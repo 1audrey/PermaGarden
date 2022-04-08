@@ -8,8 +8,9 @@ using System.Threading.Tasks;
 
 namespace perma_garden_app
 {
-    public class SqlPermaGarden : IPermaGardenRepositery<PlantsImagesRecord, 
-        PlantsRecord, 
+    public class SqlPermaGarden : IPermaGardenRepositery<PlantsImagesRecord,
+        PlantsRecord,
+        PlantsInTasksRecord, 
         PatchesImagesRecord,
         PatchesRecord,
         PlantsInPatchesRecord, 
@@ -392,6 +393,70 @@ namespace perma_garden_app
                     cancellationToken: token));
         }
 
-        
+        public async Task SavePlantInTask(PlantsInTasksRecord plantInTask, CancellationToken token)
+        {
+            var command = @"INSERT INTO dbo.PlantsInTasks (
+                                PlantId
+                                , TaskId)
+
+                            VALUES (
+                                @PlantId
+                                , @TaskId)";
+
+            await SqlConnection.ExecuteAsync(
+                new CommandDefinition(
+                    command,
+                    new { plantInTask.PlantId, plantInTask.TaskId },
+                    cancellationToken: token));
+        }
+
+        public async Task<IEnumerable<PlantsInTasksRecord>> GetPlantsInTasks(CancellationToken token)
+        {
+            var command = @"SELECT
+                                plantInTask.TaskId
+                                , plantInTask.PlantId
+                                , plant.PlantId
+                                , plant.PlantName
+                                , plant.PlantGrowingPeriod
+                                , plant.PlantHarvestingMonths
+                                , plant.PlantImagePicture
+                                , plant.PlantSowingPeriod
+                                , plant.PlantStartingMethod
+                                , plant.PlantStartingMonths
+                
+                            FROM
+                                dbo.PlantsInTasks plantInTask
+
+                            JOIN
+                                dbo.Plants plant
+                            ON
+                                plantInTask.PlantId = plant.PlantId";
+
+            return await SqlConnection.QueryAsync<PlantsInTasksRecord>(new CommandDefinition(command,
+                cancellationToken: token));
+        }
+
+        public async Task<IEnumerable<TasksRecord>> GetAllTasks(CancellationToken token)
+        {
+            var command = @"SELECT
+                                task.TaskId
+                                , task.CurrentTask
+                                , task.NextTask
+                                , task.StartingDate
+                                , task.NextDate
+                                , task.RealHarvestingDate
+                                , task.DaysDifferenceBetweenTaskAndToday
+                                , task.IsFirstTaskSuccess
+                                , task.FailureReasons
+                                , task.HarvestedWeight
+                                )
+                
+                            FROM
+                                dbo.Tasks task";
+
+
+            return await SqlConnection.QueryAsync<TasksRecord>(new CommandDefinition(command,
+                cancellationToken: token));
+        }
     }
 }

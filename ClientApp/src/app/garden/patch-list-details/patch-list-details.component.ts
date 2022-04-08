@@ -35,16 +35,6 @@ export class PatchListDetailsComponent implements OnInit {
 
     this.selectedIcon = this.patch.patchImagePicture;
 
-    //if (this.patch.plantList != undefined) {
-    //  for (let plant of this.plants) {
-    //    for (let plantInPatch of this.patch.plantList) {
-    //      if (plantInPatch.plantName === plant.plantName) {
-    //        this.selectedPlants.push(plant);
-    //      }
-    //    }
-    //  }
-    //}
-
     this.patchImageService.getAllPatchesImages().subscribe(images => {
       this.icons = images;
     });
