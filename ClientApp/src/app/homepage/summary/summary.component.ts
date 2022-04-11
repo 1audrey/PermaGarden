@@ -26,7 +26,7 @@ export class SummaryComponent implements OnInit {
   ngOnInit() {
     this.plants = this.route.snapshot.data['plants'];
     this.patches = this.route.snapshot.data['patches'];
-    this.allTasks = this.patchService.getAllTasks();
+   /* this.allTasks = this.patchService.getAllTasks();*/
   }
 
 }

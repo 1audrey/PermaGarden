@@ -4,7 +4,7 @@ import { IPatch } from 'src/app/garden/models/ipatch-model';
 import { ITask } from '../models/itask-model';
 import { MatDialog } from '@angular/material/dialog';
 import { CompleteTaskDialogComponent } from '../complete-task-dialog/complete-task-dialog.component';
-import { PatchesService } from '../../services/patches/patches.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-task-details',
@@ -17,66 +17,96 @@ export class TaskDetailsComponent implements OnInit {
   isGettingDate: boolean = false;
   patchName!: string;
   patch!: IPatch;
-  task!: ITask;
+  taskList: ITask[] = [];
+  daysDifferenceBetweenTaskAndToday!: number;
+  nextDate!: any;
+  todayDate!: any;
 
   constructor(private route: ActivatedRoute,
-    private patchService: PatchesService,
+
     public dialog: MatDialog) { }
 
   ngOnInit() {
     var params = this.route.snapshot.params['patchName'];
+
     if (params) {
       this.route.data.forEach((data) => {
-          this.patch = data['patchName'][0];
-        });
+        this.patch = data['patchName'][0];
+        if (this.patch.taskList) {
+          this.taskList = this.patch.taskList;
+          this.patchName = this.patch.patchName;
+        }
+      });
+    }
 
-      if (params === this.patch.patchName) {
-          if (this.patch.taskList) {
-            this.task = this.patch.taskList[0];
-            this.patchName = this.patch.patchName;
-          }
-      }
-    }
-    if (this.patchWithoutParams.taskList) {
-      for (let taskWithParams of this.patchWithoutParams.taskList) {
-        this.task = taskWithParams;
-        this.patchName = this.patchWithoutParams.patchName
-      } 
-    }
+    else if (this.patchWithoutParams.taskList) {
+      this.taskList = this.patchWithoutParams.taskList;
+      this.patchName = this.patchWithoutParams.patchName;
+    }      
+  
+    this.getDifferenceBetweenTaskDateAndTodaydate();
+    this.sortTasksByEarliestDate();
   }
 
   openTask() {
-    const dialogRef = this.dialog.open(CompleteTaskDialogComponent, {
-      width: '50%',
-      data: {
-        patchName: this.task.patchName,
-        currentTask: this.task.currentTask,
-        plant: this.task.plant,
-        nextDate: this.task.nextDate,
-        nextTask: this.task.nextTask,
-        startingDate: this.task.startingDate,
-        daysDifferenceBetweenTaskAndToday: this.task.daysDifferenceBetweenTaskAndToday,
-        realHarvestingDate: this.task.realHarvestingDate,
-        firstTaskSuccess: this.task.firstTaskSuccess,
-        harvestingWeight: this.task.harvestingWeight
-      },
-    });
+    for (let task of this.taskList) {
+      const dialogRef = this.dialog.open(CompleteTaskDialogComponent, {
+        width: '50%',
+        data: {
+          patchName: task.patchName,
+          currentTask: task.currentTask,
+          plant: task.plant,
+          nextDate: task.nextDate,
+          nextTask: task.nextTask,
+          startingDate: task.startingDate,
+          daysDifferenceBetweenTaskAndToday: task.daysDifferenceBetweenTaskAndToday,
+          realHarvestingDate: task.realHarvestingDate,
+          firstTaskSuccess: task.firstTaskSuccess,
+          harvestingWeight: task.harvestingWeight
+        },
+      });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.task = result;
+      dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+          task = result;
 
-      }
-      if (result.firstTaskSuccess === 'No' || result.harvestingWeight != null) {
-        this.taskDeleted.emit();
-      }
-    });
+        }
+        if (result.firstTaskSuccess === 'No' || result.harvestingWeight != null) {
+          this.taskDeleted.emit();
+        }
+      });
+    }
   }
 
   deleteTask() {
     this.taskDeleted.emit();
-
   }
 
+  getDifferenceBetweenTaskDateAndTodaydate() {
+    for (let task of this.taskList) {
+      let taskNextDate = new Date(task.nextDate);
+      let today = new Date();
+
+      this.nextDate = moment(taskNextDate.toString().substring(0, 15));
+      this.todayDate = moment(today.toString().substring(0, 15));
+      task.daysDifferenceBetweenTaskAndToday = Math.ceil(this.nextDate.diff(this.todayDate, 'days'));
+      console.log(`the difference between planting and sowing dates ${this.daysDifferenceBetweenTaskAndToday}`);
+    }
+  }
+
+  sortTasksByEarliestDate() {
+      this.taskList.sort((task1: ITask, task2: ITask) => {
+        if (task1.daysDifferenceBetweenTaskAndToday > task2.daysDifferenceBetweenTaskAndToday) {
+          return 1;
+        }
+
+        if (task1.daysDifferenceBetweenTaskAndToday < task2.daysDifferenceBetweenTaskAndToday) {
+          return -1;
+        }
+
+        return 0;
+      })
+    }
+  
 
 }

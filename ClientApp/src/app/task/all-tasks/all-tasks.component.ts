@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ITask } from '../models/itask-model';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogCreateTaskComponent } from '../dialog-create-task/dialog-create-task.component';
-import { PatchesService } from '../../services/patches/patches.service';
 import { IPatch } from '../../garden/models/ipatch-model';
 import { ActivatedRoute } from '@angular/router';
 
@@ -15,8 +14,8 @@ export class AllTasksComponent implements OnInit {
   allTasks: ITask[] = [];
   patches!: IPatch[];
 
+
   constructor(public dialog: MatDialog,
-    private patchService: PatchesService,
     private route: ActivatedRoute
    ) { }
 
@@ -36,6 +35,6 @@ export class AllTasksComponent implements OnInit {
       width: '250px',
 
     });
-
   }
+
 }

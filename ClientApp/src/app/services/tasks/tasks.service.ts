@@ -11,7 +11,6 @@ import { IPlantsInTasks } from '../../task/models/IPlantsInTasks-model';
 })
 export class TasksService {
   baseUrl = 'https://localhost:5001/Tasks/';
-  taskId: number = 0;
 
   constructor(private http: HttpClient) { }
 

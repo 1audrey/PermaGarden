@@ -15,8 +15,8 @@ export class HomepageComponent implements OnInit {
   constructor(private patchService: PatchesService) { }
 
   ngOnInit() {
-   this.allTasks = this.patchService.getAllTasks().sort((a, b) => a.daysDifferenceBetweenTaskAndToday - b.daysDifferenceBetweenTaskAndToday);
-   this.firstFourTasks = this.allTasks.slice(0, 4);
+   //this.allTasks = this.patchService.getAllTasks().sort((a, b) => a.daysDifferenceBetweenTaskAndToday - b.daysDifferenceBetweenTaskAndToday);
+   //this.firstFourTasks = this.allTasks.slice(0, 4);
 
   }
 

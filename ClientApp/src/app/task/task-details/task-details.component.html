@@ -1,7 +1,9 @@
-<div>
-  <mat-card
-  [ngClass]=" {
-  'past': task.daysDifferenceBetweenTaskAndToday < 0 ,'today': task.daysDifferenceBetweenTaskAndToday === 0 ,'this-week': task.daysDifferenceBetweenTaskAndToday >= 1 && task.daysDifferenceBetweenTaskAndToday <= 7 , 'later': task.daysDifferenceBetweenTaskAndToday >= 8}">
+  <div fxLayout="row wrap" fxLayoutGap="16px grid">
+    <div  *ngFor="let task of taskList">
+      <mat-card [ngClass]="{'past': task.daysDifferenceBetweenTaskAndToday < 0 ,
+  'today': task.daysDifferenceBetweenTaskAndToday === 0 ,
+  'this-week': task.daysDifferenceBetweenTaskAndToday >= 1 && task.daysDifferenceBetweenTaskAndToday <= 7 ,
+  'later': task.daysDifferenceBetweenTaskAndToday >= 8}">
   <mat-card-header>
   <mat-card-title class="title"> {{patchName | titlecase}}</mat-card-title>
   </mat-card-header>
@@ -20,4 +22,7 @@
 
   </mat-card-footer>
   </mat-card>
-</div>
+
+    </div>
+  </div>
+ 

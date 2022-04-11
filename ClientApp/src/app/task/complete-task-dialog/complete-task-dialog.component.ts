@@ -45,7 +45,7 @@ export class CompleteTaskDialogComponent {
       formValues.nextDate = this.task.nextDate;
       formValues.daysDifferenceBetweenTaskAndToday = this.task.daysDifferenceBetweenTaskAndToday;
       console.log(formValues);
-      this.patchService.saveNextTaskInPatch(formValues);
+/*      this.patchService.saveNextTaskInPatch(formValues);*/
       this.notifications.showSuccess(`${formValues.patchName} has been successfully updated`);
       this.dialogRef.close(formValues);
     }

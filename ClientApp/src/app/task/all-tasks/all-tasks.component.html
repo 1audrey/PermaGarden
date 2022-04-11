@@ -9,15 +9,15 @@
   </div>
 
   <div class="my-tasks">
-    <div fxLayout="row wrap" fxLayoutGap="16px grid">
-      <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="50%" fxFlex.md="50%" *ngFor="let patchWithoutParams of patches">
-        <div class="my-tasks">
-          <app-task-details
-          [patchWithoutParams]="patchWithoutParams"
-          >
-          </app-task-details>
+    <div fxLayoutGap="16px grid">
+      <div  *ngFor="let patchWithoutParams of patches">
+          <div class="my-tasks" >
+            <app-task-details
+            [patchWithoutParams]="patchWithoutParams">             
+            </app-task-details>
+          </div>
         </div>
       </div>
-    </div>
   </div>
 </div>
+
