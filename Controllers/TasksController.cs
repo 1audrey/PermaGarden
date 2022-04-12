@@ -52,7 +52,6 @@ namespace perma_garden_app.Controllers
                     StartingDate = task.StartingDate,
                     NextDate = task.NextDate,
                     RealHarvestingDate = task.RealHarvestingDate,
-                    DaysDifferenceBetweenTaskAndToday = task.DaysDifferenceBetweenTaskAndToday,
                     IsFirstTaskSuccess = task.IsFirstTaskSuccess,
                     FailureReasons = task.FailureReasons,
                     HarvestedWeight = task.HarvestedWeight,

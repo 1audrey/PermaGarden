@@ -194,7 +194,6 @@ namespace perma_garden_app
                                 , task.NextTask
                                 , task.StartingDate
                                 , task.NextDate
-                                , task.DaysDifferenceBetweenTaskAndToday
                                 , task.IsFirstTaskSuccess
                                 , task.FailureReasons
                                 , tasksInPatches.PatchId
@@ -335,7 +334,6 @@ namespace perma_garden_app
                                 , StartingDate
                                 , NextDate
                                 , RealHarvestingDate
-                                , DaysDifferenceBetweenTaskAndToday
                                 , IsFirstTaskSuccess
                                 , FailureReasons
                                 , HarvestedWeight
@@ -347,7 +345,6 @@ namespace perma_garden_app
                                 , @StartingDate
                                 , @NextDate
                                 , @RealHarvestingDate
-                                , @DaysDifferenceBetweenTaskAndToday
                                 , @IsFirstTaskSuccess
                                 , @FailureReasons
                                 , @HarvestedWeight
@@ -358,7 +355,7 @@ namespace perma_garden_app
                 new CommandDefinition(
                     command,
                     new { task.CurrentTask, task.NextTask, task.StartingDate, task.NextDate, task.RealHarvestingDate,
-                        task.DaysDifferenceBetweenTaskAndToday, task.IsFirstTaskSuccess, task.FailureReasons, task.HarvestedWeight},
+                        task.IsFirstTaskSuccess, task.FailureReasons, task.HarvestedWeight},
                     cancellationToken: token));
 
         }
@@ -445,7 +442,6 @@ namespace perma_garden_app
                                 , task.StartingDate
                                 , task.NextDate
                                 , task.RealHarvestingDate
-                                , task.DaysDifferenceBetweenTaskAndToday
                                 , task.IsFirstTaskSuccess
                                 , task.FailureReasons
                                 , task.HarvestedWeight

@@ -29,8 +29,6 @@ namespace perma_garden_app.Models.PatchesModel
 
         public string RealHarvestingDate { get; set; }
 
-        public int DaysDifferenceBetweenTaskAndToday { get; set; }
-
         public bool IsFirstTaskSuccess { get; set; }
 
         public string FailureReasons { get; set; }
