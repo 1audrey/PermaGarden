@@ -1,7 +1,7 @@
 .tasks {
   display: flex;
   justify-content: space-between;
-  align-items: flex-end;
+  align-items: center;
   padding-left: 25px !important;
   padding-right: 25px !important;
   align-content: center;
@@ -51,9 +51,20 @@ p {
   padding: 0 20px;
   justify-content: center;
   color: #000409;
+}
 
+.title-left {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-content: space-between;
+}
 
-
+.filters {
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 16px !important;
 }
 
 

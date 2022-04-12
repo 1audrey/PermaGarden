@@ -13,7 +13,14 @@ import { ActivatedRoute } from '@angular/router';
 export class AllTasksComponent implements OnInit {
   allTasks: ITask[] = [];
   patches!: IPatch[];
-
+  selectedFilter!: string;
+  filters = [
+    { type: 'All' },
+    { type: 'Late' },
+    { type: 'Today' },
+    { type: 'In the Week' },
+    { type: 'Coming' }
+  ]
 
   constructor(public dialog: MatDialog,
     private route: ActivatedRoute
@@ -36,5 +43,4 @@ export class AllTasksComponent implements OnInit {
 
     });
   }
-
 }

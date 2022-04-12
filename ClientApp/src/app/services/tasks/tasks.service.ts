@@ -1,5 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import * as moment from 'moment';
 import { Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { ITaskInPatch } from 'src/app/garden/models/itaskinpatch-models';
@@ -138,5 +139,36 @@ export class TasksService {
           return 12;
       }
       return 0;
+  }
+
+  getDifferenceBetweenTaskDateAndTodaydate(taskList: ITask[]): number {
+    var nextDate: any;
+    var todayDate: any;
+    var daysBeforeTask = 0;
+
+    for (let task of taskList) {
+      let taskNextDate = new Date(task.nextDate);
+      let today = new Date();
+
+      nextDate = moment(taskNextDate.toString().substring(0, 15));
+      todayDate = moment(today.toString().substring(0, 15));
+      task.daysDifferenceBetweenTaskAndToday = Math.ceil(nextDate.diff(todayDate, 'days'));
+      daysBeforeTask = task.daysDifferenceBetweenTaskAndToday;
     }
+    return daysBeforeTask;
+  }
+
+  sortTasksByEarliestDate(taskList: ITask[]) {
+    taskList.sort((task1: ITask, task2: ITask) => {
+      if (task1.daysDifferenceBetweenTaskAndToday > task2.daysDifferenceBetweenTaskAndToday) {
+        return 1;
+      }
+
+      if (task1.daysDifferenceBetweenTaskAndToday < task2.daysDifferenceBetweenTaskAndToday) {
+        return -1;
+      }
+
+      return 0;
+    })
+  }
 }

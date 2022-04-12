@@ -2,22 +2,32 @@
   <div class="tasks">
     <div class="title-left">
       <h2>All the tasks in your garden</h2>
+      <div class="filters">
+        Select a filter:
+        <mat-form-field appearance="fill">
+          <mat-label>Select</mat-label>
+          <mat-select ngDefaultControl [(ngModel)]="selectedFilter">
+            <mat-option class="icon" *ngFor="let filter of filters" [value]="filter.type">
+              <p class="filter-type">{{filter.type}}</p>
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
     </div>
     <div class="title-right">
       <button mat-button class="create-patch" (click)="createTask()">Create a task</button>
     </div>
+
   </div>
 
   <div class="my-tasks">
     <div fxLayoutGap="16px grid">
-      <div  *ngFor="let patchWithoutParams of patches">
-          <div class="my-tasks" >
-            <app-task-details
-            [patchWithoutParams]="patchWithoutParams">             
-            </app-task-details>
-          </div>
+      <div *ngFor="let patchWithoutParams of patches">
+        <div class="my-tasks">
+          <app-task-details [patchWithoutParams]="patchWithoutParams" [selectedFilter]="selectedFilter">
+          </app-task-details>
         </div>
       </div>
+    </div>
   </div>
 </div>
-

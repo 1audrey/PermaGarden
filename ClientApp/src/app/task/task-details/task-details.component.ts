@@ -1,29 +1,27 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { IPatch } from 'src/app/garden/models/ipatch-model';
 import { ITask } from '../models/itask-model';
 import { MatDialog } from '@angular/material/dialog';
 import { CompleteTaskDialogComponent } from '../complete-task-dialog/complete-task-dialog.component';
-import * as moment from 'moment';
+import { TasksService } from '../../services/tasks/tasks.service';
 
 @Component({
   selector: 'app-task-details',
   templateUrl: './task-details.component.html',
   styleUrls: ['./task-details.component.css']
 })
-export class TaskDetailsComponent implements OnInit {
+export class TaskDetailsComponent implements OnInit, OnChanges {
   @Input() patchWithoutParams!: IPatch;
   @Output() taskDeleted: EventEmitter<any> = new EventEmitter();
-  isGettingDate: boolean = false;
+  @Input() selectedFilter!: string;
   patchName!: string;
   patch!: IPatch;
   taskList: ITask[] = [];
   daysDifferenceBetweenTaskAndToday!: number;
-  nextDate!: any;
-  todayDate!: any;
 
   constructor(private route: ActivatedRoute,
-
+    private taskService: TasksService,
     public dialog: MatDialog) { }
 
   ngOnInit() {
@@ -42,10 +40,53 @@ export class TaskDetailsComponent implements OnInit {
     else if (this.patchWithoutParams.taskList) {
       this.taskList = this.patchWithoutParams.taskList;
       this.patchName = this.patchWithoutParams.patchName;
-    }      
-  
-    this.getDifferenceBetweenTaskDateAndTodaydate();
-    this.sortTasksByEarliestDate();
+    }
+
+    this.getDifferenceBetweenTaskDateAndTodaydate(this.taskList);
+    this.sortTasksByEarliestDate(this.taskList);
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    var filteredTasks: ITask[] = [];
+
+    if (changes['selectedFilter'] && changes['selectedFilter']?.previousValue != changes['selectedFilter']?.currentValue) {
+
+      this.ngOnInit();
+
+      for (let task of this.taskList) {
+
+        switch (this.selectedFilter) {
+          case 'Late':
+            if (this.isTaskLate(task)) {
+              filteredTasks.push(task);
+            }
+            break;
+
+          case 'Today':
+            if (this.isTaskToday(task)) {
+              filteredTasks.push(task);
+            }
+            break;
+
+          case 'In the Week':
+            if (this.isTaskThisWeek(task)) {
+              filteredTasks.push(task);
+            }
+            break;
+
+          case 'Coming':
+            if (this.isTaskComing(task)) {
+              filteredTasks.push(task);
+            }
+            break;
+
+          default:
+            filteredTasks.push(task);
+            break;
+        }
+      }
+      this.taskList = filteredTasks;
+    }
   }
 
   openTask() {
@@ -82,31 +123,28 @@ export class TaskDetailsComponent implements OnInit {
     this.taskDeleted.emit();
   }
 
-  getDifferenceBetweenTaskDateAndTodaydate() {
-    for (let task of this.taskList) {
-      let taskNextDate = new Date(task.nextDate);
-      let today = new Date();
+  getDifferenceBetweenTaskDateAndTodaydate(taskList: ITask[]) {
+    this.taskService.getDifferenceBetweenTaskDateAndTodaydate(taskList);
+   }
 
-      this.nextDate = moment(taskNextDate.toString().substring(0, 15));
-      this.todayDate = moment(today.toString().substring(0, 15));
-      task.daysDifferenceBetweenTaskAndToday = Math.ceil(this.nextDate.diff(this.todayDate, 'days'));
-      console.log(`the difference between planting and sowing dates ${this.daysDifferenceBetweenTaskAndToday}`);
-    }
+  sortTasksByEarliestDate(taskList: ITask[]) {
+    this.taskService.sortTasksByEarliestDate(taskList);
   }
 
-  sortTasksByEarliestDate() {
-      this.taskList.sort((task1: ITask, task2: ITask) => {
-        if (task1.daysDifferenceBetweenTaskAndToday > task2.daysDifferenceBetweenTaskAndToday) {
-          return 1;
-        }
+  isTaskLate(task: ITask): boolean {
+    return task.daysDifferenceBetweenTaskAndToday < 0;
+  }
 
-        if (task1.daysDifferenceBetweenTaskAndToday < task2.daysDifferenceBetweenTaskAndToday) {
-          return -1;
-        }
+  isTaskToday(task: ITask): boolean {
+    return task.daysDifferenceBetweenTaskAndToday === 0;
+  }
 
-        return 0;
-      })
-    }
-  
+  isTaskThisWeek(task: ITask): boolean {
+    return task.daysDifferenceBetweenTaskAndToday >= 1 && task.daysDifferenceBetweenTaskAndToday <= 7;
+  }
+
+  isTaskComing(task: ITask): boolean {
+    return task.daysDifferenceBetweenTaskAndToday >= 8;
+  }
 
 }
