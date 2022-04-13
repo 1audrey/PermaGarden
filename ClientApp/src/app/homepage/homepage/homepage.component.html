@@ -4,13 +4,12 @@
     <div class="tasks-list">
       <h2>Upcoming tasks in the garden</h2>
       <div class="my-tasks">
-        <div fxLayout="row wrap" fxLayoutGap="16px grid">
-          <div fxFlex="33%" fxFlex.xs="50%" fxFlex.sm="50%" fxFlex.md="50%"
-            *ngFor="let task of firstFourTasks as tasks">
-            <div class="my-tasks">
-              <app-task-details>
+        <div fxLayoutGap="16px grid">
+          <div *ngFor="let patchWithoutParams of patches">
+              <app-task-details
+             [patchWithoutParams]="patchWithoutParams"
+             [patchFromHomepage]="patchFromHomepage">
               </app-task-details>
-            </div>
           </div>
         </div>
       </div>

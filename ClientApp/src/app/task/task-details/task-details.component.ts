@@ -13,6 +13,7 @@ import { TasksService } from '../../services/tasks/tasks.service';
 })
 export class TaskDetailsComponent implements OnInit, OnChanges {
   @Input() patchWithoutParams!: IPatch;
+  @Input() patchFromHomepage: boolean = false;
   @Output() taskDeleted: EventEmitter<any> = new EventEmitter();
   @Input() selectedFilter!: string;
   patchName!: string;
@@ -40,10 +41,12 @@ export class TaskDetailsComponent implements OnInit, OnChanges {
     else if (this.patchWithoutParams.taskList) {
       this.taskList = this.patchWithoutParams.taskList;
       this.patchName = this.patchWithoutParams.patchName;
-    }
+      }
 
     this.getDifferenceBetweenTaskDateAndTodaydate(this.taskList);
     this.sortTasksByEarliestDate(this.taskList);
+    this.keepFourTasksOnly(this.taskList);
+
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -145,6 +148,12 @@ export class TaskDetailsComponent implements OnInit, OnChanges {
 
   isTaskComing(task: ITask): boolean {
     return task.daysDifferenceBetweenTaskAndToday >= 8;
+  }
+
+  private keepFourTasksOnly(taskList: ITask[]) {
+    if (this.patchFromHomepage) {
+      this.taskList = taskList.slice(0, 4);
+    }
   }
 
 }

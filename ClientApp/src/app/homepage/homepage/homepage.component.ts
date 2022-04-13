@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ITask } from 'src/app/task/models/itask-model';
-import { PatchesService } from '../../services/patches/patches.service';
+import { ActivatedRoute } from '@angular/router';
+import { IPatch } from '../../garden/models/ipatch-model';
 
 @Component({
   selector: 'app-homepage',
@@ -8,16 +8,14 @@ import { PatchesService } from '../../services/patches/patches.service';
   styleUrls: ['./homepage.component.css']
 })
 export class HomepageComponent implements OnInit {
-  allTasks: ITask[] = [];
-  diffInDays!: number;
-  firstFourTasks: ITask[] =[];
+  patches!: IPatch[];
+  patchFromHomepage: boolean = true;
 
-  constructor(private patchService: PatchesService) { }
+
+  constructor(private route: ActivatedRoute) { }
 
   ngOnInit() {
-   //this.allTasks = this.patchService.getAllTasks().sort((a, b) => a.daysDifferenceBetweenTaskAndToday - b.daysDifferenceBetweenTaskAndToday);
-   //this.firstFourTasks = this.allTasks.slice(0, 4);
-
+    this.patches = this.route.snapshot.data['patches'];
   }
 
 

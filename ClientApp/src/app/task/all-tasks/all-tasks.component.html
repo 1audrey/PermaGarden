@@ -23,10 +23,10 @@
   <div class="my-tasks">
     <div fxLayoutGap="16px grid">
       <div *ngFor="let patchWithoutParams of patches">
-        <div class="my-tasks">
-          <app-task-details [patchWithoutParams]="patchWithoutParams" [selectedFilter]="selectedFilter">
+          <app-task-details
+          [patchWithoutParams]="patchWithoutParams"
+          [selectedFilter]="selectedFilter">
           </app-task-details>
-        </div>
       </div>
     </div>
   </div>
