@@ -15,18 +15,21 @@ import { PlantsService } from '../../services/plants/plants.service';
 export class SummaryComponent implements OnInit {
   plants: IPlantsList[] = [];
   patches!: IPatch[];
-  allTasks!: ITask[];
+  allTasks: ITask[] = [];
 
-  constructor(private route: ActivatedRoute,
-    private patchService: PatchesService,
-    private plantsService: PlantsService) {
-
-     }
+  constructor(private route: ActivatedRoute){}
 
   ngOnInit() {
     this.plants = this.route.snapshot.data['plants'];
     this.patches = this.route.snapshot.data['patches'];
-   /* this.allTasks = this.patchService.getAllTasks();*/
+
+    for (let patch of this.patches) {
+      if (patch.taskList) {
+        for (let task of patch.taskList) {
+          this.allTasks.push(task);
+        }
+      } 
+    }
   }
 
 }
