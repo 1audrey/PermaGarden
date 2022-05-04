@@ -94,12 +94,12 @@
 
   <ng-template #answerIsNo>
     <div *ngIf="selectedAnswer == 'No'" class="form-group"
-      [ngClass]="{'error': nextTaskForm.controls.failure?.invalid && nextTaskForm.controls.failure?.touched}">
+      [ngClass]="{'error': nextTaskForm.controls.failureReasons?.invalid && nextTaskForm.controls.failureReasons?.touched}">
       <div class="label-error">
         <label for="failure">Reason why?</label>
-        <em *ngIf="nextTaskForm.controls.failure?.invalid && nextTaskForm.controls.failure?.touched"> *Required </em>
+        <em *ngIf="nextTaskForm.controls.failureReasons?.invalid && nextTaskForm.controls.failureReasons?.touched"> *Required </em>
       </div>
-      <textarea (ngModel)="task.failure" name="failure" required id="failure" type="text" class="form-control"
+      <textarea (ngModel)="task.failureReasons" name="failureReasons" required id="failureReasons" type="text" class="form-control"
         placeholder="Reason why it might have fail...">
       </textarea>
       <button id="cancel-button" mat-button type="button" class="btn btn-default" (click)="cancel()">Cancel</button>

@@ -51,7 +51,12 @@ namespace perma_garden_app
         public Task<IEnumerable<TPlantsInTasks>> GetPlantsInTasks(CancellationToken token);
 
         public Task<IEnumerable<TTasks>> GetAllTasks(CancellationToken token);
-        
 
+        public Task SaveTaskFailureReasons(TasksRecord updatedTask, CancellationToken token);
+
+        public Task SaveTaskInArchivedTasks(TasksRecord task, CancellationToken token);
+
+        public Task DeleteTask(int taskId, CancellationToken token);
+        
     }
 }

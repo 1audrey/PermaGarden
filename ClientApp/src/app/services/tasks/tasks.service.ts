@@ -1,4 +1,4 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import * as moment from 'moment';
 import { Observable, throwError } from 'rxjs';
@@ -46,6 +46,68 @@ export class TasksService {
       tap(() => console.log(`Task service added ${plantInTask.plantId} to task successfully`)),
       catchError((error: HttpErrorResponse) => throwError(error))
     );
+  }
+
+  saveFailedTask(task: ITask) {
+    this.saveFailureReasons(task).subscribe();
+    this.saveFailedTaskInArchiveTasks(task).subscribe();
+    this.deleteTask(task.taskId).subscribe();
+  }
+
+  saveFailureReasons(task: ITask): Observable<ITask>{
+    return this.http.put<ITask>(this.baseUrl + 'save-task-failure-reasons', task).pipe(
+      tap(() => console.log(`Task service added ${task.failureReasons} to ${task.taskId} successfully`)),
+      catchError((error: HttpErrorResponse) => throwError(error))
+    );
+  }
+
+  saveFailedTaskInArchiveTasks(task: ITask): Observable<ITask> {
+    return this.http.post<ITask>(this.baseUrl + 'save-task-in-archived-tasks', task).pipe(
+      tap(() => console.log(`Task service added ${task.taskId} to archived tasks successfully`)),
+      catchError((error: HttpErrorResponse) => throwError(error))
+    );
+  }
+
+  deleteTask(taskId: number): Observable<any> {
+    let params = new HttpParams();
+    params = params.set('taskId', taskId);
+
+    console.log(`Deleting the ${taskId} from the task service`);
+    return this.http.delete<number>(this.baseUrl + 'delete-task', { params: params }).pipe(
+      tap(() => console.log(`Task service deleted ${taskId} successfully`)),
+      catchError((error: HttpErrorResponse) => throwError(error)),
+    );
+  }
+
+  getDifferenceBetweenTaskDateAndTodaydate(taskList: ITask[]): number {
+    var nextDate: any;
+    var todayDate: any;
+    var daysBeforeTask = 0;
+
+    for (let task of taskList) {
+      let taskNextDate = new Date(task.nextDate);
+      let today = new Date();
+
+      nextDate = moment(taskNextDate.toString().substring(0, 15));
+      todayDate = moment(today.toString().substring(0, 15));
+      task.daysDifferenceBetweenTaskAndToday = Math.ceil(nextDate.diff(todayDate, 'days'));
+      daysBeforeTask = task.daysDifferenceBetweenTaskAndToday;
+    }
+    return daysBeforeTask;
+  }
+
+  sortTasksByEarliestDate(taskList: ITask[]) {
+    taskList.sort((task1: ITask, task2: ITask) => {
+      if (task1.daysDifferenceBetweenTaskAndToday > task2.daysDifferenceBetweenTaskAndToday) {
+        return 1;
+      }
+
+      if (task1.daysDifferenceBetweenTaskAndToday < task2.daysDifferenceBetweenTaskAndToday) {
+        return -1;
+      }
+
+      return 0;
+    })
   }
 
   private givesFirstNextTask(task: ITask) {
@@ -141,34 +203,5 @@ export class TasksService {
       return 0;
   }
 
-  getDifferenceBetweenTaskDateAndTodaydate(taskList: ITask[]): number {
-    var nextDate: any;
-    var todayDate: any;
-    var daysBeforeTask = 0;
 
-    for (let task of taskList) {
-      let taskNextDate = new Date(task.nextDate);
-      let today = new Date();
-
-      nextDate = moment(taskNextDate.toString().substring(0, 15));
-      todayDate = moment(today.toString().substring(0, 15));
-      task.daysDifferenceBetweenTaskAndToday = Math.ceil(nextDate.diff(todayDate, 'days'));
-      daysBeforeTask = task.daysDifferenceBetweenTaskAndToday;
-    }
-    return daysBeforeTask;
-  }
-
-  sortTasksByEarliestDate(taskList: ITask[]) {
-    taskList.sort((task1: ITask, task2: ITask) => {
-      if (task1.daysDifferenceBetweenTaskAndToday > task2.daysDifferenceBetweenTaskAndToday) {
-        return 1;
-      }
-
-      if (task1.daysDifferenceBetweenTaskAndToday < task2.daysDifferenceBetweenTaskAndToday) {
-        return -1;
-      }
-
-      return 0;
-    })
-  }
 }

@@ -12,6 +12,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class AllTasksComponent implements OnInit {
   allTasks: ITask[] = [];
+  task!: ITask;
   patches!: IPatch[];
   selectedFilter!: string;
   filters = [
@@ -28,13 +29,6 @@ export class AllTasksComponent implements OnInit {
 
   ngOnInit() {
     this.patches = this.route.snapshot.data['patches'];
-  }
-
-  onTaskDeleted(task: ITask){
-    var index = this.allTasks.findIndex(deletedTask => (deletedTask === task));
-    if (index != -1) {
-      this.allTasks.splice(index, 1);
-    }
   }
 
   createTask(){

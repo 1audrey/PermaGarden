@@ -5,6 +5,7 @@ import { ITask } from '../models/itask-model';
 import { MatDialog } from '@angular/material/dialog';
 import { CompleteTaskDialogComponent } from '../complete-task-dialog/complete-task-dialog.component';
 import { TasksService } from '../../services/tasks/tasks.service';
+import { PatchesService } from '../../services/patches/patches.service';
 
 @Component({
   selector: 'app-task-details',
@@ -14,7 +15,6 @@ import { TasksService } from '../../services/tasks/tasks.service';
 export class TaskDetailsComponent implements OnInit, OnChanges {
   @Input() patchWithoutParams!: IPatch;
   @Input() patchFromHomepage: boolean = false;
-  @Output() taskDeleted: EventEmitter<any> = new EventEmitter();
   @Input() selectedFilter!: string;
   patchName!: string;
   patch!: IPatch;
@@ -92,12 +92,11 @@ export class TaskDetailsComponent implements OnInit, OnChanges {
     }
   }
 
-  openTask() {
-    for (let task of this.taskList) {
+  openTask(task: ITask) {
       const dialogRef = this.dialog.open(CompleteTaskDialogComponent, {
         width: '50%',
         data: {
-          patchName: task.patchName,
+          taskId: task.taskId,
           currentTask: task.currentTask,
           plant: task.plant,
           nextDate: task.nextDate,
@@ -105,25 +104,25 @@ export class TaskDetailsComponent implements OnInit, OnChanges {
           startingDate: task.startingDate,
           daysDifferenceBetweenTaskAndToday: task.daysDifferenceBetweenTaskAndToday,
           realHarvestingDate: task.realHarvestingDate,
-          firstTaskSuccess: task.firstTaskSuccess,
-          harvestingWeight: task.harvestingWeight
+          harvestingWeight: task.harvestingWeight,
+          failureReasons: task.failureReasons,
         },
+        autoFocus: false,
       });
 
-      dialogRef.afterClosed().subscribe(result => {
-        if (result) {
-          task = result;
-
+      dialogRef.afterClosed().subscribe(updatedTask => {
+        if (updatedTask.failureReasons !== null) {
+          this.deleteTask(updatedTask.taskId);
+          this.taskService.saveFailedTask(updatedTask);
         }
-        if (result.firstTaskSuccess === 'No' || result.harvestingWeight != null) {
-          this.taskDeleted.emit();
-        }
-      });
-    }
+      }); 
   }
 
-  deleteTask() {
-    this.taskDeleted.emit();
+  deleteTask(taskId: number) {
+    var index = this.taskList.findIndex((deletedTask) => (deletedTask.taskId === taskId));
+    if (index != -1) {
+      this.taskList.splice(index, 1);
+    }
   }
 
   getDifferenceBetweenTaskDateAndTodaydate(taskList: ITask[]) {

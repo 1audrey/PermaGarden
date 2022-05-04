@@ -11,7 +11,6 @@ export class HomepageComponent implements OnInit {
   patches!: IPatch[];
   patchFromHomepage: boolean = true;
 
-
   constructor(private route: ActivatedRoute) { }
 
   ngOnInit() {

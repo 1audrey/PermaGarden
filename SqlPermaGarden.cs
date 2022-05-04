@@ -445,8 +445,7 @@ namespace perma_garden_app
                                 , task.IsFirstTaskSuccess
                                 , task.FailureReasons
                                 , task.HarvestedWeight
-                                )
-                
+                                                
                             FROM
                                 dbo.Tasks task";
 
@@ -454,5 +453,74 @@ namespace perma_garden_app
             return await SqlConnection.QueryAsync<TasksRecord>(new CommandDefinition(command,
                 cancellationToken: token));
         }
+
+        public async Task SaveTaskFailureReasons(TasksRecord updatedTask, CancellationToken token)
+        {
+            var command = @"UPDATE dbo.Tasks
+
+                            SET 
+                                FailureReasons = @FailureReasons
+
+                            WHERE 
+                                TaskId = @TaskId";
+
+            await SqlConnection.ExecuteAsync(
+                new CommandDefinition(
+                    command,
+                    new { updatedTask.TaskId, updatedTask.FailureReasons },
+                    cancellationToken: token));
+        }
+
+        public async Task SaveTaskInArchivedTasks(TasksRecord task, CancellationToken token)
+        {
+            var command = @"INSERT INTO dbo.ArchivedTasks (
+                                TaskId
+                                , CurrentTask
+                                , NextTask
+                                , StartingDate
+                                , NextDate
+                                , RealHarvestingDate
+                                , IsFirstTaskSuccess
+                                , FailureReasons
+                                , HarvestedWeight
+                                )
+
+                            VALUES (
+                                @TaskId
+                                , @CurrentTask
+                                , @NextTask
+                                , @StartingDate
+                                , @NextDate
+                                , @RealHarvestingDate
+                                , @IsFirstTaskSuccess
+                                , @FailureReasons
+                                , @HarvestedWeight
+                                );";
+
+            await SqlConnection.ExecuteAsync(
+                new CommandDefinition(
+                    command,
+                    new
+                    {   task.TaskId, task.CurrentTask, task.NextTask, task.StartingDate, task.NextDate, task.RealHarvestingDate, task.IsFirstTaskSuccess,
+                        task.FailureReasons, task.HarvestedWeight
+                    },
+                    cancellationToken: token));
+
+        }
+
+        public async Task DeleteTask(int taskId, CancellationToken token)
+        {
+            var command = @"DELETE FROM dbo.Tasks
+                            WHERE 
+                            TaskId = @TaskId";
+
+            await SqlConnection.ExecuteAsync(
+                new CommandDefinition(
+                    command,
+                    new { TaskId = taskId },
+                    cancellationToken: token));
+        }
+
+        
     }
 }

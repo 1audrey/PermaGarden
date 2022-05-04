@@ -129,6 +129,85 @@ namespace perma_garden_app.Controllers
 
             return Ok(tasks.ToList());
         }
+
+        [HttpPut]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Route("save-task-failure-reasons")]
+        public async Task<IActionResult> SaveFailedTaskReason([FromBody] TasksRecord updatedTask, CancellationToken token)
+        {
+            if (updatedTask != null)
+            {
+                var tasks = await _permaGardenRepositery
+                .GetAllTasks(token);
+
+                foreach (var task in tasks)
+                {
+                    if (task.TaskId == updatedTask.TaskId)
+                    {
+                        var editedTask = new TasksRecord
+                        {
+                            FailureReasons = updatedTask.FailureReasons,
+                            TaskId = updatedTask.TaskId
+                        };
+
+                        await _permaGardenRepositery.SaveTaskFailureReasons(editedTask, token);
+                    }
+                }
+                return Ok();
+
+            }
+            return BadRequest("Patch is invalid");
+
+        }
+
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Route("save-task-in-archived-tasks")]
+        public async Task<IActionResult> SaveTaskInArchivedTasks([FromBody] TasksRecord task, CancellationToken token)
+        {
+            if (task != null)
+            {
+                var newTask = new TasksRecord
+                {
+                    TaskId = task.TaskId,
+                    CurrentTask = task.CurrentTask,
+                    NextTask = task.NextTask,
+                    StartingDate = task.StartingDate,
+                    NextDate = task.NextDate,
+                    RealHarvestingDate = task.RealHarvestingDate,
+                    IsFirstTaskSuccess = task.IsFirstTaskSuccess,
+                    FailureReasons = task.FailureReasons,
+                    HarvestedWeight = task.HarvestedWeight,
+                };
+
+                await _permaGardenRepositery.SaveTaskInArchivedTasks(newTask, token);
+
+                return Ok();
+            }
+
+            return BadRequest("Task is invalid");
+        }
+
+        [HttpDelete]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Route("delete-task")]
+        public async Task<IActionResult> DeleteTask(int taskId, CancellationToken token)
+        {
+            if (taskId != null)
+            {
+                await _permaGardenRepositery.DeleteTask(taskId, token);
+
+                return Ok();
+            }
+
+            return BadRequest("TaskId is invalid");
+        }
     }
 }
 
