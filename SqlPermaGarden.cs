@@ -194,6 +194,7 @@ namespace perma_garden_app
                                 , task.NextTask
                                 , task.StartingDate
                                 , task.NextDate
+                                , task.TransplantDate
                                 , task.IsFirstTaskSuccess
                                 , task.FailureReasons
                                 , tasksInPatches.PatchId
@@ -333,6 +334,7 @@ namespace perma_garden_app
                                 , NextTask
                                 , StartingDate
                                 , NextDate
+                                , TransplantDate
                                 , RealHarvestingDate
                                 , IsFirstTaskSuccess
                                 , FailureReasons
@@ -344,6 +346,7 @@ namespace perma_garden_app
                                 , @NextTask
                                 , @StartingDate
                                 , @NextDate
+                                , @TransplantDate
                                 , @RealHarvestingDate
                                 , @IsFirstTaskSuccess
                                 , @FailureReasons
@@ -354,7 +357,7 @@ namespace perma_garden_app
             await SqlConnection.ExecuteAsync(
                 new CommandDefinition(
                     command,
-                    new { task.CurrentTask, task.NextTask, task.StartingDate, task.NextDate, task.RealHarvestingDate,
+                    new { task.CurrentTask, task.NextTask, task.StartingDate, task.NextDate, task.TransplantDate, task.RealHarvestingDate,
                         task.IsFirstTaskSuccess, task.FailureReasons, task.HarvestedWeight},
                     cancellationToken: token));
 
@@ -441,6 +444,7 @@ namespace perma_garden_app
                                 , task.NextTask
                                 , task.StartingDate
                                 , task.NextDate
+                                , task.TransplantDate
                                 , task.RealHarvestingDate
                                 , task.IsFirstTaskSuccess
                                 , task.FailureReasons
@@ -479,6 +483,7 @@ namespace perma_garden_app
                                 , NextTask
                                 , StartingDate
                                 , NextDate
+                                , TransplantDate
                                 , RealHarvestingDate
                                 , IsFirstTaskSuccess
                                 , FailureReasons
@@ -491,6 +496,7 @@ namespace perma_garden_app
                                 , @NextTask
                                 , @StartingDate
                                 , @NextDate
+                                , @TransplantDate
                                 , @RealHarvestingDate
                                 , @IsFirstTaskSuccess
                                 , @FailureReasons
@@ -501,7 +507,7 @@ namespace perma_garden_app
                 new CommandDefinition(
                     command,
                     new
-                    {   task.TaskId, task.CurrentTask, task.NextTask, task.StartingDate, task.NextDate, task.RealHarvestingDate, task.IsFirstTaskSuccess,
+                    {   task.TaskId, task.CurrentTask, task.NextTask, task.StartingDate, task.NextDate, task.TransplantDate, task.RealHarvestingDate, task.IsFirstTaskSuccess,
                         task.FailureReasons, task.HarvestedWeight
                     },
                     cancellationToken: token));
@@ -520,6 +526,27 @@ namespace perma_garden_app
                     new { TaskId = taskId },
                     cancellationToken: token));
         }
+
+        public async Task SaveTransplantedTask(TasksRecord updatedTask, CancellationToken token)
+        {
+            var command = @"UPDATE dbo.Tasks
+
+                            SET 
+                                TransplantDate = @TransplantDate,
+                                CurrentTask = @CurrentTask,
+                                NextTask = @NextTask,
+                                NextDate = @NextDate
+
+                            WHERE 
+                                TaskId = @TaskId";
+
+            await SqlConnection.ExecuteAsync(
+                new CommandDefinition(
+                    command,
+                    new { updatedTask.TaskId, updatedTask.TransplantDate, updatedTask.CurrentTask, updatedTask.NextTask, updatedTask.NextDate },
+                    cancellationToken: token));
+        }
+
 
         
     }

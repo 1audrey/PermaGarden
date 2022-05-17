@@ -74,24 +74,7 @@ export class PatchesService {
     );
   }
 
-  givesSecondNextTask(task: ITask) {
-    if (task.currentTask == 'Sowing in pots') {
-      task.currentTask = 'Planting'
-      task.nextTask = 'Harvesting';
-    }
-  }
-
-  saveFailedTaskInPatch(task: ITask){
-    var newFailedPatches: IPatch[] = [];
-
-    for (let patch of this.PATCHES) {
-      if (patch.name === task.patchName ) {
-        patch.tasklist.push(task);
-      }
-      newFailedPatches.push(patch);
-    }
-    this.PATCHES = newFailedPatches;
-  }
+ 
 
   saveHarvestedTaskInPatch(form: any){
     var newHarvestedPatches: IPatch[] = [];

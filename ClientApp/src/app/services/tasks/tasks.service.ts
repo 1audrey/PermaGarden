@@ -68,6 +68,17 @@ export class TasksService {
     );
   }
 
+  saveTransplantedTask(task: ITask): Observable<ITask>{
+    task.currentTask = 'Planting';
+    task.nextTask = this.givesFirstNextTask(task);
+    task.nextDate = this.calculateNextDate(task).toString();
+
+    return this.http.put<ITask>(this.baseUrl + 'save-transplanted-task', task).pipe(
+      tap(() => console.log(`Task service updated ${task.taskId} successfully`)),
+      catchError((error: HttpErrorResponse) => throwError(error))
+    );
+  }
+
   deleteTask(taskId: number): Observable<any> {
     let params = new HttpParams();
     params = params.set('taskId', taskId);
@@ -125,6 +136,12 @@ export class TasksService {
 
     switch (task.plant.plantStartingMethod) {
       case ('Sowing in pots'):
+        if (task.transplantDate) {
+          var transplantDate = new Date(task.transplantDate);
+          numberOfDaysToAdd = Number(task.plant.plantGrowingPeriod);
+          nextDate = this.calculateDate(transplantDate, numberOfDaysToAdd);
+          break;
+        }
         numberOfDaysToAdd = Number(task.plant.plantSowingPeriod);
         nextDate = this.calculateDate(startDate, numberOfDaysToAdd);
         break;

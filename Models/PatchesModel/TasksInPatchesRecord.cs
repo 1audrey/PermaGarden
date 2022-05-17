@@ -27,6 +27,8 @@ namespace perma_garden_app.Models.PatchesModel
 
         public string NextDate { get; set; }
 
+        public string TransplantDate { get; set; }
+
         public string RealHarvestingDate { get; set; }
 
         public bool IsFirstTaskSuccess { get; set; }

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { NotificationsService } from '../../services/notifications/notifications.service';
@@ -40,23 +40,23 @@ export class CompleteTaskDialogComponent {
     this.dialogRef.close();
     }
 
-  save(formValues: ITask){
-    if(this.selectedTransplantDate){
+  saveTransplantTask(formValues: ITask){
+    if (formValues.transplantDate){
       this.isDirty = false;
-      formValues.patchName = this.task.patchName;
+      formValues.taskId = this.task.taskId;
       formValues.currentTask = this.task.currentTask;
       formValues.nextTask = this.task.nextTask;
       formValues.plant = this.task.plant;
       formValues.startingDate = this.task.startingDate;
       formValues.nextDate = this.task.nextDate;
       formValues.daysDifferenceBetweenTaskAndToday = this.task.daysDifferenceBetweenTaskAndToday;
-      console.log(formValues);
-      this.notifications.showSuccess(`${formValues.patchName} has been successfully updated`);
+      this.task.transplantDate = formValues.transplantDate.toString();
+      this.notifications.showSuccess(`${formValues.taskId} has been successfully updated`);
       this.dialogRef.close(formValues);
     }
   }
 
-  failedTask(formValues: ITask){
+  saveFailedTask(formValues: ITask){
     this.isDirty = false;
     formValues.taskId = this.task.taskId;
     formValues.currentTask = this.task.currentTask;
@@ -72,7 +72,6 @@ export class CompleteTaskDialogComponent {
 
   saveHarvestTask(formValues: any){
     this.isDirty = false;
-    formValues.patchName = this.task.patchName;
     formValues.action = this.task.currentTask;
     formValues.nextTask = this.task.nextTask;
     formValues.plant = this.task.plant;

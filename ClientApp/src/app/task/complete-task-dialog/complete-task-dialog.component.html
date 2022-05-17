@@ -18,7 +18,7 @@
   <div class="form-group" *ngIf="selectedAnswer == 'Yes';else answerIsNo"
     [ngClass]="{'error': nextTaskForm.controls.transplantDate?.invalid && nextTaskForm.controls.transplantDate?.touched}">
     <div class="sowing-in-pots" *ngIf="task.currentTask == 'Sowing in pots';else IsHarvesting">
-      <p>Select the date from which you have/want to transplant the {{task.plant.plantName}}?</p>
+      <p>Select the date from when the {{task.plant.plantName}} was transplanted?</p>
       <em *ngIf="nextTaskForm.controls.transplantDate?.invalid && nextTaskForm.controls.transplantDate?.touched">
         *Required </em>
       <mat-form-field appearance="fill">
@@ -36,7 +36,7 @@
       <div>
         <button id="cancel-button" mat-button type="button" class="btn btn-default" (click)="cancel()">Cancel</button>
         <button id="save-task" mat-button type="submit" class="save-new-task-button" [disabled]="nextTaskForm.invalid"
-          (click)="save(nextTaskForm.value)">Save</button>
+          (click)="saveTransplantTask(nextTaskForm.value)">Save</button>
       </div>
     </div>
 
@@ -104,7 +104,7 @@
       </textarea>
       <button id="cancel-button" mat-button type="button" class="btn btn-default" (click)="cancel()">Cancel</button>
       <button id="save-task" mat-button type="submit" class="save-new-task-button" [disabled]="nextTaskForm.invalid"
-        (click)="failedTask(nextTaskForm.value)">Save</button>
+        (click)="saveFailedTask(nextTaskForm.value)">Save</button>
 
     </div>
   </ng-template>

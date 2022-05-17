@@ -102,6 +102,7 @@ export class TaskDetailsComponent implements OnInit, OnChanges {
           nextDate: task.nextDate,
           nextTask: task.nextTask,
           startingDate: task.startingDate,
+          transplantDate: task.transplantDate,
           daysDifferenceBetweenTaskAndToday: task.daysDifferenceBetweenTaskAndToday,
           realHarvestingDate: task.realHarvestingDate,
           harvestingWeight: task.harvestingWeight,
@@ -111,11 +112,15 @@ export class TaskDetailsComponent implements OnInit, OnChanges {
       });
 
       dialogRef.afterClosed().subscribe(updatedTask => {
-        if (updatedTask.failureReasons !== null) {
+        if (updatedTask.failureReasons != null) {
           this.deleteTask(updatedTask.taskId);
           this.taskService.saveFailedTask(updatedTask);
         }
-      }); 
+        if (updatedTask.transplantDate != null) {
+          this.taskService.saveTransplantedTask(updatedTask).subscribe();
+        }
+        
+      });
   }
 
   deleteTask(taskId: number) {

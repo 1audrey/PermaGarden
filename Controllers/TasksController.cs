@@ -51,6 +51,7 @@ namespace perma_garden_app.Controllers
                     NextTask = task.NextTask,
                     StartingDate = task.StartingDate,
                     NextDate = task.NextDate,
+                    TransplantDate = task.TransplantDate,
                     RealHarvestingDate = task.RealHarvestingDate,
                     IsFirstTaskSuccess = task.IsFirstTaskSuccess,
                     FailureReasons = task.FailureReasons,
@@ -85,7 +86,7 @@ namespace perma_garden_app.Controllers
                 newTaskInPatch.TaskId = lastTaskId;
 
                 await _permaGardenRepositery.SaveTaskInPatch(newTaskInPatch, token);
-                              
+
                 return Ok();
             }
 
@@ -158,7 +159,7 @@ namespace perma_garden_app.Controllers
                 return Ok();
 
             }
-            return BadRequest("Patch is invalid");
+            return BadRequest("Task is invalid");
 
         }
 
@@ -178,6 +179,7 @@ namespace perma_garden_app.Controllers
                     NextTask = task.NextTask,
                     StartingDate = task.StartingDate,
                     NextDate = task.NextDate,
+                    TransplantDate = task.TransplantDate,
                     RealHarvestingDate = task.RealHarvestingDate,
                     IsFirstTaskSuccess = task.IsFirstTaskSuccess,
                     FailureReasons = task.FailureReasons,
@@ -207,6 +209,41 @@ namespace perma_garden_app.Controllers
             }
 
             return BadRequest("TaskId is invalid");
+        }
+
+        [HttpPut]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Route("save-transplanted-task")]
+        public async Task<IActionResult> SaveTransplantedTask([FromBody] TasksRecord updatedTask, CancellationToken token)
+        {
+            if (updatedTask != null)
+            {
+                var tasks = await _permaGardenRepositery
+                .GetAllTasks(token);
+
+                foreach (var task in tasks)
+                {
+                    if (task.TaskId == updatedTask.TaskId)
+                    {
+                        var editedTask = new TasksRecord
+                        {
+                            CurrentTask = updatedTask.CurrentTask,
+                            NextTask = updatedTask.NextTask,
+                            TransplantDate = updatedTask.TransplantDate,
+                            NextDate = updatedTask.NextDate,
+                            TaskId = updatedTask.TaskId
+                        };
+
+                        await _permaGardenRepositery.SaveTransplantedTask(editedTask, token);
+                    }
+                }
+                return Ok();
+
+            }
+            return BadRequest("Task is invalid");
+
         }
     }
 }
