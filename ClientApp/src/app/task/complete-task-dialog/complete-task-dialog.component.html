@@ -36,7 +36,7 @@
       <div>
         <button id="cancel-button" mat-button type="button" class="btn btn-default" (click)="cancel()">Cancel</button>
         <button id="save-task" mat-button type="submit" class="save-new-task-button" [disabled]="nextTaskForm.invalid"
-          (click)="saveTransplantTask(nextTaskForm.value)">Save</button>
+          (click)="saveTransplantTask(nextTaskForm.value)" [routerLink]="['/tasks']">Save</button>
       </div>
     </div>
 

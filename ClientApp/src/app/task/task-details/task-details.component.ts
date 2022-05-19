@@ -1,11 +1,10 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { IPatch } from 'src/app/garden/models/ipatch-model';
 import { ITask } from '../models/itask-model';
 import { MatDialog } from '@angular/material/dialog';
 import { CompleteTaskDialogComponent } from '../complete-task-dialog/complete-task-dialog.component';
 import { TasksService } from '../../services/tasks/tasks.service';
-import { PatchesService } from '../../services/patches/patches.service';
 
 @Component({
   selector: 'app-task-details',
@@ -23,7 +22,8 @@ export class TaskDetailsComponent implements OnInit, OnChanges {
 
   constructor(private route: ActivatedRoute,
     private taskService: TasksService,
-    public dialog: MatDialog) { }
+    public dialog: MatDialog,
+    private router: Router ) { }
 
   ngOnInit() {
     var params = this.route.snapshot.params['patchName'];
@@ -118,6 +118,10 @@ export class TaskDetailsComponent implements OnInit, OnChanges {
         }
         if (updatedTask.transplantDate != null) {
           this.taskService.saveTransplantedTask(updatedTask).subscribe();
+          if(this.patchWithoutParams != null){
+            this.router.navigate(['/tasks', this.patchWithoutParams.patchName]);
+          }
+          this.router.navigate(['/tasks', this.patch.patchName]);
         }
         
       });

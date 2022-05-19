@@ -50,7 +50,7 @@ export class CompleteTaskDialogComponent {
       formValues.startingDate = this.task.startingDate;
       formValues.nextDate = this.task.nextDate;
       formValues.daysDifferenceBetweenTaskAndToday = this.task.daysDifferenceBetweenTaskAndToday;
-      this.task.transplantDate = formValues.transplantDate.toString();
+      this.task.transplantDate = formValues.transplantDate;
       this.notifications.showSuccess(`${formValues.taskId} has been successfully updated`);
       this.dialogRef.close(formValues);
     }

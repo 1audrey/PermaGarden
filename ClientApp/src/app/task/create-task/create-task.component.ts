@@ -48,7 +48,7 @@ export class CreateTaskComponent implements OnInit {
     this.tasksService.saveTaskInPatch(this.patch.patchName, this.patch.patchId).subscribe();
     this.tasksService.savePlantInTask(this.selectedPlant.plantId).subscribe(() => {
       this.notifications.showSuccess(`${formValues.currentTask} has been added to ${this.patch.patchName}`);
-      this.router.navigate(['tasks']);
+      this.router.navigate(['/tasks', this.patch.patchName]);
       console.log(formValues);
     });
   }
