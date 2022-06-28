@@ -74,22 +74,6 @@ export class PatchesService {
     );
   }
 
- 
-
-  saveHarvestedTaskInPatch(form: any){
-    var newHarvestedPatches: IPatch[] = [];
-
-    for (let patch of this.PATCHES) {
-      if (patch.name === form.patchName ) {
-        patch.tasklist.push(form);
-        console.log(patch);
-      }
-      newHarvestedPatches.push(patch);
-    }
-    this.PATCHES = newHarvestedPatches;
-  }
-
-
   PATCHES = (patches as any).default;
 }
 

@@ -12,6 +12,9 @@ import { IPlantsInTasks } from '../../task/models/IPlantsInTasks-model';
 })
 export class TasksService {
   baseUrl = 'https://localhost:5001/Tasks/';
+  allHarvestedDates: string[] = [];
+  allHarvestedWeight: string[] = [];
+
 
   constructor(private http: HttpClient) { }
 
@@ -50,7 +53,7 @@ export class TasksService {
 
   saveFailedTask(task: ITask) {
     this.saveFailureReasons(task).subscribe();
-    this.saveFailedTaskInArchiveTasks(task).subscribe();
+    this.saveTaskInArchiveTasks(task).subscribe();
     this.deleteTask(task.taskId).subscribe();
   }
 
@@ -61,7 +64,7 @@ export class TasksService {
     );
   }
 
-  saveFailedTaskInArchiveTasks(task: ITask): Observable<ITask> {
+  saveTaskInArchiveTasks(task: ITask): Observable<ITask> {
     return this.http.post<ITask>(this.baseUrl + 'save-task-in-archived-tasks', task).pipe(
       tap(() => console.log(`Task service added ${task.taskId} to archived tasks successfully`)),
       catchError((error: HttpErrorResponse) => throwError(error))
@@ -87,6 +90,42 @@ export class TasksService {
     return this.http.delete<number>(this.baseUrl + 'delete-task', { params: params }).pipe(
       tap(() => console.log(`Task service deleted ${taskId} successfully`)),
       catchError((error: HttpErrorResponse) => throwError(error)),
+    );
+  }
+
+  saveUnfinishedHarvestedTask(task: ITask) {
+    if (task.harvestedWeight) {
+      this.allHarvestedWeight.push(task.harvestedWeight);
+      task.harvestedWeight = this.allHarvestedWeight.toString() ;
+    }
+ 
+    if (task.realHarvestingDates) {
+      this.allHarvestedDates.push(task.realHarvestingDates);
+      task.realHarvestingDates = this.allHarvestedDates.toString();
+    }
+    this.saveHarvestedTask(task).subscribe();
+  }
+
+  saveFinishedHarvestedTask(task: ITask) {
+    if (task.harvestedWeight) {
+      this.allHarvestedWeight.push(task.harvestedWeight);
+      task.harvestedWeight = this.allHarvestedWeight.toString();
+    }
+
+    if (task.realHarvestingDates) {
+      this.allHarvestedDates.push(task.realHarvestingDates);
+      task.realHarvestingDates = this.allHarvestedDates.toString();
+    }
+
+    this.saveHarvestedTask(task).subscribe();
+    this.saveTaskInArchiveTasks(task).subscribe();
+    this.deleteTask(task.taskId).subscribe();
+  }
+
+  saveHarvestedTask(task: ITask): Observable<ITask> {
+    return this.http.put<ITask>(this.baseUrl + 'save-harvested-task', task).pipe(
+      tap(() => console.log(`Task service updated ${task.taskId} successfully`)),
+      catchError((error: HttpErrorResponse) => throwError(error))
     );
   }
 

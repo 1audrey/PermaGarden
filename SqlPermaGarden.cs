@@ -195,7 +195,6 @@ namespace perma_garden_app
                                 , task.StartingDate
                                 , task.NextDate
                                 , task.TransplantDate
-                                , task.IsFirstTaskSuccess
                                 , task.FailureReasons
                                 , tasksInPatches.PatchId
                                 , tasksInPatches.TaskId
@@ -335,8 +334,7 @@ namespace perma_garden_app
                                 , StartingDate
                                 , NextDate
                                 , TransplantDate
-                                , RealHarvestingDate
-                                , IsFirstTaskSuccess
+                                , RealHarvestingDates
                                 , FailureReasons
                                 , HarvestedWeight
                                 )
@@ -347,8 +345,7 @@ namespace perma_garden_app
                                 , @StartingDate
                                 , @NextDate
                                 , @TransplantDate
-                                , @RealHarvestingDate
-                                , @IsFirstTaskSuccess
+                                , @RealHarvestingDates
                                 , @FailureReasons
                                 , @HarvestedWeight
                                 );
@@ -357,8 +354,8 @@ namespace perma_garden_app
             await SqlConnection.ExecuteAsync(
                 new CommandDefinition(
                     command,
-                    new { task.CurrentTask, task.NextTask, task.StartingDate, task.NextDate, task.TransplantDate, task.RealHarvestingDate,
-                        task.IsFirstTaskSuccess, task.FailureReasons, task.HarvestedWeight},
+                    new { task.CurrentTask, task.NextTask, task.StartingDate, task.NextDate, task.TransplantDate, task.RealHarvestingDates,
+                        task.FailureReasons, task.HarvestedWeight},
                     cancellationToken: token));
 
         }
@@ -445,8 +442,7 @@ namespace perma_garden_app
                                 , task.StartingDate
                                 , task.NextDate
                                 , task.TransplantDate
-                                , task.RealHarvestingDate
-                                , task.IsFirstTaskSuccess
+                                , task.RealHarvestingDates
                                 , task.FailureReasons
                                 , task.HarvestedWeight
                                                 
@@ -484,8 +480,7 @@ namespace perma_garden_app
                                 , StartingDate
                                 , NextDate
                                 , TransplantDate
-                                , RealHarvestingDate
-                                , IsFirstTaskSuccess
+                                , RealHarvestingDates
                                 , FailureReasons
                                 , HarvestedWeight
                                 )
@@ -497,8 +492,7 @@ namespace perma_garden_app
                                 , @StartingDate
                                 , @NextDate
                                 , @TransplantDate
-                                , @RealHarvestingDate
-                                , @IsFirstTaskSuccess
+                                , @RealHarvestingDates
                                 , @FailureReasons
                                 , @HarvestedWeight
                                 );";
@@ -507,7 +501,7 @@ namespace perma_garden_app
                 new CommandDefinition(
                     command,
                     new
-                    {   task.TaskId, task.CurrentTask, task.NextTask, task.StartingDate, task.NextDate, task.TransplantDate, task.RealHarvestingDate, task.IsFirstTaskSuccess,
+                    {   task.TaskId, task.CurrentTask, task.NextTask, task.StartingDate, task.NextDate, task.TransplantDate, task.RealHarvestingDates, 
                         task.FailureReasons, task.HarvestedWeight
                     },
                     cancellationToken: token));
@@ -546,6 +540,25 @@ namespace perma_garden_app
                     new { updatedTask.TaskId, updatedTask.TransplantDate, updatedTask.CurrentTask, updatedTask.NextTask, updatedTask.NextDate },
                     cancellationToken: token));
         }
+
+        public async Task SaveHarvestedTask(TasksRecord updatedTask, CancellationToken token)
+        {
+            var command = @"UPDATE dbo.Tasks
+
+                            SET 
+                                RealHarvestingDates = @RealHarvestingDates,
+                                HarvestedWeight = @HarvestedWeight
+
+                            WHERE 
+                                TaskId = @TaskId";
+
+            await SqlConnection.ExecuteAsync(
+                new CommandDefinition(
+                    command,
+                    new { updatedTask.TaskId, updatedTask.RealHarvestingDates, updatedTask.HarvestedWeight },
+                    cancellationToken: token));
+        }
+
 
 
         

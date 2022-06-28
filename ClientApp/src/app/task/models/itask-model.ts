@@ -9,7 +9,7 @@ export interface ITask {
   nextDate: string,
   daysDifferenceBetweenTaskAndToday: number,
   transplantDate?: string,
-  realHarvestingDate?: string[],
-  harvestingWeight?: number[],
+  realHarvestingDates?: string,
+  harvestedWeight?: string,
   failureReasons?: string
  }

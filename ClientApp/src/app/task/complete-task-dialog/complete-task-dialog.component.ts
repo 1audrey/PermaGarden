@@ -51,7 +51,7 @@ export class CompleteTaskDialogComponent {
       formValues.nextDate = this.task.nextDate;
       formValues.daysDifferenceBetweenTaskAndToday = this.task.daysDifferenceBetweenTaskAndToday;
       this.task.transplantDate = formValues.transplantDate;
-      this.notifications.showSuccess(`${formValues.taskId} has been successfully updated`);
+      this.notifications.showSuccess(`${formValues.currentTask} has been successfully updated`);
       this.dialogRef.close(formValues);
     }
   }
@@ -70,23 +70,16 @@ export class CompleteTaskDialogComponent {
     this.dialogRef.close(formValues);
   }
 
-  saveHarvestTask(formValues: any){
-    this.isDirty = false;
-    formValues.action = this.task.currentTask;
-    formValues.nextTask = this.task.nextTask;
-    formValues.plant = this.task.plant;
-    formValues.startingDate = this.task.startingDate;
-    formValues.nextDate = this.task.nextDate;
-    formValues.daysDifferenceBetweenTaskAndToday = this.task.daysDifferenceBetweenTaskAndToday;
-    console.log(formValues);
-    //this.taskService.saveFailedTask(formValues).subscribe(() => {
-    //  this.notifications.showSuccess(`${formValues.patchName} has been successfully updated`);
-    
-    //});
-
-    this.dialogRef.close(formValues);
+  saveHarvestTask(formValues: any) {
+      this.isDirty = false;
+      formValues.taskId = this.task.taskId;
+      formValues.currentTask = this.task.currentTask;
+      formValues.nextTask = this.task.nextTask;
+      formValues.plant = this.task.plant;
+      formValues.startingDate = this.task.startingDate;
+      formValues.nextDate = this.task.nextDate;
+      formValues.daysDifferenceBetweenTaskAndToday = this.task.daysDifferenceBetweenTaskAndToday;
+      this.notifications.showSuccess(`${formValues.currentTask} has been successfully updated`);
+      this.dialogRef.close(formValues);
   }
-
-
-
 }

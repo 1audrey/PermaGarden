@@ -104,8 +104,8 @@ export class TaskDetailsComponent implements OnInit, OnChanges {
           startingDate: task.startingDate,
           transplantDate: task.transplantDate,
           daysDifferenceBetweenTaskAndToday: task.daysDifferenceBetweenTaskAndToday,
-          realHarvestingDate: task.realHarvestingDate,
-          harvestingWeight: task.harvestingWeight,
+          realHarvestingDate: task.realHarvestingDates,
+          harvestingWeight: task.harvestedWeight,
           failureReasons: task.failureReasons,
         },
         autoFocus: false,
@@ -122,6 +122,9 @@ export class TaskDetailsComponent implements OnInit, OnChanges {
             this.router.navigate(['/tasks', this.patchWithoutParams.patchName]);
           }
           this.router.navigate(['/tasks', this.patch.patchName]);
+        }
+        if (updatedTask.harvestSelectedAnswer) {
+          this.verifyHarvestedAnswer(updatedTask);
         }
         
       });
@@ -164,4 +167,12 @@ export class TaskDetailsComponent implements OnInit, OnChanges {
     }
   }
 
+  private verifyHarvestedAnswer(updatedTask: any) {
+    if (updatedTask.harvestSelectedAnswer === 'No') {
+      this.taskService.saveUnfinishedHarvestedTask(updatedTask);
+    }
+    else {
+      this.taskService.saveFinishedHarvestedTask(updatedTask);
+    }
+  }
 }

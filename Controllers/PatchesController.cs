@@ -275,8 +275,7 @@ namespace perma_garden_app.Controllers
                         NextDate = patch.NextDate,
                         TransplantDate = patch.TransplantDate,
                         Plant = GetPlantInTask(plantInTask, patch.TaskId),
-                        RealHarvestingDate = patch.RealHarvestingDate,
-                        IsFirstTaskSuccess = patch.IsFirstTaskSuccess,
+                        RealHarvestingDates = patch.RealHarvestingDates,
                         FailureReasons = patch.FailureReasons,
                         HarvestedWeight = patch.HarvestedWeight
                     };

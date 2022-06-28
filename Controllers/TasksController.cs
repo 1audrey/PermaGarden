@@ -52,8 +52,7 @@ namespace perma_garden_app.Controllers
                     StartingDate = task.StartingDate,
                     NextDate = task.NextDate,
                     TransplantDate = task.TransplantDate,
-                    RealHarvestingDate = task.RealHarvestingDate,
-                    IsFirstTaskSuccess = task.IsFirstTaskSuccess,
+                    RealHarvestingDates = task.RealHarvestingDates,
                     FailureReasons = task.FailureReasons,
                     HarvestedWeight = task.HarvestedWeight,
                 };
@@ -180,8 +179,7 @@ namespace perma_garden_app.Controllers
                     StartingDate = task.StartingDate,
                     NextDate = task.NextDate,
                     TransplantDate = task.TransplantDate,
-                    RealHarvestingDate = task.RealHarvestingDate,
-                    IsFirstTaskSuccess = task.IsFirstTaskSuccess,
+                    RealHarvestingDates = task.RealHarvestingDates,
                     FailureReasons = task.FailureReasons,
                     HarvestedWeight = task.HarvestedWeight,
                 };
@@ -237,6 +235,38 @@ namespace perma_garden_app.Controllers
                         };
 
                         await _permaGardenRepositery.SaveTransplantedTask(editedTask, token);
+                    }
+                }
+                return Ok();
+
+            }
+            return BadRequest("Task is invalid");
+
+        }
+
+        [HttpPut]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Route("save-harvested-task")]
+        public async Task<IActionResult> SaveHarvestedTask([FromBody] TasksRecord harvestedTask, CancellationToken token)
+        {
+            if (harvestedTask != null)
+            {
+                var tasks = await _permaGardenRepositery.GetAllTasks(token);
+
+                foreach (var task in tasks)
+                {
+                    if (task.TaskId == harvestedTask.TaskId)
+                    {
+                        var editedTask = new TasksRecord
+                        {
+                            HarvestedWeight = harvestedTask.HarvestedWeight,
+                            RealHarvestingDates = harvestedTask.RealHarvestingDates,
+                            TaskId = harvestedTask.TaskId
+                        };
+
+                        await _permaGardenRepositery.SaveHarvestedTask(editedTask, token);
                     }
                 }
                 return Ok();
