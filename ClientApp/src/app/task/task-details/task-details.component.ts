@@ -5,6 +5,7 @@ import { ITask } from '../models/itask-model';
 import { MatDialog } from '@angular/material/dialog';
 import { CompleteTaskDialogComponent } from '../complete-task-dialog/complete-task-dialog.component';
 import { TasksService } from '../../services/tasks/tasks.service';
+import { NotificationsService } from '../../services/notifications/notifications.service';
 
 @Component({
   selector: 'app-task-details',
@@ -19,16 +20,18 @@ export class TaskDetailsComponent implements OnInit, OnChanges {
   patch!: IPatch;
   taskList: ITask[] = [];
   daysDifferenceBetweenTaskAndToday!: number;
+  params: any;
 
   constructor(private route: ActivatedRoute,
     private taskService: TasksService,
     public dialog: MatDialog,
-    private router: Router ) { }
+    private router: Router,
+    private notifications: NotificationsService,  ) { }
 
   ngOnInit() {
-    var params = this.route.snapshot.params['patchName'];
+    this.params = this.route.snapshot.params['patchName'];
 
-    if (params) {
+    if (this.params) {
       this.route.data.forEach((data) => {
         this.patch = data['patchName'][0];
         if (this.patch.taskList) {
@@ -116,17 +119,21 @@ export class TaskDetailsComponent implements OnInit, OnChanges {
           this.deleteTask(updatedTask.taskId);
           this.taskService.saveFailedTask(updatedTask);
         }
-        if (updatedTask.transplantDate != null) {
-          this.taskService.saveTransplantedTask(updatedTask).subscribe();
-          if(this.patchWithoutParams != null){
-            this.router.navigate(['/tasks', this.patchWithoutParams.patchName]);
-          }
-          this.router.navigate(['/tasks', this.patch.patchName]);
-        }
-        if (updatedTask.harvestSelectedAnswer) {
-          this.verifyHarvestedAnswer(updatedTask);
+        else if (updatedTask.transplantDate != null) {
+          this.taskService.saveTransplantedTask(updatedTask).subscribe(() => {
+            this.notifications.showSuccess(`The task '${updatedTask.currentTask}' for the plant '${updatedTask.plant.plantName}' has been successfully updated`);
+            //try to do async and with a spinner 
+            if (this.params != null) {
+              this.router.navigate(['/tasks', this.patch.patchName]);
+            }
+              this.router.navigate(['/tasks', this.patchWithoutParams.patchName]);
+            });
         }
         
+
+        else if (updatedTask.harvestSelectedAnswer) {
+          this.verifyHarvestedAnswer(updatedTask);
+        }
       });
   }
 
@@ -173,6 +180,8 @@ export class TaskDetailsComponent implements OnInit, OnChanges {
     }
     else {
       this.taskService.saveFinishedHarvestedTask(updatedTask);
+      this.deleteTask(updatedTask.taskId);
     }
+    
   }
 }

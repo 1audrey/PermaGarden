@@ -20,26 +20,17 @@ mat-card-footer{
   border-bottom-right-radius: 4px;
 }
 
-.card-footer{
-  padding-top: 12px;
-  margin-bottom: 0px;
-  padding-bottom: 12px;
-  width: 100%;
-  vertical-align: middle;
-  text-align: center;
-  display:inline-block;
+.plant-image{
+    width:40%;
 }
 
-.title{
+.title {
   font-weight: bold;
   font-size: 16px;
-  float:left;
+  float: left;
 }
 
 .task-info{
-  width:100%;
-  overflow-x:auto;
-  overflow-y:hidden;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -48,43 +39,77 @@ mat-card-footer{
   padding-right: 8px;
 }
 
-.today{
+.today {
   padding-bottom: 0px;
   padding-top: 0px;
   background-color: #fa990e;
   opacity: 80%;
-  color:black;
+  color: black;
+  padding-top: 12px;
+  margin-bottom: 0px;
+  padding-bottom: 12px;
+  width: 100%;
+  vertical-align: middle;
+  text-align: center;
+  display: inline-block;
 }
 
-.this-week{
+.this-week {
   padding-bottom: 0px;
   padding-top: 0px;
-  background-color: #fecc47 ;
+  background-color: #fecc47;
   opacity: 80%;
-  color:black;
+  color: black;
+  padding-top: 12px;
+  margin-bottom: 0px;
+  padding-bottom: 12px;
+  width: 100%;
+  vertical-align: middle;
+  text-align: center;
+  display: inline-block;
 }
 
-.coming{
+.coming {
   padding-bottom: 0px;
   padding-top: 0px;
   background-color: white;
   color: black;
   opacity: 80%;
+  padding-top: 12px;
+  margin-bottom: 0px;
+  padding-bottom: 12px;
+  width: 100%;
+  vertical-align: middle;
+  text-align: center;
+  display: inline-block;
 }
 
-.next-task{
+.next-task {
   padding-bottom: 0px;
   padding-top: 0px;
   font-weight: bold;
   font-size: 14px;
+  margin-bottom: 0px;
+  padding-bottom: 12px;
+  width: 100%;
+  vertical-align: middle;
+  text-align: center;
+  display: inline-block;
 }
 
-.past{
+.past {
   padding-bottom: 0px;
   padding-top: 0px;
   background-color: #fa450e;
   opacity: 80%;
-  color:black;
+  color: black;
+  padding-top: 12px;
+  margin-bottom: 0px;
+  padding-bottom: 12px;
+  width: 100%;
+  vertical-align: middle;
+  text-align: center;
+  display: inline-block;
 }
 
 mat-card-actions{
@@ -101,6 +126,7 @@ mat-card-actions{
   align-items: center;
   flex-direction: row;
   margin-left: 0px;
+  padding: 0px !important;
 }
 
 mat-card-header {
@@ -112,19 +138,20 @@ mat-card {
   padding: 0px;
 }
 
-.open-button{
-  color: white;
-  border-color: #a4dbe4;
-  background-color: #a4dbe4;
+.open-button {
   font-size: 12px;
-  font-weight: 0px;
-  margin-right: 8px;
+  color: white !important;
+  border-color: #5b8d27;
+  background-color: #5b8d27;
+  font-weight: 500;
 }
 
 .open-button:hover {
   color: white;
-  border-color: #5fc3d3;
-  background-color: #5fc3d3;
+  border-color: #114b0b;
+  background-color: #114b0b;
+  cursor: pointer;
+  font-weight: 500;
 }
 
 

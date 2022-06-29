@@ -1,10 +1,5 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { ActivatedRoute } from '@angular/router';
-import { NotificationsService } from '../../services/notifications/notifications.service';
-import { PatchesService } from '../../services/patches/patches.service';
-import { TasksService } from '../../services/tasks/tasks.service';
-
 import { ITask } from '../models/itask-model';
 
 @Component({
@@ -30,10 +25,6 @@ export class CompleteTaskDialogComponent {
   constructor(
     public dialogRef: MatDialogRef<CompleteTaskDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public task: ITask,
-    private patchService: PatchesService,
-    private taskService: TasksService,
-    private notifications: NotificationsService,
-    private route: ActivatedRoute
     ) { }
 
   cancel(){
@@ -51,7 +42,6 @@ export class CompleteTaskDialogComponent {
       formValues.nextDate = this.task.nextDate;
       formValues.daysDifferenceBetweenTaskAndToday = this.task.daysDifferenceBetweenTaskAndToday;
       this.task.transplantDate = formValues.transplantDate;
-      this.notifications.showSuccess(`${formValues.currentTask} has been successfully updated`);
       this.dialogRef.close(formValues);
     }
   }
@@ -66,7 +56,6 @@ export class CompleteTaskDialogComponent {
     formValues.nextDate = this.task.nextDate;
     formValues.daysDifferenceBetweenTaskAndToday = this.task.daysDifferenceBetweenTaskAndToday;
     this.task.failureReasons = formValues.failureReasons;
-    this.notifications.showSuccess(`The task '${formValues.currentTask}' for the plant '${formValues.plant.plantName}' has been successfully updated`);
     this.dialogRef.close(formValues);
   }
 
@@ -79,7 +68,6 @@ export class CompleteTaskDialogComponent {
       formValues.startingDate = this.task.startingDate;
       formValues.nextDate = this.task.nextDate;
       formValues.daysDifferenceBetweenTaskAndToday = this.task.daysDifferenceBetweenTaskAndToday;
-      this.notifications.showSuccess(`${formValues.currentTask} has been successfully updated`);
       this.dialogRef.close(formValues);
   }
 }

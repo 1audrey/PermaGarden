@@ -1,10 +1,6 @@
 <div fxLayout="row wrap" fxLayoutGap="16px grid">
   <div *ngFor="let task of taskList">
-    <mat-card [ngClass]="{
-    'past': isTaskLate(task) ,
-    'today': isTaskToday(task),
-    'this-week': isTaskThisWeek(task) ,
-    'coming': isTaskComing(task)}">
+    <mat-card >
       <mat-card-header>
         <mat-card-title class="title"> {{patchName | titlecase}}</mat-card-title>
       </mat-card-header>
@@ -12,15 +8,19 @@
       <mat-card-actions class="actions">
         <div class="task-info">
           <p>{{task.plant.plantName}}</p>
+          <img mat-card-image class="plant-image" [src]="task.plant.plantImagePicture" alt={{task.plant.plantName}}>
           <p *ngIf="task.transplantDate === null; else transplantDate"> Current task: {{task.currentTask}} started on {{task.startingDate | date:'dd/MM/yyyy'}}</p>
           <p class="next-task">Next task: {{task.nextTask}} from {{task.nextDate | date:'dd/MM/yyyy' }}</p>
         </div>
       </mat-card-actions>
 
-      <mat-card-footer class="card-footer">
-        <button mat-button class="open-button" (click)="openTask(task)">Complete</button>
-        <button mat-button class="delete-patch">Delete</button>
-
+      <mat-card-footer [ngClass]="{
+    'past': isTaskLate(task) ,
+    'today': isTaskToday(task),
+    'this-week': isTaskThisWeek(task) ,
+    'coming': isTaskComing(task)}">
+          <button mat-button class="open-button" (click)="openTask(task)">Complete</button>
+          <button mat-button class="delete-patch">Delete</button>
       </mat-card-footer>
     </mat-card>
 
