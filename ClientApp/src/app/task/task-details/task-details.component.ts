@@ -119,6 +119,9 @@ export class TaskDetailsComponent implements OnInit, OnChanges {
           this.deleteTask(updatedTask.taskId);
           this.taskService.saveFailedTask(updatedTask);
         }
+        else if (updatedTask.harvestSelectedAnswer) {
+          this.verifyHarvestedAnswer(updatedTask);
+        }
         else if (updatedTask.transplantDate != null) {
           this.taskService.saveTransplantedTask(updatedTask).subscribe(() => {
             this.notifications.showSuccess(`The task '${updatedTask.currentTask}' for the plant '${updatedTask.plant.plantName}' has been successfully updated`);
@@ -129,11 +132,6 @@ export class TaskDetailsComponent implements OnInit, OnChanges {
               this.router.navigate(['/tasks', this.patchWithoutParams.patchName]);
             });
         }
-        
-
-        else if (updatedTask.harvestSelectedAnswer) {
-          this.verifyHarvestedAnswer(updatedTask);
-        }
       });
   }
 
@@ -142,6 +140,7 @@ export class TaskDetailsComponent implements OnInit, OnChanges {
     if (index != -1) {
       this.taskList.splice(index, 1);
     }
+    this.taskService.taskToDelete(taskId);
   }
 
   getDifferenceBetweenTaskDateAndTodaydate(taskList: ITask[]) {

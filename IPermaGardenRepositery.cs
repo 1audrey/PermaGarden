@@ -61,6 +61,12 @@ namespace perma_garden_app
         public Task SaveTransplantedTask(TasksRecord updatedTask, CancellationToken token);
 
         public Task SaveHarvestedTask(TasksRecord updatedTask, CancellationToken token);
+
+        public Task DeleteTaskInPatches(int taskId, CancellationToken token);
+
+        public Task DeleteTaskWithPlant(int taskId, CancellationToken token);
         
+
+
     }
 }

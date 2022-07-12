@@ -559,8 +559,32 @@ namespace perma_garden_app
                     cancellationToken: token));
         }
 
+        public async Task DeleteTaskInPatches(int taskId, CancellationToken token)
+        {
+            var command = @"DELETE FROM dbo.TasksInPatches
+                            WHERE 
+                            TaskId = @TaskId";
+
+            await SqlConnection.ExecuteAsync(
+                new CommandDefinition(
+                    command,
+                    new { TaskId = taskId },
+                    cancellationToken: token));
+        }
+
+        public async Task DeleteTaskWithPlant(int taskId, CancellationToken token)
+        {
+            var command = @"DELETE FROM dbo.PlantsInTasks
+                            WHERE 
+                            TaskId = @TaskId";
+
+            await SqlConnection.ExecuteAsync(
+                new CommandDefinition(
+                    command,
+                    new { TaskId = taskId },
+                    cancellationToken: token));
+        }
 
 
-        
     }
 }

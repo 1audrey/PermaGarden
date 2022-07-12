@@ -20,7 +20,7 @@
     'this-week': isTaskThisWeek(task) ,
     'coming': isTaskComing(task)}">
           <button mat-button class="open-button" (click)="openTask(task)">Complete</button>
-          <button mat-button class="delete-patch">Delete</button>
+          <button mat-button class="delete-patch" (click)="deleteTask(task.taskId)">Delete</button>
       </mat-card-footer>
     </mat-card>
 

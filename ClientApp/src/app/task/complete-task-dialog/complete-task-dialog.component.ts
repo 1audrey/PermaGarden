@@ -55,6 +55,7 @@ export class CompleteTaskDialogComponent {
     formValues.startingDate = this.task.startingDate;
     formValues.nextDate = this.task.nextDate;
     formValues.daysDifferenceBetweenTaskAndToday = this.task.daysDifferenceBetweenTaskAndToday;
+    formValues.transplantDate = this.task.transplantDate;
     this.task.failureReasons = formValues.failureReasons;
     this.dialogRef.close(formValues);
   }
@@ -67,6 +68,7 @@ export class CompleteTaskDialogComponent {
       formValues.plant = this.task.plant;
       formValues.startingDate = this.task.startingDate;
       formValues.nextDate = this.task.nextDate;
+      formValues.transplantDate = this.task.transplantDate;
       formValues.daysDifferenceBetweenTaskAndToday = this.task.daysDifferenceBetweenTaskAndToday;
       this.dialogRef.close(formValues);
   }

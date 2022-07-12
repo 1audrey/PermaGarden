@@ -18,12 +18,20 @@ export class TasksService {
 
   constructor(private http: HttpClient) { }
 
-  saveNewTask(task: ITask): Observable<ITask>{
+  saveNewTask(task: ITask, patchName: string, patchId: number, plantId:number){
     task.startingDate = task.startingDate.toString();
     task.nextTask = this.givesFirstNextTask(task);
     task.nextDate = this.calculateNextDate(task).toString();
 
-    console.log(`Setting the ${task.currentTask} from the task service`);
+    this.saveTask(task).subscribe(() => {
+      this.saveTaskInPatch(patchName, patchId).subscribe();
+      this.savePlantInTask(plantId).subscribe();
+
+    });
+
+  }
+
+  saveTask(task: ITask): Observable<ITask> {
     return this.http.post<ITask>(this.baseUrl + 'save-task', task).pipe(
       tap(() => console.log(`Task service added ${task.currentTask} successfully`)),
       catchError((error: HttpErrorResponse) => throwError(error))
@@ -52,9 +60,11 @@ export class TasksService {
   }
 
   saveFailedTask(task: ITask) {
-    this.saveFailureReasons(task).subscribe();
-    this.saveTaskInArchiveTasks(task).subscribe();
-    this.deleteTask(task.taskId).subscribe();
+    this.saveFailureReasons(task).subscribe(() => {
+      this.saveTaskInArchiveTasks(task).subscribe();
+      this.deleteTask(task.taskId).subscribe();
+    });
+
   }
 
   saveFailureReasons(task: ITask): Observable<ITask>{
@@ -82,12 +92,39 @@ export class TasksService {
     );
   }
 
+  taskToDelete(taskId: number) {
+    this.deleteTask(taskId).subscribe(() => {
+      this.deleteTaskInPatch(taskId).subscribe();
+      this.deleteTaskWithPlant(taskId).subscribe();
+    });
+  }
+
   deleteTask(taskId: number): Observable<any> {
     let params = new HttpParams();
     params = params.set('taskId', taskId);
 
     console.log(`Deleting the ${taskId} from the task service`);
     return this.http.delete<number>(this.baseUrl + 'delete-task', { params: params }).pipe(
+      tap(() => console.log(`Task service deleted ${taskId} successfully`)),
+      catchError((error: HttpErrorResponse) => throwError(error)),
+    );
+  }
+
+  deleteTaskInPatch(taskId: number): Observable<any> {
+    let params = new HttpParams();
+    params = params.set('taskId', taskId);
+
+    return this.http.delete<number>(this.baseUrl + 'delete-task-in-patch', { params: params }).pipe(
+      tap(() => console.log(`Task service deleted ${taskId} successfully`)),
+      catchError((error: HttpErrorResponse) => throwError(error)),
+    );
+  }
+
+  deleteTaskWithPlant(taskId: number): Observable<any> {
+    let params = new HttpParams();
+    params = params.set('taskId', taskId);
+
+    return this.http.delete<number>(this.baseUrl + 'delete-task-with-plant', { params: params }).pipe(
       tap(() => console.log(`Task service deleted ${taskId} successfully`)),
       catchError((error: HttpErrorResponse) => throwError(error)),
     );
@@ -117,9 +154,10 @@ export class TasksService {
       task.realHarvestingDates = this.allHarvestedDates.toString();
     }
 
-    this.saveHarvestedTask(task).subscribe();
-    this.saveTaskInArchiveTasks(task).subscribe();
-    this.deleteTask(task.taskId).subscribe();
+    this.saveHarvestedTask(task).subscribe(() => {
+      this.saveTaskInArchiveTasks(task).subscribe();
+      this.deleteTask(task.taskId).subscribe();
+    });
   }
 
   saveHarvestedTask(task: ITask): Observable<ITask> {

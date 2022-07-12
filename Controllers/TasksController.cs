@@ -209,6 +209,40 @@ namespace perma_garden_app.Controllers
             return BadRequest("TaskId is invalid");
         }
 
+        [HttpDelete]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Route("delete-task-in-patch")]
+        public async Task<IActionResult> DeleteTaskInPatches(int taskId, CancellationToken token)
+        {
+            if (taskId != null)
+            {
+                await _permaGardenRepositery.DeleteTaskInPatches(taskId, token);
+
+                return Ok();
+            }
+
+            return BadRequest("TaskId is invalid");
+        }
+
+        [HttpDelete]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Route("delete-task-with-plant")]
+        public async Task<IActionResult> DeleteTaskWithPlant(int taskId, CancellationToken token)
+        {
+            if (taskId != null)
+            {
+                await _permaGardenRepositery.DeleteTaskWithPlant(taskId, token);
+
+                return Ok();
+            }
+
+            return BadRequest("TaskId is invalid");
+        }
+
         [HttpPut]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]

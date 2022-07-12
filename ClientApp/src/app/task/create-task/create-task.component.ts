@@ -44,13 +44,10 @@ export class CreateTaskComponent implements OnInit {
 
   saveTask(formValues: ITask) {
     this.isDirty = false;
-    this.tasksService.saveNewTask(formValues).subscribe();
-    this.tasksService.saveTaskInPatch(this.patch.patchName, this.patch.patchId).subscribe();
-    this.tasksService.savePlantInTask(this.selectedPlant.plantId).subscribe(() => {
-      this.notifications.showSuccess(`${formValues.currentTask} has been added to ${this.patch.patchName}`);
-      this.router.navigate(['/tasks', this.patch.patchName]);
-      console.log(formValues);
-    });
+    this.tasksService.saveNewTask(formValues, this.patch.patchName, this.patch.patchId, this.selectedPlant.plantId);
+    this.notifications.showSuccess(`${formValues.currentTask} has been added to ${this.patch.patchName}`);
+    this.router.navigate(['/tasks', this.patch.patchName]);
+    console.log(formValues);
   }
 
   cancel() {
