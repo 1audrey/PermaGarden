@@ -4,46 +4,45 @@
       <h2>Plants</h2>
       <p>Select or create a plant and add it to your garden</p>
       <div class="show-plants">
-        <mat-button-toggle-group >
+        <mat-button-toggle-group>
           <mat-button-toggle disableRipple="true" class="see-all" (click)="filterAll()">All</mat-button-toggle>
-          <mat-button-toggle disableRipple="true" class="see-sow-this-month" (click)="filterBySowingMonths()">In {{month}}</mat-button-toggle>
-      </mat-button-toggle-group>
+          <mat-button-toggle disableRipple="true" class="see-sow-this-month" (click)="filterBySowingMonths()">In
+            {{month}}</mat-button-toggle>
+        </mat-button-toggle-group>
       </div>
     </div>
 
     <div class="title-right">
-      <input type="search" class="search" [(ngModel)]="search" placeholder="Search plants"/>
+      <input type="search" class="search" [(ngModel)]="search" placeholder="Search plants" />
       <div *ngIf="(plants | plantFilter:search).length <1 && plants.length != 0">
         Not found
       </div>
-      <button mat-button class="add-new-plant" (click)="openAddNewPlant()">Add a new plant</button>
+      <button mat-button class="add-new-plant" [routerLink]="['/add-new-plant']">Add a new plant</button>
     </div>
   </div>
 
-  <div class="no-plants" *ngIf="plants.length == 0">
+  <div class="no-plants" *ngIf="plants.length == 0 && !appliedFilter">
     <p>
       You have no saved plants.
       <br />
       You can add plants by clicking on the button 'Add a new plant'.
     </p>
-   
+  </div>
+
+  <div class="no-plants" *ngIf="plants.length == 0 && appliedFilter">
+    <p>
+      You have no plants to sow or plant in {{month}}.
+    </p>
   </div>
 
   <div class="my-garden-list">
     <div fxLayout="row wrap" fxLayoutGap="16px grid">
-      <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="50%" fxFlex.md="50%" *ngFor="let plant of (plants | plantFilter:search) as plants">
+      <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="50%" fxFlex.md="50%"
+        *ngFor="let plant of (plants | plantFilter:search) as plants">
         <div class="my-garden-list">
-          <app-plant-thumbnail
-          [plant]="plant"
-          (plantDeleted)="plantToDelete(plant)" >
-
-        </app-plant-thumbnail>
+          <app-plant-thumbnail [plant]="plant" (plantDeleted)="plantToDelete(plant)">
+          </app-plant-thumbnail>
         </div>
       </div>
     </div>
   </div>
-
-  <ng-template #isCliked>
-    <td><mat-icon class="months-not-included">highlight_off</mat-icon></td>
-  </ng-template>
-

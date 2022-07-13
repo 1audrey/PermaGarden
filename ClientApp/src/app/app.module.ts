@@ -26,33 +26,27 @@ import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { AddNewPlantComponent } from './garden-list/add-new-plant/add-new-plant.component';
-
 import {MatCheckboxModule} from '@angular/material/checkbox';
-
 import { SelectImageDialogComponent } from './garden-list/add-new-plant/select-image-dialog/select-image-dialog.component';
-
 import { PlantImageResolverService } from './resolver/plant-image-resolver.service';
 import { FilterPipe } from './pipe/filter.pipe';
 import { HttpClientModule } from '@angular/common/http';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatSelectModule} from '@angular/material/select';
-
 import {MatSnackBarModule} from '@angular/material/snack-bar';
-
 import { GardenFootprintComponent } from './garden/garden-footprint/garden-footprint.component';
 import { PatchListComponent } from './garden/patch-list/patch-list.component';
 import { PatchResolverService } from './resolver/patch-resolver.service';
-
 import { CreatePatchComponent } from './garden/create-patch/create-patch.component';
 import { ManagePatchTasksComponent } from './task/manage-patch-tasks/manage-patch-tasks.component';
 import { PatchListDetailsComponent } from './garden/patch-list-details/patch-list-details.component';
 import { AllTasksComponent } from './task/all-tasks/all-tasks.component';
 import { TaskDetailsComponent } from './task/task-details/task-details.component';
 import { CreateTaskComponent } from './task/create-task/create-task.component';
-import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
-import {MatInputModule} from '@angular/material/input';
-import {MatMenuModule} from '@angular/material/menu';
+import { MatInputModule } from '@angular/material/input';
+import { MatMenuModule } from '@angular/material/menu';
 import { CompleteTaskDialogComponent } from './task/complete-task-dialog/complete-task-dialog.component';
 import { DialogCreateTaskComponent } from './task/dialog-create-task/dialog-create-task.component';
 import { HomepageComponent } from './homepage/homepage/homepage.component';
@@ -63,6 +57,7 @@ import { PlantImageService } from './services/plants/plant-image.service';
 import { NotificationsService } from './services/notifications/notifications.service';
 import { PatchesService } from './services/patches/patches.service';
 import { SinglepatchResolverService } from './resolver/singlepatch-resolver.service';
+import { MockPipe } from './mock/mock-pipe';
 
 
 
@@ -89,6 +84,9 @@ import { SinglepatchResolverService } from './resolver/singlepatch-resolver.serv
     HomepageComponent,
     WeatherComponent,
     SummaryComponent,
+    MockPipe,
+
+    
 
   ],
   imports: [
