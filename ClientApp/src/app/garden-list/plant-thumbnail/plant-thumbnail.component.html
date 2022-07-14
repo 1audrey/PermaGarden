@@ -3,8 +3,6 @@
         <mat-card-content>
           <button class="delete" (click)="delete()"><mat-icon>delete_outline</mat-icon></button>
           <img mat-card-image [src]="plant.plantImagePicture" alt={{plant.plantName}}>
-
-
           <div [@bodyExpansion]="state" class="plants-info">
             <table>
               <thead>
@@ -26,7 +24,7 @@
               </thead>
               <tbody>
                 <tr>
-                  <td class="table-subtitle">{{isStartingMethod}}</td>
+                  <td class="table-subtitle">{{startingMethod}}</td>
                   <td [ngStyle]="{'color': this.month === 'January' ? '#fa990e' : '#114b0b'}" *ngIf="isSowingMonthIncluded('January');else isNotIncluded"><mat-icon class="months-included">check_circle</mat-icon></td>
                   <td [ngStyle]="{'color': this.month === 'February' ? '#fa990e' : '#114b0b'}" *ngIf="isSowingMonthIncluded('February');else isNotIncluded"><mat-icon class="months-included">check_circle</mat-icon></td>
                   <td [ngStyle]="{'color': this.month === 'March' ? '#fa990e' : '#114b0b'}" *ngIf="isSowingMonthIncluded('March');else isNotIncluded"><mat-icon class="months-included">check_circle</mat-icon></td>
@@ -61,21 +59,13 @@
         </mat-card-content>
 
         <mat-card-footer class="card-footer">
-
             <span><mat-card-title class="title-left">{{plant.plantName | titlecase}}</mat-card-title></span>
               <button mat-button class="add-to-garden" (click)="addToGarden()">Add to garden</button>
-              <button mat-button class="more-info" id="toggle" (click)="toggle() ">{{this.state == 'collapsed' ? 'More info': 'Less info'}}</button>
-
+              <button mat-button class="more-info" (click)="toggle() ">{{this.state == 'collapsed' ? 'More info': 'Less info'}}</button>
         </mat-card-footer>
-
       </mat-card>
-
 
   <ng-template #isNotIncluded>
     <td><mat-icon class="months-not-included">highlight_off</mat-icon></td>
-  </ng-template>
-
-  <ng-template #isNotSowing>
-    <td>Plant</td>
   </ng-template>
 </div>

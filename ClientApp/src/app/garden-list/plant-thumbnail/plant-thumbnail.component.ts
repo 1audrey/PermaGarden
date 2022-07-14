@@ -4,7 +4,6 @@ import { IPlantsList } from '../models/iplants-model';
 import { AddToGardenComponent } from '../add-to-garden/add-to-garden.component';
 import { MatDialog } from '@angular/material/dialog';
 
-
 @Component({
   selector: 'app-plant-thumbnail',
   templateUrl: './plant-thumbnail.component.html',
@@ -26,7 +25,7 @@ export class PlantThumbnailComponent {
   state = 'collapsed';
   todayDate: Date = new Date();
   month = this.todayDate.toLocaleString('default', { month: 'long' });
-  isStartingMethod = 'Plant';
+  startingMethod = 'Plant';
 
   constructor(public dialog: MatDialog) { }
 
@@ -40,7 +39,7 @@ export class PlantThumbnailComponent {
 
   typeOfStarting() {
     if (this.plant.plantStartingMethod.includes("Sowing")) {
-      this.isStartingMethod = 'Sow';
+      this.startingMethod = 'Sow';
     }
   }
 

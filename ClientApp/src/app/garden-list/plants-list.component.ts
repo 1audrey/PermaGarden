@@ -27,6 +27,7 @@ export class PlantsListComponent implements OnInit {
   }
 
   filterBySowingMonths() {
+    this.filteredPlant = [];
      this.plants.forEach((plant) => {
        if (plant.plantStartingMonths.includes(this.month)) {
          this.filteredPlant.push(plant);
