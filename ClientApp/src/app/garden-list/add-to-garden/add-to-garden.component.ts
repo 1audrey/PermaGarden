@@ -1,11 +1,10 @@
-import { Component, Inject, Input, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { IPatch } from 'src/app/garden/models/ipatch-model';
 import { IPlantInPatch } from '../../garden/models/iplantinpatch-model';
 import { PatchesService } from '../../services/patches/patches.service';
-
 import { IPlantsList } from '../models/iplants-model';
 
 @Component({
@@ -15,8 +14,6 @@ import { IPlantsList } from '../models/iplants-model';
 })
 
 export class AddToGardenComponent implements OnInit {
-  public static readonly CREATEPATCH_WEBSITE_URL: string = '/create-patch';
-
   addToGardenForm: any;
   isDirty: boolean = true;
   patches!: IPatch[];
@@ -24,21 +21,20 @@ export class AddToGardenComponent implements OnInit {
   patchName!:string;
   patchControl = new FormControl('', Validators.required);
   selectedPatch!: IPatch;
-  public isLoading: boolean = false;
+  public isLoaded: boolean = false;
   plantInPatch!: IPlantInPatch;
 
   constructor(
     private router: Router,
-    private route: ActivatedRoute,
     private patchService : PatchesService,
     public dialog: MatDialogRef<AddToGardenComponent>,
     @Inject(MAT_DIALOG_DATA) public plant: IPlantsList
   ) { }
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.patchService.getAllPatches().subscribe(allPatches => {
       this.patches = allPatches;
-      this.isLoading = true;
+      this.isLoaded = true;
     });
   }
 
@@ -48,16 +44,9 @@ export class AddToGardenComponent implements OnInit {
 
   addOnGardenPage(patch: IPatch, plant: IPlantsList) {
     this.isDirty = false;
-    this.plantInPatch =
-    {
-      patchId: patch.patchId,
-      patchName: patch.patchName,
-      plantId: plant.plantId
-    }
-    this.patchService.savePlantInPatch(this.plantInPatch).subscribe(() => {
-      this.dialog.close();
-      this.router.navigate(['garden']);
-    });
+    this.patchService.savePlantInPatch(patch, plant);
+    this.dialog.close();
+    this.router.navigate(['garden']);
   }
 
   onSelection() {
@@ -65,12 +54,10 @@ export class AddToGardenComponent implements OnInit {
   }
 
   createPatch(){
-    const link = document.createElement('a');
-    link.href = AddToGardenComponent.CREATEPATCH_WEBSITE_URL;
-    link.setAttribute('visibility', 'hidden');
-    link.click();
-  }
+    this.dialog.close();
+    this.router.navigate(['create-patch']);
 
+  }
 }
 
 

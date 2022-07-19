@@ -1,174 +1,312 @@
-////import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
-////import { FormControl } from '@angular/forms';
-////import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-////import { By } from '@angular/platform-browser';
-////import { Router } from '@angular/router';
-////import { IPatch } from 'src/app/garden/models/ipatch-model';
-////import { PatchResolverService } from 'src/app/resolver/patch-resolver.service';
-////import { PatchesService } from 'src/app/shared/patches.service';
-////import { PlantsListResolver } from '../../resolver/plants-list-resolver.service';
-////import { PlantsService } from '../../shared/plants.service';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { By } from '@angular/platform-browser';
+import { ActivatedRoute, Router, Routes } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+import { PatchesService } from 'src/app/services/patches/patches.service';
+import { PlantsService } from 'src/app/services/plants/plants.service';
+import { PlantsListResolver } from '../../resolver/plants-list-resolver.service';
+import { AddToGardenComponent } from './add-to-garden.component';
+import { IPatch } from 'src/app/garden/models/ipatch-model';
+import { Subject } from 'rxjs';
+import { IPlantsList } from '../models/iplants-model';
+import { GardenFootprintComponent } from 'src/app/garden/garden-footprint/garden-footprint.component';
+import { NotificationsService } from 'src/app/services/notifications/notifications.service';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
-////import { AddToGardenComponent } from './add-to-garden.component';
+fdescribe('AddToGardenComponent', () => {
+  let component: AddToGardenComponent;
+  let fixture: ComponentFixture<AddToGardenComponent>;
+  const mockDialogRef = { close: jasmine.createSpy('close') };
+  let router : Router;
+  let routes: Routes = [{ path: 'garden', component: GardenFootprintComponent }]
+  let service: PatchesService;
+  let plant: IPlantsList;
 
-////describe('AddToGardenComponent', () => {
-////  let component: AddToGardenComponent;
-////  let fixture: ComponentFixture<AddToGardenComponent>;
-////  const mockDialogRef = { close: jasmine.createSpy('close') };
-////  let patchService = new PatchesService;
-////  const routerSpy = { navigate: jasmine.createSpy('navigate') };
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      declarations: [AddToGardenComponent],
+      imports: [
+        MatDialogModule,
+        HttpClientTestingModule,
+        MatSnackBarModule,
+        NoopAnimationsModule,
+        RouterTestingModule.withRoutes(routes),
 
+      ],
+      providers: [
+        PlantsService,
+        PlantsListResolver,
+        PatchesService,
+        NotificationsService,
+        { provide: MatDialogRef, useValue: mockDialogRef },
+        { provide: MAT_DIALOG_DATA, useValue: {} },
+        { provide: ActivatedRoute, useValue: {} },
+      ],
 
-////  beforeEach(async () => {
+    })
+      .compileComponents();
+  });
 
-////    await TestBed.configureTestingModule({
-////      declarations: [AddToGardenComponent],
-////      imports: [
-////        MatDialogModule,
+  beforeEach(() => {
+    router = TestBed.inject(Router);
+    service = TestBed.inject(PatchesService);
 
+    fixture = TestBed.createComponent(AddToGardenComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
 
-////      ],
-////      providers: [
-////        PlantsService,
-////        PlantsListResolver,
-////        PatchResolverService,
-////        { provide: MatDialogRef, useValue: mockDialogRef },
-////        { provide: MAT_DIALOG_DATA, useValue: {} },
-////        { provide: PatchesService, useValue: patchService },
-////        { provide: Router, useValue: routerSpy }
+    plant = {
+      plantId: 1,
+      plantName: 'Name test',
+      plantStartingMonths: 'January, February',
+      plantStartingMethod: 'Starting Method Test',
+      plantSowingPeriod: 1,
+      plantHarvestingMonths: 'January, February',
+      plantGrowingPeriod: 1,
+      plantImagePicture: 'Plant Image Test',
+    }
+  });
 
-////      ]
-////    })
-////      .compileComponents();
-////  });
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
 
-////  beforeEach(() => {
-////    fixture = TestBed.createComponent(AddToGardenComponent);
-////    component = fixture.componentInstance;
-////    fixture.detectChanges();
+  it('should call the patchservice on ngOnInit ', () => {
+    const spy = spyOn(service, 'getAllPatches').and.callThrough();
+    setUpTestForPatchListWithPatch();
 
-////  });
+    expect(spy).toHaveBeenCalled();
+  });
 
-////  it('should create', () => {
-////    expect(component).toBeTruthy();
-////  });
+  xit('should return isLoaded as true when the patchservice is subscribed to ', () => {
+    let getPatchesSubject = new Subject<IPatch[]>();
+    spyOn(service, 'getAllPatches').and.returnValue(getPatchesSubject);
+    getPatchesSubject.next(
+      [{
+        patchId: 1,
+        patchName: 'Test Patch Name',
+        patchImagePicture: 'Test patch Picture',
+      }]
+    );
 
-////  it('should cancel the dialog when cancel button is clicked', async(() => {
-////    component.cancel();
-////    fixture.detectChanges();
-////    expect(mockDialogRef.close).toHaveBeenCalled();
-////  }));
+    expect(component.isLoaded).toBeTrue();
+  });
 
+  it('should return an array of patches when the patchservice is called', () => {
+    let expectedPatches = numberOfPatch(1);
+    let getPatchesSubject = new Subject<IPatch[]>();
+    spyOn(service, 'getAllPatches').and.returnValue(getPatchesSubject);
 
-////  xit('should call the createPatch method when the button is clicked', fakeAsync(() => {
+    getPatchesSubject.next(
+      [{
+        patchId: 1,
+        patchName: 'Test Patch Name',
+        patchImagePicture: 'Test patch Picture',
+      }]
+    );
 
-////    component.patches.length === 0;
-////    fixture.detectChanges();
+    expect(component.patches).toEqual(expectedPatches);
+  });
 
-////    const spy = spyOn(component, 'createPatch');
+  it('should cancel the dialog when cancel button method is called', () => {
+    setUpTestForPatchListWithPatch();
 
-////    let button: HTMLButtonElement = fixture.debugElement.nativeElement.querySelector('.create-patch');
-////    button.click();
+    component.cancel();
 
-////    fixture.detectChanges();
+    expect(mockDialogRef.close).toHaveBeenCalled();
+  });
 
-////    expect(spy).toHaveBeenCalledTimes(1);
+  it('should call the cancel method when the no-thanks button is clicked', () => {
+    setUpTestForPatchListWithPatch();
 
-////  }));
+    const spy = spyOn(component, 'cancel');
 
-////  it('should call the service on ngOnInit and set property isLoading to true', (done) => {
-////    const spy = spyOn(patchService, 'getPatch').and.callThrough();
+    const filterButton = fixture.debugElement.query(By.css('#no-thanks'));
+    filterButton.nativeElement.click();
+    fixture.detectChanges();
 
-////    component.ngOnInit();
-////    fixture.detectChanges();
+    expect(spy).toHaveBeenCalled();
+  });
 
-////    fixture.whenStable().then(() => {
-////      expect(spy).toHaveBeenCalledTimes(1);
-////      expect(component.isLoading).toBeTrue();
-////      done();
+  it('should call the create-patch method when the create patch button is clicked', () => {
+    const spy = spyOn(component, 'createPatch');
 
-////    });
-////  });
+    setUpTestForEmptyPatchList();
 
-////  it('should call the service when addOnGardenPage method is called ', () => {
-////    var plant = {
-////      name: "Spring Onions",
-////      startingMonths: [
-////        "September"
-////      ],
-////      startingMethod: "Sowing in pots",
-////      sowingPeriodInDays: 21,
-////      harvestingMonths: [
-////        "January",
-////      ],
-////      harvestingPeriodInDays: 120,
-////      plantImagePicture: "assets/images/spring-onions.jpg"
-////    }
+    let button = fixture.debugElement.query(By.css('#create-patch')).nativeElement;
+    button.click();
+    fixture.detectChanges();
 
-////    var patchName = 'Patch 1'
-////    const spy = spyOn(patchService, 'savePlantInPatch').and.callThrough();
+    expect(button.innerText).toBe('Create a patch');
+    expect(spy).toHaveBeenCalledTimes(1);
+  });
 
-////    component.addOnGardenPage(patchName, plant);
-////    fixture.detectChanges();
+  it('should call the router navigate method when the create patch mehotd is called', () => {
+    const spy = spyOn(router, 'navigate');
+    setUpTestForEmptyPatchList();
 
-////    expect(spy).toHaveBeenCalledTimes(1);
-////    expect(spy).toHaveBeenCalledOnceWith(patchName, plant);
-////  });
+    component.createPatch();
 
-////  it('should call the dialog close when addOnGardenPage method is called ', () => {
-////    var plant = {
-////      name: "Spring Onions",
-////      startingMonths: [
-////        "September"
-////      ],
-////      startingMethod: "Sowing in pots",
-////      sowingPeriodInDays: 21,
-////      harvestingMonths: [
-////        "January",
-////      ],
-////      harvestingPeriodInDays: 120,
-////      plantImagePicture: "assets/images/spring-onions.jpg"
-////    }
+    expect(spy).toHaveBeenCalledOnceWith(['create-patch']);
+  });
 
-////    var patchName = 'Patch 1'
+  it('should call the dialog close method when the create patch method is called', () => {
+    setUpTestForEmptyPatchList();
 
-////    component.addOnGardenPage(patchName, plant);
-////    fixture.detectChanges();
+    component.createPatch();
+    fixture.detectChanges();
 
-////    expect(mockDialogRef.close).toHaveBeenCalled();
+    expect(mockDialogRef.close).toHaveBeenCalled();
+  });
 
-////  });
+  it('should return the patch name when the patchName is selected in the drop down', () => {
+    const patchName = numberOfPatch(1)[0].patchName;
+    setUpTestForPatchListWithPatch();
 
-////  it('should call the router navigate property when addOnGardenPage method is called ', () => {
-////    var plant = {
-////      name: "Spring Onions",
-////      startingMonths: [
-////        "September"
-////      ],
-////      startingMethod: "Sowing in pots",
-////      sowingPeriodInDays: 21,
-////      harvestingMonths: [
-////        "January",
-////      ],
-////      harvestingPeriodInDays: 120,
-////      plantImagePicture: "assets/images/spring-onions.jpg"
-////    }
+    const compiledDom = fixture.debugElement.nativeElement;
+    const select = compiledDom.querySelector('mat-select');
+    select.click();
+    fixture.detectChanges();
+    const optionSelectList: NodeListOf<HTMLElement> = fixture.debugElement.nativeElement.querySelectorAll('mat-option');
+    expect(optionSelectList.length).toBe(1);
+    optionSelectList[0].dispatchEvent(new Event('valueChange'));
+    fixture.detectChanges();
 
-////    var patchName = 'Patch 1'
+    expect(select.textContent).toEqual(` ${patchName} `);
+  });
 
-////    component.addOnGardenPage(patchName, plant);
-////    fixture.detectChanges();
+  it('should call the onSelection method when patchName selected inthe dropdown', fakeAsync(() => {
+    setUpTestForPatchListWithPatch();
 
-////    expect(routerSpy.navigate).toHaveBeenCalled();
+    const spy = spyOn(component, 'onSelection');
 
-////  });
+    const optionSelectList = fixture.debugElement.nativeElement.querySelectorAll('mat-option');
+    let select: HTMLSelectElement = fixture.debugElement.query(By.css('.select')).nativeElement;
+    select.value = optionSelectList[0].value;
+    select.dispatchEvent(new Event('valueChange'));
+    tick();
+    expect(spy).toHaveBeenCalledTimes(1);
+  }));
 
-////  // it('should set patchName to selected option when onSelection method is called ', () => {
+  it('should call the addOnGardenPage method when the add-to-garden button is clicked', () => {
+    const spy = spyOn(component, 'addOnGardenPage');
 
-////  //   let expected = component.patch.name;
+    let patches = numberOfPatch(1);
+    component.isLoaded = true;
+    component.ngOnInit();
+    fixture.detectChanges();
 
-////  //   expect(component.patchName).toBe(expected);
+    component.patchControl.setValue(` ${patches[0].patchName} `);
+    const button = fixture.debugElement.query(By.css('#add-on-garden-page')).nativeElement;
+    button.click();
+    fixture.detectChanges();
 
-////  // });
+    expect(button.innerText).toBe('Save');
+    expect(spy).toHaveBeenCalledTimes(1);
+  });
 
-////});
+  it('should change the variable isDirty to false when the addToGarden method s called', () => {
+    const patch = numberOfPatch(1)[0];
+    setUpTestForPatchListWithPatch();
+
+    component.addOnGardenPage(patch, plant);
+
+    expect(component.isDirty).toBeFalse();
+  });
+
+  it('should call the service when the AddToGarden method is called', () => {
+    const patch = numberOfPatch(1)[0];
+    setUpTestForPatchListWithPatch();
+
+    fixture.whenStable().then(() => {
+    const spy = spyOn(service, 'savePlantInPatch');
+
+    component.addOnGardenPage(patch, plant);
+
+    expect(spy).toHaveBeenCalledWith(patch, plant);
+    });
+  });
+
+  it('should call the dialog close method when the AddToGarden method is called', async() => {
+    const patch = numberOfPatch(1)[0];
+    setUpTestForPatchListWithPatch();
+
+    component.addOnGardenPage(patch, plant);
+
+    expect(mockDialogRef.close).toHaveBeenCalled();
+  });
+
+  it('should go to the garden page when the AddToGarden method is called', async () => {
+    const patch = numberOfPatch(1)[0];
+    setUpTestForPatchListWithPatch();
+
+    const spy = spyOn(router, 'navigate');
+    numberOfPatch(1);
+    component.isLoaded = true;
+    component.ngOnInit();
+    fixture.detectChanges();
+
+    component.addOnGardenPage(patch, plant);
+
+    expect(spy).toHaveBeenCalledOnceWith(['garden']);
+  });
+
+  it('should show the error message when no patch name is selected', () => {
+    setUpTestForPatchListWithPatch();
+
+    component.patchControl.setValue('');
+
+    const button = fixture.debugElement.query(By.css('#add-on-garden-page')).nativeElement;
+    button.click();
+    fixture.detectChanges();
+
+    const spyError = fixture.debugElement.query(By.css('mat-error')).nativeElement;
+
+    expect(spyError).toBeTruthy();
+  });
+
+  it('should not show the error message when a patch name is selected', () => {
+    setUpTestForPatchListWithPatch();
+
+    component.patchControl.setValue('Test Patch Name');
+
+    const button = fixture.debugElement.query(By.css('#add-on-garden-page')).nativeElement;
+    button.click();
+    fixture.detectChanges();
+
+    const spyError = fixture.debugElement.query(By.css('mat-error'));
+
+    expect(spyError).toBeNull();
+  });
+
+  function numberOfPatch(patchNumber: number): IPatch[] {
+    if (patchNumber === 0) {
+      return component.patches = [];
+    }
+    else {
+      return component.patches = [{
+        patchId: 1,
+        patchName: 'Test Patch Name',
+        patchImagePicture: 'Test patch Picture',
+      }]
+    }
+  }
+
+  function setUpTestForEmptyPatchList(){
+    numberOfPatch(0);
+    component.isLoaded = true;
+    component.ngOnInit();
+    fixture.detectChanges();
+  }
+
+  function setUpTestForPatchListWithPatch(){
+    numberOfPatch(1);
+    component.isLoaded = true;
+    component.ngOnInit();
+    fixture.detectChanges();
+  }
+
+});

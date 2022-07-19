@@ -52,7 +52,8 @@ export class PlantThumbnailComponent {
     this.dialog.open(AddToGardenComponent, {
       width: '250px',
       data: {
-        plantId: this.plant.plantId
+        plantId: this.plant.plantId,
+        plantName: this.plant.plantName
       }
     });
   }

@@ -1,33 +1,34 @@
+<div *ngIf="isLoaded">
+  <div *ngIf="patches.length; else noPatches">
+    <h1 mat-dialog-title>Add {{plant.plantName}} to my garden</h1>
 
-<div *ngIf="isLoading">
-<div *ngIf="patches.length; else noPatches"  >
-<h1 mat-dialog-title>Add {{plant.plantName}} to my garden</h1>
+    <mat-dialog-content>
+      <mat-form-field appearance="fill">
+        <mat-label>Select a patch</mat-label>
+        <mat-select class="select" [formControl]="patchControl" [(ngModel)]="patch" (valueChange)="onSelection()"
+          required>
+          <mat-option *ngFor="let patch of patches" [value]="patch">
+            {{patch.patchName}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="patchControl.hasError('required')">Please choose a patch</mat-error>
+      </mat-form-field>
+    </mat-dialog-content>
 
-<mat-dialog-content>
-  <mat-form-field appearance="fill">
-    <mat-label>Select a patch</mat-label>
-    <mat-select class="select" [formControl]="patchControl" [(ngModel)]="patch" (valueChange)="onSelection()" required>
-      <mat-option *ngFor="let patch of patches" [value]="patch">
-        {{patch.patchName}}
-      </mat-option>
-    </mat-select>
-    <mat-error *ngIf="patchControl.hasError('required')">Please choose a patch</mat-error>
-  </mat-form-field>
-</mat-dialog-content>
-
-<div mat-dialog-actions>
-  <button mat-button id="cancel" (click)="cancel()">No Thanks</button>
-  <button mat-button (click)="patchControl.valid && addOnGardenPage(patch, plant)" cdkFocusInitial>Save</button>
-</div>
-</div>
-
-<ng-template #noPatches class="no-patches">
-  <mat-dialog-content>
-    <p>You need to have at least one patch in your garden before adding plants</p>
-    <div class="buttons">
-    <button mat-button (click)="cancel()">Cancel</button>
-    <button mat-button class="create-patch"(click)="createPatch()">Create a patch</button>
+    <div mat-dialog-actions>
+      <button mat-button id="no-thanks" (click)="cancel()">No Thanks</button>
+      <button  mat-button id="add-on-garden-page" (click)="patchControl.valid && addOnGardenPage(patch, plant)" cdkFocusInitial>Save</button>
+    </div>
   </div>
-  </mat-dialog-content>
-</ng-template>
+
+  <ng-template #noPatches class="no-patches">
+    <mat-dialog-content>
+      <p>You need to have at least one patch in your garden before adding plants</p>
+      <div class="buttons">
+        <button mat-button id="cancel" (click)="cancel()">Cancel</button>
+        <button mat-button id="create-patch" (click)="createPatch()">Create a patch</button>
+      </div>
+    </mat-dialog-content>
+  </ng-template>
 </div>
+

@@ -19,7 +19,7 @@ import { AddToGardenComponent } from '../add-to-garden/add-to-garden.component';
 import { PatchesService } from 'src/app/services/patches/patches.service';
 import { HttpClient, HttpHandler } from '@angular/common/http';
 
-fdescribe('PlantThumbnailComponent', () => {
+describe('PlantThumbnailComponent', () => {
   let component: PlantsListComponent;
   let fixture: ComponentFixture<PlantsListComponent>;
   let componentThumbnail: PlantThumbnailComponent;

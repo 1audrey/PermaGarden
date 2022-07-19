@@ -50,8 +50,6 @@ describe('PlantsListComponent', () => {
         RouterTestingModule.withRoutes([
           { path: 'add-new-plant', component: AddNewPlantComponent }
         ]),
-
-
       ]
       ,
       providers:

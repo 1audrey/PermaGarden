@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
-import { Observable, throwError} from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import * as patches from "./patch-list.json";
 import { IPatch } from '../../garden/models/ipatch-model';
 import { ITask } from '../../task/models/itask-model';
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { catchError, tap } from 'rxjs/operators';
 import { IPlantInPatch } from '../../garden/models/iplantinpatch-model';
+import { IPlantsList } from 'src/app/garden-list/models/iplants-model';
+import { NotificationsService } from '../notifications/notifications.service';
 
 @Injectable()
 export class PatchesService {
@@ -21,7 +23,7 @@ export class PatchesService {
   allTasks!: ITask[];
 
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private notifications: NotificationsService) { }
 
   getASinglePatch(patchName: string): Observable<IPatch[]> {
     return this.http.get<IPatch[]>(this.baseUrl + `${patchName}`);
@@ -58,9 +60,20 @@ export class PatchesService {
     );
   }
 
-  savePlantInPatch(plantInPatch: IPlantInPatch): Observable<IPlantInPatch> {
+  savePlantInPatch(patch: IPatch, plant: IPlantsList) {
+    const plantInPatch =
+    {
+      patchId: patch.patchId,
+      patchName: patch.patchName,
+      plantId: plant.plantId
+    }
+    this.setPlantInPatch(plantInPatch).subscribe();
+    this.notifications.showSuccess(`${plant.plantName} has been add to the patch:' ${patch.patchName}'`);
+  }
+
+  setPlantInPatch(plantInPatch: IPlantInPatch): Observable<IPlantInPatch> {
     console.log(`Setting the ${plantInPatch.plantId} from the patch service`);
-    return this.http.post<IPlantInPatch>(this.baseUrl + 'save-plant-in-patch', plantInPatch ).pipe(
+    return this.http.post<IPlantInPatch>(this.baseUrl + 'save-plant-in-patch', plantInPatch).pipe(
       tap(() => console.log(`Patch service added ${plantInPatch.plantId} to ${plantInPatch.patchName} successfully`)),
       catchError((error: HttpErrorResponse) => throwError(error))
     );
