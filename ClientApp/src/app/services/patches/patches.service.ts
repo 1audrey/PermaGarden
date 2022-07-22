@@ -67,8 +67,10 @@ export class PatchesService {
       patchName: patch.patchName,
       plantId: plant.plantId
     }
-    this.setPlantInPatch(plantInPatch).subscribe();
-    this.notifications.showSuccess(`${plant.plantName} has been add to the patch:' ${patch.patchName}'`);
+    this.setPlantInPatch(plantInPatch).subscribe(() =>{
+      this.notifications.showSuccess(`${plant.plantName} has been add to the patch:' ${patch.patchName}'`);
+    });
+
   }
 
   setPlantInPatch(plantInPatch: IPlantInPatch): Observable<IPlantInPatch> {

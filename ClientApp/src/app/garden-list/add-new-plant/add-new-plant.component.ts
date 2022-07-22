@@ -7,8 +7,6 @@ import { IPlantsImage } from '../models/iplants-image-model';
 import { IPlantsList } from '../models/iplants-model';
 import { SelectImageDialogComponent } from './select-image-dialog/select-image-dialog.component';
 
-
-
 @Component({
   selector: 'app-add-new-plant',
   templateUrl: './add-new-plant.component.html',
@@ -16,7 +14,6 @@ import { SelectImageDialogComponent } from './select-image-dialog/select-image-d
 })
 
 export class AddNewPlantComponent {
-
   isDirty: boolean = true;
   newPlant!: any;
   imgs: IPlantsImage[] = [];
@@ -53,32 +50,24 @@ export class AddNewPlantComponent {
     { value: 'Planting' }
   ];
 
+  ngOnInit() {
+    this.plants = this.route.snapshot.data['plants'];
+  }
+
   cancel() {
     this.router.navigate(['plants-list']);
   }
 
-  saveNewPlant(formValues: IPlantsList) {
+  saveNewPlant(plantFormValue: IPlantsList) {
     this.isDirty = false;
 
-    this.plants = this.route.snapshot.data['plants'];
     for (let plant of this.plants) {
-      if (this.checkIfPlantWithSameNameExists(plant.plantName, formValues.plantName)) {
+      if (this.checkIfPlantWithSameNameExists(plant.plantName, plantFormValue.plantName)) {
         return;
       }
     }
 
-    if (formValues.plantName === null) {
-      this.notifications.showError(`Oops something went wrong, please fill all the required fields`);
-    }
-    else {
-      formValues.plantStartingMonths = formValues.plantStartingMonths.toString();
-      formValues.plantHarvestingMonths = formValues.plantHarvestingMonths.toString();
-      console.log(formValues);
-      this.plantService.saveNewPlant(formValues).subscribe(() => {
-        this.notifications.showSuccess(`${formValues.plantName} has been added to your plant list`);
-        this.router.navigate(['plants-list']);
-      });
-    }
+    this.plantService.saveNewPlant(plantFormValue);
   }
 
   openSelectImageDialog() {
@@ -103,7 +92,7 @@ export class AddNewPlantComponent {
   }
 }
 
-export interface Month {
+interface Month {
   name: string;
   isChecked: boolean;
 }

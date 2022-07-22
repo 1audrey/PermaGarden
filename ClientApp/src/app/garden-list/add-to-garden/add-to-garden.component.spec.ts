@@ -16,7 +16,7 @@ import { NotificationsService } from 'src/app/services/notifications/notificatio
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
-fdescribe('AddToGardenComponent', () => {
+describe('AddToGardenComponent', () => {
   let component: AddToGardenComponent;
   let fixture: ComponentFixture<AddToGardenComponent>;
   const mockDialogRef = { close: jasmine.createSpy('close') };

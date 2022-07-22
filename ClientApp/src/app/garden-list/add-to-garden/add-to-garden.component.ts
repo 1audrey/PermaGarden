@@ -3,7 +3,6 @@ import { FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { IPatch } from 'src/app/garden/models/ipatch-model';
-import { IPlantInPatch } from '../../garden/models/iplantinpatch-model';
 import { PatchesService } from '../../services/patches/patches.service';
 import { IPlantsList } from '../models/iplants-model';
 
@@ -14,15 +13,12 @@ import { IPlantsList } from '../models/iplants-model';
 })
 
 export class AddToGardenComponent implements OnInit {
-  addToGardenForm: any;
   isDirty: boolean = true;
   patches!: IPatch[];
   patch!: IPatch;
   patchName!:string;
   patchControl = new FormControl('', Validators.required);
-  selectedPatch!: IPatch;
-  public isLoaded: boolean = false;
-  plantInPatch!: IPlantInPatch;
+  isLoaded: boolean = false;
 
   constructor(
     private router: Router,
@@ -56,7 +52,6 @@ export class AddToGardenComponent implements OnInit {
   createPatch(){
     this.dialog.close();
     this.router.navigate(['create-patch']);
-
   }
 }
 

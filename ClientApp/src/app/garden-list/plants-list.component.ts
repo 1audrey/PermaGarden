@@ -10,7 +10,6 @@ import { PlantsService } from '../services/plants/plants.service';
 })
 
 export class PlantsListComponent implements OnInit {
-
   plants!: IPlantsList[];
   month = new Date().toLocaleString('default', { month: 'long' });
   plant!: IPlantsList;
