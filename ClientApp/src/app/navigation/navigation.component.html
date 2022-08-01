@@ -17,7 +17,7 @@
           [routerLink]="['/plants-list']" routerLinkActive="active-list-item" mat-flat-button>Plants</a>
         <a disableRipple="true" href="#" mat-flat-button (click)="openTasksList()" [routerLink]="['/tasks']"
           routerLinkActive="active-list-item">Tasks</a>
-        <a disableRipple="true" href="#" mat-flat-button>History</a>
+        <a disableRipple="true" href="#" [routerLink]="['/history']" mat-flat-button>History</a>
       </div>
       <div fxFlex fxLayoutAlign="flex-end center">
         <a disableRipple="true" *ngIf="!auth.isAuthenticated()" id="login" (click)="openLogIn()"
@@ -37,7 +37,7 @@
           routerLinkActive="active-list-item" id="side" mat-button>Plants</a>
         <a disableRipple="true" mat-button (click)="openTasksList()" [routerLink]="['/tasks']"
           routerLinkActive="active-list-item">Tasks</a>
-        <a disableRipple="true" href="#" mat-button>History</a>
+        <a disableRipple="true" href="#" [routerLink]="['/history']" mat-button>History</a>
       </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content fxFlexFill>

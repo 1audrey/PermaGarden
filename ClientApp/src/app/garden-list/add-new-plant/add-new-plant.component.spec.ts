@@ -11,7 +11,7 @@ import { PlantsService } from 'src/app/services/plants/plants.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { PlantsListResolver } from 'src/app/resolver/plants-list-resolver.service';
 
-fdescribe('AddNewPlantComponent', () => {
+describe('AddNewPlantComponent', () => {
  let component: AddNewPlantComponent;
  let fixture: ComponentFixture<AddNewPlantComponent>;
 //  let routerSpy = {navigate: jasmine.createSpy('navigate')};

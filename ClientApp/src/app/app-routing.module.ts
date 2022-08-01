@@ -15,6 +15,7 @@ import { HomepageComponent } from './homepage/homepage/homepage.component';
 import { SummaryComponent } from './homepage/summary/summary.component';
 import { SinglepatchResolverService } from './resolver/singlepatch-resolver.service';
 import { TaskDetailsComponent } from './task/task-details/task-details.component';
+import { HistoryComponent } from './history/history.component';
 
 const routes: Routes = [
   {
@@ -97,6 +98,11 @@ const routes: Routes = [
     path: 'create-task/:patchName',
     component: CreateTaskComponent,
     resolve: { patchName: SinglepatchResolverService, plants: PlantsListResolver }
+  },
+  {
+    path: 'history',
+    component: HistoryComponent,
+    resolve: { plants: PlantsListResolver }
   },
 
 ];

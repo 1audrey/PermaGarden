@@ -58,6 +58,11 @@ import { NotificationsService } from './services/notifications/notifications.ser
 import { PatchesService } from './services/patches/patches.service';
 import { SinglepatchResolverService } from './resolver/singlepatch-resolver.service';
 import { MockPipe } from './mock/mock-pipe';
+import { HistoryComponent } from './history/history.component';
+import { MatSortModule } from '@angular/material/sort';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+
 
 
 
@@ -85,8 +90,9 @@ import { MockPipe } from './mock/mock-pipe';
     WeatherComponent,
     SummaryComponent,
     MockPipe,
+    HistoryComponent,
 
-    
+
 
   ],
   imports: [
@@ -116,6 +122,10 @@ import { MockPipe } from './mock/mock-pipe';
     MatInputModule,
     MatMenuModule,
     HttpClientModule,
+    MatSortModule,
+    MatTableModule,
+    MatPaginatorModule,
+
 
 
   ],
