@@ -13,19 +13,22 @@ import { FormControl, FormGroup } from '@angular/forms';
 export class HistoryComponent implements OnInit, AfterViewInit {
 
   ELEMENT_DATA: PeriodicElement[] = [
-    { plant: 'Carrot', startingDate: '20/06/2022', transplantDate: '27/06/2022', realHarvestingDates: '6/08/2022', harvestedWeight: '4', failureReasons: '' },
-    { plant: 'Beans', startingDate: '24/06/2022', transplantDate: '', realHarvestingDates: '6/08/2022, 18/07/2022', harvestedWeight: '4, 5', failureReasons: '' },
-    { plant: 'Carrot', startingDate: '20/06/2022', transplantDate: '27/06/2022', realHarvestingDates: '6/08/2022', harvestedWeight: '', failureReasons: 'not sunny enough' },
-    { plant: 'Beans', startingDate: '28/06/2022', transplantDate: '', realHarvestingDates: '', harvestedWeight: '', failureReasons: 'planted too early' },
-    { plant: 'Peas', startingDate: '28/06/2022', transplantDate: '', realHarvestingDates: '', harvestedWeight: '', failureReasons: 'planted too early' },
+    { plant: 'Carrot', patch:'Patch 1', startingDate: '20/06/2022', transplantDate: '27/06/2022', realHarvestingDates: '6/08/2022', harvestedWeight: '4', failureReasons: '' },
+    { plant: 'Beans', patch:'Patch 1', startingDate: '24/06/2022', transplantDate: '', realHarvestingDates: '6/08/2022, 18/07/2022', harvestedWeight: '4, 5', failureReasons: '' },
+    { plant: 'Carrot', patch:'Patch 2', startingDate: '20/06/2022', transplantDate: '27/06/2022', realHarvestingDates: '6/08/2022', harvestedWeight: '', failureReasons: 'not sunny enough' },
+    { plant: 'Beans', patch:'Patch 2', startingDate: '28/06/2022', transplantDate: '', realHarvestingDates: '', harvestedWeight: '', failureReasons: 'planted too early' },
+    { plant: 'Peas', patch:'Patch 3',startingDate: '28/06/2022', transplantDate: '', realHarvestingDates: '', harvestedWeight: '', failureReasons: 'planted too early' },
+    { plant: 'Beans', patch:'Patch 3',startingDate: '1/06/2022', transplantDate: '', realHarvestingDates: '6/08/2022, 18/07/2022', harvestedWeight: '4, 5', failureReasons: '' },
+    { plant: 'Carrot', patch:'Patch 2', startingDate: '20/06/2022', transplantDate: '27/06/2022', realHarvestingDates: '6/08/2022', harvestedWeight: '10', failureReasons: '' },
 
   ];
 
-  displayedColumns: string[] = ['plant', 'startingDate', 'transplantDate', 'realHarvestingDates', 'harvestedWeight', 'failureReasons'];
+  displayedColumns: string[] = ['plant', 'patch', 'startingDate', 'transplantDate', 'realHarvestingDates', 'harvestedWeight', 'failureReasons'];
   dataSource = new MatTableDataSource(this.ELEMENT_DATA);
   // dataSource: MatTableDataSource<UserData>; change for archivedTask
   listOfFilteredPLants: string[] = [];
   listOfFilter: Filter[] = [];
+  listOfFilteredPatches: string[] = [];
 
   constructor(private _liveAnnouncer: LiveAnnouncer) {
   }
@@ -45,6 +48,7 @@ export class HistoryComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.getPlantsToFilter();
+    this.getPatchesToFilter()
     this.filterOptions();
     this.formSubscribe();
     this.getFormsValue();
@@ -77,15 +81,31 @@ export class HistoryComponent implements OnInit, AfterViewInit {
 
       else if (this.IsFailuresFitlerAndAnotherFilterApplied(searchString)) {
         for (const option of searchString.option) {
-          if (data.failureReasons != '' && data.plant.trim() === option) {
+          if (data.failureReasons != '' && data.plant.trim() === option){
+            isFilterApplied = true;
+          }
+          else if(data.failureReasons != '' && data.patch.trim() === option){
             isFilterApplied = true;
           }
         }
       }
 
-      else if (this.IsFilterAppliedWithoutFailures(searchString)) {
+      else if (this.IsOnePlantOnePatchFilterApplied(searchString)) {
+        for(let i =0; i<this.listOfFilter[0].options.length; i++){
+          for(let j =0; j<this.listOfFilter[1].options.length; j++){
+            if(data.plant.trim() === searchString.option[i] && data.patch.trim() === searchString.option[j]){
+              isFilterApplied = true;
+            }
+          }
+        }
+      }
+
+      else if (this.IsOneFilterAppliedWithoutFailures(searchString)) {
         for (const option of searchString.option) {
           if (data.plant.trim() === option) {
+            isFilterApplied = true;
+          }
+          else if(data.patch.trim() === option){
             isFilterApplied = true;
           }
         }
@@ -100,6 +120,7 @@ export class HistoryComponent implements OnInit, AfterViewInit {
     this.dataSource.filter = JSON.stringify(this.filterValues);
   }
 
+
   isFailuresFilterAppliedOnly(searchString: any): boolean{
     return searchString.option.length === 1 && searchString.option.includes('Failures')
   }
@@ -108,8 +129,21 @@ export class HistoryComponent implements OnInit, AfterViewInit {
     return searchString.option.length && searchString.option.includes('Failures');
   }
 
-  IsFilterAppliedWithoutFailures(searchString: any): boolean{
+  IsOneFilterAppliedWithoutFailures(searchString: any): boolean{
     return searchString.option.length;
+  }
+
+  IsOnePlantOnePatchFilterApplied(searchString: any){
+    for(let i =0; i<this.listOfFilter[0].options.length; i++){
+      if(searchString.option.length && searchString.option.includes(this.listOfFilter[0].options[i])){
+        for(let j =0; j<this.listOfFilter[1].options.length; j++){
+          if(searchString.option.includes(this.listOfFilter[1].options[j])){
+            return true;
+          }
+        }
+      }
+    }
+    return false;
   }
 
   announceSortChange(sortState: Sort) {
@@ -127,6 +161,10 @@ export class HistoryComponent implements OnInit, AfterViewInit {
         options: this.listOfFilteredPLants,
       },
       {
+        name: 'By Patch',
+        options: this.listOfFilteredPatches,
+      },
+      {
         name: 'Other',
         options: ['Failures'],
       }
@@ -141,6 +179,14 @@ export class HistoryComponent implements OnInit, AfterViewInit {
     this.listOfFilteredPLants = [...new Set(listOfPLants)];
   }
 
+  getPatchesToFilter() {
+    let listOfPatches: string[] = [];
+    this.ELEMENT_DATA.forEach((element) => {
+      listOfPatches.push(element.patch);
+    })
+    this.listOfFilteredPatches = [...new Set(listOfPatches)];
+  }
+
   getTotalPlant() {
     return this.dataSource.paginator?.length;
   }
@@ -149,10 +195,12 @@ export class HistoryComponent implements OnInit, AfterViewInit {
     return this.dataSource.filteredData.reduce((acc, value) =>
       acc + value.harvestedWeight.split(',').map(Number).reduce((sum, current) => sum + current, 0), 0);
   }
+
 }
 
 export interface PeriodicElement {
   plant: string,
+  patch: string,
   startingDate: string,
   transplantDate: string,
   realHarvestingDates: string,

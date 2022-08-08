@@ -1,15 +1,3 @@
-<!-- <mat-form-field appearance="fill">
-  <mat-label>Filters</mat-label>
-  <mat-select ngDefaultControl [(ngModel)]="selectedOption" (selectionChange)="onSelection()">
-    <mat-option>-- None --</mat-option>
-    <mat-optgroup *ngFor="let filter of listOfFilter" [label]="filter.name">
-      <mat-option  *ngFor="let option of filter.options"[value]="option">
-        {{option}}
-      </mat-option>
-    </mat-optgroup>
-  </mat-select>
-</mat-form-field> -->
-
 <form [formGroup]="filterForm">
   <div mat-dialog-content class="filter__form">
       <mat-form-field>
@@ -35,6 +23,14 @@
     </th>
     <td mat-cell *matCellDef="let element"> {{element.plant}} </td>
   </ng-container>
+
+    <!-- Patch Column -->
+    <ng-container matColumnDef="patch">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by patch">
+        Patch
+      </th>
+      <td mat-cell *matCellDef="let element"> {{element.patch}} </td>
+    </ng-container>
 
   <!-- Starting Date Column -->
   <ng-container matColumnDef="startingDate">
@@ -85,10 +81,10 @@
       </tr>
 </table>
 
-<mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of archived tasks"></mat-paginator>
+<mat-paginator [pageSizeOptions]="[10, 25, 50, 100]" aria-label="Select page of archived tasks"></mat-paginator>
 </div>
 
 <div class="totals">
-  <p >Total of plants: {{getTotalPlant()}}</p>
-  <p >Total of Weight {{getTotalWeight()}}</p>
+  <p>Total of plants: {{getTotalPlant()}}</p>
+  <p>Total of Weight: {{getTotalWeight()}}</p>
 </div>
