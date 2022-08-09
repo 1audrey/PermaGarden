@@ -20,7 +20,7 @@ export class HistoryComponent implements OnInit, AfterViewInit {
     { plant: 'Peas', patch:'Patch 3',startingDate: '28/06/2022', transplantDate: '', realHarvestingDates: '', harvestedWeight: '', failureReasons: 'planted too early' },
     { plant: 'Beans', patch:'Patch 3',startingDate: '1/06/2022', transplantDate: '', realHarvestingDates: '6/08/2022, 18/07/2022', harvestedWeight: '4, 5', failureReasons: '' },
     { plant: 'Carrot', patch:'Patch 2', startingDate: '20/06/2022', transplantDate: '27/06/2022', realHarvestingDates: '6/08/2022', harvestedWeight: '10', failureReasons: '' },
-
+    { plant: 'Beans', patch:'Patch 3', startingDate: '28/06/2022', transplantDate: '', realHarvestingDates: '', harvestedWeight: '', failureReasons: 'too much water' },
   ];
 
   displayedColumns: string[] = ['plant', 'patch', 'startingDate', 'transplantDate', 'realHarvestingDates', 'harvestedWeight', 'failureReasons'];
@@ -90,6 +90,20 @@ export class HistoryComponent implements OnInit, AfterViewInit {
         }
       }
 
+      else if (this.IsFailurePlantAndPatchFilterApplied(searchString)) {
+          for(let i =0; i<this.listOfFilter[0].options.length; i++){
+            if(data.plant.trim() === searchString.option[i]){
+              for(let j =0; j<this.listOfFilter[1].options.length; j++){
+                if(data.patch.trim() === searchString.option[j]){
+                  if (data.failureReasons != ''){
+                    isFilterApplied = true;
+                }
+              }
+            }
+          }
+        }
+      }
+
       else if (this.IsOnePlantOnePatchFilterApplied(searchString)) {
         for(let i =0; i<this.listOfFilter[0].options.length; i++){
           for(let j =0; j<this.listOfFilter[1].options.length; j++){
@@ -126,7 +140,7 @@ export class HistoryComponent implements OnInit, AfterViewInit {
   }
 
   IsFailuresFitlerAndAnotherFilterApplied(searchString: any): boolean{
-    return searchString.option.length && searchString.option.includes('Failures');
+    return searchString.option.length === 2 && searchString.option.includes('Failures');
   }
 
   IsOneFilterAppliedWithoutFailures(searchString: any): boolean{
@@ -139,6 +153,21 @@ export class HistoryComponent implements OnInit, AfterViewInit {
         for(let j =0; j<this.listOfFilter[1].options.length; j++){
           if(searchString.option.includes(this.listOfFilter[1].options[j])){
             return true;
+          }
+        }
+      }
+    }
+    return false;
+  }
+
+  IsFailurePlantAndPatchFilterApplied(searchString:any){
+    if(searchString.option.length > 2 && searchString.option.includes('Failures')){
+      for(let i =0; i<this.listOfFilter[0].options.length; i++){
+        if(searchString.option.includes(this.listOfFilter[0].options[i])){
+          for(let j =0; j<this.listOfFilter[1].options.length; j++){
+            if(searchString.option.includes(this.listOfFilter[1].options[j])){
+              return true;
+            }
           }
         }
       }
