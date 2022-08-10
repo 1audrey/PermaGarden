@@ -62,7 +62,7 @@ import { HistoryComponent } from './history/history.component';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
-
+import {MatChipsModule} from '@angular/material/chips';
 
 
 
@@ -125,10 +125,9 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatSortModule,
     MatTableModule,
     MatPaginatorModule,
-
-
-
+    MatChipsModule
   ],
+
   providers:[
     PlantsService,
     {provide: 'canDeactivateAddToGarden', useValue: checkDirtyState},

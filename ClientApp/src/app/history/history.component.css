@@ -8,13 +8,98 @@ th.mat-sort-header-sorted {
 
 .mat-form-field {
   font-size: 14px;
-  width: 10%;
+  width: 100%;
+  padding-left: 16px !important;
 }
 
 td, th {
-  width: 25%;
+  width: 15%;
 }
 
 .mat-paginator{
   width:100%;
+}
+
+mat-chip {
+  max-width: 100%;
+}
+
+.plant-chip{
+  color: white;
+  background-color: #114b0b !important;
+}
+
+.patch-chip{
+  color: white;
+  background-color: #5fc3d3 !important;
+}
+
+.failure-chip{
+  color: white;
+  background-color: #fa990e !important;
+}
+
+.header{
+  padding: 0 20px;
+  justify-content: center;
+  color: #000409;
+}
+
+.history-title {
+  display: flex;
+  justify-content: flex-start;
+  align-items: stretch;
+  padding-left: 25px !important;
+  padding-right: 25px !important;
+  align-content: center;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+
+.mat-h2, .mat-title, h2 {
+  font: 500 20px/32px Roboto, "Helvetica Neue", sans-serif;
+  letter-spacing: normal;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 16px !important;
+}
+
+.title{
+  display: flex;
+  flex-direction: column;
+}
+.filter-and-chips{
+  display: flex;
+}
+
+.title-right{
+  float: center;
+  margin-left: 40px !important;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-content: space-between;
+  justify-content: space-evenly;
+  align-items: flex-end;
+}
+
+.table{
+  padding-left: 25px !important;
+  padding-right: 25px !important;
+  display: flex;
+  flex-direction: column;
+  max-height: 500px;
+  min-width: 300px;
+}
+
+.totals{
+  padding-left: 25px !important;
+  padding-right: 25px !important;
+  font-weight: bold;
+  display: flex;
+}
+
+p{
+  margin-left: 25px !important;
+  margin-right: 25px !important;
 }

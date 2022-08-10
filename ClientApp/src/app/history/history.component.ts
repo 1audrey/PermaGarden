@@ -20,7 +20,7 @@ export class HistoryComponent implements OnInit, AfterViewInit {
     { plant: 'Peas', patch:'Patch 3',startingDate: '28/06/2022', transplantDate: '', realHarvestingDates: '', harvestedWeight: '', failureReasons: 'planted too early' },
     { plant: 'Beans', patch:'Patch 3',startingDate: '1/06/2022', transplantDate: '', realHarvestingDates: '6/08/2022, 18/07/2022', harvestedWeight: '4, 5', failureReasons: '' },
     { plant: 'Carrot', patch:'Patch 2', startingDate: '20/06/2022', transplantDate: '27/06/2022', realHarvestingDates: '6/08/2022', harvestedWeight: '10', failureReasons: '' },
-    { plant: 'Beans', patch:'Patch 3', startingDate: '28/06/2022', transplantDate: '', realHarvestingDates: '', harvestedWeight: '', failureReasons: 'too much water' },
+    { plant: 'Beans', patch:'Patch 3', startingDate: '28/06/2022', transplantDate: '', realHarvestingDates: '', harvestedWeight: '', failureReasons: 'too much water from the 15th of apri till the 30th of june. There was mildiou on the leaves' },
   ];
 
   displayedColumns: string[] = ['plant', 'patch', 'startingDate', 'transplantDate', 'realHarvestingDates', 'harvestedWeight', 'failureReasons'];
@@ -223,6 +223,18 @@ export class HistoryComponent implements OnInit, AfterViewInit {
   getTotalWeight() {
     return this.dataSource.filteredData.reduce((acc, value) =>
       acc + value.harvestedWeight.split(',').map(Number).reduce((sum, current) => sum + current, 0), 0);
+  }
+
+  isPlantChipColor(option: string){
+    return this.listOfFilteredPLants.includes(option)
+  }
+
+  isPatchChipColor(option: string){
+    return this.listOfFilteredPatches.includes(option)
+  }
+
+  isFailureChipColor(option: string){
+    return option === 'Failures';
   }
 
 }
