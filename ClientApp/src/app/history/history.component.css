@@ -93,6 +93,7 @@ mat-chip {
 }
 
 .totals{
+  padding-top: 16px;
   padding-left: 25px !important;
   padding-right: 25px !important;
   font-weight: bold;
@@ -102,4 +103,42 @@ mat-chip {
 p{
   margin-left: 25px !important;
   margin-right: 25px !important;
+}
+
+.cancel-chip{
+  display:flex;
+  background-color: transparent;
+  border-color: transparent;
+  color: white;
+  justify-content: center;
+}
+
+.cancel-chip:hover{
+cursor: pointer;
+}
+
+.material-icons {
+  font-size: 18px;
+}
+
+.mat-icon{
+  height: 0% !important;
+  width: 0% !important;
+}
+
+.mat-chip.mat-standard-chip .mat-chip-remove {
+  color: white;
+  opacity: 0.4;
+}
+
+::ng-deep .plant-checkbox .mat-pseudo-checkbox-checked {
+  background: #114b0b !important;
+}
+
+::ng-deep .patch-checkbox .mat-pseudo-checkbox-checked {
+  background: #5fc3d3 !important;
+}
+
+::ng-deep .failure-checkbox .mat-pseudo-checkbox-checked {
+  background: #fa990e !important;
 }

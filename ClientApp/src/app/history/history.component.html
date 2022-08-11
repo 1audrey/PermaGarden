@@ -8,8 +8,8 @@
             <mat-form-field>
               <mat-label>Filter</mat-label>
               <mat-select formControlName="option" multiple>
-                <mat-optgroup *ngFor="let filter of listOfFilter" [label]="filter.name">
-                  <mat-option *ngFor="let option of filter.options" [value]="option">
+                <mat-optgroup *ngFor="let filter of listOfFilter" [label]="filter.name" [class]="filter.className">
+                  <mat-option *ngFor="let option of filter.options" [value]="option"  >
                     {{option}}
                   </mat-option>
                 </mat-optgroup>
@@ -18,12 +18,15 @@
           </div>
         </form>
         <div class="title-right">
-          <mat-chip-list>
-            <mat-chip *ngFor="let option of filterValues.option" selected [ngClass]="{
+          <mat-chip-list aria-label="Filters selection">
+            <mat-chip *ngFor="let option of filterValues.option" (removed)="removeFilter(option)" [ngClass]="{
     'plant-chip': isPlantChipColor(option),
     'patch-chip': isPatchChipColor(option),
     'failure-chip': isFailureChipColor(option)}">
               {{option}}
+              <button class="cancel-chip" >
+                <mat-icon matChipRemove>cancel</mat-icon>
+              </button>
             </mat-chip>
           </mat-chip-list>
         </div>
@@ -99,12 +102,10 @@
         <td class="mat-cell" colspan="4">No data matching the filter</td>
       </tr>
     </table>
-
     <mat-paginator [pageSizeOptions]="[10, 25, 50, 100]" aria-label="Select page of archived tasks"></mat-paginator>
   </div>
-
-  <div class="totals">
-    <p class="plants">Total of plants: {{getTotalPlant()}}</p>
-    <p class="weight">Total weight: {{getTotalWeight()}}</p>
-  </div>
+</div>
+<div class="totals">
+  <p class="plants">Total of plants: {{getTotalPlant()}}</p>
+  <p class="weight">Total weight: {{getTotalWeight()}}</p>
 </div>

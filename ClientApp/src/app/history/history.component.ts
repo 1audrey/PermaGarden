@@ -13,14 +13,14 @@ import { FormControl, FormGroup } from '@angular/forms';
 export class HistoryComponent implements OnInit, AfterViewInit {
 
   ELEMENT_DATA: PeriodicElement[] = [
-    { plant: 'Carrot', patch:'Patch 1', startingDate: '20/06/2022', transplantDate: '27/06/2022', realHarvestingDates: '6/08/2022', harvestedWeight: '4', failureReasons: '' },
-    { plant: 'Beans', patch:'Patch 1', startingDate: '24/06/2022', transplantDate: '', realHarvestingDates: '6/08/2022, 18/07/2022', harvestedWeight: '4, 5', failureReasons: '' },
-    { plant: 'Carrot', patch:'Patch 2', startingDate: '20/06/2022', transplantDate: '27/06/2022', realHarvestingDates: '6/08/2022', harvestedWeight: '', failureReasons: 'not sunny enough' },
-    { plant: 'Beans', patch:'Patch 2', startingDate: '28/06/2022', transplantDate: '', realHarvestingDates: '', harvestedWeight: '', failureReasons: 'planted too early' },
-    { plant: 'Peas', patch:'Patch 3',startingDate: '28/06/2022', transplantDate: '', realHarvestingDates: '', harvestedWeight: '', failureReasons: 'planted too early' },
-    { plant: 'Beans', patch:'Patch 3',startingDate: '1/06/2022', transplantDate: '', realHarvestingDates: '6/08/2022, 18/07/2022', harvestedWeight: '4, 5', failureReasons: '' },
-    { plant: 'Carrot', patch:'Patch 2', startingDate: '20/06/2022', transplantDate: '27/06/2022', realHarvestingDates: '6/08/2022', harvestedWeight: '10', failureReasons: '' },
-    { plant: 'Beans', patch:'Patch 3', startingDate: '28/06/2022', transplantDate: '', realHarvestingDates: '', harvestedWeight: '', failureReasons: 'too much water from the 15th of apri till the 30th of june. There was mildiou on the leaves' },
+    { plant: 'Carrot', patch: 'Patch 1', startingDate: '20/06/2022', transplantDate: '27/06/2022', realHarvestingDates: '6/08/2022', harvestedWeight: '4', failureReasons: '' },
+    { plant: 'Beans', patch: 'Patch 1', startingDate: '24/06/2022', transplantDate: '', realHarvestingDates: '6/08/2022, 18/07/2022', harvestedWeight: '4, 5', failureReasons: '' },
+    { plant: 'Carrot', patch: 'Patch 2', startingDate: '20/06/2022', transplantDate: '27/06/2022', realHarvestingDates: '6/08/2022', harvestedWeight: '', failureReasons: 'not sunny enough' },
+    { plant: 'Beans', patch: 'Patch 2', startingDate: '28/06/2022', transplantDate: '', realHarvestingDates: '', harvestedWeight: '', failureReasons: 'planted too early' },
+    { plant: 'Peas', patch: 'Patch 3', startingDate: '28/06/2022', transplantDate: '', realHarvestingDates: '', harvestedWeight: '', failureReasons: 'planted too early' },
+    { plant: 'Beans', patch: 'Patch 3', startingDate: '1/06/2022', transplantDate: '', realHarvestingDates: '6/08/2022, 18/07/2022', harvestedWeight: '4, 5', failureReasons: '' },
+    { plant: 'Carrot', patch: 'Patch 2', startingDate: '20/06/2022', transplantDate: '27/06/2022', realHarvestingDates: '6/08/2022', harvestedWeight: '10', failureReasons: '' },
+    { plant: 'Beans', patch: 'Patch 3', startingDate: '28/06/2022', transplantDate: '', realHarvestingDates: '', harvestedWeight: '', failureReasons: 'too much water from the 15th of apri till the 30th of june. There was mildiou on the leaves' },
   ];
 
   displayedColumns: string[] = ['plant', 'patch', 'startingDate', 'transplantDate', 'realHarvestingDates', 'harvestedWeight', 'failureReasons'];
@@ -29,6 +29,7 @@ export class HistoryComponent implements OnInit, AfterViewInit {
   listOfFilteredPLants: string[] = [];
   listOfFilter: Filter[] = [];
   listOfFilteredPatches: string[] = [];
+  isFilterApplied!: boolean;
 
   constructor(private _liveAnnouncer: LiveAnnouncer) {
   }
@@ -48,131 +49,13 @@ export class HistoryComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.getPlantsToFilter();
-    this.getPatchesToFilter()
-    this.filterOptions();
-    this.formSubscribe();
-    this.getFormsValue();
+    this.getPatchesToFilter();
+    this.initializeFilter()
   }
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
-  }
-
-  formSubscribe() {
-    this.option?.valueChanges.subscribe(optionValue => {
-      this.filterValues['option'] = optionValue;
-      this.dataSource.filter = JSON.stringify(this.filterValues);
-    });
-  }
-
-  getFormsValue() {
-    this.dataSource.filterPredicate = (data, filter: string): boolean => {
-      let searchString = JSON.parse(filter);
-      let isFilterApplied = false;
-
-      if (this.isFailuresFilterAppliedOnly(searchString)) {
-        for (const option of searchString.option) {
-          if (option === 'Failures' && data.failureReasons != '') {
-              isFilterApplied = true;
-          }
-        }
-      }
-
-      else if (this.IsFailuresFitlerAndAnotherFilterApplied(searchString)) {
-        for (const option of searchString.option) {
-          if (data.failureReasons != '' && data.plant.trim() === option){
-            isFilterApplied = true;
-          }
-          else if(data.failureReasons != '' && data.patch.trim() === option){
-            isFilterApplied = true;
-          }
-        }
-      }
-
-      else if (this.IsFailurePlantAndPatchFilterApplied(searchString)) {
-          for(let i =0; i<this.listOfFilter[0].options.length; i++){
-            if(data.plant.trim() === searchString.option[i]){
-              for(let j =0; j<this.listOfFilter[1].options.length; j++){
-                if(data.patch.trim() === searchString.option[j]){
-                  if (data.failureReasons != ''){
-                    isFilterApplied = true;
-                }
-              }
-            }
-          }
-        }
-      }
-
-      else if (this.IsOnePlantOnePatchFilterApplied(searchString)) {
-        for(let i =0; i<this.listOfFilter[0].options.length; i++){
-          for(let j =0; j<this.listOfFilter[1].options.length; j++){
-            if(data.plant.trim() === searchString.option[i] && data.patch.trim() === searchString.option[j]){
-              isFilterApplied = true;
-            }
-          }
-        }
-      }
-
-      else if (this.IsOneFilterAppliedWithoutFailures(searchString)) {
-        for (const option of searchString.option) {
-          if (data.plant.trim() === option) {
-            isFilterApplied = true;
-          }
-          else if(data.patch.trim() === option){
-            isFilterApplied = true;
-          }
-        }
-      }
-
-      else {
-        isFilterApplied = true;
-      }
-
-      return isFilterApplied;
-    }
-    this.dataSource.filter = JSON.stringify(this.filterValues);
-  }
-
-
-  isFailuresFilterAppliedOnly(searchString: any): boolean{
-    return searchString.option.length === 1 && searchString.option.includes('Failures')
-  }
-
-  IsFailuresFitlerAndAnotherFilterApplied(searchString: any): boolean{
-    return searchString.option.length === 2 && searchString.option.includes('Failures');
-  }
-
-  IsOneFilterAppliedWithoutFailures(searchString: any): boolean{
-    return searchString.option.length;
-  }
-
-  IsOnePlantOnePatchFilterApplied(searchString: any){
-    for(let i =0; i<this.listOfFilter[0].options.length; i++){
-      if(searchString.option.length && searchString.option.includes(this.listOfFilter[0].options[i])){
-        for(let j =0; j<this.listOfFilter[1].options.length; j++){
-          if(searchString.option.includes(this.listOfFilter[1].options[j])){
-            return true;
-          }
-        }
-      }
-    }
-    return false;
-  }
-
-  IsFailurePlantAndPatchFilterApplied(searchString:any){
-    if(searchString.option.length > 2 && searchString.option.includes('Failures')){
-      for(let i =0; i<this.listOfFilter[0].options.length; i++){
-        if(searchString.option.includes(this.listOfFilter[0].options[i])){
-          for(let j =0; j<this.listOfFilter[1].options.length; j++){
-            if(searchString.option.includes(this.listOfFilter[1].options[j])){
-              return true;
-            }
-          }
-        }
-      }
-    }
-    return false;
   }
 
   announceSortChange(sortState: Sort) {
@@ -181,39 +64,6 @@ export class HistoryComponent implements OnInit, AfterViewInit {
     } else {
       this._liveAnnouncer.announce('Sorting cleared');
     }
-  }
-
-  filterOptions() {
-    this.listOfFilter = [
-      {
-        name: 'By Plants',
-        options: this.listOfFilteredPLants,
-      },
-      {
-        name: 'By Patch',
-        options: this.listOfFilteredPatches,
-      },
-      {
-        name: 'Other',
-        options: ['Failures'],
-      }
-    ];
-  }
-
-  getPlantsToFilter() {
-    let listOfPLants: string[] = [];
-    this.ELEMENT_DATA.forEach((element) => {
-      listOfPLants.push(element.plant);
-    })
-    this.listOfFilteredPLants = [...new Set(listOfPLants)];
-  }
-
-  getPatchesToFilter() {
-    let listOfPatches: string[] = [];
-    this.ELEMENT_DATA.forEach((element) => {
-      listOfPatches.push(element.patch);
-    })
-    this.listOfFilteredPatches = [...new Set(listOfPatches)];
   }
 
   getTotalPlant() {
@@ -225,16 +75,202 @@ export class HistoryComponent implements OnInit, AfterViewInit {
       acc + value.harvestedWeight.split(',').map(Number).reduce((sum, current) => sum + current, 0), 0);
   }
 
-  isPlantChipColor(option: string){
+  isPlantChipColor(option: string) {
     return this.listOfFilteredPLants.includes(option)
   }
 
-  isPatchChipColor(option: string){
+  isPatchChipColor(option: string) {
     return this.listOfFilteredPatches.includes(option)
   }
 
-  isFailureChipColor(option: string){
+  isFailureChipColor(option: string) {
     return option === 'Failures';
+  }
+
+  removeFilter(optionChip: never) {
+    const index = this.filterValues.option.indexOf(optionChip);
+
+    if (index >= 0) {
+      this.filterValues.option.splice(index, 1);
+      this.initializeFilter()
+    }
+  }
+
+  private initializeFilter(): void {
+    this.filterOptions();
+    this.formSubscribe();
+    this.getFormsValue();
+  }
+
+  private formSubscribe() {
+    this.option?.valueChanges.subscribe(optionValue => {
+      this.filterValues['option'] = optionValue;
+      this.dataSource.filter = JSON.stringify(this.filterValues);
+    });
+  }
+
+  private getFormsValue() {
+    this.dataSource.filterPredicate = (data, filter: string): boolean => {
+      let searchString = JSON.parse(filter);
+      this.isFilterApplied = false;
+
+      if (this.isFailuresFilterAppliedOnly(searchString)) {
+        this.applyFailureFilterOnly(searchString, data);
+      }
+
+      else if (this.IsFailuresFitlerAndAnotherFilterApplied(searchString)) {
+        this.applyFailureAndOneOtherFilter(searchString, data);
+      }
+
+      else if (this.IsFailurePlantAndPatchFilterApplied(searchString)) {
+        this.applyFailurePlantAndPatchFilter(searchString, data);
+      }
+
+      else if (this.IsOnePlantOnePatchFilterApplied(searchString)) {
+        this.applyOnePlantAndPatchFilter(searchString, data);
+      }
+
+      else if (this.IsOneFilterAppliedWithoutFailures(searchString)) {
+        this.OneFilterAppliedWithoutFailures(searchString, data);
+      }
+
+      else {
+        this.isFilterApplied = true;
+      }
+
+      return this.isFilterApplied;
+    }
+    this.dataSource.filter = JSON.stringify(this.filterValues);
+  }
+
+  private applyFailureFilterOnly(searchString: any, data: PeriodicElement) {
+    for (const option of searchString.option) {
+      if (option === 'Failures' && data.failureReasons != '') {
+        this.isFilterApplied = true;
+      }
+    }
+  }
+
+  private applyFailureAndOneOtherFilter(searchString: any, data: PeriodicElement) {
+    for (const option of searchString.option) {
+      if (data.failureReasons != '' && data.plant.trim() === option) {
+        this.isFilterApplied = true;
+      }
+      else if (data.failureReasons != '' && data.patch.trim() === option) {
+        this.isFilterApplied = true;
+      }
+    }
+  }
+
+  private applyFailurePlantAndPatchFilter(searchString: any, data: PeriodicElement) {
+    for (let i = 0; i < this.listOfFilter[0].options.length; i++) {
+      if (data.plant.trim() === searchString.option[i]) {
+        for (let j = 0; j < this.listOfFilter[1].options.length; j++) {
+          if (data.patch.trim() === searchString.option[j]) {
+            if (data.failureReasons != '') {
+              this.isFilterApplied = true;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  private applyOnePlantAndPatchFilter(searchString: any, data: PeriodicElement) {
+    for (let i = 0; i < this.listOfFilter[0].options.length; i++) {
+      for (let j = 0; j < this.listOfFilter[1].options.length; j++) {
+        if (data.plant.trim() === searchString.option[i] && data.patch.trim() === searchString.option[j]) {
+          this.isFilterApplied = true;
+        }
+      }
+    }
+  }
+
+  private OneFilterAppliedWithoutFailures(searchString: any, data: PeriodicElement) {
+    for (const option of searchString.option) {
+      if (data.plant.trim() === option) {
+        this.isFilterApplied = true;
+      }
+      else if (data.patch.trim() === option) {
+        this.isFilterApplied = true;
+      }
+    }
+  }
+
+  private getPatchesToFilter() {
+    let listOfPatches: string[] = [];
+    this.ELEMENT_DATA.forEach((element) => {
+      listOfPatches.push(element.patch);
+    })
+    this.listOfFilteredPatches = [...new Set(listOfPatches)];
+  }
+
+  private isFailuresFilterAppliedOnly(searchString: any): boolean {
+    return searchString.option.length === 1 && searchString.option.includes('Failures')
+  }
+
+  private IsFailuresFitlerAndAnotherFilterApplied(searchString: any): boolean {
+    return searchString.option.length === 2 && searchString.option.includes('Failures');
+  }
+
+  private IsOneFilterAppliedWithoutFailures(searchString: any): boolean {
+    return searchString.option.length;
+  }
+
+  private IsOnePlantOnePatchFilterApplied(searchString: any) {
+    for (let i = 0; i < this.listOfFilter[0].options.length; i++) {
+      if (searchString.option.length && searchString.option.includes(this.listOfFilter[0].options[i])) {
+        for (let j = 0; j < this.listOfFilter[1].options.length; j++) {
+          if (searchString.option.includes(this.listOfFilter[1].options[j])) {
+            return true;
+          }
+        }
+      }
+    }
+    return false;
+  }
+
+  private IsFailurePlantAndPatchFilterApplied(searchString: any) {
+    if (searchString.option.length > 2 && searchString.option.includes('Failures')) {
+      for (let i = 0; i < this.listOfFilter[0].options.length; i++) {
+        if (searchString.option.includes(this.listOfFilter[0].options[i])) {
+          for (let j = 0; j < this.listOfFilter[1].options.length; j++) {
+            if (searchString.option.includes(this.listOfFilter[1].options[j])) {
+              return true;
+            }
+          }
+        }
+      }
+    }
+    return false;
+  }
+
+  private getPlantsToFilter() {
+    let listOfPLants: string[] = [];
+    this.ELEMENT_DATA.forEach((element) => {
+      listOfPLants.push(element.plant);
+    })
+    this.listOfFilteredPLants = [...new Set(listOfPLants)];
+  }
+
+  private filterOptions() {
+    this.listOfFilter = [
+      {
+        name: 'By Plants',
+        options: this.listOfFilteredPLants,
+        className: 'plant-checkbox',
+      },
+      {
+        name: 'By Patch',
+        options: this.listOfFilteredPatches,
+        className: 'patch-checkbox',
+      },
+      {
+        name: 'Other',
+        options: ['Failures'],
+        className: 'failure-checkbox',
+      }
+    ];
   }
 
 }
@@ -251,6 +287,7 @@ export interface PeriodicElement {
 
 export interface Filter {
   name: string,
-  options: string[]
+  options: string[],
+  className: string
 }
 
