@@ -142,3 +142,7 @@ cursor: pointer;
 ::ng-deep .failure-checkbox .mat-pseudo-checkbox-checked {
   background: #fa990e !important;
 }
+
+.plant-focus{
+  margin-top:5%;
+}

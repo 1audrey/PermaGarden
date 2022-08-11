@@ -63,6 +63,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import {MatChipsModule} from '@angular/material/chips';
+import { PlantFocusStatsComponent } from './history/plant-focus-stats/plant-focus-stats.component';
 
 
 
@@ -91,6 +92,7 @@ import {MatChipsModule} from '@angular/material/chips';
     SummaryComponent,
     MockPipe,
     HistoryComponent,
+    PlantFocusStatsComponent,
 
 
 

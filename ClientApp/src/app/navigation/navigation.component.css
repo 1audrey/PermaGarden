@@ -1,5 +1,6 @@
 .navigation{
-  height: 80vh;
+  height: 100%;
+  width: 100%;
 }
 
 mat-toolbar {
@@ -41,7 +42,6 @@ mat-sidenav {
   border-radius: 5px;
   padding: 16px;
   color:#5b8d27;
-
 }
 
 mat-sidenav-container {
@@ -53,7 +53,7 @@ mat-sidenav-container {
 }
 
 .mat-drawer-content{
-overflow: auto;
+overflow: hidden;
 }
 
 .active-list-item{
@@ -83,4 +83,5 @@ h1{
 .mat-button:hover{
   background-color: transparent !important;
 }
+
 
