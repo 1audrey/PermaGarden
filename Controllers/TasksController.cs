@@ -15,7 +15,7 @@ namespace perma_garden_app.Controllers
     public class TasksController : ControllerBase
     {
         private readonly IPermaGardenRepositery<PlantsImagesRecord,
-            PlantsRecord,
+           PlantsRecord,
            PlantsInTasksRecord,
            PatchesImagesRecord,
            PatchesRecord,
@@ -47,6 +47,8 @@ namespace perma_garden_app.Controllers
             {
                 var newTask = new TasksRecord
                 {
+                    PlantId = task.PlantId,
+                    PatchId = task.PatchId,
                     CurrentTask = task.CurrentTask,
                     NextTask = task.NextTask,
                     StartingDate = task.StartingDate,
@@ -174,6 +176,8 @@ namespace perma_garden_app.Controllers
                 var newTask = new TasksRecord
                 {
                     TaskId = task.TaskId,
+                    PlantId = task.PlantId,
+                    PatchId = task.PatchId,
                     CurrentTask = task.CurrentTask,
                     NextTask = task.NextTask,
                     StartingDate = task.StartingDate,

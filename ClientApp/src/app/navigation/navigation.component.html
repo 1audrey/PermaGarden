@@ -34,10 +34,10 @@
         <a disableRipple="true" (click)="openGarden()" [routerLink]="['/garden']" routerLinkActive="active-list-item"
           mat-button>Garden</a>
         <a disableRipple="true" (click)="openPlantsList()" [routerLink]="['/plants-list']"
-          routerLinkActive="active-list-item" id="side" mat-button>Plants</a>
+          routerLinkActive="active-list-item" mat-button>Plants</a>
         <a disableRipple="true" mat-button (click)="openTasksList()" [routerLink]="['/tasks']"
           routerLinkActive="active-list-item">Tasks</a>
-        <a disableRipple="true" href="#" [routerLink]="['/history']" mat-button>History</a>
+        <a disableRipple="true" [routerLink]="['/history']" mat-button routerLinkActive="active-list-item">History</a>
       </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content fxFlexFill>

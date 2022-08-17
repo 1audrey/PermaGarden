@@ -18,7 +18,7 @@ export class CreateTaskComponent implements OnInit {
   selectedPlant!: IPlantsList;
   selectedTask!: string;
   selectedDate!: Date;
-  plants!: IPlantsList[];
+  plants: IPlantsList[] = [];
   tasks!: any;
   currentTask!: string;
 
@@ -36,6 +36,9 @@ export class CreateTaskComponent implements OnInit {
       this.patch = data['patchName'][0];
       console.log(this.patch);
     });
+
+    this.plants = this.route.snapshot.params['plants'];
+
   }
 
   getPlantStartingMethod() {
@@ -44,7 +47,8 @@ export class CreateTaskComponent implements OnInit {
 
   saveTask(formValues: ITask) {
     this.isDirty = false;
-    this.tasksService.saveNewTask(formValues, this.patch.patchName, this.patch.patchId, this.selectedPlant.plantId);
+    console.log(formValues);
+    this.tasksService.saveNewTask(formValues, this.patch.patchName, this.patch.patchId, this.selectedPlant.plantId, this.selectedPlant);
     this.notifications.showSuccess(`${formValues.currentTask} has been added to ${this.patch.patchName}`);
     this.router.navigate(['/tasks', this.patch.patchName]);
     console.log(formValues);

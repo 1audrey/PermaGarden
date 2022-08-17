@@ -274,7 +274,7 @@ namespace perma_garden_app.Controllers
                         StartingDate = patch.StartingDate,
                         NextDate = patch.NextDate,
                         TransplantDate = patch.TransplantDate,
-                        Plant = GetPlantInTask(plantInTask, patch.TaskId),
+                        PlantId = GetPlantInTask(plantInTask, patch.TaskId),
                         RealHarvestingDates = patch.RealHarvestingDates,
                         FailureReasons = patch.FailureReasons,
                         HarvestedWeight = patch.HarvestedWeight
@@ -285,25 +285,18 @@ namespace perma_garden_app.Controllers
             return taskList;
         }
 
-        private PlantsRecord GetPlantInTask(IEnumerable<PlantsInTasksRecord> plantInTask, int taskId)
+        private int GetPlantInTask(IEnumerable<PlantsInTasksRecord> plantInTask, int taskId)
         {
-            var matchingPlant= new PlantsRecord() { };
+            var PlantId = 0;
 
             foreach (var plant in plantInTask)
             {
                 if (plant.TaskId == taskId)
                 {
-                        matchingPlant.PlantId = plant.PlantId;
-                        matchingPlant.PlantName = plant.PlantName;
-                        matchingPlant.PlantStartingMethod = plant.PlantStartingMethod;
-                        matchingPlant.PlantSowingPeriod = plant.PlantSowingPeriod;
-                        matchingPlant.PlantStartingMonths = plant.PlantStartingMonths;
-                        matchingPlant.PlantGrowingPeriod = plant.PlantGrowingPeriod;
-                        matchingPlant.PlantHarvestingMonths = plant.PlantHarvestingMonths;
-                        matchingPlant.PlantImagePicture = plant.PlantImagePicture;
+                        PlantId = plant.PlantId;
                 }
             }
-            return matchingPlant;
+            return PlantId;
 
         }
 

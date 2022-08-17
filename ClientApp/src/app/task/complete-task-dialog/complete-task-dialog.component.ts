@@ -1,5 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { IPlantsList } from 'src/app/garden-list/models/iplants-model';
 import { ITask } from '../models/itask-model';
 
 @Component({
@@ -35,9 +36,10 @@ export class CompleteTaskDialogComponent {
     if (formValues.transplantDate){
       this.isDirty = false;
       formValues.taskId = this.task.taskId;
+      formValues.patchId = this.task.patchId;
       formValues.currentTask = this.task.currentTask;
       formValues.nextTask = this.task.nextTask;
-      formValues.plant = this.task.plant;
+      formValues.plantId = this.task.plantId;
       formValues.startingDate = this.task.startingDate;
       formValues.nextDate = this.task.nextDate;
       formValues.daysDifferenceBetweenTaskAndToday = this.task.daysDifferenceBetweenTaskAndToday;
@@ -49,9 +51,10 @@ export class CompleteTaskDialogComponent {
   saveFailedTask(formValues: ITask){
     this.isDirty = false;
     formValues.taskId = this.task.taskId;
+    formValues.patchId = this.task.patchId;
     formValues.currentTask = this.task.currentTask;
     formValues.nextTask = this.task.nextTask;
-    formValues.plant = this.task.plant;
+    formValues.plantId = this.task.plantId;
     formValues.startingDate = this.task.startingDate;
     formValues.nextDate = this.task.nextDate;
     formValues.daysDifferenceBetweenTaskAndToday = this.task.daysDifferenceBetweenTaskAndToday;
@@ -63,9 +66,10 @@ export class CompleteTaskDialogComponent {
   saveHarvestTask(formValues: any) {
       this.isDirty = false;
       formValues.taskId = this.task.taskId;
+      formValues.patchId = this.task.patchId;
       formValues.currentTask = this.task.currentTask;
       formValues.nextTask = this.task.nextTask;
-      formValues.plant = this.task.plant;
+      formValues.plantId = this.task.plantId;
       formValues.startingDate = this.task.startingDate;
       formValues.nextDate = this.task.nextDate;
       formValues.transplantDate = this.task.transplantDate;

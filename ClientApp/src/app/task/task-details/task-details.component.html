@@ -7,8 +7,8 @@
 
       <mat-card-actions class="actions">
         <div class="task-info">
-          <p>{{task.plant.plantName}}</p>
-          <img mat-card-image class="plant-image" [src]="task.plant.plantImagePicture" alt={{task.plant.plantName}}>
+          <p>{{getPlantName(task.plantId)}}</p>
+          <img mat-card-image class="plant-image" [src]="getPlantPicture(task.plantId)" alt={{getPlantPicture(task.plantId)}}>
           <p *ngIf="task.transplantDate === null; else transplantDate"> Current task: {{task.currentTask}} started on {{task.startingDate | date:'dd/MM/yyyy'}}</p>
           <p class="next-task">Next task: {{task.nextTask}} from {{task.nextDate | date:'dd/MM/yyyy' }}</p>
         </div>

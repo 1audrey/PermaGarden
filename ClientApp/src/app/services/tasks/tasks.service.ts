@@ -1,11 +1,14 @@
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import * as moment from 'moment';
 import { Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
+import { IPlantsList } from 'src/app/garden-list/models/iplants-model';
 import { ITaskInPatch } from 'src/app/garden/models/itaskinpatch-models';
 import { ITask } from 'src/app/task/models/itask-model';
 import { IPlantsInTasks } from '../../task/models/IPlantsInTasks-model';
+import { PlantsService } from '../plants/plants.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,13 +18,14 @@ export class TasksService {
   allHarvestedDates: string[] = [];
   allHarvestedWeight: string[] = [];
 
-
   constructor(private http: HttpClient) { }
 
-  saveNewTask(task: ITask, patchName: string, patchId: number, plantId:number){
+  saveNewTask(task: ITask, patchName: string, patchId: number, plantId:number,plant: IPlantsList){
+    task.plantId = plantId;
+    task.patchId = patchId;
     task.startingDate = task.startingDate.toString();
     task.nextTask = this.givesFirstNextTask(task);
-    task.nextDate = this.calculateNextDate(task).toString();
+    task.nextDate = this.calculateNextDate(task, plant).toString();
 
     this.saveTask(task).subscribe(() => {
       this.saveTaskInPatch(patchName, patchId).subscribe();
@@ -81,10 +85,10 @@ export class TasksService {
     );
   }
 
-  saveTransplantedTask(task: ITask): Observable<ITask>{
+  saveTransplantedTask(task: ITask, plant: IPlantsList): Observable<ITask>{
     task.currentTask = 'Planting';
     task.nextTask = this.givesFirstNextTask(task);
-    task.nextDate = this.calculateNextDate(task).toString();
+    task.nextDate = this.calculateNextDate(task, plant).toString();
 
     return this.http.put<ITask>(this.baseUrl + 'save-transplanted-task', task).pipe(
       tap(() => console.log(`Task service updated ${task.taskId} successfully`)),
@@ -135,7 +139,7 @@ export class TasksService {
       this.allHarvestedWeight.push(task.harvestedWeight);
       task.harvestedWeight = this.allHarvestedWeight.toString() ;
     }
- 
+
     if (task.realHarvestingDates) {
       this.allHarvestedDates.push(task.realHarvestingDates);
       task.realHarvestingDates = this.allHarvestedDates.toString();
@@ -144,6 +148,7 @@ export class TasksService {
   }
 
   saveFinishedHarvestedTask(task: ITask) {
+    console.log(task);
     if (task.harvestedWeight) {
       this.allHarvestedWeight.push(task.harvestedWeight);
       task.harvestedWeight = this.allHarvestedWeight.toString();
@@ -205,37 +210,37 @@ export class TasksService {
       return 'Harvesting';
   }
 
-  private calculateNextDate(task: ITask): Date {
+  private calculateNextDate(task: ITask, plant: IPlantsList): Date {
     var nextDate = new Date();
     var startDate = new Date(task.startingDate);
     var numberOfDaysToAdd: number;
     var harvestingFirstMonth: number;
 
-    switch (task.plant.plantStartingMethod) {
-      case ('Sowing in pots'):
-        if (task.transplantDate) {
-          var transplantDate = new Date(task.transplantDate);
-          numberOfDaysToAdd = Number(task.plant.plantGrowingPeriod);
-          nextDate = this.calculateDate(transplantDate, numberOfDaysToAdd);
-          break;
+        switch (plant.plantStartingMethod) {
+          case ('Sowing in pots'):
+            if (task.transplantDate) {
+              var transplantDate = new Date(task.transplantDate);
+              numberOfDaysToAdd = Number(plant.plantGrowingPeriod);
+              nextDate = this.calculateDate(transplantDate, numberOfDaysToAdd);
+              break;
+            }
+            numberOfDaysToAdd = Number(plant.plantSowingPeriod);
+            nextDate = this.calculateDate(startDate, numberOfDaysToAdd);
+            break;
+
+          case ('Sowing in soil'):
+            numberOfDaysToAdd = Number(plant.plantGrowingPeriod);
+            nextDate =this.calculateDate(startDate, numberOfDaysToAdd);
+            break;
+
+          case ('Planting'):
+            var firstMonth = plant.plantHarvestingMonths[0];
+            var harvestingFirstMonth: number = this.givesMonthANumber(firstMonth);
+            nextDate = this.getFirstDayOfFirstHarvestingMonth(startDate, harvestingFirstMonth);
+            break;
         }
-        numberOfDaysToAdd = Number(task.plant.plantSowingPeriod);
-        nextDate = this.calculateDate(startDate, numberOfDaysToAdd);
-        break;
-
-      case ('Sowing in soil'):
-        numberOfDaysToAdd = Number(task.plant.plantGrowingPeriod);
-        nextDate =this.calculateDate(startDate, numberOfDaysToAdd);
-        break;
-
-      case ('Planting'):
-        var firstMonth = task.plant.plantHarvestingMonths[0];
-        var harvestingFirstMonth: number = this.givesMonthANumber(firstMonth);
-        nextDate = this.getFirstDayOfFirstHarvestingMonth(startDate, harvestingFirstMonth);
-        break;
-    }
-    return nextDate;
-  }
+        return nextDate;
+   }
 
     private calculateDate(date: Date, numberOfDays: number) {
       var nextDateForTask;

@@ -272,7 +272,6 @@ export class HistoryComponent implements OnInit, AfterViewInit {
       }
     ];
   }
-
 }
 
 export interface PeriodicElement {

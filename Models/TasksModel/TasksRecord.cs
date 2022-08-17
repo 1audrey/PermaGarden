@@ -7,11 +7,13 @@ namespace perma_garden_app.Models.TasksModel
     {
         public int TaskId { get; set; }
 
+        public int PlantId { get; set; }
+
+        public int PatchId { get; set; }
+
         public string CurrentTask { get; set; }
 
         public string NextTask { get; set; }
-
-        public PlantsRecord Plant { get; set; }
 
         public string StartingDate { get; set; }
 

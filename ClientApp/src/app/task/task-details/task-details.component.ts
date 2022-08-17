@@ -6,6 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { CompleteTaskDialogComponent } from '../complete-task-dialog/complete-task-dialog.component';
 import { TasksService } from '../../services/tasks/tasks.service';
 import { NotificationsService } from '../../services/notifications/notifications.service';
+import { IPlantsList } from 'src/app/garden-list/models/iplants-model';
 
 @Component({
   selector: 'app-task-details',
@@ -17,10 +18,12 @@ export class TaskDetailsComponent implements OnInit, OnChanges {
   @Input() patchFromHomepage: boolean = false;
   @Input() selectedFilter!: string;
   patchName!: string;
+  patchId!: number;
   patch!: IPatch;
   taskList: ITask[] = [];
   daysDifferenceBetweenTaskAndToday!: number;
   params: any;
+  plants: IPlantsList[] = [];
 
   constructor(private route: ActivatedRoute,
     private taskService: TasksService,
@@ -29,27 +32,32 @@ export class TaskDetailsComponent implements OnInit, OnChanges {
     private notifications: NotificationsService,  ) { }
 
   ngOnInit() {
+
     this.params = this.route.snapshot.params['patchName'];
 
     if (this.params) {
       this.route.data.forEach((data) => {
         this.patch = data['patchName'][0];
-        if (this.patch.taskList) {
+        if (this.patch.taskList && this.patch.plantList) {
           this.taskList = this.patch.taskList;
           this.patchName = this.patch.patchName;
+          this.patchId = this.patch.patchId;
+          this.plants = this.patch.plantList;
         }
       });
     }
 
-    else if (this.patchWithoutParams.taskList) {
+    else if (this.patchWithoutParams.taskList && this.patchWithoutParams.plantList) {
+      console.log(this.patchWithoutParams);
       this.taskList = this.patchWithoutParams.taskList;
       this.patchName = this.patchWithoutParams.patchName;
+      this.patchId = this.patchWithoutParams.patchId;
+      this.plants = this.patchWithoutParams.plantList;
       }
 
     this.getDifferenceBetweenTaskDateAndTodaydate(this.taskList);
     this.sortTasksByEarliestDate(this.taskList);
     this.keepFourTasksOnly(this.taskList);
-
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -101,7 +109,8 @@ export class TaskDetailsComponent implements OnInit, OnChanges {
         data: {
           taskId: task.taskId,
           currentTask: task.currentTask,
-          plant: task.plant,
+          plantId: task.plantId,
+          patchId: this.patchId,
           nextDate: task.nextDate,
           nextTask: task.nextTask,
           startingDate: task.startingDate,
@@ -123,9 +132,10 @@ export class TaskDetailsComponent implements OnInit, OnChanges {
           this.verifyHarvestedAnswer(updatedTask);
         }
         else if (updatedTask.transplantDate != null) {
-          this.taskService.saveTransplantedTask(updatedTask).subscribe(() => {
+          let plantInTask = this.getPlantFromTask(updatedTask.plantId)
+          this.taskService.saveTransplantedTask(updatedTask, plantInTask).subscribe(() => {
             this.notifications.showSuccess(`The task '${updatedTask.currentTask}' for the plant '${updatedTask.plant.plantName}' has been successfully updated`);
-            //try to do async and with a spinner 
+            //try to do async and with a spinner
             if (this.params != null) {
               this.router.navigate(['/tasks', this.patch.patchName]);
             }
@@ -167,6 +177,52 @@ export class TaskDetailsComponent implements OnInit, OnChanges {
     return task.daysDifferenceBetweenTaskAndToday >= 8;
   }
 
+  getPlantName(plantId: number): string{
+    let plantInTask = '';
+    this.plants.forEach((plant)=>{
+      if(plant.plantId == plantId){
+        plantInTask = plant.plantName;
+        return plantInTask;
+      }
+      return plantInTask;
+    });
+    return plantInTask;
+  }
+
+  getPlantFromTask(plantId: number): IPlantsList{
+    let plantInTask: IPlantsList = {
+      plantId: 0,
+      plantName: '',
+      plantStartingMonths: '',
+      plantStartingMethod: '',
+      plantSowingPeriod: 0,
+      plantHarvestingMonths: '',
+      plantGrowingPeriod: 0,
+      plantImagePicture: '',
+    };
+
+    this.plants.forEach((plant)=>{
+      if(plant.plantId == plantId){
+        plantInTask = plant;
+        return plantInTask;
+      }
+      return plantInTask;
+    });
+    return plantInTask;
+  }
+
+  getPlantPicture(plantId: number): string{
+    let plantPicture = '';
+    this.plants.forEach((plant)=>{
+      if(plant.plantId == plantId){
+        plantPicture = plant.plantImagePicture;
+        return plantPicture;
+      }
+      return plantPicture;
+    });
+    return plantPicture;
+  }
+
   private keepFourTasksOnly(taskList: ITask[]) {
     if (this.patchFromHomepage) {
       this.taskList = taskList.slice(0, 4);
@@ -181,6 +237,6 @@ export class TaskDetailsComponent implements OnInit, OnChanges {
       this.taskService.saveFinishedHarvestedTask(updatedTask);
       this.deleteTask(updatedTask.taskId);
     }
-    
+
   }
 }

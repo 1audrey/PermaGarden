@@ -5,6 +5,9 @@
         public int TaskId { get; set; }
 
         public int PlantId { get; set; }
+
+        public int PatchId { get; set; }
+
         public string PatchName { get; set; }
 
         public string PatchImagePicture { get; set; }

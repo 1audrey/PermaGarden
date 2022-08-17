@@ -1,8 +1,7 @@
-import { IPlantsList } from "src/app/garden-list/models/iplants-model";
-
 export interface ITask {
   taskId: number,
-  plant: IPlantsList,
+  plantId: number,
+  patchId: number,
   currentTask: string,
   startingDate: string,
   nextTask: string,

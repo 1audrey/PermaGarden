@@ -329,7 +329,9 @@ namespace perma_garden_app
         public async Task SaveNewTask(TasksRecord task, CancellationToken token)
         {
             var command = @"INSERT INTO dbo.Tasks (
-                                CurrentTask
+                                PlantId
+                                , PatchId
+                                , CurrentTask
                                 , NextTask
                                 , StartingDate
                                 , NextDate
@@ -340,7 +342,9 @@ namespace perma_garden_app
                                 )
 
                             VALUES (
-                                @CurrentTask
+                                @PlantId
+                                , @PatchId
+                                , @CurrentTask
                                 , @NextTask
                                 , @StartingDate
                                 , @NextDate
@@ -354,7 +358,7 @@ namespace perma_garden_app
             await SqlConnection.ExecuteAsync(
                 new CommandDefinition(
                     command,
-                    new { task.CurrentTask, task.NextTask, task.StartingDate, task.NextDate, task.TransplantDate, task.RealHarvestingDates,
+                    new { task.PlantId, task.PatchId, task.CurrentTask, task.NextTask, task.StartingDate, task.NextDate, task.TransplantDate, task.RealHarvestingDates,
                         task.FailureReasons, task.HarvestedWeight},
                     cancellationToken: token));
 
@@ -475,6 +479,8 @@ namespace perma_garden_app
         {
             var command = @"INSERT INTO dbo.ArchivedTasks (
                                 TaskId
+                                , PlantId
+                                , PatchId    
                                 , CurrentTask
                                 , NextTask
                                 , StartingDate
@@ -487,6 +493,8 @@ namespace perma_garden_app
 
                             VALUES (
                                 @TaskId
+                                , @PlantId
+                                , @PatchId  
                                 , @CurrentTask
                                 , @NextTask
                                 , @StartingDate
@@ -501,7 +509,7 @@ namespace perma_garden_app
                 new CommandDefinition(
                     command,
                     new
-                    {   task.TaskId, task.CurrentTask, task.NextTask, task.StartingDate, task.NextDate, task.TransplantDate, task.RealHarvestingDates, 
+                    {   task.TaskId, task.PlantId, task.PatchId, task.CurrentTask, task.NextTask, task.StartingDate, task.NextDate, task.TransplantDate, task.RealHarvestingDates, 
                         task.FailureReasons, task.HarvestedWeight
                     },
                     cancellationToken: token));

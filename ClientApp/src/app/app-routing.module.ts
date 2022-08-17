@@ -85,13 +85,13 @@ const routes: Routes = [
   {
     path: 'tasks/:patchName',
     component: ManagePatchTasksComponent,
-    resolve: { patchName: SinglepatchResolverService, patches: PatchResolverService }
+    resolve: { patchName: SinglepatchResolverService, patches: PatchResolverService}
   },
 
   {
     path: 'tasks/:patchName',
     component: TaskDetailsComponent,
-    resolve: { patchName: SinglepatchResolverService }
+    resolve: { patchName: SinglepatchResolverService, plants: PlantsListResolver }
   },
 
   {
