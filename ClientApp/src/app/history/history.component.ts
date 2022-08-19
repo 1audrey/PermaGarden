@@ -4,6 +4,10 @@ import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { FormControl, FormGroup } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { ITask } from '../task/models/itask-model';
+import { IPlantsList } from '../garden-list/models/iplants-model';
+import { IPatch } from '../garden/models/ipatch-model';
 
 @Component({
   selector: 'app-history',
@@ -12,26 +16,18 @@ import { FormControl, FormGroup } from '@angular/forms';
 })
 export class HistoryComponent implements OnInit, AfterViewInit {
 
-  ELEMENT_DATA: PeriodicElement[] = [
-    { plant: 'Carrot', patch: 'Patch 1', startingDate: '20/06/2022', transplantDate: '27/06/2022', realHarvestingDates: '6/08/2022', harvestedWeight: '4', failureReasons: '' },
-    { plant: 'Beans', patch: 'Patch 1', startingDate: '24/06/2022', transplantDate: '', realHarvestingDates: '6/08/2022, 18/07/2022', harvestedWeight: '4, 5', failureReasons: '' },
-    { plant: 'Carrot', patch: 'Patch 2', startingDate: '20/06/2022', transplantDate: '27/06/2022', realHarvestingDates: '6/08/2022', harvestedWeight: '', failureReasons: 'not sunny enough' },
-    { plant: 'Beans', patch: 'Patch 2', startingDate: '28/06/2022', transplantDate: '', realHarvestingDates: '', harvestedWeight: '', failureReasons: 'planted too early' },
-    { plant: 'Peas', patch: 'Patch 3', startingDate: '28/06/2022', transplantDate: '', realHarvestingDates: '', harvestedWeight: '', failureReasons: 'planted too early' },
-    { plant: 'Beans', patch: 'Patch 3', startingDate: '1/06/2022', transplantDate: '', realHarvestingDates: '6/08/2022, 18/07/2022', harvestedWeight: '4, 5', failureReasons: '' },
-    { plant: 'Carrot', patch: 'Patch 2', startingDate: '20/06/2022', transplantDate: '27/06/2022', realHarvestingDates: '6/08/2022', harvestedWeight: '10', failureReasons: '' },
-    { plant: 'Beans', patch: 'Patch 3', startingDate: '28/06/2022', transplantDate: '', realHarvestingDates: '', harvestedWeight: '', failureReasons: 'too much water from the 15th of apri till the 30th of june. There was mildiou on the leaves' },
-  ];
-
   displayedColumns: string[] = ['plant', 'patch', 'startingDate', 'transplantDate', 'realHarvestingDates', 'harvestedWeight', 'failureReasons'];
-  dataSource = new MatTableDataSource(this.ELEMENT_DATA);
-  // dataSource: MatTableDataSource<UserData>; change for archivedTask
+  dataSource!: MatTableDataSource<ITask>;
   listOfFilteredPLants: string[] = [];
   listOfFilter: Filter[] = [];
   listOfFilteredPatches: string[] = [];
   isFilterApplied!: boolean;
+  archivedTasks!: ITask[];
+  plants!: IPlantsList[];
+  patches!: IPatch[];
+  harvestedDates!: string[];
 
-  constructor(private _liveAnnouncer: LiveAnnouncer) {
+  constructor(private _liveAnnouncer: LiveAnnouncer, private route: ActivatedRoute) {
   }
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -48,6 +44,11 @@ export class HistoryComponent implements OnInit, AfterViewInit {
   get option() { return this.filterForm.get('option') }
 
   ngOnInit() {
+    this.plants = this.route.snapshot.data['plants'];
+    this.patches = this.route.snapshot.data['patches'];
+    this.archivedTasks = this.route.snapshot.data['archivedTasks'];
+    this.dataSource = new MatTableDataSource(this.archivedTasks);
+    console.dir(this.archivedTasks);
     this.getPlantsToFilter();
     this.getPatchesToFilter();
     this.initializeFilter()
@@ -71,8 +72,15 @@ export class HistoryComponent implements OnInit, AfterViewInit {
   }
 
   getTotalWeight() {
-    return this.dataSource.filteredData.reduce((acc, value) =>
-      acc + value.harvestedWeight.split(',').map(Number).reduce((sum, current) => sum + current, 0), 0);
+    let totalWeight = 0;
+     this.dataSource.filteredData.reduce((acc, value) => {
+      if(value.harvestedWeight != undefined){
+        totalWeight = acc + value.harvestedWeight.split(',').map(Number).reduce((sum, current) => sum + current, 0)
+        return totalWeight;
+      }
+    return totalWeight;
+    }, 0);
+  return totalWeight;
   }
 
   isPlantChipColor(option: string) {
@@ -92,8 +100,61 @@ export class HistoryComponent implements OnInit, AfterViewInit {
 
     if (index >= 0) {
       this.filterValues.option.splice(index, 1);
-      this.initializeFilter()
+      this.initializeFilter();
     }
+  }
+
+  splitDates(harvestedDates: string){
+    if(harvestedDates != undefined ){
+      return harvestedDates.split(',');
+    }
+    return;
+  }
+
+  getPlantName(plantId: number){
+    let plant = this.getPlantByPlantId(plantId);
+    return plant.plantName;
+  }
+
+  getPatchName(patchId: number){
+    let patch = this.getPatchByPatchId(patchId);
+    return patch.patchName;
+  }
+
+  private getPlantByPlantId(plantId: number): IPlantsList{
+    let plantInTask: IPlantsList = {
+      plantId: 0,
+      plantName: '',
+      plantStartingMonths: '',
+      plantStartingMethod: '',
+      plantSowingPeriod: 0,
+      plantHarvestingMonths: '',
+      plantGrowingPeriod: 0,
+      plantImagePicture: '',
+    };
+    this.plants.forEach((plant) =>{
+      if(plant.plantId === plantId){
+        plantInTask = plant;
+      }
+      return plantInTask;
+    })
+    return plantInTask;
+  }
+
+  private getPatchByPatchId(patchId: number){
+    let patchInTask: IPatch = {
+      patchId: 0,
+      patchName:'',
+      patchImagePicture: '',
+    };
+
+    this.patches.forEach((patch) =>{
+      if(patch.patchId === patchId){
+        patchInTask = patch;
+      }
+      return patchInTask;
+    })
+    return patchInTask;
   }
 
   private initializeFilter(): void {
@@ -143,31 +204,31 @@ export class HistoryComponent implements OnInit, AfterViewInit {
     this.dataSource.filter = JSON.stringify(this.filterValues);
   }
 
-  private applyFailureFilterOnly(searchString: any, data: PeriodicElement) {
+  private applyFailureFilterOnly(searchString: any, data: ITask) {
     for (const option of searchString.option) {
-      if (option === 'Failures' && data.failureReasons != '') {
+      if (option === 'Failures' && data.failureReasons != undefined) {
         this.isFilterApplied = true;
       }
     }
   }
 
-  private applyFailureAndOneOtherFilter(searchString: any, data: PeriodicElement) {
+  private applyFailureAndOneOtherFilter(searchString: any, data: ITask) {
     for (const option of searchString.option) {
-      if (data.failureReasons != '' && data.plant.trim() === option) {
+      if (data.failureReasons != undefined && this.getPlantName(data.plantId) === option) {
         this.isFilterApplied = true;
       }
-      else if (data.failureReasons != '' && data.patch.trim() === option) {
+      else if (data.failureReasons != undefined && this.getPatchName(data.patchId) === option) {
         this.isFilterApplied = true;
       }
     }
   }
 
-  private applyFailurePlantAndPatchFilter(searchString: any, data: PeriodicElement) {
+  private applyFailurePlantAndPatchFilter(searchString: any, data: ITask) {
     for (let i = 0; i < this.listOfFilter[0].options.length; i++) {
-      if (data.plant.trim() === searchString.option[i]) {
+      if (this.getPlantName(data.plantId) === searchString.option[i]) {
         for (let j = 0; j < this.listOfFilter[1].options.length; j++) {
-          if (data.patch.trim() === searchString.option[j]) {
-            if (data.failureReasons != '') {
+          if (this.getPatchName(data.patchId) === searchString.option[j]) {
+            if (data.failureReasons != undefined) {
               this.isFilterApplied = true;
             }
           }
@@ -176,33 +237,26 @@ export class HistoryComponent implements OnInit, AfterViewInit {
     }
   }
 
-  private applyOnePlantAndPatchFilter(searchString: any, data: PeriodicElement) {
+  private applyOnePlantAndPatchFilter(searchString: any, data: ITask) {
     for (let i = 0; i < this.listOfFilter[0].options.length; i++) {
       for (let j = 0; j < this.listOfFilter[1].options.length; j++) {
-        if (data.plant.trim() === searchString.option[i] && data.patch.trim() === searchString.option[j]) {
+        if (this.getPlantName(data.plantId) === searchString.option[i] && this.getPatchName(data.patchId) === searchString.option[j]) {
           this.isFilterApplied = true;
         }
       }
     }
   }
 
-  private OneFilterAppliedWithoutFailures(searchString: any, data: PeriodicElement) {
+  private OneFilterAppliedWithoutFailures(searchString: any, data: ITask) {
     for (const option of searchString.option) {
-      if (data.plant.trim() === option) {
+      if (this.getPlantName(data.plantId) === option) {
         this.isFilterApplied = true;
       }
-      else if (data.patch.trim() === option) {
+
+      else if (this.getPatchName(data.patchId) === option) {
         this.isFilterApplied = true;
       }
     }
-  }
-
-  private getPatchesToFilter() {
-    let listOfPatches: string[] = [];
-    this.ELEMENT_DATA.forEach((element) => {
-      listOfPatches.push(element.patch);
-    })
-    this.listOfFilteredPatches = [...new Set(listOfPatches)];
   }
 
   private isFailuresFilterAppliedOnly(searchString: any): boolean {
@@ -245,10 +299,18 @@ export class HistoryComponent implements OnInit, AfterViewInit {
     return false;
   }
 
+  private getPatchesToFilter() {
+    let listOfPatches: string[] = [];
+    this.archivedTasks.forEach((element) => {
+      listOfPatches.push(this.getPatchName(element.patchId));
+    })
+    this.listOfFilteredPatches = [...new Set(listOfPatches)];
+  }
+
   private getPlantsToFilter() {
     let listOfPLants: string[] = [];
-    this.ELEMENT_DATA.forEach((element) => {
-      listOfPLants.push(element.plant);
+    this.archivedTasks.forEach((element) => {
+      listOfPLants.push(this.getPlantName(element.plantId));
     })
     this.listOfFilteredPLants = [...new Set(listOfPLants)];
   }
@@ -272,16 +334,6 @@ export class HistoryComponent implements OnInit, AfterViewInit {
       }
     ];
   }
-}
-
-export interface PeriodicElement {
-  plant: string,
-  patch: string,
-  startingDate: string,
-  transplantDate: string,
-  realHarvestingDates: string,
-  harvestedWeight: string,
-  failureReasons: string
 }
 
 export interface Filter {

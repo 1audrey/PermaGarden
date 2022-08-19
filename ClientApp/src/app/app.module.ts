@@ -64,6 +64,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import {MatChipsModule} from '@angular/material/chips';
 import { PlantFocusStatsComponent } from './history/plant-focus-stats/plant-focus-stats.component';
+import { ArchivedTasksResolver } from './resolver/archived-tasks-resolver.service';
 
 
 
@@ -141,6 +142,7 @@ import { PlantFocusStatsComponent } from './history/plant-focus-stats/plant-focu
     PatchResolverService,
     PatchesService,
     SinglepatchResolverService,
+    ArchivedTasksResolver,
     {provide: MAT_DATE_LOCALE, useValue: 'en-GB'}
 
 

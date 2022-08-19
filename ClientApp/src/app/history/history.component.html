@@ -44,7 +44,7 @@
         <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by plant">
           Plant
         </th>
-        <td mat-cell *matCellDef="let element"> {{element.plant}} </td>
+        <td mat-cell *matCellDef="let element"> {{getPlantName(element.plantId)}} </td>
       </ng-container>
 
       <!-- Patch Column -->
@@ -52,7 +52,7 @@
         <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by patch">
           Patch
         </th>
-        <td mat-cell *matCellDef="let element"> {{element.patch}} </td>
+        <td mat-cell *matCellDef="let element"> {{getPatchName(element.patchId)}} </td>
       </ng-container>
 
       <!-- Starting Date Column -->
@@ -60,7 +60,7 @@
         <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by starting date">
           Starting Date
         </th>
-        <td mat-cell *matCellDef="let element"> {{element.startingDate}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.startingDate | date:'dd/MM/yyyy' }} </td>
       </ng-container>
 
       <!-- Transplant Date Column -->
@@ -68,7 +68,7 @@
         <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by transplanted date">
           Transplanted Date
         </th>
-        <td mat-cell *matCellDef="let element"> {{element.transplantDate}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.transplantDate | date:'dd/MM/yyyy' }} </td>
       </ng-container>
 
       <!-- Harvested Date Column -->
@@ -76,7 +76,9 @@
         <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by harvested dates">
           Harvested Dates
         </th>
-        <td mat-cell *matCellDef="let element"> {{element.realHarvestingDates}} </td>
+        <td mat-cell *matCellDef="let element" >
+          <div *ngFor="let harvestedDates of splitDates(element.realHarvestingDates)">{{harvestedDates | date:'dd/MM/yyyy'}}</div>
+        </td>
       </ng-container>
 
       <!-- Failures Column -->

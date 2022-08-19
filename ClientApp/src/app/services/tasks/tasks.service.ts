@@ -203,6 +203,10 @@ export class TasksService {
     })
   }
 
+  getAllArchivedTasks(): Observable<ITask[]> {
+    return this.http.get<ITask[]>(this.baseUrl + 'all-archived-tasks');
+  }
+
   private givesFirstNextTask(task: ITask) {
     if (task.currentTask == 'Sowing in pots') {
       return 'Planting';

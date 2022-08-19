@@ -65,8 +65,10 @@ namespace perma_garden_app
         public Task DeleteTaskInPatches(int taskId, CancellationToken token);
 
         public Task DeleteTaskWithPlant(int taskId, CancellationToken token);
-        
 
+        public Task<IEnumerable<TTasks>> GetAllArchivedTasks(CancellationToken token);
+
+        
 
     }
 }

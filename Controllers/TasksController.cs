@@ -313,6 +313,19 @@ namespace perma_garden_app.Controllers
             return BadRequest("Task is invalid");
 
         }
+
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Route("all-archived-tasks")]
+        public async Task<IActionResult> GetAllArchivedTasks(CancellationToken token)
+        {
+            var tasks = await _permaGardenRepositery
+                .GetAllArchivedTasks(token);
+
+            return Ok(tasks.ToList());
+        }
     }
 }
 

@@ -23,7 +23,6 @@ public static readonly CREATEPATCH_WEBSITE_URL: string = '/create-patch';
 
   ngOnInit() {
     this.patches = this.route.snapshot.data['patches'];
-    console.log(this.patches);
   }
 
   onPatchDeleted(patch: IPatch){

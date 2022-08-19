@@ -593,6 +593,27 @@ namespace perma_garden_app
                     cancellationToken: token));
         }
 
+        public async Task<IEnumerable<TasksRecord>> GetAllArchivedTasks(CancellationToken token)
+        {
+            var command = @"SELECT
+                                task.TaskId
+                                , task.PatchId
+                                , task.PlantId    
+                                , task.CurrentTask
+                                , task.NextTask
+                                , task.StartingDate
+                                , task.NextDate
+                                , task.TransplantDate
+                                , task.RealHarvestingDates
+                                , task.FailureReasons
+                                , task.HarvestedWeight
+                                                
+                            FROM
+                                dbo.ArchivedTasks task";
 
+
+            return await SqlConnection.QueryAsync<TasksRecord>(new CommandDefinition(command,
+                cancellationToken: token));
+        }
     }
 }
