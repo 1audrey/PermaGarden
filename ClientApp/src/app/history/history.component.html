@@ -113,6 +113,6 @@
   <p class="weight">Total weight: {{getTotalWeight()}}</p>
 </div>
 </div>
-<div class="plant-focus">
-  <app-plant-focus-stats></app-plant-focus-stats>
+<div class="plant-focus" *ngIf="isShowPlantData">
+  <app-plant-focus-stats [selectedPlant]="selectedPlant"  ></app-plant-focus-stats>
 </div>

@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { IPlantsList } from 'src/app/garden-list/models/iplants-model';
 
 @Component({
   selector: 'app-plant-focus-stats',
@@ -6,10 +7,21 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./plant-focus-stats.component.css']
 })
 export class PlantFocusStatsComponent implements OnInit {
+  selectedFilter!: string;
 
-  constructor() { }
-
-  ngOnInit(): void {
+  constructor() {
   }
 
+
+  @Input() selectedPlant!: IPlantsList;
+
+
+
+  ngOnInit() {
+    console.log(`Focus on Plant: ${this.selectedPlant}`);
+
+  }
 }
+
+
+

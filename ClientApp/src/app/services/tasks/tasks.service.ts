@@ -1,6 +1,5 @@
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
-import { Injectable, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Injectable } from '@angular/core';
 import * as moment from 'moment';
 import { Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
@@ -8,7 +7,6 @@ import { IPlantsList } from 'src/app/garden-list/models/iplants-model';
 import { ITaskInPatch } from 'src/app/garden/models/itaskinpatch-models';
 import { ITask } from 'src/app/task/models/itask-model';
 import { IPlantsInTasks } from '../../task/models/IPlantsInTasks-model';
-import { PlantsService } from '../plants/plants.service';
 
 @Injectable({
   providedIn: 'root'

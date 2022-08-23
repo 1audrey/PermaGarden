@@ -26,6 +26,8 @@ export class HistoryComponent implements OnInit, AfterViewInit {
   plants!: IPlantsList[];
   patches!: IPatch[];
   harvestedDates!: string[];
+  isShowPlantData: boolean = false;
+  selectedPlant!: IPlantsList;
 
   constructor(private _liveAnnouncer: LiveAnnouncer, private route: ActivatedRoute) {
   }
@@ -47,8 +49,9 @@ export class HistoryComponent implements OnInit, AfterViewInit {
     this.plants = this.route.snapshot.data['plants'];
     this.patches = this.route.snapshot.data['patches'];
     this.archivedTasks = this.route.snapshot.data['archivedTasks'];
+
     this.dataSource = new MatTableDataSource(this.archivedTasks);
-    console.dir(this.archivedTasks);
+
     this.getPlantsToFilter();
     this.getPatchesToFilter();
     this.initializeFilter()
@@ -177,26 +180,32 @@ export class HistoryComponent implements OnInit, AfterViewInit {
 
       if (this.isFailuresFilterAppliedOnly(searchString)) {
         this.applyFailureFilterOnly(searchString, data);
+        this.isShowPlantData = false;
       }
 
       else if (this.IsFailuresFitlerAndAnotherFilterApplied(searchString)) {
         this.applyFailureAndOneOtherFilter(searchString, data);
+        this.isShowPlantData = false;
       }
 
       else if (this.IsFailurePlantAndPatchFilterApplied(searchString)) {
         this.applyFailurePlantAndPatchFilter(searchString, data);
+        this.isShowPlantData = false;
       }
 
       else if (this.IsOnePlantOnePatchFilterApplied(searchString)) {
         this.applyOnePlantAndPatchFilter(searchString, data);
+        this.isShowPlantData = false;
       }
 
       else if (this.IsOneFilterAppliedWithoutFailures(searchString)) {
         this.OneFilterAppliedWithoutFailures(searchString, data);
+        this.IsOnlyOnePlantFilterApplied(searchString, data);
       }
 
       else {
         this.isFilterApplied = true;
+        this.isShowPlantData = false;
       }
 
       return this.isFilterApplied;
@@ -298,6 +307,16 @@ export class HistoryComponent implements OnInit, AfterViewInit {
     }
     return false;
   }
+
+  private IsOnlyOnePlantFilterApplied(searchString: any, data: ITask) {
+      if (searchString.option.length == 1 && this.getPlantName(data.plantId) === searchString.option[0]) {
+        this.isShowPlantData = true;
+        this.selectedPlant = this.getPlantByPlantId(data.plantId);
+      }
+      else if(searchString.option.length > 1){
+        this.isShowPlantData = false;
+  }
+}
 
   private getPatchesToFilter() {
     let listOfPatches: string[] = [];
