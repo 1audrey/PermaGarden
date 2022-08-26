@@ -1,9 +1,9 @@
 <p>{{selectedPlant.plantName}}</p>
 <p>Productivity (need to know the number of seeds): </p>
-<p>Average transplant time achieved: </p>
-<p> vs Real transplant time achieved: </p>
-<p>Average harvest time achieved: </p>
-<p> vs Real harvest time achieved: </p>
+<p *ngIf="selectedPlant.plantSowingPeriod">Average transplant time achieved: {{averagePeriodBetweenSowingAndPlanting}}</p>
+<p *ngIf="selectedPlant.plantSowingPeriod">Current transplant period recorded in the {{selectedPlant.plantName}} : {{plantPeriodBetweenSowingAndTransplant()}}</p>
+<p>Average harvest time achieved: {{averagePeriodBetweenPlantingAndHarvesting}}</p>
+<p> vs Real harvest time achieved: {{plantPeriodBetweenPlantingAndHarvesting()}} </p>
 <p>Starting date recommended based on history: </p>
 <p>Best planted with: list of plants in the same bed when productivty is highest: </p>
 <p>highest productivity when in raised bed: </p>

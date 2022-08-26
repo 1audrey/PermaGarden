@@ -17,6 +17,7 @@ import { SinglepatchResolverService } from './resolver/singlepatch-resolver.serv
 import { TaskDetailsComponent } from './task/task-details/task-details.component';
 import { HistoryComponent } from './history/history.component';
 import { ArchivedTasksResolver } from './resolver/archived-tasks-resolver.service';
+import { ArchivedTaskService } from './services/archivedTasks/archived-task.service';
 
 const routes: Routes = [
   {
@@ -105,6 +106,7 @@ const routes: Routes = [
     component: HistoryComponent,
     resolve: { plants: PlantsListResolver, archivedTasks: ArchivedTasksResolver, patches: PatchResolverService }
   },
+
 
 ];
 

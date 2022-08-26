@@ -615,5 +615,33 @@ namespace perma_garden_app
             return await SqlConnection.QueryAsync<TasksRecord>(new CommandDefinition(command,
                 cancellationToken: token));
         }
+
+        public async Task<IEnumerable<PlantsRecord>> GetPlantById(int plantId, CancellationToken token)
+        {
+            var command = @"SELECT
+                                plant.PlantId
+                                , plant.PlantName
+                                , plant.PlantStartingMethod
+                                , plant.PlantSowingPeriod
+                                , plant.PlantGrowingPeriod
+                                , plant.PlantStartingMonths
+                                , plant.PlantHarvestingMonths
+                                , plantsImages.PlantImagePicture
+                
+                            FROM
+                                dbo.Plants plant
+
+                            INNER JOIN
+                                dbo.PlantsImages plantsImages
+
+                            ON
+                                plant.PlantImagePicture = plantsImages.PlantImagePicture
+
+                            WHERE
+                                plant.PlantId = @plantId ";
+
+            return await SqlConnection.QueryAsync<PlantsRecord>(new CommandDefinition(command, new { plantId },
+                cancellationToken: token));
+        }
     }
 }

@@ -50,6 +50,14 @@ export class PlantsService{
       this.notifications.showSuccess(`${plantName} has been deleted`);
     })
   }
+
+  getSinglePlant(plantId: number): Observable<IPlantsList[]>{
+    console.log(`Setting the plant for plant id ${plantId} from the plant service`);
+    return this.http.get<IPlantsList[]>(this.baseUrl + `${plantId}`).pipe(
+      tap(() => console.log('Plant service get plant successfully')),
+      catchError((error: HttpErrorResponse) => throwError(error))
+    );
+  }
 }
 
 

@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { IPlantsList } from 'src/app/garden-list/models/iplants-model';
+import { ArchivedTaskService } from 'src/app/services/archivedTasks/archived-task.service';
+import { ITask } from 'src/app/task/models/itask-model';
 
 @Component({
   selector: 'app-plant-focus-stats',
@@ -8,18 +10,27 @@ import { IPlantsList } from 'src/app/garden-list/models/iplants-model';
 })
 export class PlantFocusStatsComponent implements OnInit {
   selectedFilter!: string;
+  averagePeriodBetweenSowingAndPlanting!: number;
+  averagePeriodBetweenPlantingAndHarvesting!: number;
 
-  constructor() {
+  constructor(private archivedTaskService: ArchivedTaskService) {
   }
 
-
   @Input() selectedPlant!: IPlantsList;
-
-
+  @Input() archivedTasks!: ITask[];
 
   ngOnInit() {
-    console.log(`Focus on Plant: ${this.selectedPlant}`);
+    this.archivedTaskService.getData(this.selectedPlant, this.archivedTasks);
+    this.averagePeriodBetweenSowingAndPlanting = this.archivedTaskService.averagePeriodBetweenStartAndTransplant;
+    this.averagePeriodBetweenPlantingAndHarvesting = this.archivedTaskService.averagePeriodBetweenPlantingAndHarvesting;
+  }
 
+  plantPeriodBetweenSowingAndTransplant(){
+    return this.selectedPlant.plantSowingPeriod;
+  }
+
+  plantPeriodBetweenPlantingAndHarvesting(){
+    return this.selectedPlant.plantGrowingPeriod;
   }
 }
 
