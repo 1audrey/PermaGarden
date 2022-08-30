@@ -49,6 +49,7 @@ namespace perma_garden_app.Controllers
                 {
                     PlantId = task.PlantId,
                     PatchId = task.PatchId,
+                    SeedsUsed = task.SeedsUsed,
                     CurrentTask = task.CurrentTask,
                     NextTask = task.NextTask,
                     StartingDate = task.StartingDate,
@@ -178,6 +179,7 @@ namespace perma_garden_app.Controllers
                     TaskId = task.TaskId,
                     PlantId = task.PlantId,
                     PatchId = task.PatchId,
+                    SeedsUsed = task.SeedsUsed,
                     CurrentTask = task.CurrentTask,
                     NextTask = task.NextTask,
                     StartingDate = task.StartingDate,

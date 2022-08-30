@@ -269,6 +269,7 @@ namespace perma_garden_app.Controllers
                     var task = new TasksRecord
                     {
                         TaskId = patch.TaskId,
+                        SeedsUsed = patch.SeedsUsed,
                         CurrentTask = patch.CurrentTask,
                         NextTask = patch.NextTask,
                         StartingDate = patch.StartingDate,

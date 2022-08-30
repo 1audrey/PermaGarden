@@ -190,6 +190,7 @@ namespace perma_garden_app
                                 , patch.PatchName
                                 , patch.PatchImagePicture
                                 , task.TaskId
+                                , task.seedsUsed
                                 , task.CurrentTask
                                 , task.NextTask
                                 , task.StartingDate
@@ -331,6 +332,7 @@ namespace perma_garden_app
             var command = @"INSERT INTO dbo.Tasks (
                                 PlantId
                                 , PatchId
+                                , SeedsUsed
                                 , CurrentTask
                                 , NextTask
                                 , StartingDate
@@ -344,6 +346,7 @@ namespace perma_garden_app
                             VALUES (
                                 @PlantId
                                 , @PatchId
+                                , @SeedsUsed
                                 , @CurrentTask
                                 , @NextTask
                                 , @StartingDate
@@ -358,8 +361,8 @@ namespace perma_garden_app
             await SqlConnection.ExecuteAsync(
                 new CommandDefinition(
                     command,
-                    new { task.PlantId, task.PatchId, task.CurrentTask, task.NextTask, task.StartingDate, task.NextDate, task.TransplantDate, task.RealHarvestingDates,
-                        task.FailureReasons, task.HarvestedWeight},
+                    new { task.PlantId, task.PatchId, task.SeedsUsed, task.CurrentTask, task.NextTask, task.StartingDate, task.NextDate,
+                        task.TransplantDate, task.RealHarvestingDates, task.FailureReasons, task.HarvestedWeight},
                     cancellationToken: token));
 
         }
@@ -441,6 +444,7 @@ namespace perma_garden_app
         {
             var command = @"SELECT
                                 task.TaskId
+                                , task.SeedsUsed
                                 , task.CurrentTask
                                 , task.NextTask
                                 , task.StartingDate
@@ -481,6 +485,7 @@ namespace perma_garden_app
                                 TaskId
                                 , PlantId
                                 , PatchId    
+                                , SeedsUsed
                                 , CurrentTask
                                 , NextTask
                                 , StartingDate
@@ -494,7 +499,8 @@ namespace perma_garden_app
                             VALUES (
                                 @TaskId
                                 , @PlantId
-                                , @PatchId  
+                                , @PatchId
+                                , @SeedsUsed
                                 , @CurrentTask
                                 , @NextTask
                                 , @StartingDate
@@ -509,8 +515,10 @@ namespace perma_garden_app
                 new CommandDefinition(
                     command,
                     new
-                    {   task.TaskId, task.PlantId, task.PatchId, task.CurrentTask, task.NextTask, task.StartingDate, task.NextDate, task.TransplantDate, task.RealHarvestingDates, 
-                        task.FailureReasons, task.HarvestedWeight
+                    {   task.TaskId, task.PlantId, task.PatchId,
+                        task.SeedsUsed, task.CurrentTask, task.NextTask,
+                        task.StartingDate, task.NextDate, task.TransplantDate, 
+                        task.RealHarvestingDates, task.FailureReasons, task.HarvestedWeight
                     },
                     cancellationToken: token));
 
@@ -598,7 +606,8 @@ namespace perma_garden_app
             var command = @"SELECT
                                 task.TaskId
                                 , task.PatchId
-                                , task.PlantId    
+                                , task.PlantId
+                                , task.SeedsUsed
                                 , task.CurrentTask
                                 , task.NextTask
                                 , task.StartingDate

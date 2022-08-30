@@ -108,6 +108,7 @@ export class TaskDetailsComponent implements OnInit, OnChanges {
         width: '50%',
         data: {
           taskId: task.taskId,
+          seedsUsed: task.seedsUsed,
           currentTask: task.currentTask,
           plantId: task.plantId,
           patchId: this.patchId,

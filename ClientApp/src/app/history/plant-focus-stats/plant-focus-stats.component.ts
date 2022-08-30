@@ -12,6 +12,7 @@ export class PlantFocusStatsComponent implements OnInit {
   selectedFilter!: string;
   averagePeriodBetweenSowingAndPlanting!: number;
   averagePeriodBetweenPlantingAndHarvesting!: number;
+  productivityWeightBySeed!: number;
 
   constructor(private archivedTaskService: ArchivedTaskService) {
   }
@@ -23,6 +24,7 @@ export class PlantFocusStatsComponent implements OnInit {
     this.archivedTaskService.getData(this.selectedPlant, this.archivedTasks);
     this.averagePeriodBetweenSowingAndPlanting = this.archivedTaskService.averagePeriodBetweenStartAndTransplant;
     this.averagePeriodBetweenPlantingAndHarvesting = this.archivedTaskService.averagePeriodBetweenPlantingAndHarvesting;
+    this.productivityWeightBySeed = this.archivedTaskService.productivityWeightBySeed;
   }
 
   plantPeriodBetweenSowingAndTransplant(){
@@ -32,6 +34,7 @@ export class PlantFocusStatsComponent implements OnInit {
   plantPeriodBetweenPlantingAndHarvesting(){
     return this.selectedPlant.plantGrowingPeriod;
   }
+
 }
 
 

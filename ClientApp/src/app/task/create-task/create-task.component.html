@@ -4,24 +4,26 @@
   <form #newTaskForm="ngForm" autocomplete="off" novalidate>
 
     <div class="form-group"
-      [ngClass]="{'error': newTaskForm.controls.patchName?.invalid && newTaskForm.controls.patchName?.touched}">
+         [ngClass]="{'error': newTaskForm.controls.patchName?.invalid && newTaskForm.controls.patchName?.touched}">
       <div class="patchName">
         <label for="patchName">Patch Name</label>
         <em *ngIf="newTaskForm.controls.patchName?.invalid && newTaskForm.controls.patchName?.touched">
-          *Required</em>
+          *Required
+        </em>
         <input [readonly]=true [(ngModel)]="patch.patchName" name="patchName" required type="text" class="form-control" />
       </div>
     </div>
 
     <div class="form-group"
-      [ngClass]="{'error': newTaskForm.controls.plantList?.invalid && newTaskForm.controls.plantList?.touched}">Select a
+         [ngClass]="{'error': newTaskForm.controls.plantList?.invalid && newTaskForm.controls.plantList?.touched}">
+      Select a
       plant:
       <em *ngIf="newTaskForm.controls.plantList?.invalid && newTaskForm.controls.plantList?.touched"> *Required</em>
       <mat-form-field appearance="fill">
         <mat-label>Select</mat-label>
         <mat-select ngDefaultControl [(ngModel)]="selectedPlant" name="plant" required>
           <mat-option class="plants-name" *ngFor="let plant of patch.plantList" [value]="plant"
-            (click)="getPlantStartingMethod()">
+                      (click)="getPlantStartingMethod()">
             <p class="plant-name">{{plant.plantName}}</p>
           </mat-option>
         </mat-select>
@@ -29,34 +31,49 @@
     </div>
 
     <div class="form-group"
-      [ngClass]="{'error': newTaskForm.controls.currentTask?.invalid && newTaskForm.controls.currentTask?.touched}">
+         [ngClass]="{'error': newTaskForm.controls.currentTask?.invalid && newTaskForm.controls.currentTask?.touched}">
       <div class="initialTask">
         <label for="initialTask">Initial task</label>
         <em *ngIf="newTaskForm.controls.currentTask?.invalid && newTaskForm.controls.currentTask?.touched">
-          *Required *Select a plant </em>
+          *Required *Select a plant
+        </em>
         <input [readonly]=true [(ngModel)]="currentTask" name="currentTask" required type="text" class="form-control" />
       </div>
     </div>
 
     <div class="form-group"
-      [ngClass]="{'error': newTaskForm.controls.startingDate?.invalid && newTaskForm.controls.startingDate?.touched}">
+         [ngClass]="{'error': newTaskForm.controls.startingDate?.invalid && newTaskForm.controls.startingDate?.touched}">
       Starting date:
       <em *ngIf="newTaskForm.controls.startingDate?.invalid && newTaskForm.controls.startingDate?.touched">
-        *Required</em>
+        *Required
+      </em>
       <mat-form-field appearance="fill">
         <mat-label>Choose a date</mat-label>
         <input class="date-input" matInput [(ngModel)]="selectedDate" ngDefaultControl [matDatepicker]="picker"
-          name="startingDate" required />
+               name="startingDate" required />
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
+    </div>
+
+    <div class="form-group"
+         [ngClass]="{'error': newTaskForm.controls.seedsUsed?.invalid && newTaskForm.controls.seedsUsed?.touched}">
+      <div class="seedsUsed">
+        <label for="seedsUsed">Number of seeds used</label>
+        <em *ngIf="newTaskForm.controls.seedsUsed?.invalid && newTaskForm.controls.seedsUsed?.touched">
+          *Required
+        </em>
+        <input [(ngModel)]="seedsUsed" name="seedsUsed" required type="number" class="form-control"/>
+      </div>
     </div>
 
     <div class="form-group">
       <div class="buttons">
         <button id="cancel-button" mat-button type="button" class="btn btn-default" (click)="cancel()">Cancel</button>
         <button id="save-task" mat-button type="submit" class="save-new-task-button" [disabled]="newTaskForm.invalid"
-          (click)="saveTask(newTaskForm.value)">Save</button>
+                (click)="saveTask(newTaskForm.value)">
+          Save
+        </button>
       </div>
     </div>
   </form>

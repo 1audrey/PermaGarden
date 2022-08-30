@@ -16,7 +16,7 @@ import { IPatch } from '../garden/models/ipatch-model';
 })
 export class HistoryComponent implements OnInit, AfterViewInit {
 
-  displayedColumns: string[] = ['plant', 'patch', 'startingDate', 'transplantDate', 'realHarvestingDates', 'harvestedWeight', 'failureReasons'];
+  displayedColumns: string[] = ['plant', 'patch', 'startingDate', 'transplantDate', 'realHarvestingDates', 'seedsUsed', 'harvestedWeight', 'productivity', 'failureReasons'];
   dataSource!: MatTableDataSource<ITask>;
   listOfFilteredPLants: string[] = [];
   listOfFilter: Filter[] = [];
@@ -76,14 +76,14 @@ export class HistoryComponent implements OnInit, AfterViewInit {
 
   getTotalWeight() {
     let totalWeight = 0;
-     this.dataSource.filteredData.reduce((acc, value) => {
-      if(value.harvestedWeight != undefined){
+    this.dataSource.filteredData.reduce((acc, value) => {
+      if (value.harvestedWeight != undefined) {
         totalWeight = acc + value.harvestedWeight.split(',').map(Number).reduce((sum, current) => sum + current, 0)
         return totalWeight;
       }
-    return totalWeight;
+      return totalWeight;
     }, 0);
-  return totalWeight;
+    return totalWeight;
   }
 
   isPlantChipColor(option: string) {
@@ -107,24 +107,32 @@ export class HistoryComponent implements OnInit, AfterViewInit {
     }
   }
 
-  splitDates(harvestedDates: string){
-    if(harvestedDates != undefined ){
+  splitDates(harvestedDates: string) {
+    if (harvestedDates != undefined) {
       return harvestedDates.split(',');
     }
     return;
   }
 
-  getPlantName(plantId: number){
+  getPlantName(plantId: number) {
     let plant = this.getPlantByPlantId(plantId);
     return plant.plantName;
   }
 
-  getPatchName(patchId: number){
+  getPatchName(patchId: number) {
     let patch = this.getPatchByPatchId(patchId);
     return patch.patchName;
   }
 
-  private getPlantByPlantId(plantId: number): IPlantsList{
+  getProductivity(harvestedWeight: string, seedsUsed: number) {
+    let totalWeight = 0;
+    let productivity = 0;
+    totalWeight = harvestedWeight.split(',').map(Number).reduce((sum, current) => sum + current, 0);
+    productivity = totalWeight/seedsUsed;
+    return productivity;
+  }
+
+  private getPlantByPlantId(plantId: number): IPlantsList {
     let plantInTask: IPlantsList = {
       plantId: 0,
       plantName: '',
@@ -135,8 +143,8 @@ export class HistoryComponent implements OnInit, AfterViewInit {
       plantGrowingPeriod: 0,
       plantImagePicture: '',
     };
-    this.plants.forEach((plant) =>{
-      if(plant.plantId === plantId){
+    this.plants.forEach((plant) => {
+      if (plant.plantId === plantId) {
         plantInTask = plant;
       }
       return plantInTask;
@@ -144,15 +152,15 @@ export class HistoryComponent implements OnInit, AfterViewInit {
     return plantInTask;
   }
 
-  private getPatchByPatchId(patchId: number){
+  private getPatchByPatchId(patchId: number) {
     let patchInTask: IPatch = {
       patchId: 0,
-      patchName:'',
+      patchName: '',
       patchImagePicture: '',
     };
 
-    this.patches.forEach((patch) =>{
-      if(patch.patchId === patchId){
+    this.patches.forEach((patch) => {
+      if (patch.patchId === patchId) {
         patchInTask = patch;
       }
       return patchInTask;
@@ -309,14 +317,14 @@ export class HistoryComponent implements OnInit, AfterViewInit {
   }
 
   private IsOnlyOnePlantFilterApplied(searchString: any, data: ITask) {
-      if (searchString.option.length == 1 && this.getPlantName(data.plantId) === searchString.option[0]) {
-        this.isShowPlantData = true;
-        this.selectedPlant = this.getPlantByPlantId(data.plantId);
-      }
-      else if(searchString.option.length > 1){
-        this.isShowPlantData = false;
+    if (searchString.option.length == 1 && this.getPlantName(data.plantId) === searchString.option[0]) {
+      this.isShowPlantData = true;
+      this.selectedPlant = this.getPlantByPlantId(data.plantId);
+    }
+    else if (searchString.option.length > 1) {
+      this.isShowPlantData = false;
+    }
   }
-}
 
   private getPatchesToFilter() {
     let listOfPatches: string[] = [];

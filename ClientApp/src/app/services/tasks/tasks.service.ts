@@ -18,7 +18,7 @@ export class TasksService {
 
   constructor(private http: HttpClient) { }
 
-  saveNewTask(task: ITask, patchName: string, patchId: number, plantId:number,plant: IPlantsList){
+  saveNewTask(task: ITask, patchName: string, patchId: number, plantId:number, plant: IPlantsList){
     task.plantId = plantId;
     task.patchId = patchId;
     task.startingDate = task.startingDate.toString();

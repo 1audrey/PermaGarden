@@ -17,6 +17,8 @@ namespace perma_garden_app.Models.PatchesModel
 
         public int TaskId { get; set; }
 
+        public int SeedsUsed { get; set; }
+
         public string CurrentTask { get; set; }
 
         public string NextTask { get; set; }

@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { IPlantsList } from 'src/app/garden-list/models/iplants-model';
 import { ITask } from '../models/itask-model';
@@ -8,7 +8,7 @@ import { ITask } from '../models/itask-model';
   templateUrl: './complete-task-dialog.component.html',
   styleUrls: ['./complete-task-dialog.component.css']
 })
-export class CompleteTaskDialogComponent {
+export class CompleteTaskDialogComponent implements OnInit{
   isDirty: boolean = true;
   nextTaskForm!: any;
   selectedAnswer!: string;
@@ -22,6 +22,10 @@ export class CompleteTaskDialogComponent {
     "Yes",
     "No"
   ]
+
+  ngOnInit() {
+    console.log(this.task);
+  }
 
   constructor(
     public dialogRef: MatDialogRef<CompleteTaskDialogComponent>,
@@ -37,6 +41,7 @@ export class CompleteTaskDialogComponent {
       this.isDirty = false;
       formValues.taskId = this.task.taskId;
       formValues.patchId = this.task.patchId;
+      formValues.seedsUsed = this.task.seedsUsed;
       formValues.currentTask = this.task.currentTask;
       formValues.nextTask = this.task.nextTask;
       formValues.plantId = this.task.plantId;
@@ -52,6 +57,7 @@ export class CompleteTaskDialogComponent {
     this.isDirty = false;
     formValues.taskId = this.task.taskId;
     formValues.patchId = this.task.patchId;
+    formValues.seedsUsed = this.task.seedsUsed;
     formValues.currentTask = this.task.currentTask;
     formValues.nextTask = this.task.nextTask;
     formValues.plantId = this.task.plantId;
@@ -67,6 +73,7 @@ export class CompleteTaskDialogComponent {
       this.isDirty = false;
       formValues.taskId = this.task.taskId;
       formValues.patchId = this.task.patchId;
+      formValues.seedsUsed = this.task.seedsUsed;
       formValues.currentTask = this.task.currentTask;
       formValues.nextTask = this.task.nextTask;
       formValues.plantId = this.task.plantId;

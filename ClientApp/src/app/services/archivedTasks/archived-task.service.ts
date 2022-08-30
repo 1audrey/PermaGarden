@@ -9,6 +9,7 @@ import { ITask } from 'src/app/task/models/itask-model';
 export class ArchivedTaskService {
   averagePeriodBetweenStartAndTransplant!: number;
   averagePeriodBetweenPlantingAndHarvesting!: number;
+  productivityWeightBySeed!: number;
   isLoaded = false;
 
   constructor() { }
@@ -16,6 +17,7 @@ export class ArchivedTaskService {
   getData(selectedPlant: IPlantsList, archivedTasks: ITask[]){
     this.calculateAverageRealTransplantPeriod(selectedPlant, archivedTasks);
     this.calculateAverageRealHarvestPeriod(selectedPlant, archivedTasks);
+    this.calculateProductivityWeightBySeed(selectedPlant, archivedTasks);
   }
 
   calculateAverageRealTransplantPeriod(plant: IPlantsList, archivedTasks: ITask[]) {
@@ -26,6 +28,23 @@ export class ArchivedTaskService {
   calculateAverageRealHarvestPeriod(plant: IPlantsList, archivedTasks: ITask[]) {
     let plantsInArchived= this.initialisePlantsInTasks(plant, archivedTasks);
     this.setsAveragePeriodBetweenPlantingAndHarvesting(plantsInArchived);
+  }
+
+  calculateProductivityWeightBySeed(plant: IPlantsList, archivedTasks: ITask[]){
+    let plantsInArchived= this.initialisePlantsInTasks(plant, archivedTasks);
+    let totalWeight = 0;
+    let totalSeeds = 0;
+
+    plantsInArchived.forEach((task)=>{
+      if(task.harvestedWeight){
+        totalWeight += task.harvestedWeight.split(',').map(Number).reduce((sum, current) => sum + current, 0);;
+      }
+      totalSeeds += task.seedsUsed;
+      this.productivityWeightBySeed = Math.round(totalWeight/totalSeeds);
+    })
+
+    console.log(this.productivityWeightBySeed);
+
   }
 
   private initialisePlantsInTasks(plant: IPlantsList, archivedTasks: ITask[]): ITask[]{

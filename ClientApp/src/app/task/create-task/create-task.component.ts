@@ -21,6 +21,7 @@ export class CreateTaskComponent implements OnInit {
   plants: IPlantsList[] = [];
   tasks!: any;
   currentTask!: string;
+  seedsUsed!: number;
 
   @Input() patch!: IPatch;
 
@@ -34,7 +35,6 @@ export class CreateTaskComponent implements OnInit {
   ngOnInit(): void {
     this.route.data.forEach((data) => {
       this.patch = data['patchName'][0];
-      console.log(this.patch);
     });
 
     this.plants = this.route.snapshot.params['plants'];
@@ -51,7 +51,6 @@ export class CreateTaskComponent implements OnInit {
     this.tasksService.saveNewTask(formValues, this.patch.patchName, this.patch.patchId, this.selectedPlant.plantId, this.selectedPlant);
     this.notifications.showSuccess(`${formValues.currentTask} has been added to ${this.patch.patchName}`);
     this.router.navigate(['/tasks', this.patch.patchName]);
-    console.log(formValues);
   }
 
   cancel() {

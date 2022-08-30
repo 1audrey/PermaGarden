@@ -2,6 +2,7 @@ export interface ITask {
   taskId: number,
   plantId: number,
   patchId: number,
+  seedsUsed: number,
   currentTask: string,
   startingDate: string,
   nextTask: string,
