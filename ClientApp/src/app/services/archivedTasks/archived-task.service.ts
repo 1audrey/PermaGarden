@@ -10,6 +10,9 @@ export class ArchivedTaskService {
   averagePeriodBetweenStartAndTransplant!: number;
   averagePeriodBetweenPlantingAndHarvesting!: number;
   productivityWeightBySeed!: number;
+  totalNumberPlants!: number;
+  totalHarvestedWeight!: number;
+  mostProductivePatchId!: number;
   isLoaded = false;
 
   constructor() { }
@@ -18,6 +21,9 @@ export class ArchivedTaskService {
     this.calculateAverageRealTransplantPeriod(selectedPlant, archivedTasks);
     this.calculateAverageRealHarvestPeriod(selectedPlant, archivedTasks);
     this.calculateProductivityWeightBySeed(selectedPlant, archivedTasks);
+    this.calculateTotalNumberPlants(selectedPlant, archivedTasks);
+    this.calculateTotalHavestedWeight(selectedPlant, archivedTasks);
+    this.getMostProductivePatch(selectedPlant, archivedTasks);
   }
 
   calculateAverageRealTransplantPeriod(plant: IPlantsList, archivedTasks: ITask[]) {
@@ -41,9 +47,35 @@ export class ArchivedTaskService {
       }
       totalSeeds += task.seedsUsed;
       this.productivityWeightBySeed = Math.round(totalWeight/totalSeeds);
-    })
+    });
+    return this.productivityWeightBySeed;
+  }
 
-    console.log(this.productivityWeightBySeed);
+  calculateTotalNumberPlants(plant: IPlantsList, archivedTasks: ITask[]){
+    let plantsInArchived= this.initialisePlantsInTasks(plant, archivedTasks);
+    this.totalNumberPlants = plantsInArchived.length;
+  }
+
+  calculateTotalHavestedWeight(plant: IPlantsList, archivedTasks: ITask[]){
+    let plantsInArchived= this.initialisePlantsInTasks(plant, archivedTasks);
+    let totalWeight = 0;
+
+    plantsInArchived.forEach((task)=>{
+      if(task.harvestedWeight){
+        totalWeight += task.harvestedWeight.split(',').map(Number).reduce((sum, current) => sum + current, 0);;
+      }
+      this.totalHarvestedWeight = totalWeight;
+    });
+  }
+
+  getMostProductivePatch(plant: IPlantsList, archivedTasks: ITask[]){
+    let plantsInArchived = this.initialisePlantsInTasks(plant, archivedTasks);
+
+    plantsInArchived.forEach((task)=>{
+      if(Math.max(this.calculateProductivityWeightBySeed(plant, archivedTasks))){
+        this.mostProductivePatchId = task.patchId;
+      };
+    });
 
   }
 
