@@ -192,6 +192,7 @@ form{
   border-color: #5b8d27;
   background-color:#5b8d27;
   font-weight: 500;
+  margin-left: 15px;
 }
 
 .save-edit-button:hover{

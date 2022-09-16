@@ -5,6 +5,7 @@
   padding-left: 25px !important;
   padding-right: 25px !important;
   align-content: center;
+
 }
 
 .mat-h2, .mat-title, h2 {
@@ -50,6 +51,7 @@ p {
   padding: 0 20px;
   justify-content: center;
   color: #000409;
+  margin-bottom:16px;
 }
 
 

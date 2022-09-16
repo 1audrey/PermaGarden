@@ -92,6 +92,7 @@ input
   border-color: #5b8d27;
   background-color:#5b8d27;
   font-weight: 500;
+  margin-left: 15px;
 }
 
 .save-new-task-button:hover{
@@ -100,4 +101,16 @@ input
   background-color: #114b0b;
   cursor: pointer;
   font-weight: 500;
+}
+
+form{
+  margin-bottom:16px;
+}
+
+h2 {
+  font: 500 20px/32px Roboto, "Helvetica Neue", sans-serif;
+  letter-spacing: normal;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 40px !important;
 }

@@ -2,6 +2,7 @@
   padding: 0 20px;
   justify-content: center;
   color: #000409;
+  margin: 16px 0px !important;
 }
 
 .plants-list {
@@ -96,7 +97,7 @@ p {
   margin: 40px;
   text-align: center;
   padding: 50px;
- 
+
 }
 
 

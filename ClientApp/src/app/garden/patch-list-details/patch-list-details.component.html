@@ -37,9 +37,9 @@
         <div>
           <div class="hidden" fxShow="true" fxHide.lt-md fxFlex fxLayout>
             <div class="buttons">
+              <button id="cancel-button" mat-button type="button" class="btn btn-default" (click)="cancel()">Cancel</button>
               <button id="save-plant" mat-button type="submit" class="save-edit-button" [disabled]="patchForm.invalid"
                 (click)="saveEditedPatch(patchForm.value)">Save</button>
-              <button id="cancel-button" mat-button type="button" class="btn btn-default"
-                (click)="cancel()">Cancel</button>
+
             </div>
           </div>

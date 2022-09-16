@@ -93,6 +93,7 @@ em {
   border-color: #5b8d27;
   background-color:#5b8d27;
   font-weight: 500;
+  margin-left:15px;
 }
 
 .save-new-patch-button:hover{
@@ -109,4 +110,8 @@ em {
 
 ::ng-deep .mat-primary .mat-option.mat-selected:not(.mat-option-disabled) {
   color: #fa990e !important;
+}
+
+form{
+  margin-bottom: 16px;
 }

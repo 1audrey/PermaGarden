@@ -111,6 +111,8 @@ input
   border-color: #5b8d27;
   background-color:#5b8d27;
   font-weight: 500;
+  margin-left:15px;
+
 }
 
 .save-new-plant-button:hover{
@@ -138,3 +140,6 @@ h2 {
   padding-left: 40px !important;
 }
 
+form{
+  margin-bottom:16px;
+}
