@@ -109,7 +109,7 @@ const routes: Routes = [
   {
     path: 'app-plant-focus-stats',
     component: HistoryComponent,
-    resolve: { patches: PatchResolverService }
+    resolve: { patches: PatchResolverService , plants: PlantsListResolver}
   },
 
 

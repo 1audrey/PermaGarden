@@ -494,6 +494,7 @@ namespace perma_garden_app
                                 , RealHarvestingDates
                                 , FailureReasons
                                 , HarvestedWeight
+                                , Productivity
                                 )
 
                             VALUES (
@@ -509,6 +510,7 @@ namespace perma_garden_app
                                 , @RealHarvestingDates
                                 , @FailureReasons
                                 , @HarvestedWeight
+                                , @Productivity
                                 );";
 
             await SqlConnection.ExecuteAsync(
@@ -518,7 +520,8 @@ namespace perma_garden_app
                     {   task.TaskId, task.PlantId, task.PatchId,
                         task.SeedsUsed, task.CurrentTask, task.NextTask,
                         task.StartingDate, task.NextDate, task.TransplantDate, 
-                        task.RealHarvestingDates, task.FailureReasons, task.HarvestedWeight
+                        task.RealHarvestingDates, task.FailureReasons, task.HarvestedWeight,
+                        task.Productivity
                     },
                     cancellationToken: token));
 
@@ -616,6 +619,7 @@ namespace perma_garden_app
                                 , task.RealHarvestingDates
                                 , task.FailureReasons
                                 , task.HarvestedWeight
+                                , task.Productivity
                                                 
                             FROM
                                 dbo.ArchivedTasks task";

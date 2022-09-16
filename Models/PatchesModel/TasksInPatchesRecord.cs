@@ -37,6 +37,8 @@ namespace perma_garden_app.Models.PatchesModel
 
         public string HarvestedWeight { get; set; }
 
+        public int Productivity { get; set; }
+
 
     }
 }

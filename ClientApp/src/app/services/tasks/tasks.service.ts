@@ -77,6 +77,14 @@ export class TasksService {
   }
 
   saveTaskInArchiveTasks(task: ITask): Observable<ITask> {
+    if(task.harvestedWeight){
+      let totalWeight = 0;
+      totalWeight = task.harvestedWeight.split(',').map(Number).reduce((sum, current) => sum + current, 0);
+      task.productivity = totalWeight/task.seedsUsed;
+    }
+    else {
+      task.productivity = 0;
+    }
     return this.http.post<ITask>(this.baseUrl + 'save-task-in-archived-tasks', task).pipe(
       tap(() => console.log(`Task service added ${task.taskId} to archived tasks successfully`)),
       catchError((error: HttpErrorResponse) => throwError(error))
@@ -150,6 +158,10 @@ export class TasksService {
     if (task.harvestedWeight) {
       this.allHarvestedWeight.push(task.harvestedWeight);
       task.harvestedWeight = this.allHarvestedWeight.toString();
+
+      let totalWeight = 0;
+      totalWeight = task.harvestedWeight.split(',').map(Number).reduce((sum, current) => sum + current, 0);
+      task.productivity = Math.round(totalWeight/task.seedsUsed);
     }
 
     if (task.realHarvestingDates) {

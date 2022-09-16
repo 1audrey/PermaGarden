@@ -1,11 +1,50 @@
-<p>{{selectedPlant.plantName}}</p>
-<p>Total number of {{selectedPlant.plantName}}: {{totalNumberPlants}}</p>
-<p>Total harvested weight {{selectedPlant.plantName}}: {{totalHarvestedWeight}}</p>
-<p>Productivity Weight/Seeds: {{productivityWeightBySeed}}</p>
-<p *ngIf="selectedPlant.plantSowingPeriod">Average transplant time achieved: {{averagePeriodBetweenSowingAndPlanting}}</p>
-<p *ngIf="selectedPlant.plantSowingPeriod">Current transplant period recorded in the {{selectedPlant.plantName}} : {{plantPeriodBetweenSowingAndTransplant()}}</p>
-<p>Average harvest time achieved: {{averagePeriodBetweenPlantingAndHarvesting}}</p>
-<p>Current harvest period recorded in the {{selectedPlant.plantName}} :{{plantPeriodBetweenPlantingAndHarvesting()}} </p>
-<p>Starting date recommended based on history: </p>
-<p>Best planted with: list of plants in the same bed when productivty is highest: </p>
-<p>highest productivity when in: {{mostProductivePatchName}}</p>
+<div class="stats">
+  <div class="totals">
+    <div class="total-plants">
+        <p>Total {{selectedPlant.plantName}} in archived:</p>
+        <p>{{totalNumberPlants}}</p>
+      </div>
+      <div class="total-weight">
+        <p>Total harvested weight:</p>
+        <p>{{totalHarvestedWeight}}</p>
+      </div>
+      <div class="productivity">
+        <p>Average productivity Weight/Seeds:</p>
+        <p>{{averageProductivityWeightBySeed}}</p>
+      </div>
+    </div>
+
+
+  <div class="recorded-vs-real">
+    <div *ngIf="selectedPlant.plantSowingPeriod"class="sowing-period">
+        <p>Average transplant period after: {{averagePeriodBetweenSowingAndPlanting}} days</p>
+        <p>Current transplant period recorded: {{plantPeriodBetweenSowingAndTransplant()}} days</p>
+    </div>
+
+    <img class="plant-image" [src]="selectedPlant.plantImagePicture">
+
+    <div class="harvest-period">
+        <p>Average harvest period after: {{averagePeriodBetweenPlantingAndHarvesting}} days</p>
+        <p>Current harvest period recorded: {{plantPeriodBetweenPlantingAndHarvesting()}} days</p>
+    </div>
+  </div>
+
+  <div class="recommendations">
+    <div class="starting-date">
+      <p>Starting date recommended based on history:</p>
+      <p>{{startingDateForBestProductivity | date:'dd/MM/yyyy'}}</p>
+    </div>
+
+    <div class="patch-productive">
+      <p>Most productive when planted in:</p>
+      <p>{{mostProductivePatchName}}</p>
+    </div>
+
+    <div *ngIf="bestCompanionPlants.length"class="companions">
+      <p>Best planted with:</p>
+      <p>{{bestCompanionPlants}}</p>
+    </div>
+
+  </div>
+</div>
+

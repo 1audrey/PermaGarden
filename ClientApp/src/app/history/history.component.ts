@@ -124,14 +124,6 @@ export class HistoryComponent implements OnInit, AfterViewInit {
     return patch.patchName;
   }
 
-  getProductivity(harvestedWeight: string, seedsUsed: number) {
-    let totalWeight = 0;
-    let productivity = 0;
-    totalWeight = harvestedWeight.split(',').map(Number).reduce((sum, current) => sum + current, 0);
-    productivity = totalWeight/seedsUsed;
-    return productivity;
-  }
-
   private getPlantByPlantId(plantId: number): IPlantsList {
     let plantInTask: IPlantsList = {
       plantId: 0,

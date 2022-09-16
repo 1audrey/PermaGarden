@@ -11,5 +11,6 @@ export interface ITask {
   transplantDate?: string,
   realHarvestingDates?: string,
   harvestedWeight?: string,
-  failureReasons?: string
+  failureReasons?: string,
+  productivity: number
  }

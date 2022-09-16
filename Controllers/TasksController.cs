@@ -188,6 +188,8 @@ namespace perma_garden_app.Controllers
                     RealHarvestingDates = task.RealHarvestingDates,
                     FailureReasons = task.FailureReasons,
                     HarvestedWeight = task.HarvestedWeight,
+                    Productivity = task.Productivity
+
                 };
 
                 await _permaGardenRepositery.SaveTaskInArchivedTasks(newTask, token);

@@ -29,5 +29,7 @@ namespace perma_garden_app.Models.TasksModel
 
         public string HarvestedWeight { get; set; }
 
+        public int Productivity { get; set; }
+
     }
 }

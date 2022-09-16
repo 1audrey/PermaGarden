@@ -103,7 +103,7 @@
           <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by number">
             Productivity (weight by seeds used)
           </th>
-          <td mat-cell *matCellDef="let element"> {{getProductivity(element.harvestedWeight, element.seedsUsed)}}</td>
+          <td mat-cell *matCellDef="let element"> {{element.productivity}}</td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -126,12 +126,13 @@
     </div>
   </div>
   <div class="totals">
-    <p class="plants">Total of plants: {{getTotalPlant()}}</p>
+    <p class="plants">Plants total: {{getTotalPlant()}}</p>
     <p class="weight">Total weight: {{getTotalWeight()}}</p>
   </div>
 </div>
-<div class="plant-focus" *ngIf="isShowPlantData">
-  <app-plant-focus-stats [selectedPlant]="selectedPlant"
+<div *ngIf="isShowPlantData">
+  <app-plant-focus-stats class="plant-focus"[selectedPlant]="selectedPlant"
   [archivedTasks]="archivedTasks"
   ></app-plant-focus-stats>
 </div>
+
