@@ -1,5 +1,6 @@
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import * as moment from 'moment';
 import { Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
@@ -7,6 +8,7 @@ import { IPlantsList } from 'src/app/garden-list/models/iplants-model';
 import { ITaskInPatch } from 'src/app/garden/models/itaskinpatch-models';
 import { ITask } from 'src/app/task/models/itask-model';
 import { IPlantsInTasks } from '../../task/models/IPlantsInTasks-model';
+import { NotificationsService } from '../notifications/notifications.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +18,7 @@ export class TasksService {
   allHarvestedDates: string[] = [];
   allHarvestedWeight: string[] = [];
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router, private notifications: NotificationsService) { }
 
   saveNewTask(task: ITask, patchName: string, patchId: number, plantId:number, plant: IPlantsList){
     task.plantId = plantId;
@@ -26,6 +28,8 @@ export class TasksService {
     task.nextDate = this.calculateNextDate(task, plant).toString();
 
     this.saveTask(task).subscribe(() => {
+      this.notifications.showSuccess(`${task.currentTask} ${plant.plantName} has been added to ${patchName}`);
+      this.router.navigate(['/tasks', patchName]);
       this.saveTaskInPatch(patchName, patchId).subscribe();
       this.savePlantInTask(plantId).subscribe();
 
@@ -65,6 +69,8 @@ export class TasksService {
     this.saveFailureReasons(task).subscribe(() => {
       this.saveTaskInArchiveTasks(task).subscribe();
       this.deleteTask(task.taskId).subscribe();
+      this.notifications.showSuccess(`${task.currentTask} has been archived`);
+
     });
 
   }

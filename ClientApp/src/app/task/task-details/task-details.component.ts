@@ -32,7 +32,6 @@ export class TaskDetailsComponent implements OnInit, OnChanges {
     private notifications: NotificationsService,  ) { }
 
   ngOnInit() {
-
     this.params = this.route.snapshot.params['patchName'];
 
     if (this.params) {
@@ -48,7 +47,6 @@ export class TaskDetailsComponent implements OnInit, OnChanges {
     }
 
     else if (this.patchWithoutParams.taskList && this.patchWithoutParams.plantList) {
-      console.log(this.patchWithoutParams);
       this.taskList = this.patchWithoutParams.taskList;
       this.patchName = this.patchWithoutParams.patchName;
       this.patchId = this.patchWithoutParams.patchId;
@@ -133,14 +131,24 @@ export class TaskDetailsComponent implements OnInit, OnChanges {
           this.verifyHarvestedAnswer(updatedTask);
         }
         else if (updatedTask.transplantDate != null) {
-          let plantInTask = this.getPlantFromTask(updatedTask.plantId)
+          let plantInTask = this.getPlantFromTask(updatedTask.plantId);
           this.taskService.saveTransplantedTask(updatedTask, plantInTask).subscribe(() => {
-            this.notifications.showSuccess(`The task '${updatedTask.currentTask}' for the plant '${updatedTask.plant.plantName}' has been successfully updated`);
-            //try to do async and with a spinner
-            if (this.params != null) {
-              this.router.navigate(['/tasks', this.patch.patchName]);
+            this.notifications.showSuccess(`The task '${updatedTask.currentTask}' for the plant has been successfully updated`);
+            if (this.params) {
+              this.router.navigate(['/tasks', this.params]).then(() => {
+                window.location.reload();
+              });
             }
-              this.router.navigate(['/tasks', this.patchWithoutParams.patchName]);
+            else if(this.patchFromHomepage){
+              this.router.navigate(['/home']).then(() => {
+                window.location.reload();
+              });
+            }
+            else {
+              this.router.navigate(['/tasks']).then(() => {
+                window.location.reload();
+              });
+            }
             });
         }
       });

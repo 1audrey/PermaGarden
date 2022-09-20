@@ -38,7 +38,6 @@ export class CreateTaskComponent implements OnInit {
     });
 
     this.plants = this.route.snapshot.params['plants'];
-
   }
 
   getPlantStartingMethod() {
@@ -49,8 +48,7 @@ export class CreateTaskComponent implements OnInit {
     this.isDirty = false;
     console.log(formValues);
     this.tasksService.saveNewTask(formValues, this.patch.patchName, this.patch.patchId, this.selectedPlant.plantId, this.selectedPlant);
-    this.notifications.showSuccess(`${formValues.currentTask} has been added to ${this.patch.patchName}`);
-    this.router.navigate(['/tasks', this.patch.patchName]);
+
   }
 
   cancel() {

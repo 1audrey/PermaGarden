@@ -19,7 +19,7 @@
     [ngClass]="{'error': nextTaskForm.controls.transplantDate?.invalid && nextTaskForm.controls.transplantDate?.touched}">
     <div class="sowing-in-pots" *ngIf="task.currentTask == 'Sowing in pots';else IsHarvesting">
       <!-- update with the plant name -->
-      <p>Select the date from when the {{task.plantId}} was transplanted?</p>
+      <p>Choose a transplanted date:</p>
       <em *ngIf="nextTaskForm.controls.transplantDate?.invalid && nextTaskForm.controls.transplantDate?.touched">
         *Required </em>
       <mat-form-field appearance="fill">
@@ -37,7 +37,7 @@
       <div>
         <button id="cancel-button" mat-button type="button" class="btn btn-default" (click)="cancel()">Cancel</button>
         <button id="save-task" mat-button type="submit" class="save-new-task-button" [disabled]="nextTaskForm.invalid"
-          (click)="saveTransplantTask(nextTaskForm.value)" [routerLink]="['/tasks']">Save</button>
+          (click)="saveTransplantTask(nextTaskForm.value)">Save</button>
       </div>
     </div>
 
