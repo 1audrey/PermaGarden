@@ -117,7 +117,7 @@ export class ArchivedTaskService {
     let mostProductiveTask = this.getPlantWithHightestProductivity(plant, archivedTasks);
 
     archivedTasks.forEach((task)=>{
-      if (task.patchId === mostProductiveTask.patchId && task !== mostProductiveTask){
+      if (task.patchId === mostProductiveTask.patchId && task.plantId !== mostProductiveTask.plantId){
           if(this.calculateIfGrownTogether(task, mostProductiveTask)){
             tasksDoneTogether.push(task);
           }

@@ -134,21 +134,7 @@ export class TaskDetailsComponent implements OnInit, OnChanges {
           let plantInTask = this.getPlantFromTask(updatedTask.plantId);
           this.taskService.saveTransplantedTask(updatedTask, plantInTask).subscribe(() => {
             this.notifications.showSuccess(`The task '${updatedTask.currentTask}' for the plant has been successfully updated`);
-            if (this.params) {
-              this.router.navigate(['/tasks', this.params]).then(() => {
-                window.location.reload();
-              });
-            }
-            else if(this.patchFromHomepage){
-              this.router.navigate(['/home']).then(() => {
-                window.location.reload();
-              });
-            }
-            else {
-              this.router.navigate(['/tasks']).then(() => {
-                window.location.reload();
-              });
-            }
+            this.reloadPage();
             });
         }
       });
@@ -241,11 +227,15 @@ export class TaskDetailsComponent implements OnInit, OnChanges {
   private verifyHarvestedAnswer(updatedTask: any) {
     if (updatedTask.harvestSelectedAnswer === 'No') {
       this.taskService.saveUnfinishedHarvestedTask(updatedTask);
+      this.reloadPage();
     }
     else {
       this.taskService.saveFinishedHarvestedTask(updatedTask);
       this.deleteTask(updatedTask.taskId);
     }
+  }
+
+  private reloadPage(){
     if (this.params) {
       this.router.navigate(['/tasks', this.params]).then(() => {
         window.location.reload();
