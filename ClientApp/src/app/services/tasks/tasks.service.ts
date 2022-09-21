@@ -32,9 +32,7 @@ export class TasksService {
       this.router.navigate(['/tasks', patchName]);
       this.saveTaskInPatch(patchName, patchId).subscribe();
       this.savePlantInTask(plantId).subscribe();
-
     });
-
   }
 
   saveTask(task: ITask): Observable<ITask> {
@@ -66,13 +64,18 @@ export class TasksService {
   }
 
   saveFailedTask(task: ITask) {
+    if(task.harvestedWeight){
+      task.harvestedWeight = task.harvestedWeight.toString();
+    }
+    if( task.realHarvestingDates){
+      task.realHarvestingDates = task.realHarvestingDates.toString();
+    }
+
     this.saveFailureReasons(task).subscribe(() => {
       this.saveTaskInArchiveTasks(task).subscribe();
       this.deleteTask(task.taskId).subscribe();
       this.notifications.showSuccess(`${task.currentTask} has been archived`);
-
     });
-
   }
 
   saveFailureReasons(task: ITask): Observable<ITask>{
@@ -149,7 +152,7 @@ export class TasksService {
   saveUnfinishedHarvestedTask(task: ITask) {
     if (task.harvestedWeight) {
       this.allHarvestedWeight.push(task.harvestedWeight);
-      task.harvestedWeight = this.allHarvestedWeight.toString() ;
+      task.harvestedWeight = this.allHarvestedWeight.toString();
     }
 
     if (task.realHarvestingDates) {
@@ -160,7 +163,6 @@ export class TasksService {
   }
 
   saveFinishedHarvestedTask(task: ITask) {
-    console.log(task);
     if (task.harvestedWeight) {
       this.allHarvestedWeight.push(task.harvestedWeight);
       task.harvestedWeight = this.allHarvestedWeight.toString();

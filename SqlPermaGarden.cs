@@ -190,13 +190,15 @@ namespace perma_garden_app
                                 , patch.PatchName
                                 , patch.PatchImagePicture
                                 , task.TaskId
-                                , task.seedsUsed
+                                , task.SeedsUsed
                                 , task.CurrentTask
                                 , task.NextTask
                                 , task.StartingDate
                                 , task.NextDate
                                 , task.TransplantDate
+                                , task.RealHarvestingDates
                                 , task.FailureReasons
+                                , task.HarvestedWeight
                                 , tasksInPatches.PatchId
                                 , tasksInPatches.TaskId
                 

@@ -65,8 +65,8 @@
                   *ngIf="nextTaskForm.controls.harvestingWeight?.invalid && nextTaskForm.controls.harvestingWeight?.touched">
                   *Required </em>
               </div>
-              <input (ngModel)="task.harvestedWeight" name="harvestedWeight" required id="harvestingWeight"
-                type="text" class="form-control" placeholder="Enter the weight..." />
+              <input name="harvestingWeight" required id="harvestingWeight"
+              [(ngModel)]="harvestingWeight" type="text" class="form-control" placeholder="Enter the weight..." />
             </div>
           </div>
 

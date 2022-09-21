@@ -115,8 +115,8 @@ export class TaskDetailsComponent implements OnInit, OnChanges {
           startingDate: task.startingDate,
           transplantDate: task.transplantDate,
           daysDifferenceBetweenTaskAndToday: task.daysDifferenceBetweenTaskAndToday,
-          realHarvestingDate: task.realHarvestingDates,
-          harvestingWeight: task.harvestedWeight,
+          realHarvestingDates: task.realHarvestingDates,
+          harvestedWeight: task.harvestedWeight,
           failureReasons: task.failureReasons,
         },
         autoFocus: false,
@@ -124,8 +124,8 @@ export class TaskDetailsComponent implements OnInit, OnChanges {
 
       dialogRef.afterClosed().subscribe(updatedTask => {
         if (updatedTask.failureReasons != null) {
-          this.deleteTask(updatedTask.taskId);
           this.taskService.saveFailedTask(updatedTask);
+          this.deleteTask(updatedTask.taskId);
         }
         else if (updatedTask.harvestSelectedAnswer) {
           this.verifyHarvestedAnswer(updatedTask);
@@ -246,6 +246,20 @@ export class TaskDetailsComponent implements OnInit, OnChanges {
       this.taskService.saveFinishedHarvestedTask(updatedTask);
       this.deleteTask(updatedTask.taskId);
     }
-
+    if (this.params) {
+      this.router.navigate(['/tasks', this.params]).then(() => {
+        window.location.reload();
+      });
+    }
+    else if(this.patchFromHomepage){
+      this.router.navigate(['/home']).then(() => {
+        window.location.reload();
+      });
+    }
+    else {
+      this.router.navigate(['/tasks']).then(() => {
+        window.location.reload();
+      });
+    }
   }
 }
