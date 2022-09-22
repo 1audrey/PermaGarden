@@ -446,6 +446,8 @@ namespace perma_garden_app
         {
             var command = @"SELECT
                                 task.TaskId
+                                , task.PatchId
+                                , task.PlantId
                                 , task.SeedsUsed
                                 , task.CurrentTask
                                 , task.NextTask

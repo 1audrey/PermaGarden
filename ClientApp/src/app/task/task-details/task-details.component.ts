@@ -145,6 +145,7 @@ export class TaskDetailsComponent implements OnInit, OnChanges {
       this.taskList.splice(index, 1);
     }
     this.taskService.taskToDelete(taskId);
+    this.reloadPage();
   }
 
   getDifferenceBetweenTaskDateAndTodaydate(taskList: ITask[]) {

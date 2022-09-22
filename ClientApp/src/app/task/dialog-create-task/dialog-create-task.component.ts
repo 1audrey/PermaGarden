@@ -64,5 +64,4 @@ export class DialogCreateTaskComponent implements OnInit {
       return;
     }
   }
-
 }

@@ -3,6 +3,10 @@
   <div class="body">
     <div class="tasks-list">
       <h2>Upcoming tasks in the garden</h2>
+
+      <div class="no-task" *ngIf="tasks.length < 1 ">
+        <app-no-task></app-no-task>
+      </div>
       <div class="my-tasks">
         <div fxLayoutGap="16px grid">
           <div *ngFor="let patchWithoutParams of patches">

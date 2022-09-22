@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ITask } from '../models/itask-model';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogCreateTaskComponent } from '../dialog-create-task/dialog-create-task.component';
 import { IPatch } from '../../garden/models/ipatch-model';
 import { ActivatedRoute } from '@angular/router';
+import { ITask } from '../models/itask-model';
 
 @Component({
   selector: 'app-all-tasks',
@@ -11,8 +11,11 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./all-tasks.component.css']
 })
 export class AllTasksComponent implements OnInit {
-  allTasks: ITask[] = [];
-  task!: ITask;
+
+  private static readonly PATCHES = 'patches';
+  private static readonly TASKS = 'tasks';
+
+  tasks!: ITask[];
   patches!: IPatch[];
   selectedFilter!: string;
   filters = [
@@ -28,13 +31,15 @@ export class AllTasksComponent implements OnInit {
    ) { }
 
   ngOnInit() {
-    this.patches = this.route.snapshot.data['patches'];
+    this.patches = this.route.snapshot.data[AllTasksComponent.PATCHES];
+    this.tasks = this.route.snapshot.data[AllTasksComponent.TASKS];
+
+    console.log(this.tasks);
   }
 
   createTask(){
     this.dialog.open(DialogCreateTaskComponent, {
       width: '250px',
-
     });
   }
 }

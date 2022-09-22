@@ -17,7 +17,7 @@ import { SinglepatchResolverService } from './resolver/singlepatch-resolver.serv
 import { TaskDetailsComponent } from './task/task-details/task-details.component';
 import { HistoryComponent } from './history/history.component';
 import { ArchivedTasksResolver } from './resolver/archived-tasks-resolver.service';
-import { ArchivedTaskService } from './services/archivedTasks/archived-task.service';
+import { AllTaskResolverService } from './resolver/all-task-resolver.service';
 
 const routes: Routes = [
   {
@@ -35,7 +35,7 @@ const routes: Routes = [
   {
     path: 'home',
     component: HomepageComponent,
-    resolve: { plants: PlantsListResolver, patches: PatchResolverService }
+    resolve: { plants: PlantsListResolver, patches: PatchResolverService, tasks: AllTaskResolverService }
   },
 
   {
@@ -81,7 +81,7 @@ const routes: Routes = [
   {
     path: 'tasks',
     component: AllTasksComponent,
-    resolve: { patches: PatchResolverService }
+    resolve: { patches: PatchResolverService, tasks: AllTaskResolverService }
   },
 
   {

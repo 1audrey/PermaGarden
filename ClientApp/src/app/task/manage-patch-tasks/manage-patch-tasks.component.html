@@ -11,6 +11,10 @@
     </div>
   </div>
 
+  <div class="no-task" *ngIf="patch.taskList < 1 ">
+    <app-no-task></app-no-task>
+  </div>
+
   <div class="my-tasks">
     <div fxLayoutGap="grid">
       <div>

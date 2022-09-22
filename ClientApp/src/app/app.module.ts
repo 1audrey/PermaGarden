@@ -65,6 +65,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import {MatChipsModule} from '@angular/material/chips';
 import { PlantFocusStatsComponent } from './history/plant-focus-stats/plant-focus-stats.component';
 import { ArchivedTasksResolver } from './resolver/archived-tasks-resolver.service';
+import { NoTaskComponent } from './task/no-task/no-task.component';
 
 
 
@@ -94,6 +95,7 @@ import { ArchivedTasksResolver } from './resolver/archived-tasks-resolver.servic
     MockPipe,
     HistoryComponent,
     PlantFocusStatsComponent,
+    NoTaskComponent,
 
 
 

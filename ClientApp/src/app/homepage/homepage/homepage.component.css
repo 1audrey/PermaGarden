@@ -1,9 +1,8 @@
 .homepage-layout{
-  padding: 0 25px;
+  padding-right: 25px;
   justify-content: center;
   color: #000409;
   margin-bottom:16px;
-
 }
 
 h1{
@@ -32,7 +31,8 @@ h1{
 
 .tasks-list{
   width:85%;
-  padding: 0 20px;
+  padding-left: 25px !important;
+  padding-right: 25px !important;
 }
 
 .weather{

@@ -15,9 +15,12 @@
       </div>
     </div>
     <div class="title-right">
-      <button mat-button class="create-patch" (click)="createTask()">Create a task</button>
+      <button mat-button class="create-task" (click)="createTask()">Create a task</button>
     </div>
+  </div>
 
+  <div class="no-task" *ngIf="tasks.length < 1 ">
+    <app-no-task></app-no-task>
   </div>
 
   <div class="my-tasks">
