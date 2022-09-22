@@ -29,9 +29,9 @@ export class TasksService {
 
     this.saveTask(task).subscribe(() => {
       this.notifications.showSuccess(`${task.currentTask} ${plant.plantName} has been added to ${patchName}`);
-      this.router.navigate(['/tasks', patchName]);
       this.saveTaskInPatch(patchName, patchId).subscribe();
       this.savePlantInTask(plantId).subscribe();
+      this.router.navigate(['/tasks']);
     });
   }
 

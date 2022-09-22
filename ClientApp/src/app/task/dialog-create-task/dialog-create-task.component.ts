@@ -14,8 +14,9 @@ import { PatchesService } from '../../services/patches/patches.service';
 })
 export class DialogCreateTaskComponent implements OnInit {
 
-  public static readonly CREATEPATCH_WEBSITE_URL: string = '/create-patch';
-  public static readonly PLANTS_LIST_WEBSITE_URL: string = '/plants-list';
+  private static readonly CREATEPATCH_WEBSITE_URL: string = 'create-patch';
+  private static readonly PLANTS_LIST_WEBSITE_URL: string = 'plants-list';
+  private static readonly CREATE_TASK_WEBSITE_URL: string = '/create-task';
 
   patchControl = new FormControl('', Validators.required);
   patchName!: string;
@@ -40,30 +41,28 @@ export class DialogCreateTaskComponent implements OnInit {
   }
 
   createPatch() {
-    const link = document.createElement('a');
-    link.href = DialogCreateTaskComponent.CREATEPATCH_WEBSITE_URL;
-    link.setAttribute('visibility', 'hidden');
-    link.click();
+    this.dialogRef.close();
+    this.router.navigate([DialogCreateTaskComponent.CREATEPATCH_WEBSITE_URL]);
   }
 
   goToPlantsPage() {
     this.dialogRef.close();
-    const link = document.createElement('a');
-    link.href = DialogCreateTaskComponent.PLANTS_LIST_WEBSITE_URL;
-    link.setAttribute('visibility', 'hidden');
-    link.click();
+    this.router.navigate([DialogCreateTaskComponent.PLANTS_LIST_WEBSITE_URL]);
   }
 
-  createTaskPage(patchName: string) {
+  enterTaskPageForPatch(patchName: string) {
     for (let patch of this.patches) {
-      if (patch.patchName === patchName && !patch.plantList?.length) {
-        this.notifications.showWarning(`You need to add plants to ${patchName} before creating tasks`);
-        return;
-      }
+      this.checkIfPatchHasPlants(patch, patchName)
     }
-    this.router.navigate(['/create-task', patchName]);
+    this.router.navigate([DialogCreateTaskComponent.CREATE_TASK_WEBSITE_URL, patchName]);
     this.dialogRef.close();
+  }
 
+  private checkIfPatchHasPlants(patch:IPatch, patchName: string){
+    if (patch.patchName === patchName && !patch.plantList?.length) {
+      this.notifications.showWarning(`You need to add plants to ${patchName} before creating tasks`);
+      return;
+    }
   }
 
 }

@@ -41,14 +41,12 @@ export class CreateTaskComponent implements OnInit {
   }
 
   getPlantStartingMethod() {
-  this.currentTask= this.selectedPlant.plantStartingMethod;
+    this.currentTask= this.selectedPlant.plantStartingMethod;
   }
 
   saveTask(formValues: ITask) {
     this.isDirty = false;
-    console.log(formValues);
     this.tasksService.saveNewTask(formValues, this.patch.patchName, this.patch.patchId, this.selectedPlant.plantId, this.selectedPlant);
-
   }
 
   cancel() {

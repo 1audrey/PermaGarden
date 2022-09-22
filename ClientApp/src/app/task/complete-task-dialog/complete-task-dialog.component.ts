@@ -8,7 +8,7 @@ import { ITask } from '../models/itask-model';
   templateUrl: './complete-task-dialog.component.html',
   styleUrls: ['./complete-task-dialog.component.css']
 })
-export class CompleteTaskDialogComponent implements OnInit{
+export class CompleteTaskDialogComponent {
   isDirty: boolean = true;
   nextTaskForm!: any;
   selectedAnswer!: string;
@@ -24,13 +24,6 @@ export class CompleteTaskDialogComponent implements OnInit{
     "No"
   ]
 
-  ngOnInit() {
-    console.dir(`this is the task harvesting dates: ${this.task.realHarvestingDates}`);
-    console.dir(`this is the task harvested weight: ${this.task.harvestedWeight}`);
-    console.dir(`this is the task seeds: ${this.task.seedsUsed}`);
-
-  }
-
   constructor(
     public dialogRef: MatDialogRef<CompleteTaskDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public task: ITask,
@@ -43,15 +36,7 @@ export class CompleteTaskDialogComponent implements OnInit{
   saveTransplantTask(formValues: ITask){
     if (formValues.transplantDate){
       this.isDirty = false;
-      formValues.taskId = this.task.taskId;
-      formValues.patchId = this.task.patchId;
-      formValues.seedsUsed = this.task.seedsUsed;
-      formValues.currentTask = this.task.currentTask;
-      formValues.nextTask = this.task.nextTask;
-      formValues.plantId = this.task.plantId;
-      formValues.startingDate = this.task.startingDate;
-      formValues.nextDate = this.task.nextDate;
-      formValues.daysDifferenceBetweenTaskAndToday = this.task.daysDifferenceBetweenTaskAndToday;
+      this.getMainTaskData(formValues);
       this.task.transplantDate = formValues.transplantDate;
       this.dialogRef.close(formValues);
     }
@@ -59,15 +44,7 @@ export class CompleteTaskDialogComponent implements OnInit{
 
   saveFailedTask(formValues: ITask){
     this.isDirty = false;
-    formValues.taskId = this.task.taskId;
-    formValues.patchId = this.task.patchId;
-    formValues.seedsUsed = this.task.seedsUsed;
-    formValues.currentTask = this.task.currentTask;
-    formValues.nextTask = this.task.nextTask;
-    formValues.plantId = this.task.plantId;
-    formValues.startingDate = this.task.startingDate;
-    formValues.nextDate = this.task.nextDate;
-    formValues.daysDifferenceBetweenTaskAndToday = this.task.daysDifferenceBetweenTaskAndToday;
+    this.getMainTaskData(formValues);
     formValues.transplantDate = this.task.transplantDate;
     formValues.harvestedWeight = this.task.harvestedWeight;
     formValues.realHarvestingDates = this.task.realHarvestingDates;
@@ -91,18 +68,22 @@ export class CompleteTaskDialogComponent implements OnInit{
       }
 
       this.isDirty = false;
-      formValues.taskId = this.task.taskId;
-      formValues.patchId = this.task.patchId;
-      formValues.seedsUsed = this.task.seedsUsed;
-      formValues.currentTask = this.task.currentTask;
-      formValues.nextTask = this.task.nextTask;
-      formValues.plantId = this.task.plantId;
-      formValues.startingDate = this.task.startingDate;
-      formValues.nextDate = this.task.nextDate;
-      formValues.transplantDate = this.task.transplantDate;
+      this.getMainTaskData(formValues);
       formValues.harvestedWeight = allHarvestedWeight;
       formValues.realHarvestingDates = allHarvestingDates;
       formValues.daysDifferenceBetweenTaskAndToday = this.task.daysDifferenceBetweenTaskAndToday;
       this.dialogRef.close(formValues);
+  }
+
+  private getMainTaskData(formValues: ITask){
+    formValues.taskId = this.task.taskId;
+    formValues.patchId = this.task.patchId;
+    formValues.seedsUsed = this.task.seedsUsed;
+    formValues.currentTask = this.task.currentTask;
+    formValues.nextTask = this.task.nextTask;
+    formValues.plantId = this.task.plantId;
+    formValues.startingDate = this.task.startingDate;
+    formValues.nextDate = this.task.nextDate;
+    formValues.daysDifferenceBetweenTaskAndToday = this.task.daysDifferenceBetweenTaskAndToday;
   }
 }

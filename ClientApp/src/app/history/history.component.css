@@ -90,6 +90,7 @@ mat-chip {
   flex-direction: column;
   max-height: 500px;
   min-width: 300px;
+  overflow-x: auto;
 }
 
 .totals{

@@ -55,7 +55,7 @@ export class TaskDetailsComponent implements OnInit, OnChanges {
 
     this.getDifferenceBetweenTaskDateAndTodaydate(this.taskList);
     this.sortTasksByEarliestDate(this.taskList);
-    this.keepFourTasksOnly(this.taskList);
+    this.keepSixTasksOnly(this.taskList);
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -124,8 +124,8 @@ export class TaskDetailsComponent implements OnInit, OnChanges {
 
       dialogRef.afterClosed().subscribe(updatedTask => {
         if (updatedTask.failureReasons != null) {
-          this.taskService.saveFailedTask(updatedTask);
           this.deleteTask(updatedTask.taskId);
+          this.taskService.saveFailedTask(updatedTask);
         }
         else if (updatedTask.harvestSelectedAnswer) {
           this.verifyHarvestedAnswer(updatedTask);
@@ -133,9 +133,8 @@ export class TaskDetailsComponent implements OnInit, OnChanges {
         else if (updatedTask.transplantDate != null) {
           let plantInTask = this.getPlantFromTask(updatedTask.plantId);
           this.taskService.saveTransplantedTask(updatedTask, plantInTask).subscribe(() => {
-            this.notifications.showSuccess(`The task '${updatedTask.currentTask}' for the plant has been successfully updated`);
-            this.reloadPage();
-            });
+          this.reloadPage();
+          });
         }
       });
   }
@@ -218,38 +217,39 @@ export class TaskDetailsComponent implements OnInit, OnChanges {
     return plantPicture;
   }
 
-  private keepFourTasksOnly(taskList: ITask[]) {
+  private keepSixTasksOnly(taskList: ITask[]) {
     if (this.patchFromHomepage) {
-      this.taskList = taskList.slice(0, 4);
+      this.taskList = taskList.slice(0, 6);
     }
   }
 
   private verifyHarvestedAnswer(updatedTask: any) {
-    if (updatedTask.harvestSelectedAnswer === 'No') {
-      this.taskService.saveUnfinishedHarvestedTask(updatedTask);
-      this.reloadPage();
-    }
-    else {
+    if(updatedTask.harvestSelectedAnswer !== 'No'){
       this.taskService.saveFinishedHarvestedTask(updatedTask);
       this.deleteTask(updatedTask.taskId);
+    }
+    else{
+      this.taskService.saveUnfinishedHarvestedTask(updatedTask);
+      this.reloadPage();
     }
   }
 
   private reloadPage(){
     if (this.params) {
-      this.router.navigate(['/tasks', this.params]).then(() => {
-        window.location.reload();
-      });
+      this.router.navigate(['/tasks', this.params]);
+      this.notifications.showSuccess(`The task has been successfully updated`);
+      this.ngOnInit();
     }
     else if(this.patchFromHomepage){
-      this.router.navigate(['/home']).then(() => {
-        window.location.reload();
-      });
+      this.router.navigate(['/home']);
+      this.notifications.showSuccess(`The task has been successfully updated`);
+      this.ngOnInit();
     }
     else {
-      this.router.navigate(['/tasks']).then(() => {
-        window.location.reload();
-      });
+      this.router.navigate(['/tasks']);
+      this.notifications.showSuccess(`The task has been successfully updated`);
+      this.ngOnInit();
+
     }
   }
 }
