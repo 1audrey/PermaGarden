@@ -66,6 +66,8 @@ import {MatChipsModule} from '@angular/material/chips';
 import { PlantFocusStatsComponent } from './history/plant-focus-stats/plant-focus-stats.component';
 import { ArchivedTasksResolver } from './resolver/archived-tasks-resolver.service';
 import { NoTaskComponent } from './task/no-task/no-task.component';
+import { GardenGridComponent } from './homepage/garden-grid/garden-grid.component';
+import { PieceComponent } from './homepage/garden-grid/piece/piece.component';
 
 
 
@@ -96,6 +98,8 @@ import { NoTaskComponent } from './task/no-task/no-task.component';
     HistoryComponent,
     PlantFocusStatsComponent,
     NoTaskComponent,
+    GardenGridComponent,
+    PieceComponent,
 
 
 

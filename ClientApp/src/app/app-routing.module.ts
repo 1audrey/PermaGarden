@@ -18,6 +18,7 @@ import { TaskDetailsComponent } from './task/task-details/task-details.component
 import { HistoryComponent } from './history/history.component';
 import { ArchivedTasksResolver } from './resolver/archived-tasks-resolver.service';
 import { AllTaskResolverService } from './resolver/all-task-resolver.service';
+import { GardenGridComponent } from './homepage/garden-grid/garden-grid.component';
 
 const routes: Routes = [
   {
@@ -110,6 +111,11 @@ const routes: Routes = [
     path: 'app-plant-focus-stats',
     component: HistoryComponent,
     resolve: { patches: PatchResolverService , plants: PlantsListResolver}
+  },
+
+  {
+    path: 'garden-grid',
+    component: GardenGridComponent,
   },
 
 

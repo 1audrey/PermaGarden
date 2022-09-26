@@ -1,0 +1,16 @@
+.garden-board{
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  padding-top:4px;
+  padding-bottom:16px;
+}
+
+.board{
+  width:50%;
+  height:50%;
+  border-color: black;
+  border-style: solid;
+  background-color: white;
+}
+
