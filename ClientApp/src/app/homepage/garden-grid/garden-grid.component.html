@@ -4,5 +4,7 @@
 </canvas>
 </div>
 <div>
-  <button>Add a patch</button>
+  <button (click)="addPatch('rectangle')">Add a rectangle patch</button>
+  <button (click)="addPatch('square')">Add a square patch</button>
+  <button (click)="freeze(piece)">Confirm patch position</button>
 </div>

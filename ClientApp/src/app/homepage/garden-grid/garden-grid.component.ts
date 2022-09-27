@@ -1,5 +1,5 @@
 import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
-import { IPiece, PieceComponent } from './piece/piece.component';
+import { COLORS, IPiece, PieceComponent } from './piece/piece.component';
 
 @Component({
   selector: 'app-garden-grid',
@@ -18,6 +18,7 @@ export class GardenGridComponent implements OnInit {
   ctx!: CanvasRenderingContext2D;
   garden!: number[][];
   piece!: PieceComponent;
+  pieces: PieceComponent [] = [];
 
   moves = {
     0: (p: IPatchShape): IPatchShape => ({ ...p, x: p.x - 1 }),
@@ -29,7 +30,6 @@ export class GardenGridComponent implements OnInit {
 
   @HostListener('window:keydown', ['$event'])
   keyEvent(event: KeyboardEvent) {
-    console.log(event.key);
     if (event.key != null) {
       // If the keyCode exists in our moves stop the event from bubbling.
       event.preventDefault();
@@ -74,18 +74,12 @@ export class GardenGridComponent implements OnInit {
     }
   }
 
-  constructor() { }
-
   ngOnInit() {
     this.initBoard();
 
     this.garden = this.getEmptyBoard();
     console.table(this.garden);
 
-    this.piece = new PieceComponent(this.ctx);
-    console.log(this.piece);
-
-    this.draw();
   }
 
   initBoard() {
@@ -103,20 +97,26 @@ export class GardenGridComponent implements OnInit {
     return Array.from({ length: GardenGridComponent.ROWS }, () => Array(GardenGridComponent.COLS).fill(0));
   }
 
-
   draw() {
-    this.ctx.fillStyle = this.piece.color;
-    this.piece.shape.forEach((row, y) => {
-      row.forEach((value, x) => {
-        if (value > 0) {
-          // this.x & this.y = position on the board
-          // x & y position are the positions of the shape
-          this.ctx.fillRect(this.piece.x + x, this.piece.y + y, 1, 1);
-        }
-      });
-    });
+    // this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
+    this.piece.draw();
+    this.drawBoard();
   }
 
+  drawBoard() {
+    this.garden.forEach((row, y) => {
+      row.forEach((value, x) => {
+        if (value === 1) {
+          this.ctx.fillStyle = COLORS[value];
+          this.ctx.fillRect(x, y, 1, 1);
+        }
+        else if (value === 2){
+          this.ctx.fillStyle = COLORS[value];
+          this.ctx.fillRect(x, y, 1, 1);
+        }
+      })
+      });
+  }
 
   movePieceToNewPlace(movingPiece: IPatchShape){
           // Move the piece
@@ -138,15 +138,36 @@ export class GardenGridComponent implements OnInit {
     return clone;
   }
 
+  addPatch(shape: string){
+    this.piece = new PieceComponent(this.ctx);
+    console.log(this.piece);
+
+    this.piece.getPieceShape(shape);
+    this.piece.draw();
+  }
+
+  freeze(piece: IPatchShape) {
+    piece.shape.forEach((row, y) => {
+      row.forEach((value, x) => {
+        if (value > 0) {
+          this.garden[y + piece.y][x + piece.x] = value;
+          console.table(this.garden);
+        }
+      });
+    });
+  }
+
   private isValid(piece: IPiece): boolean {
     return piece.shape.every((row, dy) => {
       return row.every((value, dx) => {
         let x = piece.x + dx;
         let y = piece.y + dy;
-        return (this.isEmpty(value) ||
-         (this.insideWalls(x) &&
-          this.aboveFloor(y)
-        ));
+        return (
+          this.isEmpty(value) ||
+          (this.insideWalls(x) &&
+            this.aboveFloor(y) &&
+            this.notOccupied(this.garden, x, y))
+        );
       });
     });
   }
