@@ -13,7 +13,6 @@ export class PieceComponent implements IPiece {
     shape!: number[][];
 
     constructor(private ctx: CanvasRenderingContext2D) {
-      // this.getPieceShape(shape);
      }
 
      move(pieceToMove: IPiece) {

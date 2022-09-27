@@ -1,4 +1,5 @@
 import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
+import { NotificationsService } from 'src/app/services/notifications/notifications.service';
 import { COLORS, IPiece, PieceComponent } from './piece/piece.component';
 
 @Component({
@@ -74,6 +75,9 @@ export class GardenGridComponent implements OnInit {
     }
   }
 
+  constructor(private notifications: NotificationsService) {
+  }
+
   ngOnInit() {
     this.initBoard();
 
@@ -147,17 +151,37 @@ export class GardenGridComponent implements OnInit {
   }
 
   freeze(piece: IPatchShape) {
-    piece.shape.forEach((row, y) => {
-      row.forEach((value, x) => {
-        if (value > 0) {
-          this.garden[y + piece.y][x + piece.x] = value;
-          console.table(this.garden);
-        }
+    console.log(this.isValidAndNotOccupied(piece));
+    if(this.isValidAndNotOccupied(piece)){
+      piece.shape.forEach((row, y) => {
+        row.forEach((value, x) => {
+          if (value > 0) {
+            this.garden[y + piece.y][x + piece.x] = value;
+            console.table(this.garden);
+          }
+        });
+      });
+    }
+    else {
+      this.notifications.showError('Cannot save the patch on this location because it is already occupied');}
+  }
+
+  private isValid(piece: IPiece): boolean {
+    return piece.shape.every((row, dy) => {
+      return row.every((value, dx) => {
+        let x = piece.x + dx;
+        let y = piece.y + dy;
+        return (
+          this.isEmpty(value) ||
+          (this.insideWalls(x) &&
+            this.aboveFloor(y)
+            )
+        );
       });
     });
   }
 
-  private isValid(piece: IPiece): boolean {
+  private isValidAndNotOccupied(piece: IPiece): boolean {
     return piece.shape.every((row, dy) => {
       return row.every((value, dx) => {
         let x = piece.x + dx;
@@ -184,8 +208,8 @@ export class GardenGridComponent implements OnInit {
     return y>= 0 && y < GardenGridComponent.ROWS;
   }
 
-  private notOccupied(board: number[][], x: number, y: number): boolean {
-    return board[y] && board[y][x] === 0;
+  private notOccupied(garden: number[][], x: number, y: number): boolean {
+    return garden[y] && garden[y][x] === 0;
   }
 
 }
