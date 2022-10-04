@@ -70,7 +70,6 @@ import { GardenGridComponent } from './homepage/garden-grid/garden-grid.componen
 import { PieceComponent } from './homepage/garden-grid/piece/piece.component';
 
 
-
 @NgModule({
   declarations: [
     PermagardenAppComponent,

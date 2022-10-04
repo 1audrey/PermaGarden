@@ -14,3 +14,11 @@
   background-color: white;
 }
 
+.background-image{
+  background-image: url('../../../assets/shapes/cercle-shape.png');
+}
+
+.cercle{
+  background-image: url('../../../assets/shapes/cercle-shape.png');
+
+}

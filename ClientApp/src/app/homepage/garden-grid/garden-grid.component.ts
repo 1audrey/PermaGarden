@@ -1,6 +1,6 @@
 import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { NotificationsService } from 'src/app/services/notifications/notifications.service';
-import { COLORS, IPiece, PieceComponent } from './piece/piece.component';
+import { IMAGE, IPiece, PieceComponent } from './piece/piece.component';
 
 @Component({
   selector: 'app-garden-grid',
@@ -20,6 +20,7 @@ export class GardenGridComponent implements OnInit {
   garden!: number[][];
   piece!: PieceComponent;
   pieces: PieceComponent [] = [];
+  image!: CanvasImageSource;
 
   moves = {
     0: (p: IPatchShape): IPatchShape => ({ ...p, x: p.x - 1 }),
@@ -102,7 +103,6 @@ export class GardenGridComponent implements OnInit {
   }
 
   draw() {
-    // this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
     this.piece.draw();
     this.drawBoard();
   }
@@ -110,16 +110,14 @@ export class GardenGridComponent implements OnInit {
   drawBoard() {
     this.garden.forEach((row, y) => {
       row.forEach((value, x) => {
-        if (value === 1) {
-          this.ctx.fillStyle = COLORS[value];
-          this.ctx.fillRect(x, y, 1, 1);
+        if (value === 1 || value === 2) {
+          this.getRectangleAndSquareShape(x, y, value);
         }
-        else if (value === 2){
-          this.ctx.fillStyle = COLORS[value];
-          this.ctx.fillRect(x, y, 1, 1);
+        else if (value > 2 ){
+          this.getImageShape(x, y, value);
         }
-      })
       });
+    });
   }
 
   movePieceToNewPlace(movingPiece: IPatchShape){
@@ -151,19 +149,33 @@ export class GardenGridComponent implements OnInit {
   }
 
   freeze(piece: IPatchShape) {
-    console.log(this.isValidAndNotOccupied(piece));
     if(this.isValidAndNotOccupied(piece)){
       piece.shape.forEach((row, y) => {
         row.forEach((value, x) => {
           if (value > 0) {
             this.garden[y + piece.y][x + piece.x] = value;
+            this.notifications.showSuccess('Position of the patch confirmed');
             console.table(this.garden);
           }
         });
       });
     }
     else {
-      this.notifications.showError('Cannot save the patch on this location because it is already occupied');}
+      this.notifications.showError('Cannot save the patch on this location because it is already occupied');
+    }
+  }
+
+  private getImageShape(x: number, y: number, value: number){
+    let img = new Image();
+    img.src = IMAGE[value];
+    img.onload = () => {
+      this.ctx.drawImage(img, x, y, 1, 1);
+    }
+  }
+
+  private getRectangleAndSquareShape(x: number, y : number, value: number){
+    this.ctx.fillStyle = IMAGE[value];
+    this.ctx.fillRect(x, y, 1, 1);
   }
 
   private isValid(piece: IPiece): boolean {
@@ -217,6 +229,6 @@ export class GardenGridComponent implements OnInit {
 export interface IPatchShape {
   x: number;
   y: number;
-  color: string;
+  image: string;
   shape: number[][];
 }

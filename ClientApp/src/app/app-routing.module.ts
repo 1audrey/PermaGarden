@@ -118,7 +118,6 @@ const routes: Routes = [
     component: GardenGridComponent,
   },
 
-
 ];
 
 @NgModule({
