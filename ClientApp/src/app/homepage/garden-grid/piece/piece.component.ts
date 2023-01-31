@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { IPiece } from '../models/IPiece';
 
 
 @Component({
@@ -12,6 +13,7 @@ export class PieceComponent implements IPiece {
     y!: number;
     image!: string;
     shape!: number[][];
+    size!:string;
 
     constructor(private ctx: CanvasRenderingContext2D) {
      }
@@ -22,31 +24,23 @@ export class PieceComponent implements IPiece {
       this.shape = pieceToMove.shape;
     }
 
-    getPieceShape(shape: string){
-      if(shape ==='rectangle'){
-        this.shape = [[0, 1, 0], [0, 1, 0], [0, 1, 0]];
-        this.image = IMAGE[1];
-        this.x = 0;
-        this.y = 0;
-      }
-      else if(shape ==='square'){
-        this.shape = [[2, 2, 2], [2, 2, 2], [2, 2, 2]];
-        this.image = IMAGE[2];
-        this.x = 0;
-        this.y = 0;
-      }
-      else if(shape ==='cercle'){
-        this.shape = [[0, 0, 0], [0, 3, 0], [0, 0, 0]];
-        this.image = IMAGE[3];
-        this.x = 0;
-        this.y = 0;
-      }
-      else if(shape ==='tree'){
-        this.shape = [[0, 0, 0], [0, 4, 0], [0, 0, 0]];
-        this.image = IMAGE[4];
-        this.x = 0;
-        this.y = 0;
-      }
+    getPieceShape(shape: string, size: string){
+      SHAPES.forEach((piece)=>{
+        if(piece.name === shape){
+          this.shape = piece.description.shape;
+          this.image = piece.description.image;
+          this.x = piece.description.x;
+          this.y = piece.description.y;
+          this.size = size;
+          if(shape === 'rectangle'){
+            this.shape = this.getsRectangleSize(piece.value, size);
+          }
+          else{
+            this.shape = this.getsNewShapeSize(piece.value, size);
+          }
+        }
+      });
+
     }
 
     draw() {
@@ -59,35 +53,109 @@ export class PieceComponent implements IPiece {
             this.ctx.fillRect(this.x + x, this.y + y, 1, 1);
           }
           else if(value > 0 && value === 3 || value === 4){
-            this.getShapeImage(x, y, this.image);
+            this.getShapeImage(this.image);
           }
         });
       });
     }
 
-    getShapeImage(x: number, y: number, image: string){
+    getShapeImage(image: string){
+      let sizeX = 1;
+      let sizeY = 1;
+
       let img = new Image();
+      if(this.size === 'medium'){
+        sizeX = 2;
+        sizeY = 2;
+      }
+      else if(this.size === 'large'){
+        sizeX = 3;
+        sizeY = 3;
+      }
       img.src = image;
       img.onload = () => {
-        this.ctx.drawImage(img, this.x + x, this.y + y, 1, 1);
+        this.ctx.drawImage(img, this.x, this.y , sizeX, sizeY);
       };
+    }
+
+    private getsNewShapeSize(value:number, size:string): number[][] {
+      switch(size){
+        case 'small': {
+          return [[0, 0, 0], [0, value , 0], [0, 0, 0]];
+        }
+        case 'medium': {
+          return [[value, value, 0], [value, value , 0], [0, 0, 0]];
+        }
+        case 'large': {
+          return [[value, value, value], [value, value, value], [value, value, value]];
+        }
+        default:
+          return [[0, 0, 0], [0, 0, 0], [0, 0, 0]];
+      }
+    }
+
+    private getsRectangleSize(value:number, size:string): number[][] {
+      switch(size){
+        case 'small': {
+          return [[0, value, 0], [0, value , 0], [0, 0, 0]];
+        }
+        case 'medium': {
+          return [[0, value, 0], [0, value , 0], [0, value, 0]];
+        }
+        case 'large': {
+          return [[value, value, 0], [value, value, 0], [value, value, 0]];
+        }
+        default:
+          return [[0, 0, 0], [0, 0, 0], [0, 0, 0]];
+      }
     }
 }
 
-export interface IPiece {
-  x: number;
-  y: number;
-  image: string;
-  shape: number[][];
+export const SHAPES = [
+  {
+  name : 'rectangle',
+  value: 1,
+  description: {
+    shape : [[0, 1, 0], [0, 1, 0], [0, 0, 0]],
+    image : '#114b0b',
+    x : 0,
+    y : 0,
+    size: 'small'
+  }
+},
+{
+  name : 'square',
+  value: 2,
+  description: {
+    shape : [[0, 0, 0], [0, 2, 0], [0, 0, 0]],
+    image : '#fecc47',
+    x : 0,
+    y : 0,
+    size: 'small'
+  }
+},
+{
+  name : 'cercle',
+  value: 3,
+  description: {
+    shape : [[0, 0, 0], [0, 3, 0], [0, 0, 0]],
+    image :   "../../../assets/shapes/cercle-shape.png",
+    x : 0,
+    y : 0,
+    size: 'small'
+  }
+},
+{
+  name : 'tree',
+  value: 4,
+  description: {
+    shape : [[0, 0, 0], [0, 4, 0], [0, 0, 0]],
+    image :   "../../../assets/shapes/tree-shape.png",
+    x : 0,
+    y : 0,
+    size: 'small'
+  }
 }
+]
 
-export const IMAGE = [
-  'none',
-  '#114b0b',
-  '#fecc47',
-  "../../../assets/shapes/cercle-shape.png",
-  "../../../assets/shapes/tree-shape.png",
-  'green',
-  'purple',
-  'red'
-];
+

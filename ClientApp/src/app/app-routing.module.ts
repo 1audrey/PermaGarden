@@ -19,6 +19,7 @@ import { HistoryComponent } from './history/history.component';
 import { ArchivedTasksResolver } from './resolver/archived-tasks-resolver.service';
 import { AllTaskResolverService } from './resolver/all-task-resolver.service';
 import { GardenGridComponent } from './homepage/garden-grid/garden-grid.component';
+import { GardenTableComponent } from './homepage/garden-table/garden-table/garden-table.component';
 
 const routes: Routes = [
   {
@@ -116,6 +117,11 @@ const routes: Routes = [
   {
     path: 'garden-grid',
     component: GardenGridComponent,
+  },
+
+  {
+    path: 'garden-table',
+    component: GardenTableComponent,
   },
 
 ];

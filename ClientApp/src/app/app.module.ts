@@ -68,6 +68,7 @@ import { ArchivedTasksResolver } from './resolver/archived-tasks-resolver.servic
 import { NoTaskComponent } from './task/no-task/no-task.component';
 import { GardenGridComponent } from './homepage/garden-grid/garden-grid.component';
 import { PieceComponent } from './homepage/garden-grid/piece/piece.component';
+import { GardenTableComponent } from './homepage/garden-table/garden-table/garden-table.component';
 
 
 @NgModule({
@@ -99,6 +100,7 @@ import { PieceComponent } from './homepage/garden-grid/piece/piece.component';
     NoTaskComponent,
     GardenGridComponent,
     PieceComponent,
+    GardenTableComponent,
 
 
 

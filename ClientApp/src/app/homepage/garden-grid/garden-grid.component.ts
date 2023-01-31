@@ -1,6 +1,8 @@
+import { ThrowStmt } from '@angular/compiler';
 import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { NotificationsService } from 'src/app/services/notifications/notifications.service';
-import { IMAGE, IPiece, PieceComponent } from './piece/piece.component';
+import { IPiece } from './models/IPiece';
+import { PieceComponent } from './piece/piece.component';
 
 @Component({
   selector: 'app-garden-grid',
@@ -15,6 +17,17 @@ export class GardenGridComponent implements OnInit {
   private static readonly COLS = 10;
   private static readonly ROWS = 20;
   private static readonly BLOCK_SIZE = 30;
+  private static readonly IMAGE = [
+    'none',
+    '#114b0b',
+    '#fecc47',
+    "../../../assets/shapes/cercle-shape.png",
+    "../../../assets/shapes/tree-shape.png",
+    'transparent',
+    'green',
+    'purple',
+    'red'
+  ];
 
   ctx!: CanvasRenderingContext2D;
   garden!: number[][];
@@ -108,25 +121,31 @@ export class GardenGridComponent implements OnInit {
   }
 
   drawBoard() {
-    this.garden.forEach((row, y) => {
-      row.forEach((value, x) => {
-        if (value === 1 || value === 2) {
-          this.getRectangleAndSquareShape(x, y, value);
+    //works for when pots are not next to one another
+    let sizeX = 1;
+    let sizeY = 1;
+    for(let x = 0; x <GardenGridComponent.COLS; x++){
+      for (let y = 0; y<GardenGridComponent.ROWS; y++){
+        if (this.garden[y][x] === 1 || this.garden[y][x] === 2){
+          this.getRectangleAndSquareShape(x, y, this.garden[y][x]);
         }
-        else if (value > 2 ){
-          this.getImageShape(x, y, value);
-        }
-      });
-    });
+        if (this.garden[y][x] > 2){
+            sizeX = 2;
+            sizeY = 2;
+            this.getImageShape(x, y, this.garden[y][x], sizeX, sizeY);
+      }
+    }
+    }
   }
 
   movePieceToNewPlace(movingPiece: IPatchShape){
-          // Move the piece
-          this.piece.move(movingPiece);
-          // Clear the old position before drawing
-          this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
-          // Draw the new position.
-          this.draw();
+    // Move the piece
+    this.piece.move(movingPiece);
+    // Clear the old position before drawing
+    this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
+    // Draw the new position.
+    this.draw();
+
   }
 
   rotate(piece: IPatchShape): IPatchShape {
@@ -140,11 +159,13 @@ export class GardenGridComponent implements OnInit {
     return clone;
   }
 
-  addPatch(shape: string){
-    this.piece = new PieceComponent(this.ctx);
-    console.log(this.piece);
+  // deleteOldPiece(piece: IPiece){
+  //   this.garden = piece.shape = [];
+  // }
 
-    this.piece.getPieceShape(shape);
+  addPatch(shape: string, size: string){
+    this.piece = new PieceComponent(this.ctx);
+    this.piece.getPieceShape(shape, size);
     this.piece.draw();
   }
 
@@ -165,16 +186,18 @@ export class GardenGridComponent implements OnInit {
     }
   }
 
-  private getImageShape(x: number, y: number, value: number){
+  private getImageShape(x: number, y: number, value: number, sizeX: number, sizeY: number){
+
     let img = new Image();
-    img.src = IMAGE[value];
-    img.onload = () => {
-      this.ctx.drawImage(img, x, y, 1, 1);
-    }
+    img.src = GardenGridComponent.IMAGE[value];
+
+      img.onload = () => {
+      this.ctx.drawImage(img, x, y, sizeX, sizeY);
+      }
   }
 
   private getRectangleAndSquareShape(x: number, y : number, value: number){
-    this.ctx.fillStyle = IMAGE[value];
+    this.ctx.fillStyle = GardenGridComponent.IMAGE[value];
     this.ctx.fillRect(x, y, 1, 1);
   }
 
