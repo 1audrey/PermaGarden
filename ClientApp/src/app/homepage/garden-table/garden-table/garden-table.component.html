@@ -30,10 +30,30 @@
     </div>
   </form>
 
-  <table>
+  <!-- <table>
     <tr *ngFor="let row of grid; index as rowIndex">
       <td *ngFor="let cell of row; index as columnIndex" (click)="this.selectPatchArea(rowIndex, columnIndex)">
         {{cell}}
       </td>
     </tr>
+  </table> -->
+
+  <!-- <table>
+    <tr *ngFor="let row of grid; index as rowIndex">
+      <td *ngFor="let cell of row; index as columnIndex" (click)="select($event)">
+        {{cell}}
+      </td>
+    </tr>
+  </table> -->
+
+  <!-- ng class bugs as checking all the cells -->
+  <table>
+    <tr *ngFor="let row of grid; index as rowIndex">
+      <td *ngFor="let cell of row; index as columnIndex"
+      (click)="select($event, rowIndex, columnIndex)" >
+        {{cell}}
+      </td>
+    </tr>
   </table>
+
+  <button (click)="selectShapeOptions()">fakecontextcall</button>

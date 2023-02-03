@@ -98,7 +98,7 @@ export class HistoryComponent implements OnInit, AfterViewInit {
     return option === 'Failures';
   }
 
-  removeFilter(optionChip: never) {
+  removeFilter(optionChip: any) {
     const index = this.filterValues.option.indexOf(optionChip);
 
     if (index >= 0) {
@@ -111,7 +111,7 @@ export class HistoryComponent implements OnInit, AfterViewInit {
     if (harvestedDates != undefined) {
       return harvestedDates.split(',');
     }
-    return;
+    return null;
   }
 
   getPlantName(plantId: number) {
