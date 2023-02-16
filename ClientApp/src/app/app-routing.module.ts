@@ -18,8 +18,7 @@ import { TaskDetailsComponent } from './task/task-details/task-details.component
 import { HistoryComponent } from './history/history.component';
 import { ArchivedTasksResolver } from './resolver/archived-tasks-resolver.service';
 import { AllTaskResolverService } from './resolver/all-task-resolver.service';
-import { GardenGridComponent } from './homepage/garden-grid/garden-grid.component';
-import { GardenTableComponent } from './homepage/garden-table/garden-table/garden-table.component';
+import { GardenCanvasComponent } from './homepage/garden-canvas/garden-canvas/garden-canvas.component';
 
 const routes: Routes = [
   {
@@ -115,13 +114,8 @@ const routes: Routes = [
   },
 
   {
-    path: 'garden-grid',
-    component: GardenGridComponent,
-  },
-
-  {
-    path: 'garden-table',
-    component: GardenTableComponent,
+    path: 'garden-canvas',
+    component: GardenCanvasComponent,
   },
 
 ];

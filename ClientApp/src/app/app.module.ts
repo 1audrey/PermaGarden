@@ -66,9 +66,11 @@ import {MatChipsModule} from '@angular/material/chips';
 import { PlantFocusStatsComponent } from './history/plant-focus-stats/plant-focus-stats.component';
 import { ArchivedTasksResolver } from './resolver/archived-tasks-resolver.service';
 import { NoTaskComponent } from './task/no-task/no-task.component';
-import { GardenGridComponent } from './homepage/garden-grid/garden-grid.component';
-import { PieceComponent } from './homepage/garden-grid/piece/piece.component';
-import { GardenTableComponent } from './homepage/garden-table/garden-table/garden-table.component';
+import { GardenCanvasComponent } from './homepage/garden-canvas/garden-canvas/garden-canvas.component';
+import { RectangleDialogComponent } from './homepage/garden-canvas/garden-canvas/rectangle-dialog/rectangle-dialog.component';
+import { CircleDialogComponent } from './homepage/garden-canvas/garden-canvas/circle-dialog/circle-dialog.component';
+import { ImageShapeDialogComponent } from './homepage/garden-canvas/garden-canvas/image-shape-dialog/image-shape-dialog.component';
+import { ContextMenuComponent } from './homepage/garden-canvas/garden-canvas/context-menu/context-menu.component';
 
 @NgModule({
   declarations: [
@@ -97,9 +99,11 @@ import { GardenTableComponent } from './homepage/garden-table/garden-table/garde
     HistoryComponent,
     PlantFocusStatsComponent,
     NoTaskComponent,
-    GardenGridComponent,
-    PieceComponent,
-    GardenTableComponent,
+    GardenCanvasComponent,
+    RectangleDialogComponent,
+    CircleDialogComponent,
+    ImageShapeDialogComponent,
+    ContextMenuComponent,
 
 
 

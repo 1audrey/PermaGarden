@@ -5,8 +5,6 @@ import { MatListOption, MatSelectionList } from '@angular/material/list';
 import { PlantImageService } from '../../../services/plants/plant-image.service';
 import { IPlantsImage } from '../../models/iplants-image-model';
 
-
-
 @Component({
   selector: 'app-select-image-dialog',
   templateUrl: './select-image-dialog.component.html',

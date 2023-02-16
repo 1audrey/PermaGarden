@@ -1,0 +1,7 @@
+  <div class="menu-link" *ngFor="let menuItem of contextMenuItems; index as i"
+    (click)="onContextMenuClick($event, menuItem.menuEvent)">
+    {{ menuItem.menuText }}
+    <!-- <button [routerLink]="['/garden', patchName]">Go to {{patchName}}</button> -->
+    <!-- <button>More Info</button> -->
+    <hr *ngIf="i < contextMenuItems.length - 1" />
+  </div>

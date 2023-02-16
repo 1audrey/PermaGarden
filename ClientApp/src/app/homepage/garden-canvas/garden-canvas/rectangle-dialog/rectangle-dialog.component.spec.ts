@@ -1,20 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { RectangleDialogComponent } from './rectangle-dialog.component';
 
-import { GardenGridComponent } from './garden-grid.component';
-
-describe('GardenGridComponent', () => {
-  let component: GardenGridComponent;
-  let fixture: ComponentFixture<GardenGridComponent>;
+describe('RectangleDalogComponent', () => {
+  let component: RectangleDialogComponent;
+  let fixture: ComponentFixture<RectangleDialogComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ GardenGridComponent ]
+      declarations: [ RectangleDialogComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(GardenGridComponent);
+    fixture = TestBed.createComponent(RectangleDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

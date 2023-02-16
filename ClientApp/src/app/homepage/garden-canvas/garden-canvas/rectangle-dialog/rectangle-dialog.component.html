@@ -1,0 +1,41 @@
+<div class="title">
+  <h3>Creating rectangle or square patch</h3>
+  <img src="../../../../../assets/shapes/rectangle-shape.png">
+  <img src="../../../../../assets/shapes/square-shape.png">
+</div>
+
+<form #newRectanglePatch="ngForm" autocomplete="off">
+  <div class="form-group"
+    [ngClass]="{'error': newRectanglePatch.controls.patchName?.invalid && newRectanglePatch.controls.patchName?.touched}">
+    <label for="patchName">Patch Name:</label>
+    <em *ngIf="newRectanglePatch.controls.patchName?.invalid && newRectanglePatch.controls.patchName?.touched">
+      *Required</em>
+    <input (ngModel)="patchName" name="patchName" required type="text" class="form-control"
+      placeholder="Name of your patch..." />
+  </div>
+
+  <div class="form-group"
+    [ngClass]="{'error': newRectanglePatch.controls.length?.invalid && newRectanglePatch.controls.length?.touched}">
+    <div class="plant-name-group">
+      <label for="length">Length</label>
+      <em *ngIf="newRectanglePatch.controls.length?.invalid && newRectanglePatch.controls.length?.touched">
+        *Required</em>
+      <input (ngModel)="length" name="length" required type="number" class="form-control" placeholder="Length..." />
+    </div>
+  </div>
+  <div class="form-group"
+    [ngClass]="{'error': newRectanglePatch.controls.width?.invalid && newRectanglePatch.controls.width?.touched}">
+    <div class="plant-name-group">
+      <label for="width">Width</label>
+      <em *ngIf="newRectanglePatch.controls.width?.invalid && newRectanglePatch.controls.width?.touched"> *Required</em>
+      <input (ngModel)="width" name="width" required type="number" class="form-control" placeholder="Width..." />
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="buttons">
+      <button mat-button type="submit" class="save" (click)="saveRectanglePatch(newRectanglePatch.value)"
+        [disabled]="newRectanglePatch.invalid">
+        Save</button>
+    </div>
+  </div>
+</form>

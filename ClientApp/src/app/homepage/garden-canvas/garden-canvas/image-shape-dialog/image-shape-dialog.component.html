@@ -1,0 +1,32 @@
+<div class="title">
+  <h3>Creating {{data.image}} patch</h3>
+  <img *ngIf="data.image =='hexagone'" src="../../../../../assets/shapes/hexagone-shape.png">
+  <img *ngIf="data.image ==='tree'" src="../../../../../assets/shapes/tree-shape.png">
+  <img *ngIf="data.image ==='bush'" src="../../../../../assets/shapes/bush-shape.png">
+</div>
+
+<form #newImagePatch="ngForm" autocomplete="off">
+  <div class="form-group"
+    [ngClass]="{'error': newImagePatch.controls.patchName?.invalid && newImagePatch.controls.patchName?.touched}">
+    <label for="patchName">Patch Name:</label>
+    <em *ngIf="newImagePatch.controls.patchName?.invalid && newImagePatch.controls.patchName?.touched">
+      *Required</em>
+    <input (ngModel)="patchName" name="patchName" required type="text" class="form-control"
+      placeholder="Name of your patch..." />
+  </div>
+  <div class="form-group"
+    [ngClass]="{'error': newImagePatch.controls.diameter?.invalid && newImagePatch.controls.diameter?.touched}">
+    <div class="plant-name-group">
+      <label for="diameter">Enter tree diameter</label>
+      <em *ngIf="newImagePatch.controls.diameter?.invalid && newImagePatch.controls.diameter?.touched"> *Required</em>
+      <input ngModel="diameter" name="diameter" required id="diameter" type="number" class="form-control"
+        placeholder="Diameter..." />
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="buttons">
+      <button mat-button type="submit" class="save" (click)="saveImagePatch(newImagePatch.value)" [disabled]="newImagePatch.invalid">
+        Save</button>
+    </div>
+  </div>
+</form>

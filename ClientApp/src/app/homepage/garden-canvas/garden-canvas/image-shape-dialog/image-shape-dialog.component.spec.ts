@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { GardenTableComponent } from './garden-table.component';
+import { ImageShapeDialogComponent } from './image-shape-dialog.component';
 
-describe('GardenTableComponent', () => {
-  let component: GardenTableComponent;
-  let fixture: ComponentFixture<GardenTableComponent>;
+describe('ImageShapeDialogComponent', () => {
+  let component: ImageShapeDialogComponent;
+  let fixture: ComponentFixture<ImageShapeDialogComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ GardenTableComponent ]
+      declarations: [ ImageShapeDialogComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(GardenTableComponent);
+    fixture = TestBed.createComponent(ImageShapeDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

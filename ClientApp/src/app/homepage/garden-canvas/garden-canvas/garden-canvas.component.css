@@ -1,0 +1,28 @@
+.garden-canvas{
+  padding: 0 20px;
+  justify-content: center;
+  color: #000409;
+  margin: 16px 0px !important;
+}
+
+svg{
+  border: 1px solid black;
+  margin: 20px;
+}
+
+.buttons{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.shape-buttons{
+  background-color: white;
+  border-style: solid;
+  border-color: #5b8d27;
+}
+
+
+
+
+
