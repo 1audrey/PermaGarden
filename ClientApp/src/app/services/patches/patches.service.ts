@@ -8,6 +8,8 @@ import { catchError, tap } from 'rxjs/operators';
 import { IPlantInPatch } from '../../garden/models/iplantinpatch-model';
 import { IPlantsList } from 'src/app/garden-list/models/iplants-model';
 import { NotificationsService } from '../notifications/notifications.service';
+import { ICirclePatchModel } from 'src/app/garden/models/icircle-patch-model';
+import { IGardenArea } from 'src/app/homepage/models/garden-area-models';
 
 @Injectable()
 export class PatchesService {
@@ -22,6 +24,9 @@ export class PatchesService {
   nextTaskEvent!: false;
   allTasks!: ITask[];
 
+  circlePatch: ICirclePatchModel = ({} as any) as ICirclePatchModel;
+  imagePatch: ICirclePatchModel = ({} as any) as ICirclePatchModel;
+  rectPatch: ICirclePatchModel = ({} as any) as ICirclePatchModel;
 
   constructor(private http: HttpClient, private notifications: NotificationsService) { }
 
@@ -86,6 +91,40 @@ export class PatchesService {
     return this.http.delete<any>(this.baseUrl + 'delete-plant-in-patch', { params: { plantId: plantId, patchId: patchId } }).pipe(
       tap(() => console.log(`Patch service deleted ${plantId} from ${patchId} successfully`)),
       catchError((error: HttpErrorResponse) => throwError(error)),
+    );
+  }
+
+  saveCircleAndImagePatch(patchName: string, diameter: number, xPosition: number, yPosition: number, shape:string){
+    this.circlePatch.patchName = patchName;
+    this.circlePatch.diameter = diameter;
+    this.circlePatch.xPosition = xPosition;
+    this.circlePatch.yPosition = yPosition;
+    this.circlePatch.shape = shape;
+  }
+
+  saveRectPatch(patchName: string, width: number, lenght: number, xPosition: number, yPosition: number, shape:string){
+    this.rectPatch.patchName = patchName;
+    this.rectPatch.width = width;
+    this.rectPatch.length = length;
+    this.rectPatch.xPosition = xPosition;
+    this.rectPatch.yPosition = yPosition;
+    this.rectPatch.shape = shape;
+    console.log(this.rectPatch)
+  }
+
+  getCirclePatch(){
+    return this.circlePatch;
+  }
+
+  saveSvgDimensions(area: IGardenArea) {
+    console.log('area', area);
+    console.log(`Setting the dimensions of the SVG from the patch service`);
+    JSON.stringify({
+      area: "area"
+  })
+    return this.http.post<IGardenArea>(this.baseUrl + 'save-svg', { area: area } ).pipe(
+      tap(() => console.log(`Patch service added ${area} successfully`)),
+      catchError((error: HttpErrorResponse) => throwError(error))
     );
   }
 

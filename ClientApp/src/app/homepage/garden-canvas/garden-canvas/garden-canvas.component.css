@@ -3,6 +3,7 @@
   justify-content: center;
   color: #000409;
   margin: 16px 0px !important;
+  overflow-x: auto;
 }
 
 svg{

@@ -15,7 +15,8 @@ namespace perma_garden_app
         PatchesRecord,
         PlantsInPatchesRecord, 
         TasksRecord, 
-        TasksInPatchesRecord>
+        TasksInPatchesRecord,
+        GardenArea>
     {
         public SqlPermaGarden(string connectionString)
         {
@@ -660,5 +661,23 @@ namespace perma_garden_app
             return await SqlConnection.QueryAsync<PlantsRecord>(new CommandDefinition(command, new { plantId },
                 cancellationToken: token));
         }
+
+        public async Task SaveSvg(GardenArea gardenArea, CancellationToken token)
+        {
+            var command = @"INSERT INTO dbo.GardenArea (
+                                Length
+                                , Width )
+
+                            VALUES (
+                                @Length
+                                , @Width)";
+
+            await SqlConnection.ExecuteAsync(
+                new CommandDefinition(
+                    command,
+                    new { gardenArea.Length, gardenArea.Width },
+                    cancellationToken: token));
+        }
+
     }
 }
