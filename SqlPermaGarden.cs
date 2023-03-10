@@ -16,7 +16,8 @@ namespace perma_garden_app
         PlantsInPatchesRecord, 
         TasksRecord, 
         TasksInPatchesRecord,
-        GardenArea>
+        GardenArea, 
+        PatchShapeRecord>
     {
         public SqlPermaGarden(string connectionString)
         {
@@ -679,5 +680,92 @@ namespace perma_garden_app
                     cancellationToken: token));
         }
 
+        public async Task<IEnumerable<GardenArea>> GetSVG(CancellationToken token)
+        {
+            var command = @"SELECT
+                                area.Length
+                                , area.Width
+                            FROM
+                                dbo.GardenArea area";
+
+
+            return await SqlConnection.QueryAsync<GardenArea>(new CommandDefinition(command,
+                cancellationToken: token));
+        }
+
+        public async Task SaveBorder(string border, CancellationToken token)
+        {
+            var command = @"INSERT INTO dbo.GardenBorder (
+                                Border)
+
+                            VALUES (
+                                @Border)";
+
+            await SqlConnection.ExecuteAsync(
+                new CommandDefinition(
+                    command,
+                    new { border },
+                    cancellationToken: token));
+        }
+
+        public async Task<IEnumerable<string>> GetGardenBorder(CancellationToken token)
+        {
+            var command = @"SELECT
+                                garden.border
+                            FROM
+                                dbo.GardenBorder garden";
+
+            return await SqlConnection.QueryAsync<string>(new CommandDefinition(command,
+                cancellationToken: token));
+        }
+
+        public async Task SaveNewPatchShape(PatchShapeRecord patch, CancellationToken token)
+        {
+            var command = @"INSERT INTO dbo.PatchShape (
+                                PatchName
+                                , Shape
+                                , PatchImagePicture
+                                , XPosition
+                                , YPosition
+                                , Diameter
+                                , Width
+                                , Length)
+
+                            VALUES (
+                                  @PatchName
+                                , @Shape
+                                , @PatchImagePicture
+                                , @XPosition
+                                , @YPosition
+                                , @Diameter
+                                , @Width
+                                , @Length)";
+
+            await SqlConnection.ExecuteAsync(
+                new CommandDefinition(
+                    command,
+                    new { patch.PatchName, patch.Shape, patch.PatchImagePicture, patch.xPosition, patch.yPosition, patch.Diameter, patch.Width, patch.Length  },
+                    cancellationToken: token));
+        }
+
+        public async Task<IEnumerable<PatchShapeRecord>> GetAllPatchesShapes(CancellationToken token)
+        {
+            var command = @"SELECT
+                               patch.PatchId
+                                , patch.PatchName
+                                , patch.Shape
+                                , patch.PatchImagePicture
+                                , patch.XPosition
+                                , patch.YPosition
+                                , patch.Diameter
+                                , patch.Width
+                                , patch.Length
+                            FROM
+                                dbo.PatchShape patch";
+
+
+            return await SqlConnection.QueryAsync<PatchShapeRecord>(new CommandDefinition(command,
+                cancellationToken: token));
+        }
     }
 }

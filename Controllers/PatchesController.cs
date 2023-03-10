@@ -5,6 +5,8 @@ using perma_garden_app.Models.TasksModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -22,7 +24,8 @@ namespace perma_garden_app.Controllers
             PlantsInPatchesRecord,
             TasksRecord,
             TasksInPatchesRecord,
-            GardenArea> _permaGardenRepositery;
+            GardenArea,
+            PatchShapeRecord> _permaGardenRepositery;
 
         public PatchesController(IPermaGardenRepositery<PlantsImagesRecord,
             PlantsRecord,
@@ -32,7 +35,8 @@ namespace perma_garden_app.Controllers
             PlantsInPatchesRecord, 
             TasksRecord, 
             TasksInPatchesRecord,
-            GardenArea> permaGardenRepositery)
+            GardenArea,
+            PatchShapeRecord> permaGardenRepositery)
         {
             _permaGardenRepositery = permaGardenRepositery;
 
@@ -256,6 +260,134 @@ namespace perma_garden_app.Controllers
             }
 
             return BadRequest("Svg is invalid");
+        }
+
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Route("get-svg")]
+        public async Task<IActionResult> GetSVG(CancellationToken token)
+        {
+            var gardenArea = await _permaGardenRepositery
+                .GetSVG(token);
+
+            var garden = gardenArea.Select(x => new GardenArea()
+            {
+                Length = x.Length,
+                Width = x.Width,
+
+
+            }).ToArray();
+
+            return Ok(garden);
+        }
+
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Route("save-border")]
+        public async Task<IActionResult> SaveBorder(int[][] points, CancellationToken token)
+        {
+
+            if (points != null)
+            {
+                string newBorderAsJson = JsonSerializer.Serialize(points);
+
+                await _permaGardenRepositery.SaveBorder(newBorderAsJson, token);
+
+                return Ok();
+            }
+
+            return BadRequest("Border is invalid");
+        }
+
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Route("get-garden-border")]
+        public async Task<IActionResult> GetBorder(CancellationToken token)
+        {
+            var gardenBorder = await _permaGardenRepositery
+                .GetGardenBorder(token);
+
+            var garden = gardenBorder.First();
+
+            List<int[]> border = JsonSerializer.Deserialize<List<int[]>>(garden);
+
+            return Ok(border);
+        }
+
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Route("save-patch-shape")]
+        public async Task<IActionResult> SaveNewPatchShape([FromBody] PatchShapeRecord patch, CancellationToken token)
+        {
+            if (patch != null)
+            {
+
+                var newPatch = new PatchShapeRecord
+                {
+                    PatchName = patch.PatchName,
+                    Shape = patch.Shape,
+                    PatchImagePicture = patch.PatchImagePicture,
+                    xPosition = patch.xPosition,
+                    yPosition = patch.yPosition,
+                    Diameter = patch.Diameter,
+                    Width = patch.Width,
+                    Length = patch.Length,
+                };
+
+                await _permaGardenRepositery.SaveNewPatchShape(newPatch, token);
+
+                return Ok();
+            }
+
+            return BadRequest("Patch is invalid");
+        }
+
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Route("get-patches-shapes")]
+        public async Task<IActionResult> GetAllPatchesShapes(CancellationToken token)
+        {
+            var patches = await _permaGardenRepositery
+                .GetAllPatchesShapes(token);
+
+            var patchesWithPlants = await _permaGardenRepositery
+                .GetPlantsInPatches(token);
+
+            var patchesWithTasks = await _permaGardenRepositery
+                .GetTasksInPatches(token);
+
+            var plantInTask = await _permaGardenRepositery
+                .GetPlantsInTasks(token);
+
+            var singlePatches = patches.GroupBy(z => z.PatchId).Select(x => x.First()).ToList();
+
+            var newPatches = singlePatches.Select(x => new PatchShapeRecord()
+            {
+                PatchId = x.PatchId,
+                PatchName = x.PatchName,
+                Shape = x.Shape,
+                PatchImagePicture = x.PatchImagePicture,
+                xPosition = x.xPosition,
+                yPosition = x.yPosition,
+                Diameter = x.Diameter,
+                Width = x.Width,
+                Length = x.Length,
+                PlantList = GetPlantList(patchesWithPlants, x.PatchId),
+                TaskList = GetTaskList(patchesWithTasks, x.PatchId, plantInTask)
+
+            }).ToArray();
+
+            return Ok(newPatches);
         }
 
         private List<PlantsRecord> GetPlantList(IEnumerable<PlantsInPatchesRecord> patchesWithPlants, int patchId)

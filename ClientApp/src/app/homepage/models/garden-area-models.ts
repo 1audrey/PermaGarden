@@ -1,5 +1,5 @@
 export interface IGardenArea {
-  id: number,
+  id?: number,
   length: number,
   width: number
 }

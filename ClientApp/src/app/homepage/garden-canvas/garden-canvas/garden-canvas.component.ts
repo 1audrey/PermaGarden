@@ -1,10 +1,11 @@
 import { Component, HostListener, OnInit, Renderer2 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import * as d3 from "d3";
-import { ICirclePatchModel } from 'src/app/garden/models/icircle-patch-model';
+import { IPatchShapeModel } from 'src/app/garden/models/iPatchShape-model';
 import { NotificationsService } from 'src/app/services/notifications/notifications.service';
 import { PatchesService } from 'src/app/services/patches/patches.service';
 import { IGardenArea } from '../../models/garden-area-models';
+import { IPatchChangesModel } from '../../models/patch-changes-model';
 import { CircleDialogComponent } from './circle-dialog/circle-dialog.component';
 import { ImageShapeDialogComponent } from './image-shape-dialog/image-shape-dialog.component';
 import { RectangleDialogComponent } from './rectangle-dialog/rectangle-dialog.component';
@@ -24,8 +25,9 @@ export class GardenCanvasComponent implements OnInit {
   menuDisplayed = false;
   gardenDimensions: boolean = false;
   rightClickMenuItems: Array<ContextMenuModel> = [];
-  patches: ICirclePatchModel;
   gardenBorder = false;
+  gardenBorderExists = false;
+  patchesToSave: IPatchChangesModel[] = [];
 
   private static readonly EXTRA_CANVA_DIMENSION = 0.2;
 
@@ -44,27 +46,54 @@ export class GardenCanvasComponent implements OnInit {
     private notifications: NotificationsService) { }
 
   ngOnInit(): void {
-    this.patches = this.patchService.getCirclePatch();
-    console.log(this.patches);
-    this.createCircleBed(this.patches.diameter, this.patches.patchName);
+    this.patchService.getSvgDimensions().subscribe((result)=>{
+      this.length = result[0].length;
+      this.width = result[0].width;
+      this.gardenDimensions = true;
+    });
+
+    this.patchService.getGardenBorder().subscribe((result) => {
+      this.points = result;
+      this.createPolygon();
+      this.gardenBorder = true;
+      this.gardenBorderExists = true;
+    });
+
+    this.patchService.getPatchesShape().subscribe((result) => {
+      result.forEach((patch) => {
+        if (patch.shape === 'rectangle') {
+          this.createRectangleBed(patch.length, patch.width, patch.patchName)
+        }
+        else if (patch.shape === 'square') {
+          this.createSquareBed(patch.length, patch.width, patch.patchName)
+        }
+        else if (patch.shape === 'circle') {
+          this.createCircleBed(patch.diameter, patch.patchName)
+        }
+        else
+          this.createImageBed(patch.shape, patch.diameter, patch.patchName);
+      });
+    });
+  }
+
+  saveChanges(){
+    this.patchService.saveUpdatedPatches(this.patchesToSave).subscribe();
+    this.patchesToSave = [];
   }
 
   saveGardenSize(formValues: IGardenArea) {
-    this.length = (formValues.length +(formValues.length * GardenCanvasComponent.EXTRA_CANVA_DIMENSION));
+    this.length = formValues.length + (formValues.length * GardenCanvasComponent.EXTRA_CANVA_DIMENSION);
     this.width = formValues.width + (formValues.width * GardenCanvasComponent.EXTRA_CANVA_DIMENSION);
     this.gardenDimensions = true;
 
     let area: IGardenArea =
-    {id: null,
-    length: null,
+    {length: null,
     width: null}
 
     area.length = Math.ceil(this.length);
     area.width = Math.ceil(this.width);
 
-    this.patchService.saveSvgDimensions(area).subscribe(() => {
-      this.notifications.showSuccess(`${area} has been added`);
-    });
+    this.patchService.saveSvgDimensions(area).subscribe();
   }
 
   addRectangularShape() {
@@ -105,36 +134,40 @@ export class GardenCanvasComponent implements OnInit {
   saveRectanglePatch(length: number, width: number, patchName: string) {
     if (length !== width) {
       let shape = 'rectangle';
+      let imagePicture = 'assets/shapes/rectangle-shape.png'
       let xPosition = 10;
       let yPosition = 10;
       this.createRectangleBed(length, width, patchName)
-      this.patchService.saveRectPatch(patchName, width, length, xPosition, yPosition, shape);
+      this.patchService.saveRectanglePatch(patchName, width, length, xPosition, yPosition, shape, imagePicture);
 
     }
     else {
       let shape = 'square';
+      let imagePicture = 'assets/shapes/square-shape.png'
       let xPosition = 10;
       let yPosition = 10;
       this.createSquareBed(length, width, patchName);
-      this.patchService.saveRectPatch(patchName, width, length, xPosition, yPosition, shape);
+      this.patchService.saveRectanglePatch(patchName, width, length, xPosition, yPosition, shape, imagePicture);
     }
   }
 
   saveCirclePatch(diameter: number, patchName: string) {
     let shape = 'circle';
+    let imagePicture = 'assets/shapes/cercle-shape.png'
     let xPosition = diameter;
     let yPosition = diameter;
 
     this.createCircleBed(diameter, patchName);
-    this.patchService.saveCircleAndImagePatch(patchName, diameter, xPosition, yPosition, shape);
+    this.patchService.saveCircleAndImagePatch(patchName, diameter, xPosition, yPosition, shape, imagePicture);
   }
 
   saveImagePatch(shape: string, diameter: number, patchName: string) {
+    let imagePicture = `assets/shapes/${shape}-shape.png`
     let xPosition = diameter;
     let yPosition = diameter;
 
     this.createImageBed(shape, diameter, patchName);
-    this.patchService.saveCircleAndImagePatch(patchName, diameter, xPosition, yPosition, shape);
+    this.patchService.saveCircleAndImagePatch(patchName, diameter, xPosition, yPosition, shape, imagePicture);
   }
 
   rotatingPatch() {
@@ -150,12 +183,15 @@ export class GardenCanvasComponent implements OnInit {
     this.draggingElement = d3.select(target);
     console.log(target.id);
 
-    if (target.id === 'garden-grid' || target.tagName === 'line') {
+    if (!this.gardenBorderExists && target.id === 'garden-grid' || target.tagName === 'line') {
       this.addHelperShapes(event);
     }
 
-    if (target.id !== 'garden-grid' && this.points.length >= 3) {
+    if (!this.gardenBorderExists && target.id !== 'garden-grid' && this.points.length >= 3) {
       this.createPolygon();
+      this.gardenBorder = true;
+      this.gardenBorderExists = true;
+      this.patchService.saveGardenBorder(this.points).subscribe();
       this.clearHelperShapes();
     }
 
@@ -200,11 +236,30 @@ export class GardenCanvasComponent implements OnInit {
   }
 
   @HostListener('mouseup', ['$event'])
-  onMouseUp(): void {
+  onMouseUp(event: MouseEvent): void {
     this.mousedown = false;
     this.rotatePatch = false;
+    this.addPatchesToSave(event);
     this.draggingElement = undefined;
     this.renderer.setStyle(document.body, 'cursor', 'initial');
+  }
+
+  private addPatchesToSave(event: MouseEvent){
+    let coordinates = this.getMousePosition(event);
+    let x = coordinates.x - this.currentPoint.x;
+    let y = coordinates.y - this.currentPoint.y;
+
+    let patchToSave: IPatchChangesModel = {
+      patchName: this.draggingElement.text(),
+      xPosition: x + this.draggingPoints[0],
+      yPosition: y + this.draggingPoints[1]
+    };
+
+    const patchIndex = this.patchesToSave.findIndex((patch) => patch.patchName === patchToSave.patchName);
+    if(patchIndex === -1){
+      this.patchesToSave.push(patchToSave);
+    }
+    this.patchesToSave.splice(patchIndex, 1, patchToSave);
   }
 
   private addHelperShapes(event: MouseEvent) {
@@ -237,8 +292,6 @@ export class GardenCanvasComponent implements OnInit {
       .attr("fill", "lightgrey")
       .attr("opacity", "40%")
       .attr("stroke", "black")
-
-      this.gardenBorder = true;
   }
 
   private moveShape(x: number, y: number) {

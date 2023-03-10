@@ -43,6 +43,8 @@
         <button mat-button (click)="addImageShape('tree')">Tree</button>
       </div>
       <button mat-button class="rotate" (click)="rotatingPatch()">Rotate</button>
+      <button mat-button class="save-changes" (click)="saveChanges()">Save changes</button>
+
     </div>
 
     <svg *ngIf="gardenDimensions" class="svg" xmlns="<http://www.w3.org/2000/svg>" [attr.height]="length" [attr.width]="width">
