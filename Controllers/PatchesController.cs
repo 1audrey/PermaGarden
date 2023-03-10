@@ -25,7 +25,8 @@ namespace perma_garden_app.Controllers
             TasksRecord,
             TasksInPatchesRecord,
             GardenArea,
-            PatchShapeRecord> _permaGardenRepositery;
+            PatchShapeRecord,
+            UpdatedPatchRecord> _permaGardenRepositery;
 
         public PatchesController(IPermaGardenRepositery<PlantsImagesRecord,
             PlantsRecord,
@@ -36,7 +37,8 @@ namespace perma_garden_app.Controllers
             TasksRecord, 
             TasksInPatchesRecord,
             GardenArea,
-            PatchShapeRecord> permaGardenRepositery)
+            PatchShapeRecord,
+            UpdatedPatchRecord> permaGardenRepositery)
         {
             _permaGardenRepositery = permaGardenRepositery;
 
@@ -388,6 +390,43 @@ namespace perma_garden_app.Controllers
             }).ToArray();
 
             return Ok(newPatches);
+        }
+
+        [HttpPut]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Route("updated-patch")]
+        public async Task<IActionResult> UpdatedPatches([FromBody] UpdatedPatchRecord[] updatedPatches, CancellationToken token)
+        {
+            if (updatedPatches != null)
+            {
+                var patches = await _permaGardenRepositery
+                    .GetAllPatchesShapes(token);
+
+                foreach (var existingPatch in patches)
+                {
+                    foreach( var updatedPatch in updatedPatches)
+                    {
+                        if (existingPatch.PatchName == updatedPatch.PatchName)
+                        {
+                            var editedPatch = new UpdatedPatchRecord
+                            {
+                                PatchName = updatedPatch.PatchName,
+                                xPosition = updatedPatch.xPosition,
+                                yPosition = updatedPatch.yPosition,
+                            };
+
+                            await _permaGardenRepositery.UpdatedPatches(editedPatch, token);
+                        }
+                    }
+
+                }
+
+                return Ok();
+            }
+
+            return BadRequest("Patch is invalid");
         }
 
         private List<PlantsRecord> GetPlantList(IEnumerable<PlantsInPatchesRecord> patchesWithPlants, int patchId)

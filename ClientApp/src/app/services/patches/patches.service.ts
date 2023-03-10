@@ -157,7 +157,7 @@ export class PatchesService {
   }
 
   saveUpdatedPatches(patchesToSave: IPatchChangesModel[]){
-    return this.http.put<IPatchChangesModel[]>(this.baseUrl + 'edit-patch', patchesToSave).pipe(
+    return this.http.put<IPatchChangesModel[]>(this.baseUrl + 'updated-patch', patchesToSave).pipe(
       tap(() => console.log(`Patch service edited updated patches successfully`)),
       catchError((error: HttpErrorResponse) => throwError(error))
     );

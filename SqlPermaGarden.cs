@@ -17,7 +17,8 @@ namespace perma_garden_app
         TasksRecord, 
         TasksInPatchesRecord,
         GardenArea, 
-        PatchShapeRecord>
+        PatchShapeRecord, 
+        UpdatedPatchRecord>
     {
         public SqlPermaGarden(string connectionString)
         {
@@ -274,6 +275,7 @@ namespace perma_garden_app
                     new { patch.PatchId, patch.PatchName, patch.PatchImagePicture },
                     cancellationToken: token));
         }
+
         public async Task EditPatchNameInPlantsInPatches(PatchesRecord patch, CancellationToken token)
         {
             var command = @"UPDATE dbo.PlantsInPatches
@@ -767,5 +769,24 @@ namespace perma_garden_app
             return await SqlConnection.QueryAsync<PatchShapeRecord>(new CommandDefinition(command,
                 cancellationToken: token));
         }
+
+        public async Task UpdatedPatches(UpdatedPatchRecord updatedPatch, CancellationToken token)
+        {
+            var command = @"UPDATE dbo.PatchShape
+
+                            SET 
+                                XPosition = @XPosition
+                                , YPosition = @YPosition
+
+                            WHERE 
+                                PatchName = @PatchName";
+
+            await SqlConnection.ExecuteAsync(
+                new CommandDefinition(
+                    command,
+                    new { updatedPatch.PatchName, updatedPatch.xPosition, updatedPatch.yPosition },
+                    cancellationToken: token));
+        }
+        
     }
 }

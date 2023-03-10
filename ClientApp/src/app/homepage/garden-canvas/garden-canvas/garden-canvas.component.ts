@@ -62,16 +62,16 @@ export class GardenCanvasComponent implements OnInit {
     this.patchService.getPatchesShape().subscribe((result) => {
       result.forEach((patch) => {
         if (patch.shape === 'rectangle') {
-          this.createRectangleBed(patch.length, patch.width, patch.patchName)
+          this.createRectangleBed(patch.length, patch.width, patch.patchName, patch.xPosition, patch.yPosition)
         }
         else if (patch.shape === 'square') {
-          this.createSquareBed(patch.length, patch.width, patch.patchName)
+          this.createSquareBed(patch.length, patch.width, patch.patchName, patch.xPosition, patch.yPosition)
         }
         else if (patch.shape === 'circle') {
-          this.createCircleBed(patch.diameter, patch.patchName)
+          this.createCircleBed(patch.diameter, patch.patchName, patch.xPosition, patch.yPosition)
         }
         else
-          this.createImageBed(patch.shape, patch.diameter, patch.patchName);
+          this.createImageBed(patch.shape, patch.diameter, patch.patchName, patch.xPosition, patch.yPosition);
       });
     });
   }
@@ -137,7 +137,7 @@ export class GardenCanvasComponent implements OnInit {
       let imagePicture = 'assets/shapes/rectangle-shape.png'
       let xPosition = 10;
       let yPosition = 10;
-      this.createRectangleBed(length, width, patchName)
+      this.createRectangleBed(length, width, patchName, xPosition, yPosition)
       this.patchService.saveRectanglePatch(patchName, width, length, xPosition, yPosition, shape, imagePicture);
 
     }
@@ -146,7 +146,7 @@ export class GardenCanvasComponent implements OnInit {
       let imagePicture = 'assets/shapes/square-shape.png'
       let xPosition = 10;
       let yPosition = 10;
-      this.createSquareBed(length, width, patchName);
+      this.createSquareBed(length, width, patchName, xPosition, yPosition);
       this.patchService.saveRectanglePatch(patchName, width, length, xPosition, yPosition, shape, imagePicture);
     }
   }
@@ -157,7 +157,7 @@ export class GardenCanvasComponent implements OnInit {
     let xPosition = diameter;
     let yPosition = diameter;
 
-    this.createCircleBed(diameter, patchName);
+    this.createCircleBed(diameter, patchName, xPosition, yPosition);
     this.patchService.saveCircleAndImagePatch(patchName, diameter, xPosition, yPosition, shape, imagePicture);
   }
 
@@ -166,7 +166,7 @@ export class GardenCanvasComponent implements OnInit {
     let xPosition = diameter;
     let yPosition = diameter;
 
-    this.createImageBed(shape, diameter, patchName);
+    this.createImageBed(shape, diameter, patchName, xPosition, yPosition);
     this.patchService.saveCircleAndImagePatch(patchName, diameter, xPosition, yPosition, shape, imagePicture);
   }
 
@@ -327,10 +327,10 @@ export class GardenCanvasComponent implements OnInit {
     this.draggingElement?.attr('transform', `rotate(${angle} ${centerOfPatchX} ${centerOfPatchY})`);
   }
 
-  private createRectangleBed(length: number, width: number, patchName: string) {
+  private createRectangleBed(length: number, width: number, patchName: string, xPosition: number, yPosition: number) {
     d3.select('.svg').append('rect')
-      .attr('x', 10)
-      .attr('y', 10)
+      .attr('x', xPosition)
+      .attr('y', yPosition)
       .attr('width', `${width}`)
       .attr('height', `${length}`)
       .attr('fill', '#114b0b')
@@ -339,10 +339,10 @@ export class GardenCanvasComponent implements OnInit {
       .text(`${patchName}`)
   }
 
-  private createSquareBed(length: number, width: number, patchName: string) {
+  private createSquareBed(length: number, width: number, patchName: string, xPosition: number, yPosition: number) {
     d3.select('.svg').append('rect')
-      .attr('x', 10)
-      .attr('y', 10)
+      .attr('x', xPosition)
+      .attr('y', yPosition)
       .attr('width', `${width}`)
       .attr('height', `${length}`)
       .attr('fill', '#fecc47')
@@ -351,10 +351,10 @@ export class GardenCanvasComponent implements OnInit {
       .text(`${patchName}`)
   }
 
-  private createCircleBed(diameter: number, patchName: string) {
+  private createCircleBed(diameter: number, patchName: string, xPosition: number, yPosition: number) {
     d3.select('.svg').append('circle')
-      .attr('cx', `${diameter}`)
-      .attr('cy', `${diameter}`)
+      .attr('cx', `${xPosition}`)
+      .attr('cy', `${yPosition}`)
       .attr('r', `${diameter}`)
       .attr('fill', '#fa990e')
       .on("contextmenu", (event: MouseEvent) => { this.openContextMenu(event) })
@@ -362,13 +362,13 @@ export class GardenCanvasComponent implements OnInit {
       .text(`${patchName}`)
   }
 
-  private createImageBed(shape: string, diameter: number, patchName: string) {
+  private createImageBed(shape: string, diameter: number, patchName: string, xPosition: number, yPosition: number) {
     switch (shape) {
       case 'hexagone':
         d3.select('.svg').append('image')
           .attr('href', '../../assets/shapes/hexagone-shape.png')
-          .attr('x', diameter)
-          .attr('y', diameter)
+          .attr('x', xPosition)
+          .attr('y', yPosition)
           .attr('width', `${diameter}`)
           .attr('height', `${diameter}`)
           .on("contextmenu", (event: MouseEvent) => { this.openContextMenu(event) })
@@ -379,8 +379,8 @@ export class GardenCanvasComponent implements OnInit {
       case 'bush':
         d3.select('.svg').append('image')
           .attr('href', '../../assets/shapes/bush-shape.png')
-          .attr('x', diameter)
-          .attr('y', diameter)
+          .attr('x', xPosition)
+          .attr('y', yPosition)
           .attr('width', `${diameter}`)
           .attr('height', `${diameter}`)
           .on("contextmenu", (event: MouseEvent) => { this.openContextMenu(event) })
@@ -391,8 +391,8 @@ export class GardenCanvasComponent implements OnInit {
       case 'tree':
         d3.select('.svg').append('image')
           .attr('href', '../../assets/shapes/tree-shape.png')
-          .attr('x', diameter)
-          .attr('y', diameter)
+          .attr('x', xPosition)
+          .attr('y', yPosition)
           .attr('width', `${diameter}`)
           .attr('height', `${diameter}`)
           .attr('class', `${shape}`)

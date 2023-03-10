@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace perma_garden_app
 {
-    public interface IPermaGardenRepositery<TPlantsImages, TPlants, TPlantsInTasks, TPatchesShapes, TPatches, TPlantsInPatches, TTasks, TTasksInPatches, TGardenArea, TPatchShapeRecord>
+    public interface IPermaGardenRepositery<TPlantsImages, TPlants, TPlantsInTasks, TPatchesShapes, TPatches, TPlantsInPatches, TTasks, TTasksInPatches, TGardenArea, TPatchShapeRecord, TUpdatedPatchRecord>
     {
         public Task<IEnumerable<TPlantsImages>> GetAllPlantsImages(CancellationToken token);
 
@@ -81,6 +81,8 @@ namespace perma_garden_app
         public Task SaveNewPatchShape(PatchShapeRecord patch, CancellationToken token);
 
         public Task<IEnumerable<TPatchShapeRecord>> GetAllPatchesShapes(CancellationToken token);
+
+        public Task UpdatedPatches(UpdatedPatchRecord patch, CancellationToken token);
         
 
     }

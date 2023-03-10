@@ -21,7 +21,8 @@ namespace perma_garden_app.Controllers
             TasksRecord, 
             TasksInPatchesRecord,
             GardenArea,
-            PatchShapeRecord> _permaGardenRepositery;
+            PatchShapeRecord,
+            UpdatedPatchRecord> _permaGardenRepositery;
 
         public PlantsController(IPermaGardenRepositery<PlantsImagesRecord,
             PlantsRecord,
@@ -32,7 +33,8 @@ namespace perma_garden_app.Controllers
             TasksRecord, 
             TasksInPatchesRecord,
             GardenArea,
-            PatchShapeRecord> permaGardenRepositery)
+            PatchShapeRecord,
+            UpdatedPatchRecord> permaGardenRepositery)
         {
             _permaGardenRepositery = permaGardenRepositery;
             
