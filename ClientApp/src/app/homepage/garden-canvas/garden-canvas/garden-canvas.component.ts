@@ -1,12 +1,13 @@
-import { Component, HostListener, OnInit, Renderer2 } from '@angular/core';
+import { Component, HostListener, OnInit, Renderer2, AfterViewInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import * as d3 from "d3";
-import { IPatchShapeModel } from 'src/app/garden/models/iPatchShape-model';
 import { NotificationsService } from 'src/app/services/notifications/notifications.service';
 import { PatchesService } from 'src/app/services/patches/patches.service';
 import { IGardenArea } from '../../models/garden-area-models';
 import { IPatchChangesModel } from '../../models/patch-changes-model';
 import { CircleDialogComponent } from './circle-dialog/circle-dialog.component';
+import { ContextMenuComponent } from './context-menu/context-menu.component';
+import { FoundationShapeDialogComponent } from './foundation-shape-dialog/foundation-shape-dialog.component';
 import { ImageShapeDialogComponent } from './image-shape-dialog/image-shape-dialog.component';
 import { RectangleDialogComponent } from './rectangle-dialog/rectangle-dialog.component';
 
@@ -16,7 +17,7 @@ import { RectangleDialogComponent } from './rectangle-dialog/rectangle-dialog.co
   styleUrls: ['./garden-canvas.component.css']
 })
 
-export class GardenCanvasComponent implements OnInit {
+export class GardenCanvasComponent implements OnInit, AfterViewInit {
   length: number;
   width: number;
   x: number;
@@ -24,10 +25,12 @@ export class GardenCanvasComponent implements OnInit {
   patchId: number;
   menuDisplayed = false;
   gardenDimensions: boolean = false;
-  rightClickMenuItems: Array<ContextMenuModel> = [];
+  // rightClickMenuItems: Array<ContextMenuModel> = [];
   gardenBorder = false;
   gardenBorderExists = false;
   patchesToSave: IPatchChangesModel[] = [];
+  rotationAngleToSave: number = 0;
+  patchName: string
 
   private static readonly EXTRA_CANVA_DIMENSION = 0.2;
 
@@ -51,7 +54,9 @@ export class GardenCanvasComponent implements OnInit {
       this.width = result[0].width;
       this.gardenDimensions = true;
     });
+  }
 
+  ngAfterViewInit() {
     this.patchService.getGardenBorder().subscribe((result) => {
       this.points = result;
       this.createPolygon();
@@ -61,23 +66,34 @@ export class GardenCanvasComponent implements OnInit {
 
     this.patchService.getPatchesShape().subscribe((result) => {
       result.forEach((patch) => {
-        if (patch.shape === 'rectangle') {
-          this.createRectangleBed(patch.length, patch.width, patch.patchName, patch.xPosition, patch.yPosition)
+        switch(patch.patchImagePicture){
+          case 'assets/shapes/foundation-shape.png':
+            this.createRectangleFoundation(patch.length, patch.width, patch.patchName, patch.xPosition, patch.yPosition, patch.rotationAngle)
+            break;
+
+          case 'assets/shapes/rectangle-shape.png':
+            this.createRectangleBed(patch.length, patch.width, patch.patchName, patch.xPosition, patch.yPosition, patch.rotationAngle)
+            break;
+
+          case 'assets/shapes/square-shape.png':
+            this.createSquareBed(patch.length, patch.width, patch.patchName, patch.xPosition, patch.yPosition, patch.rotationAngle)
+            break;
+
+          case 'assets/shapes/cercle-shape.png':
+            this.createCircleBed(patch.diameter, patch.patchName, patch.xPosition, patch.yPosition, patch.rotationAngle)
+            break;
+
+          default:
+            this.createImageBed(patch.shape, patch.diameter, patch.patchName, patch.xPosition, patch.yPosition, patch.rotationAngle);
+            break;
         }
-        else if (patch.shape === 'square') {
-          this.createSquareBed(patch.length, patch.width, patch.patchName, patch.xPosition, patch.yPosition)
-        }
-        else if (patch.shape === 'circle') {
-          this.createCircleBed(patch.diameter, patch.patchName, patch.xPosition, patch.yPosition)
-        }
-        else
-          this.createImageBed(patch.shape, patch.diameter, patch.patchName, patch.xPosition, patch.yPosition);
       });
     });
   }
 
   saveChanges(){
     this.patchService.saveUpdatedPatches(this.patchesToSave).subscribe();
+    this.notifications.showSuccess('Changes saved')
     this.patchesToSave = [];
   }
 
@@ -104,6 +120,17 @@ export class GardenCanvasComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       this.saveRectanglePatch(result.length, result.width, result.patchName);
+    })
+  }
+
+  addFoundationArea(){
+    let dialogRef = this.dialog.open((FoundationShapeDialogComponent), {
+      width: '500px',
+      autoFocus: false,
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.saveFoundationPatch(result.length, result.width, result.patchName);
     })
   }
 
@@ -137,41 +164,55 @@ export class GardenCanvasComponent implements OnInit {
       let imagePicture = 'assets/shapes/rectangle-shape.png'
       let xPosition = 10;
       let yPosition = 10;
-      this.createRectangleBed(length, width, patchName, xPosition, yPosition)
-      this.patchService.saveRectanglePatch(patchName, width, length, xPosition, yPosition, shape, imagePicture);
-
+      let rotationAngle = 0;
+      this.createRectangleBed(length, width, patchName, xPosition, yPosition, rotationAngle)
+      this.patchService.saveRectanglePatch(patchName, width, length, xPosition, yPosition, shape, imagePicture, rotationAngle);
     }
     else {
       let shape = 'square';
       let imagePicture = 'assets/shapes/square-shape.png'
       let xPosition = 10;
       let yPosition = 10;
-      this.createSquareBed(length, width, patchName, xPosition, yPosition);
-      this.patchService.saveRectanglePatch(patchName, width, length, xPosition, yPosition, shape, imagePicture);
+      let rotationAngle = 0;
+      this.createSquareBed(length, width, patchName, xPosition, yPosition, rotationAngle);
+      this.patchService.saveRectanglePatch(patchName, width, length, xPosition, yPosition, shape, imagePicture, rotationAngle);
     }
   }
+
+  saveFoundationPatch(length: number, width: number, patchName: string) {
+      let shape = 'rectangle';
+      let imagePicture = 'assets/shapes/foundation-shape.png'
+      let xPosition = 10;
+      let yPosition = 10;
+      let rotationAngle = 0;
+      this.createRectangleFoundation(length, width, patchName, xPosition, yPosition, rotationAngle)
+      this.patchService.saveRectanglePatch(patchName, width, length, xPosition, yPosition, shape, imagePicture, rotationAngle);
+    }
 
   saveCirclePatch(diameter: number, patchName: string) {
     let shape = 'circle';
     let imagePicture = 'assets/shapes/cercle-shape.png'
     let xPosition = diameter;
     let yPosition = diameter;
+    let rotationAngle = 0;
 
-    this.createCircleBed(diameter, patchName, xPosition, yPosition);
-    this.patchService.saveCircleAndImagePatch(patchName, diameter, xPosition, yPosition, shape, imagePicture);
+    this.createCircleBed(diameter, patchName, xPosition, yPosition, rotationAngle);
+    this.patchService.saveCircleAndImagePatch(patchName, diameter, xPosition, yPosition, shape, imagePicture, rotationAngle);
   }
 
   saveImagePatch(shape: string, diameter: number, patchName: string) {
     let imagePicture = `assets/shapes/${shape}-shape.png`
     let xPosition = diameter;
     let yPosition = diameter;
+    let rotationAngle = 0;
 
-    this.createImageBed(shape, diameter, patchName, xPosition, yPosition);
-    this.patchService.saveCircleAndImagePatch(patchName, diameter, xPosition, yPosition, shape, imagePicture);
+    this.createImageBed(shape, diameter, patchName, xPosition, yPosition, rotationAngle);
+    this.patchService.saveCircleAndImagePatch(patchName, diameter, xPosition, yPosition, shape, imagePicture, rotationAngle);
   }
 
   rotatingPatch() {
     this.rotatePatch = true;
+    document.body.style.cursor = 'grab';
   }
 
   @HostListener('mousedown', ['$event'])
@@ -181,7 +222,6 @@ export class GardenCanvasComponent implements OnInit {
 
     let target = (event.target as SVGGElement);
     this.draggingElement = d3.select(target);
-    console.log(target.id);
 
     if (!this.gardenBorderExists && target.id === 'garden-grid' || target.tagName === 'line') {
       this.addHelperShapes(event);
@@ -211,8 +251,12 @@ export class GardenCanvasComponent implements OnInit {
     let y = coordinates.y - this.currentPoint.y;
     let target = (event.target as SVGGElement);
 
+    if(target.id === 'garden-grid'){
+      return;
+    }
+
     if (target.tagName === 'rect' || target.tagName === 'image') {
-      this.moveShape(x, y);
+      this.moveShape(x, y, coordinates);
     }
 
     if (target.tagName === 'circle') {
@@ -244,22 +288,44 @@ export class GardenCanvasComponent implements OnInit {
     this.renderer.setStyle(document.body, 'cursor', 'initial');
   }
 
-  private addPatchesToSave(event: MouseEvent){
+  private addPatchesToSave(event: MouseEvent) {
     let coordinates = this.getMousePosition(event);
     let x = coordinates.x - this.currentPoint.x;
     let y = coordinates.y - this.currentPoint.y;
+    let target = (event.target as SVGGElement);
 
+    if(target.id === 'garden-grid'){
+      return;
+    }
+
+    if (target.tagName === 'rect' || target.tagName === 'image' || target.tagName === 'circle') {
+      let transformAttribute = this.draggingElement.attr('transform').split(' ');
+      let angle = transformAttribute[0].split('rotate(');
+
+      let patchToSave = this.setUpPatchToSave(x, y, angle[1])
+
+      const patchIndex = this.patchesToSave.findIndex((patch) => patch.patchName === patchToSave.patchName);
+
+      if (patchIndex === -1) {
+        this.patchesToSave.push(patchToSave);
+      }
+      this.patchesToSave.splice(patchIndex, 1, patchToSave);
+    }
+  }
+
+  private setUpPatchToSave(x: number, y: number, angle: string): IPatchChangesModel{
     let patchToSave: IPatchChangesModel = {
       patchName: this.draggingElement.text(),
       xPosition: x + this.draggingPoints[0],
-      yPosition: y + this.draggingPoints[1]
+      yPosition: y + this.draggingPoints[1],
+      rotationAngle: Number(angle)
     };
 
-    const patchIndex = this.patchesToSave.findIndex((patch) => patch.patchName === patchToSave.patchName);
-    if(patchIndex === -1){
-      this.patchesToSave.push(patchToSave);
+    if (this.rotationAngleToSave != 0){
+      patchToSave.rotationAngle = this.rotationAngleToSave
     }
-    this.patchesToSave.splice(patchIndex, 1, patchToSave);
+
+    return patchToSave;
   }
 
   private addHelperShapes(event: MouseEvent) {
@@ -294,13 +360,28 @@ export class GardenCanvasComponent implements OnInit {
       .attr("stroke", "black")
   }
 
-  private moveShape(x: number, y: number) {
+  private moveShape(x: number, y: number, coordinates: any) {
     if (this.draggingElement && this.mousedown && !this.rotatePatch) {
       document.body.style.cursor = 'move';
 
-      this.draggingElement?.attr('x', x + this.draggingPoints[0]);
-      this.draggingElement?.attr('y', y + this.draggingPoints[1]);
+      if(this.isElementRotated()){
+        //TODO x and y doivent etre la vraie donnee avec l'angle
+        this.draggingElement?.attr('x', x + this.draggingPoints[0]);
+        this.draggingElement?.attr('y', y + this.draggingPoints[1]);
+
+      }
+      else{
+        this.draggingElement?.attr('x', x + this.draggingPoints[0]);
+        this.draggingElement?.attr('y', y + this.draggingPoints[1]);
+      }
     }
+  }
+
+  private isElementRotated(): boolean{
+    let x = Number(this.draggingElement.attr('x'));
+    let y = Number(this.draggingElement.attr('y'));
+
+    return this.draggingElement.attr('transform') !== `rotate(0 ${x} ${y})`;
   }
 
   private moveCircle(x: number, y: number) {
@@ -313,8 +394,6 @@ export class GardenCanvasComponent implements OnInit {
   }
 
   patchRotation(coordinates: any) {
-    document.body.style.cursor = 'grab';
-
     let centerOfPatch = this.getCenterOfPatch();
     let centerOfPatchX = centerOfPatch[0] + this.draggingPoints[0];
     let centerOfPatchY = centerOfPatch[1] + this.draggingPoints[1];
@@ -322,47 +401,64 @@ export class GardenCanvasComponent implements OnInit {
     var dY = coordinates.y - centerOfPatchY;
     var dX = coordinates.x - centerOfPatchX;
 
-    var angle = Math.atan2(dY, dX) / Math.PI * 180.0;
+    let angle = Math.atan2(dY, dX) / Math.PI * 180.0;
+
+    this.rotationAngleToSave = angle;
 
     this.draggingElement?.attr('transform', `rotate(${angle} ${centerOfPatchX} ${centerOfPatchY})`);
   }
 
-  private createRectangleBed(length: number, width: number, patchName: string, xPosition: number, yPosition: number) {
+  private createRectangleBed(length: number, width: number, patchName: string, xPosition: number, yPosition: number, rotationAngle: number) {
     d3.select('.svg').append('rect')
       .attr('x', xPosition)
       .attr('y', yPosition)
       .attr('width', `${width}`)
       .attr('height', `${length}`)
       .attr('fill', '#114b0b')
+      .attr('transform', `rotate(${rotationAngle} ${xPosition} ${yPosition})`)
       .on("contextmenu", (event: MouseEvent) => { this.openContextMenu(event) })
       .append('title')
       .text(`${patchName}`)
   }
 
-  private createSquareBed(length: number, width: number, patchName: string, xPosition: number, yPosition: number) {
+  private createRectangleFoundation(length: number, width: number, patchName: string, xPosition: number, yPosition: number, rotationAngle: number) {
+    d3.select('.svg').append('rect')
+      .attr('x', xPosition)
+      .attr('y', yPosition)
+      .attr('width', `${width}`)
+      .attr('height', `${length}`)
+      .attr('fill', '#C2AD9A')
+      .attr('transform', `rotate(${rotationAngle} ${xPosition} ${yPosition})`)
+      .append('title')
+      .text(`${patchName}`)
+  }
+
+  private createSquareBed(length: number, width: number, patchName: string, xPosition: number, yPosition: number, rotationAngle) {
     d3.select('.svg').append('rect')
       .attr('x', xPosition)
       .attr('y', yPosition)
       .attr('width', `${width}`)
       .attr('height', `${length}`)
       .attr('fill', '#fecc47')
+      .attr('transform', `rotate(${rotationAngle} ${xPosition} ${yPosition})`)
       .on("contextmenu", (event: MouseEvent) => { this.openContextMenu(event) })
       .append('title')
       .text(`${patchName}`)
   }
 
-  private createCircleBed(diameter: number, patchName: string, xPosition: number, yPosition: number) {
+  private createCircleBed(diameter: number, patchName: string, xPosition: number, yPosition: number, rotationAngle: number) {
     d3.select('.svg').append('circle')
       .attr('cx', `${xPosition}`)
       .attr('cy', `${yPosition}`)
       .attr('r', `${diameter}`)
       .attr('fill', '#fa990e')
+      .attr('transform', `rotate(${rotationAngle} ${xPosition} ${yPosition})`)
       .on("contextmenu", (event: MouseEvent) => { this.openContextMenu(event) })
       .append('title')
       .text(`${patchName}`)
   }
 
-  private createImageBed(shape: string, diameter: number, patchName: string, xPosition: number, yPosition: number) {
+  private createImageBed(shape: string, diameter: number, patchName: string, xPosition: number, yPosition: number, rotationAngle: number) {
     switch (shape) {
       case 'hexagone':
         d3.select('.svg').append('image')
@@ -371,6 +467,7 @@ export class GardenCanvasComponent implements OnInit {
           .attr('y', yPosition)
           .attr('width', `${diameter}`)
           .attr('height', `${diameter}`)
+          .attr('transform', `rotate(${rotationAngle} ${xPosition} ${yPosition})`)
           .on("contextmenu", (event: MouseEvent) => { this.openContextMenu(event) })
           .append('title')
           .text(`${patchName}`)
@@ -458,44 +555,28 @@ export class GardenCanvasComponent implements OnInit {
   }
 
   private openContextMenu(event: MouseEvent) {
-    console.log('context menu working')
     event.preventDefault();
 
     this.menuDisplayed = true;
+    let target = (event.target as SVGGElement);
+    this.draggingElement = d3.select(target);
+    let patchName = `${this.draggingElement.text()}`
 
-    //TODO: change the context menu
-    this.rightClickMenuItems = [
-      {
-        menuText: 'Refactor',
-        menuEvent: 'Handle refactor',
-      },
-      {
-        menuText: 'Format',
-        menuEvent: 'Handle format',
-      },
-    ];
+      let dialogRef = this.dialog.open((ContextMenuComponent), {
+        width: '500px',
+        data: { patchName: patchName},
+        autoFocus: false,
+      });
+
+      // dialogRef.afterClosed().subscribe(result => {
+      //   this.saveImagePatch(shape, result.diameter, result.patchName);
+      // })
+
   }
 
-  handleMenuItemClick(event) {
-    //TODO: update
-    switch (event.data) {
-      case this.rightClickMenuItems[0].menuEvent:
-        console.log('To handle refactor');
-        break;
-      case this.rightClickMenuItems[1].menuEvent:
-        console.log('To handle formatting');
-        break;
-    }
-  }
 
-  @HostListener('document:click')
-  documentClick(): void {
-    this.menuDisplayed = false;
-  }
-}
-
-//TODO: update
-export interface ContextMenuModel {
-  menuText: string,
-  menuEvent: string
+  // @HostListener('document:click')
+  // documentClick(): void {
+  //   this.menuDisplayed = false;
+  // }
 }

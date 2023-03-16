@@ -8,7 +8,9 @@
 
 svg{
   border: 1px solid black;
-  margin: 20px;
+  margin-right: 5px;
+  margin-left: 5px;
+  margin-bottom: 5px;
 }
 
 .buttons{
@@ -23,7 +25,27 @@ svg{
   border-color: #5b8d27;
 }
 
+.garden-panel{
+  margin-top: 25px;
+  display: flex;
+  border-color: #000409;
+  border: solid;
+  flex-direction: column;
+  align-items: flex-start;
+}
 
+.rotate-changes{
+  display:flex;
+}
 
+.rotate{
+  background-color: rgb(176, 174, 174);
+  margin:5px;
+}
+
+.save-changes{
+  background-color: rgb(176, 174, 174);
+  margin:5px;
+}
 
 

@@ -1,0 +1,40 @@
+<div class="title">
+  <h3>Creating a foundation</h3>
+  <img src="../../../../../assets/shapes/foundation-shape.png">
+</div>
+
+<form #newFoundationPatch="ngForm" autocomplete="off">
+  <div class="form-group"
+    [ngClass]="{'error': newFoundationPatch.controls.patchName?.invalid && newFoundationPatch.controls.patchName?.touched}">
+    <label for="patchName">Name:</label>
+    <em *ngIf="newFoundationPatch.controls.patchName?.invalid && newFoundationPatch.controls.patchName?.touched">
+      *Required</em>
+    <input (ngModel)="foundationName" name="patchName" required type="text" class="form-control"
+      placeholder="Name of your patch..." />
+  </div>
+
+  <div class="form-group"
+    [ngClass]="{'error': newFoundationPatch.controls.length?.invalid && newFoundationPatch.controls.length?.touched}">
+    <div class="plant-name-group">
+      <label for="length">Length</label>
+      <em *ngIf="newFoundationPatch.controls.length?.invalid && newFoundationPatch.controls.length?.touched">
+        *Required</em>
+      <input (ngModel)="length" name="length" required type="number" class="form-control" placeholder="Length..." />
+    </div>
+  </div>
+  <div class="form-group"
+    [ngClass]="{'error': newFoundationPatch.controls.width?.invalid && newFoundationPatch.controls.width?.touched}">
+    <div class="plant-name-group">
+      <label for="width">Width</label>
+      <em *ngIf="newFoundationPatch.controls.width?.invalid && newFoundationPatch.controls.width?.touched"> *Required</em>
+      <input (ngModel)="width" name="width" required type="number" class="form-control" placeholder="Width..." />
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="buttons">
+      <button mat-button type="submit" class="save" (click)="saveFoundationPatch(newFoundationPatch.value)"
+        [disabled]="newFoundationPatch.invalid">
+        Save</button>
+    </div>
+  </div>
+</form>

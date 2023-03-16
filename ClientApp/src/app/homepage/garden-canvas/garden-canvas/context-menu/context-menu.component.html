@@ -1,7 +1,39 @@
-  <div class="menu-link" *ngFor="let menuItem of contextMenuItems; index as i"
-    (click)="onContextMenuClick($event, menuItem.menuEvent)">
-    {{ menuItem.menuText }}
-    <!-- <button [routerLink]="['/garden', patchName]">Go to {{patchName}}</button> -->
-    <!-- <button>More Info</button> -->
-    <hr *ngIf="i < contextMenuItems.length - 1" />
-  </div>
+<div class="container">
+  <div><mat-icon class="icon-close" (click)="close()">close</mat-icon></div>
+  <mat-card class="patch">
+    <mat-card-title class="title">{{patch.patchName | titlecase}}</mat-card-title>
+    <!-- <button class="delete" (click)="delete()">
+          <mat-icon>delete_outline</mat-icon>
+        </button> -->
+    <mat-card-content class="box">
+      <img mat-card-image [src]="patch.patchImagePicture" alt={{patch.patchName}}>
+    </mat-card-content>
+
+    <mat-card-actions class="actions">
+      <button mat-button class="tasks" (click)="openTask()" [routerLink]="['/tasks', patch.patchName]">Tasks</button>
+      <button mat-button class="edit-patch" (click)="editPatch()" [routerLink]="['/garden', patch.patchName]">Edit patch</button>
+      <button mat-button class="more-info" (click)="toggle() ">{{this.state == 'collapsed' ? 'More info': 'Less
+        info'}}</button>
+    </mat-card-actions>
+
+    <mat-card-footer class="card-footer">
+      <div class="patch-info" [@bodyExpansion]="state">
+        <div class="plant-list">
+          <h3 *ngIf="patch.plantList?.length">Plant(s) in this patch:</h3>
+          <div class="plant" *ngFor="let plant of patch.plantList">
+            <p>{{plant.plantName}}</p>
+            <mat-icon class="delete-plant"
+              (click)="deletePlantInPatch(plant.plantName, patch.patchName, plant.plantId, patch.patchId)">
+              delete_outline</mat-icon>
+          </div>
+        </div>
+        <div>
+
+          <div *ngIf="patch.taskList?.length">
+            <h3>You have {{patch.taskList?.length}} task in this patch</h3>
+          </div>
+        </div>
+      </div>
+    </mat-card-footer>
+  </mat-card>
+</div>

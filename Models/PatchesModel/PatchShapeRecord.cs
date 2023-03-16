@@ -19,11 +19,13 @@ namespace perma_garden_app.Models.PatchesModel
 
         public int yPosition { get; set; }
 
-        public int Diameter { get; set; }
+        public decimal Diameter { get; set; }
 
-        public int Width { get; set; }
+        public decimal Width { get; set; }
 
-        public int Length { get; set; }
+        public decimal Length { get; set; }
+
+        public decimal RotationAngle { get; set; }
 
         public List<PlantsRecord> PlantList { get; set; }
 

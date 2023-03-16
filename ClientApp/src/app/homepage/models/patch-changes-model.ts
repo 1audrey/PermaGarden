@@ -1,5 +1,6 @@
 export interface IPatchChangesModel {
   patchName: string,
   xPosition: number,
-  yPosition: number
+  yPosition: number,
+  rotationAngle: number
 }

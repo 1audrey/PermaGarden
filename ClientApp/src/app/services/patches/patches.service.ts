@@ -93,7 +93,7 @@ export class PatchesService {
     );
   }
 
-  saveCircleAndImagePatch(patchName: string, diameter: number, xPosition: number, yPosition: number, shape:string, imagePicture) {
+  saveCircleAndImagePatch(patchName: string, diameter: number, xPosition: number, yPosition: number, shape:string, imagePicture, rotationAngle: number) {
     const patchShape: IPatchShapeModel = {
       patchName: patchName,
       diameter: diameter,
@@ -101,12 +101,13 @@ export class PatchesService {
       yPosition: yPosition,
       shape: shape,
       patchImagePicture: imagePicture,
+      rotationAngle: rotationAngle
     }
 
     this.savePatchShapeModel(patchShape).subscribe();
   }
 
-  saveRectanglePatch(patchName: string, width: number, length: number, xPosition: number, yPosition: number, shape: string, imagePicture: string) {
+  saveRectanglePatch(patchName: string, width: number, length: number, xPosition: number, yPosition: number, shape: string, imagePicture: string, rotationAngle: number) {
     const patchShape: IPatchShapeModel = {
       patchName: patchName,
       xPosition: xPosition,
@@ -114,7 +115,8 @@ export class PatchesService {
       shape: shape,
       patchImagePicture: imagePicture,
       width : width,
-      length : length
+      length : length,
+      rotationAngle: rotationAngle
     }
 
     this.savePatchShapeModel(patchShape).subscribe();
@@ -130,6 +132,10 @@ export class PatchesService {
 
   getPatchesShape(): Observable<IPatchShapeModel[]> {
     return this.http.get<IPatchShapeModel[]>(this.baseUrl + 'get-patches-shapes');
+  }
+
+  getASinglePatchShape(patchName: string): Observable<IPatchShapeModel[]> {
+    return this.http.get<IPatchShapeModel[]>(this.baseUrl + `${patchName}`);
   }
 
   saveSvgDimensions(area: IGardenArea) {

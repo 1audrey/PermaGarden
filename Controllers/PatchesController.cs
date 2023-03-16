@@ -57,37 +57,37 @@ namespace perma_garden_app.Controllers
             return Ok(patchesShapes.ToList());
         }
 
-        [HttpGet]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [Route("{patchName}")]
-        public async Task<IActionResult> GetPatchByPatchName([FromRoute] string patchName, CancellationToken token)
-        {
-            var patch = await _permaGardenRepositery
-                .GetPatchByPatchName(patchName, token);
+        //[HttpGet]
+        //[ProducesResponseType(StatusCodes.Status200OK)]
+        //[ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        //[ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        //[Route("{patchName}")]
+        //public async Task<IActionResult> GetPatchByPatchName([FromRoute] string patchName, CancellationToken token)
+        //{
+        //    var patch = await _permaGardenRepositery
+        //        .GetPatchByPatchName(patchName, token);
 
-            var patchesWithPlants = await _permaGardenRepositery
-                .GetPlantsInPatches(token);
+        //    var patchesWithPlants = await _permaGardenRepositery
+        //        .GetPlantsInPatches(token);
 
-            var patchesWithTasks = await _permaGardenRepositery
-                .GetTasksInPatches(token);
+        //    var patchesWithTasks = await _permaGardenRepositery
+        //        .GetTasksInPatches(token);
 
-            var plantInTask = await _permaGardenRepositery
-                .GetPlantsInTasks(token);
+        //    var plantInTask = await _permaGardenRepositery
+        //        .GetPlantsInTasks(token);
 
-            var newPatch = patch.Select(x => new PatchesRecord()
-            {
-                PatchId = x.PatchId,
-                PatchName = x.PatchName,
-                PatchImagePicture = x.PatchImagePicture,
-                PlantList = GetPlantList(patchesWithPlants, x.PatchId),
-                TaskList = GetTaskList(patchesWithTasks, x.PatchId, plantInTask)
-            }).ToArray();
+        //    var newPatch = patch.Select(x => new PatchesRecord()
+        //    {
+        //        PatchId = x.PatchId,
+        //        PatchName = x.PatchName,
+        //        PatchImagePicture = x.PatchImagePicture,
+        //        PlantList = GetPlantList(patchesWithPlants, x.PatchId),
+        //        TaskList = GetTaskList(patchesWithTasks, x.PatchId, plantInTask)
+        //    }).ToArray();
 
-            return Ok(newPatch);
+        //    return Ok(newPatch);
 
-        }
+        //}
 
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -342,6 +342,7 @@ namespace perma_garden_app.Controllers
                     Diameter = patch.Diameter,
                     Width = patch.Width,
                     Length = patch.Length,
+                    RotationAngle = patch.RotationAngle
                 };
 
                 await _permaGardenRepositery.SaveNewPatchShape(newPatch, token);
@@ -384,12 +385,45 @@ namespace perma_garden_app.Controllers
                 Diameter = x.Diameter,
                 Width = x.Width,
                 Length = x.Length,
+                RotationAngle = x.RotationAngle,
                 PlantList = GetPlantList(patchesWithPlants, x.PatchId),
                 TaskList = GetTaskList(patchesWithTasks, x.PatchId, plantInTask)
 
             }).ToArray();
 
             return Ok(newPatches);
+        }
+
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Route("{patchName}")]
+        public async Task<IActionResult> GetPatchShapeByPatchName([FromRoute] string patchName, CancellationToken token)
+        {
+            var patch = await _permaGardenRepositery
+                .GetPatchShapeByPatchName(patchName, token);
+
+            var patchesWithPlants = await _permaGardenRepositery
+                .GetPlantsInPatches(token);
+
+            var patchesWithTasks = await _permaGardenRepositery
+                .GetTasksInPatches(token);
+
+            var plantInTask = await _permaGardenRepositery
+                .GetPlantsInTasks(token);
+
+            var newPatch = patch.Select(x => new PatchShapeRecord()
+            {
+                PatchId = x.PatchId,
+                PatchName = x.PatchName,
+                PatchImagePicture = x.PatchImagePicture,
+                PlantList = GetPlantList(patchesWithPlants, x.PatchId),
+                TaskList = GetTaskList(patchesWithTasks, x.PatchId, plantInTask)
+            }).ToArray();
+
+            return Ok(newPatch);
+
         }
 
         [HttpPut]
@@ -415,6 +449,7 @@ namespace perma_garden_app.Controllers
                                 PatchName = updatedPatch.PatchName,
                                 xPosition = updatedPatch.xPosition,
                                 yPosition = updatedPatch.yPosition,
+                                RotationAngle = updatedPatch.RotationAngle
                             };
 
                             await _permaGardenRepositery.UpdatedPatches(editedPatch, token);

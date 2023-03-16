@@ -11,6 +11,7 @@ export interface IPatchShapeModel{
   diameter?: number;
   width?: number;
   length?: number;
+  rotationAngle: number
   plantList?: IPlantsList[];
   taskList?: ITask[];
 }

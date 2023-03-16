@@ -71,6 +71,7 @@ import { RectangleDialogComponent } from './homepage/garden-canvas/garden-canvas
 import { CircleDialogComponent } from './homepage/garden-canvas/garden-canvas/circle-dialog/circle-dialog.component';
 import { ImageShapeDialogComponent } from './homepage/garden-canvas/garden-canvas/image-shape-dialog/image-shape-dialog.component';
 import { ContextMenuComponent } from './homepage/garden-canvas/garden-canvas/context-menu/context-menu.component';
+import { FoundationShapeDialogComponent } from './homepage/garden-canvas/garden-canvas/foundation-shape-dialog/foundation-shape-dialog.component';
 
 @NgModule({
   declarations: [
@@ -104,6 +105,7 @@ import { ContextMenuComponent } from './homepage/garden-canvas/garden-canvas/con
     CircleDialogComponent,
     ImageShapeDialogComponent,
     ContextMenuComponent,
+    FoundationShapeDialogComponent,
 
 
 

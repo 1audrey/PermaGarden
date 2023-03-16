@@ -172,7 +172,7 @@ namespace perma_garden_app
                                 dbo.PlantsInPatches plantsInPatches
 
                             JOIN
-                                dbo.Patches patch
+                                dbo.PatchShape patch
                             ON
                                 patch.PatchName = plantsInPatches.PatchName 
 
@@ -209,7 +209,7 @@ namespace perma_garden_app
                                 dbo.TasksInPatches tasksInPatches
 
                             JOIN
-                                dbo.Patches patch
+                                dbo.PatchShape patch
                             ON
                                 patch.PatchId = tasksInPatches.PatchId 
 
@@ -731,7 +731,8 @@ namespace perma_garden_app
                                 , YPosition
                                 , Diameter
                                 , Width
-                                , Length)
+                                , Length
+                                , RotationAngle)
 
                             VALUES (
                                   @PatchName
@@ -741,12 +742,13 @@ namespace perma_garden_app
                                 , @YPosition
                                 , @Diameter
                                 , @Width
-                                , @Length)";
+                                , @Length
+                                , @RotationAngle)";
 
             await SqlConnection.ExecuteAsync(
                 new CommandDefinition(
                     command,
-                    new { patch.PatchName, patch.Shape, patch.PatchImagePicture, patch.xPosition, patch.yPosition, patch.Diameter, patch.Width, patch.Length  },
+                    new { patch.PatchName, patch.Shape, patch.PatchImagePicture, patch.xPosition, patch.yPosition, patch.Diameter, patch.Width, patch.Length, patch.RotationAngle  },
                     cancellationToken: token));
         }
 
@@ -762,6 +764,7 @@ namespace perma_garden_app
                                 , patch.Diameter
                                 , patch.Width
                                 , patch.Length
+                                , patch.RotationAngle
                             FROM
                                 dbo.PatchShape patch";
 
@@ -777,6 +780,8 @@ namespace perma_garden_app
                             SET 
                                 XPosition = @XPosition
                                 , YPosition = @YPosition
+                                , RotationAngle = @RotationAngle
+
 
                             WHERE 
                                 PatchName = @PatchName";
@@ -784,9 +789,27 @@ namespace perma_garden_app
             await SqlConnection.ExecuteAsync(
                 new CommandDefinition(
                     command,
-                    new { updatedPatch.PatchName, updatedPatch.xPosition, updatedPatch.yPosition },
+                    new { updatedPatch.PatchName, updatedPatch.xPosition, updatedPatch.yPosition, updatedPatch.RotationAngle },
                     cancellationToken: token));
         }
+
+        public async Task<IEnumerable<PatchShapeRecord>> GetPatchShapeByPatchName(string patchName, CancellationToken token)
+        {
+            var command = @"SELECT
+                                patch.PatchId
+                                , patch.PatchName
+                                , patch.PatchImagePicture
+                            FROM
+                                dbo.PatchShape patch
+
+                            WHERE
+                                patch.PatchName = @patchName ";
+
+            return await SqlConnection.QueryAsync<PatchShapeRecord>(new CommandDefinition(command, new { patchName },
+                cancellationToken: token));
+        }
+
         
+
     }
 }
