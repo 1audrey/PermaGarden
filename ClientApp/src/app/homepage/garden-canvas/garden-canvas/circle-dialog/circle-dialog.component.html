@@ -20,8 +20,10 @@
       placeholder="Diameter..." />
   </div>
   <div class="buttons">
+    <button id="cancel-button" mat-button type="button" class="btn btn-default" (click)="cancel()">Cancel</button>
     <button mat-button type="submit" class="save" (click)="saveCirclePatch(newCirclePatch.value)"
       [disabled]="newCirclePatch.invalid">
       Save</button>
+      <em>{{notification}}</em>
   </div>
 </form>

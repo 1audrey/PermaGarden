@@ -5,22 +5,18 @@ import { AddToGardenComponent } from './garden-list/add-to-garden/add-to-garden.
 import { PlantsListResolver } from './resolver/plants-list-resolver.service';
 import { PlantsListComponent } from './garden-list/plants-list.component';
 import { GardenFootprintComponent } from './garden/garden-footprint/garden-footprint.component';
-import { PatchResolverService } from './resolver/patch-resolver.service';
-import { CreatePatchComponent } from './garden/create-patch/create-patch.component';
 import { ManagePatchTasksComponent } from './task/manage-patch-tasks/manage-patch-tasks.component';
-import { PatchListDetailsComponent } from './garden/patch-list-details/patch-list-details.component';
 import { AllTasksComponent } from './task/all-tasks/all-tasks.component';
 import { CreateTaskComponent } from './task/create-task/create-task.component';
 import { HomepageComponent } from './homepage/homepage/homepage.component';
 import { SummaryComponent } from './homepage/summary/summary.component';
-import { SinglepatchResolverService } from './resolver/singlepatch-resolver.service';
 import { TaskDetailsComponent } from './task/task-details/task-details.component';
 import { HistoryComponent } from './history/history.component';
 import { ArchivedTasksResolver } from './resolver/archived-tasks-resolver.service';
 import { AllTaskResolverService } from './resolver/all-task-resolver.service';
 import { GardenCanvasComponent } from './homepage/garden-canvas/garden-canvas/garden-canvas.component';
 import { PatchShapeResolverService } from './resolver/patch-shape-resolver.service';
-import { ContextMenuComponent } from './homepage/garden-canvas/garden-canvas/context-menu/context-menu.component';
+import { SinglePatchShapeResolverService } from './resolver/single-patch-shape-resolver.service';
 
 const routes: Routes = [
   {
@@ -38,7 +34,7 @@ const routes: Routes = [
   {
     path: 'home',
     component: HomepageComponent,
-    resolve: { plants: PlantsListResolver, patches: PatchResolverService, tasks: AllTaskResolverService }
+    resolve: { plants: PlantsListResolver, patches: PatchShapeResolverService, tasks: AllTaskResolverService }
   },
 
   {
@@ -64,66 +60,52 @@ const routes: Routes = [
   },
 
   {
-    path: 'garden',
+    path: 'patches',
     component: GardenFootprintComponent,
-    resolve: { patches: PatchResolverService }
-  },
-
-  {
-    path: 'garden/:patchName',
-    component: PatchListDetailsComponent,
-    resolve: { patchName: SinglepatchResolverService, plants: PlantsListResolver }
-  },
-
-  {
-    path: 'create-patch',
-    component: CreatePatchComponent,
-    resolve: { patches: PatchResolverService }
+    resolve: { patches: PatchShapeResolverService }
   },
 
   {
     path: 'tasks',
     component: AllTasksComponent,
-    resolve: { patches: PatchResolverService, tasks: AllTaskResolverService }
+    resolve: { patches: PatchShapeResolverService, tasks: AllTaskResolverService }
   },
 
   {
     path: 'tasks/:patchName',
     component: ManagePatchTasksComponent,
-    resolve: { patchName: SinglepatchResolverService, patches: PatchResolverService}
+    resolve: { patchName: SinglePatchShapeResolverService, patches: PatchShapeResolverService}
   },
 
   {
     path: 'tasks/:patchName',
     component: TaskDetailsComponent,
-    resolve: { patchName: SinglepatchResolverService, plants: PlantsListResolver }
+    resolve: { patchName: SinglePatchShapeResolverService, plants: PlantsListResolver }
   },
 
   {
     path: 'create-task/:patchName',
     component: CreateTaskComponent,
-    resolve: { patchName: SinglepatchResolverService, plants: PlantsListResolver }
+    resolve: { patchName: SinglePatchShapeResolverService, plants: PlantsListResolver }
   },
+
   {
     path: 'history',
     component: HistoryComponent,
-    resolve: { plants: PlantsListResolver, archivedTasks: ArchivedTasksResolver, patches: PatchResolverService }
+    resolve: { plants: PlantsListResolver, archivedTasks: ArchivedTasksResolver, patches: PatchShapeResolverService }
   },
+
   {
     path: 'app-plant-focus-stats',
     component: HistoryComponent,
-    resolve: { patches: PatchResolverService , plants: PlantsListResolver}
+    resolve: { patches: PatchShapeResolverService , plants: PlantsListResolver}
   },
 
   {
-    path: 'garden-canvas',
+    path: 'garden',
     component: GardenCanvasComponent,
+    resolve: { patches: PatchShapeResolverService }
   },
-
-  { path: 'app-context-menu',
-    component: ContextMenuComponent,
-    resolve: {patch: PatchShapeResolverService}
-  }
 
 ];
 

@@ -2,10 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using perma_garden_app.Models.PatchesModel;
 using perma_garden_app.Models.TasksModel;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -56,38 +54,6 @@ namespace perma_garden_app.Controllers
 
             return Ok(patchesShapes.ToList());
         }
-
-        //[HttpGet]
-        //[ProducesResponseType(StatusCodes.Status200OK)]
-        //[ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        //[ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        //[Route("{patchName}")]
-        //public async Task<IActionResult> GetPatchByPatchName([FromRoute] string patchName, CancellationToken token)
-        //{
-        //    var patch = await _permaGardenRepositery
-        //        .GetPatchByPatchName(patchName, token);
-
-        //    var patchesWithPlants = await _permaGardenRepositery
-        //        .GetPlantsInPatches(token);
-
-        //    var patchesWithTasks = await _permaGardenRepositery
-        //        .GetTasksInPatches(token);
-
-        //    var plantInTask = await _permaGardenRepositery
-        //        .GetPlantsInTasks(token);
-
-        //    var newPatch = patch.Select(x => new PatchesRecord()
-        //    {
-        //        PatchId = x.PatchId,
-        //        PatchName = x.PatchName,
-        //        PatchImagePicture = x.PatchImagePicture,
-        //        PlantList = GetPlantList(patchesWithPlants, x.PatchId),
-        //        TaskList = GetTaskList(patchesWithTasks, x.PatchId, plantInTask)
-        //    }).ToArray();
-
-        //    return Ok(newPatch);
-
-        //}
 
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -184,43 +150,6 @@ namespace perma_garden_app.Controllers
             }
 
             return BadRequest("PatchName is invalid");
-        }
-
-        [HttpPut]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [Route("edit-patch")]
-        public async Task<IActionResult> EditPatch([FromBody] PatchesRecord patch, CancellationToken token)
-        {
-            if (patch != null)
-            {
-                var patches = await _permaGardenRepositery
-                    .GetPatches(token);
-
-                foreach (var existingPatch in patches)
-                {
-                    if (existingPatch.PatchId == patch.PatchId)
-                    {
-                        if (IsNameOrPictureUpdated(existingPatch, patch))
-                        {
-                            var editedPatch = new PatchesRecord
-                            {
-                                PatchId = patch.PatchId,
-                                PatchName = patch.PatchName,
-                                PatchImagePicture = patch.PatchImagePicture,
-                            };
-
-                            await _permaGardenRepositery.EditPatch(editedPatch, token);
-                            await _permaGardenRepositery.EditPatchNameInPlantsInPatches(editedPatch, token);
-                        }
-                    }
-                }
-
-                return Ok();
-            }
-
-            return BadRequest("Patch is invalid");
         }
 
         [HttpDelete]

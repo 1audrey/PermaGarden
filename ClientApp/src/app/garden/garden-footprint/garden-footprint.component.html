@@ -1,15 +1,12 @@
   <div class="garden">
     <div class="title-left">
       <h2>Your garden</h2>
-      <p>Select or create a new patch</p>
     </div>
 
     <div class="title-right">
-
-      <button mat-button class="create-patch" (click)="createPatch()">Create a patch</button>
+      <button mat-button class="see-garden" [routerLink]="['/garden']">See garden</button>
     </div>
   </div>
-
 
   <div class="my-patches">
     <div fxLayout="row wrap" >

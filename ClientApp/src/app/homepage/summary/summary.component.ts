@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { IPlantsList } from 'src/app/garden-list/models/iplants-model';
-import { IPatch } from 'src/app/garden/models/ipatch-model';
+import { IPatchShapeModel } from 'src/app/garden/models/iPatchShape-model';
 import { ITask } from 'src/app/task/models/itask-model';
 
 @Component({
@@ -11,7 +11,7 @@ import { ITask } from 'src/app/task/models/itask-model';
 })
 export class SummaryComponent implements OnInit {
   plants: IPlantsList[] = [];
-  patches!: IPatch[];
+  patches!: IPatchShapeModel[];
   allTasks: ITask[] = [];
 
   constructor(private route: ActivatedRoute){}
@@ -25,7 +25,7 @@ export class SummaryComponent implements OnInit {
         for (let task of patch.taskList) {
           this.allTasks.push(task);
         }
-      } 
+      }
     }
   }
 

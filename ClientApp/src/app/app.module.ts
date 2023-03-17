@@ -1,12 +1,9 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
-
 import { AppRoutingModule } from './app-routing.module';
 import { PermagardenAppComponent } from './permagarden-app.component';
 import { PlantsListComponent } from './garden-list/plants-list.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
 import { MatCardModule } from '@angular/material/card';
 import { MatListModule } from '@angular/material/list';
 import { MatButtonModule } from '@angular/material/button';
@@ -18,7 +15,6 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { NavigationComponent } from './navigation/navigation.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { PlantThumbnailComponent } from './garden-list/plant-thumbnail/plant-thumbnail.component';
-
 import { AddToGardenComponent } from './garden-list/add-to-garden/add-to-garden.component';
 import { PlantsListResolver } from './resolver/plants-list-resolver.service';
 import { AuthService } from './user/auth.service';
@@ -36,10 +32,7 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { GardenFootprintComponent } from './garden/garden-footprint/garden-footprint.component';
 import { PatchListComponent } from './garden/patch-list/patch-list.component';
-import { PatchResolverService } from './resolver/patch-resolver.service';
-import { CreatePatchComponent } from './garden/create-patch/create-patch.component';
 import { ManagePatchTasksComponent } from './task/manage-patch-tasks/manage-patch-tasks.component';
-import { PatchListDetailsComponent } from './garden/patch-list-details/patch-list-details.component';
 import { AllTasksComponent } from './task/all-tasks/all-tasks.component';
 import { TaskDetailsComponent } from './task/task-details/task-details.component';
 import { CreateTaskComponent } from './task/create-task/create-task.component';
@@ -56,7 +49,6 @@ import { PlantsService } from './services/plants/plants.service';
 import { PlantImageService } from './services/plants/plant-image.service';
 import { NotificationsService } from './services/notifications/notifications.service';
 import { PatchesService } from './services/patches/patches.service';
-import { SinglepatchResolverService } from './resolver/singlepatch-resolver.service';
 import { MockPipe } from './mock/mock-pipe';
 import { HistoryComponent } from './history/history.component';
 import { MatSortModule } from '@angular/material/sort';
@@ -72,6 +64,7 @@ import { CircleDialogComponent } from './homepage/garden-canvas/garden-canvas/ci
 import { ImageShapeDialogComponent } from './homepage/garden-canvas/garden-canvas/image-shape-dialog/image-shape-dialog.component';
 import { ContextMenuComponent } from './homepage/garden-canvas/garden-canvas/context-menu/context-menu.component';
 import { FoundationShapeDialogComponent } from './homepage/garden-canvas/garden-canvas/foundation-shape-dialog/foundation-shape-dialog.component';
+import { PatchShapeResolverService } from './resolver/patch-shape-resolver.service';
 
 @NgModule({
   declarations: [
@@ -85,9 +78,7 @@ import { FoundationShapeDialogComponent } from './homepage/garden-canvas/garden-
     FilterPipe,
     GardenFootprintComponent,
     PatchListComponent,
-    CreatePatchComponent,
     ManagePatchTasksComponent,
-    PatchListDetailsComponent,
     AllTasksComponent,
     TaskDetailsComponent,
     CreateTaskComponent,
@@ -151,13 +142,10 @@ import { FoundationShapeDialogComponent } from './homepage/garden-canvas/garden-
     PlantImageService,
     PlantImageResolverService,
     NotificationsService,
-    PatchResolverService,
     PatchesService,
-    SinglepatchResolverService,
     ArchivedTasksResolver,
+    PatchShapeResolverService,
     {provide: MAT_DATE_LOCALE, useValue: 'en-GB'}
-
-
   ],
 
   bootstrap: [PermagardenAppComponent]

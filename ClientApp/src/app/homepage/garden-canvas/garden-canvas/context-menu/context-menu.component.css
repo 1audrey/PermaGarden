@@ -6,7 +6,8 @@ img{
 .patch{
   padding-bottom: 0px;
   padding-top: 0px;
-
+  display:flex;
+  flex-direction: column;
 }
 
 .mat-card-title {
@@ -38,23 +39,6 @@ mat-card-footer{
   font-weight: bold;
   font-size: 16px;
   float:left;
-}
-
-.edit-patch{
-  font-size: 12px;
-  font-weight:0px;
-  color: white;
-  border-color: #a4dbe4;
-  background-color:#a4dbe4;
-  float:right;
-  margin-right: 5px;
-}
-
-.edit-patch:hover{
-  color: white;
-  border-color: transparent;
-  background-color: #5fc3d3;
-  cursor: pointer;
 }
 
 .tasks{
@@ -191,10 +175,6 @@ color: rgba(0,0,0,.04);
   cursor:pointer;
 }
 
-::ng-deep mat-dialog-container{
-  padding: 5px !important;
-}
-
 .container{
   display:flex;
   flex-direction: column;
@@ -204,4 +184,10 @@ color: rgba(0,0,0,.04);
 .icon-close:hover{
   cursor:default;
   background-color: #fafafa;
+}
+
+.header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }

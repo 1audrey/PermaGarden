@@ -15,14 +15,8 @@ svg{
 
 .buttons{
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: flex-start;
-}
-
-.shape-buttons{
-  background-color: white;
-  border-style: solid;
-  border-color: #5b8d27;
 }
 
 .garden-panel{
@@ -34,17 +28,28 @@ svg{
   align-items: flex-start;
 }
 
-.rotate-changes{
-  display:flex;
+.add-patch{
+  border-color: #a4dbe4;
+  border-style: solid;
+  border-width: thin;
+  margin:5px;
+}
+
+.add-patch:hover{
+  background-color: #a4dbe4;
+  border-color: #a4dbe4;
+  border-style: solid;
+  border-width: thin;
+  margin:5px;
 }
 
 .rotate{
-  background-color: rgb(176, 174, 174);
+  background-color: #a4dbe4;
   margin:5px;
 }
 
 .save-changes{
-  background-color: rgb(176, 174, 174);
+  background-color: #a4dbe4;
   margin:5px;
 }
 

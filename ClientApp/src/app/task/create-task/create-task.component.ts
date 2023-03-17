@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IPlantsList } from 'src/app/garden-list/models/iplants-model';
-import { IPatch } from 'src/app/garden/models/ipatch-model';
+import { IPatchShapeModel } from 'src/app/garden/models/iPatchShape-model';
 import { TasksService } from 'src/app/services/tasks/tasks.service';
 import { NotificationsService } from '../../services/notifications/notifications.service';
 import { PatchesService } from '../../services/patches/patches.service';
@@ -23,7 +23,7 @@ export class CreateTaskComponent implements OnInit {
   currentTask!: string;
   seedsUsed!: number;
 
-  @Input() patch!: IPatch;
+  @Input() patch!: IPatchShapeModel;
 
   constructor(private patchService: PatchesService,
     private tasksService: TasksService,

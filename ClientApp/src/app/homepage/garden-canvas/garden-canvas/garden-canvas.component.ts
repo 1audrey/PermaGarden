@@ -1,5 +1,6 @@
 import { Component, HostListener, OnInit, Renderer2, AfterViewInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { ActivatedRoute } from '@angular/router';
 import * as d3 from "d3";
 import { NotificationsService } from 'src/app/services/notifications/notifications.service';
 import { PatchesService } from 'src/app/services/patches/patches.service';
@@ -25,7 +26,6 @@ export class GardenCanvasComponent implements OnInit, AfterViewInit {
   patchId: number;
   menuDisplayed = false;
   gardenDimensions: boolean = false;
-  // rightClickMenuItems: Array<ContextMenuModel> = [];
   gardenBorder = false;
   gardenBorderExists = false;
   patchesToSave: IPatchChangesModel[] = [];
@@ -46,7 +46,8 @@ export class GardenCanvasComponent implements OnInit, AfterViewInit {
     private renderer: Renderer2,
     public dialog: MatDialog,
     private patchService: PatchesService,
-    private notifications: NotificationsService) { }
+    private notifications: NotificationsService,
+    private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.patchService.getSvgDimensions().subscribe((result)=>{
@@ -113,47 +114,61 @@ export class GardenCanvasComponent implements OnInit, AfterViewInit {
   }
 
   addRectangularShape() {
+    let patches = this.route.snapshot.data['patches'];
+
     let dialogRef = this.dialog.open((RectangleDialogComponent), {
       width: '500px',
+      data: { patches: patches },
       autoFocus: false,
     });
 
     dialogRef.afterClosed().subscribe(result => {
+      this.notifications.showSuccess(`${result.patchName} has been added to your garden`);
       this.saveRectanglePatch(result.length, result.width, result.patchName);
     })
   }
 
   addFoundationArea(){
+    let patches = this.route.snapshot.data['patches'];
+
     let dialogRef = this.dialog.open((FoundationShapeDialogComponent), {
       width: '500px',
+      data: { patches: patches },
       autoFocus: false,
     });
 
     dialogRef.afterClosed().subscribe(result => {
+      this.notifications.showSuccess(`${result.patchName} has been added to your garden`);
       this.saveFoundationPatch(result.length, result.width, result.patchName);
     })
   }
 
   addCircularShape() {
+    let patches = this.route.snapshot.data['patches'];
+
     let dialogRef = this.dialog.open((CircleDialogComponent), {
       width: '500px',
+      data: { patches: patches },
       autoFocus: false,
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.patchId = 123456;
+      this.notifications.showSuccess(`${result.patchName} has been added to your garden`);
       this.saveCirclePatch(result.diameter, result.patchName);
     });
   }
 
   addImageShape(shape: string) {
+    let patches = this.route.snapshot.data['patches'];
+
     let dialogRef = this.dialog.open((ImageShapeDialogComponent), {
       width: '500px',
-      data: { image: shape },
+      data: { image: shape, patches: patches },
       autoFocus: false,
     });
 
     dialogRef.afterClosed().subscribe(result => {
+      this.notifications.showSuccess(`${result.patchName} has been added to your garden`);
       this.saveImagePatch(shape, result.diameter, result.patchName);
     })
   }

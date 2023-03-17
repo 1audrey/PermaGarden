@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import * as patches from "./patch-list.json";
-import { IPatch } from '../../garden/models/ipatch-model';
 import { ITask } from '../../task/models/itask-model';
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { catchError, tap } from 'rxjs/operators';
@@ -16,7 +15,7 @@ import { IPatchChangesModel } from 'src/app/homepage/models/patch-changes-model'
 export class PatchesService {
   baseUrl = 'https://localhost:5001/Patches/';
 
-  patch!: IPatch;
+  patch!: IPatchShapeModel;
   static PATCHES: any = [];
   today = new Date();
   nextDate!: any;
@@ -26,30 +25,6 @@ export class PatchesService {
   allTasks!: ITask[];
 
   constructor(private http: HttpClient, private notifications: NotificationsService) { }
-
-  getASinglePatch(patchName: string): Observable<IPatch[]> {
-    return this.http.get<IPatch[]>(this.baseUrl + `${patchName}`);
-  }
-
-  getAllPatches(): Observable<IPatch[]> {
-    return this.http.get<IPatch[]>(this.baseUrl + 'all-patches');
-  }
-
-  saveNewPatch(patch: IPatch): Observable<IPatch> {
-    console.log(`Setting the ${patch.patchName} from the patch service`);
-    return this.http.post<IPatch>(this.baseUrl + 'save-patch', patch).pipe(
-      tap(() => console.log(`Patch service added ${patch.patchName} successfully`)),
-      catchError((error: HttpErrorResponse) => throwError(error))
-    );
-  }
-
-  editPatch(patch: IPatch): Observable<IPatch> {
-    console.log(`Editing the ${patch.patchName} from the patch service`);
-    return this.http.put<IPatch>(this.baseUrl + 'edit-patch', patch).pipe(
-      tap(() => console.log(`Patch service edited ${patch.patchName} successfully`)),
-      catchError((error: HttpErrorResponse) => throwError(error))
-    );
-  }
 
   patchToDelete(patchName: string): Observable<any> {
     let params = new HttpParams();
@@ -65,7 +40,7 @@ export class PatchesService {
     );
   }
 
-  savePlantInPatch(patch: IPatch, plant: IPlantsList) {
+  savePlantInPatch(patch: IPatchShapeModel, plant: IPlantsList) {
     const plantInPatch =
     {
       patchId: patch.patchId,

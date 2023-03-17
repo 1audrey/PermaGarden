@@ -5,16 +5,12 @@ import { PatchesService } from '../services/patches/patches.service';
 @Injectable({
   providedIn: 'root'
 })
-export class SinglepatchResolverService implements Resolve<any>{
+export class SinglePatchShapeResolverService implements Resolve<any>{
 
   constructor(private patchService: PatchesService) { }
 
   resolve(route: ActivatedRouteSnapshot) {
-    return this.patchService.getASinglePatch(route.params['patchName']);
+    return this.patchService.getASinglePatchShape(route.params['patchName']);
 
   }
 }
-
-
-
-

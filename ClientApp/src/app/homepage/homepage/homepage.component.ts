@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { IPatchShapeModel } from 'src/app/garden/models/iPatchShape-model';
 import { ITask } from 'src/app/task/models/itask-model';
-import { IPatch } from '../../garden/models/ipatch-model';
 
 @Component({
   selector: 'app-homepage',
@@ -14,7 +14,7 @@ export class HomepageComponent implements OnInit {
   private static readonly TASKS = 'tasks';
 
   tasks!: ITask[];
-  patches!: IPatch[];
+  patches!: IPatchShapeModel[];
   patchFromHomepage: boolean = true;
 
   constructor(private route: ActivatedRoute) { }

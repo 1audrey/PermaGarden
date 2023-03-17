@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { IPlantsList } from 'src/app/garden-list/models/iplants-model';
-import { IPatch } from 'src/app/garden/models/ipatch-model';
+import { IPatchShapeModel } from 'src/app/garden/models/iPatchShape-model';
 import { IPlantInPatch } from 'src/app/garden/models/iplantinpatch-model';
 import { ArchivedTaskService } from 'src/app/services/archivedTasks/archived-task.service';
 import { ITask } from 'src/app/task/models/itask-model';
@@ -20,7 +20,7 @@ export class PlantFocusStatsComponent implements OnInit {
   totalHarvestedWeight!: number;
   mostProductivePatchName!: string;
   startingDateForBestProductivity!: string;
-  patches!: IPatch[];
+  patches!: IPatchShapeModel[];
   plants!: IPlantsList[];
   bestCompanionPlants: string[] =[];
 

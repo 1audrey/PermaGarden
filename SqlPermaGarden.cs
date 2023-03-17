@@ -258,44 +258,9 @@ namespace perma_garden_app
                     cancellationToken: token));
         }
 
-        public async Task EditPatch(PatchesRecord patch, CancellationToken token)
-        {
-            var command = @"UPDATE dbo.Patches
-
-                            SET 
-                                PatchName = @PatchName
-                                , PatchImagePicture = @PatchImagePicture
-
-                            WHERE 
-                                PatchId = @PatchId";
-
-            await SqlConnection.ExecuteAsync(
-                new CommandDefinition(
-                    command,
-                    new { patch.PatchId, patch.PatchName, patch.PatchImagePicture },
-                    cancellationToken: token));
-        }
-
-        public async Task EditPatchNameInPlantsInPatches(PatchesRecord patch, CancellationToken token)
-        {
-            var command = @"UPDATE dbo.PlantsInPatches
-
-                            SET 
-                                PatchName = @PatchName
-
-                            WHERE 
-                                PatchId = @PatchId";
-
-            await SqlConnection.ExecuteAsync(
-                new CommandDefinition(
-                    command,
-                    new { patch.PatchId, patch.PatchName },
-                    cancellationToken: token));
-        }
-
         public async Task DeletePatch(string patchName, CancellationToken token)
         {
-            var command = @"DELETE FROM dbo.Patches
+            var command = @"DELETE FROM dbo.PatchShape
                             WHERE 
                             PatchName = @PatchName";
 

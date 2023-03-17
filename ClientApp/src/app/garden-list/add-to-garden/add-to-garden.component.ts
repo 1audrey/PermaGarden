@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { IPatch } from 'src/app/garden/models/ipatch-model';
+import { IPatchShapeModel } from 'src/app/garden/models/iPatchShape-model';
 import { PatchesService } from '../../services/patches/patches.service';
 import { IPlantsList } from '../models/iplants-model';
 
@@ -14,8 +14,8 @@ import { IPlantsList } from '../models/iplants-model';
 
 export class AddToGardenComponent implements OnInit {
   isDirty: boolean = true;
-  patches!: IPatch[];
-  patch!: IPatch;
+  patches!: IPatchShapeModel[];
+  patch!: IPatchShapeModel;
   patchName!:string;
   patchControl = new FormControl('', Validators.required);
   isLoaded: boolean = false;
@@ -28,7 +28,7 @@ export class AddToGardenComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.patchService.getAllPatches().subscribe(allPatches => {
+    this.patchService.getPatchesShape().subscribe(allPatches => {
       this.patches = allPatches;
       this.isLoaded = true;
     });
@@ -38,7 +38,7 @@ export class AddToGardenComponent implements OnInit {
     this.dialog.close();
   }
 
-  addOnGardenPage(patch: IPatch, plant: IPlantsList) {
+  addOnGardenPage(patch: IPatchShapeModel, plant: IPlantsList) {
     this.isDirty = false;
     this.patchService.savePlantInPatch(patch, plant);
     this.dialog.close();
@@ -51,7 +51,7 @@ export class AddToGardenComponent implements OnInit {
 
   createPatch(){
     this.dialog.close();
-    this.router.navigate(['create-patch']);
+    this.router.navigate(['garden']);
   }
 }
 

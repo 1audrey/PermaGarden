@@ -1,17 +1,14 @@
 import { Injectable } from '@angular/core';
 import { PatchesService } from '../services/patches/patches.service';
-import { ActivatedRouteSnapshot } from '@angular/router';
+import { map } from 'rxjs/operators';
+import { Resolve } from '@angular/router';
 
-
-@Injectable({
-  providedIn: 'root'
-})
-export class PatchShapeResolverService {
+@Injectable()
+export class PatchShapeResolverService implements Resolve<any>{
 
   constructor(private patchService: PatchesService) { }
 
-  resolve(route: ActivatedRouteSnapshot){
-    // return this.patchService.getASinglePatch(route.params['patchName']);
-
+  resolve(){
+    return this.patchService.getPatchesShape().pipe(map(patches => patches));
   }
 }

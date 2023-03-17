@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NotificationsService } from 'src/app/services/notifications/notifications.service';
 import { PatchesService } from 'src/app/services/patches/patches.service';
-import { IPatch } from '../models/ipatch-model';
+import { IPatchShapeModel } from '../models/iPatchShape-model';
 
 @Component({
   selector: 'app-garden-footprint',
@@ -10,22 +10,21 @@ import { IPatch } from '../models/ipatch-model';
   styleUrls: ['./garden-footprint.component.css']
 })
 export class GardenFootprintComponent implements OnInit {
-patches!: IPatch[];
-patch!: IPatch;
+patches!: IPatchShapeModel[];
+patch!: IPatchShapeModel;
 search!: '';
 public static readonly CREATEPATCH_WEBSITE_URL: string = '/create-patch';
 
   constructor(private route: ActivatedRoute,
     private patchService: PatchesService,
     private notifications: NotificationsService) {
-
   }
 
   ngOnInit() {
     this.patches = this.route.snapshot.data['patches'];
   }
 
-  onPatchDeleted(patch: IPatch){
+  onPatchDeleted(patch: IPatchShapeModel){
     var index = this.patches.findIndex((deletedPatch) => (deletedPatch === patch));
     if (index != -1) {
       this.patches.splice(index, 1);
@@ -39,7 +38,7 @@ public static readonly CREATEPATCH_WEBSITE_URL: string = '/create-patch';
     link.click();
   }
 
-  patchToDelete(patch: IPatch) {
+  patchToDelete(patch: IPatchShapeModel) {
     this.patchService.patchToDelete(patch.patchName).subscribe(() => {
       this.notifications.showSuccess(`${patch.patchName} has been deleted`);
       this.onPatchDeleted(patch);

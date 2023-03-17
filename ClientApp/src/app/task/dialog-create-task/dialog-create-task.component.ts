@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
-import { ActivatedRoute, Router } from '@angular/router';
-import { IPatch } from 'src/app/garden/models/ipatch-model';
+import { Router } from '@angular/router';
+import { IPatchShapeModel } from 'src/app/garden/models/iPatchShape-model';
 import { NotificationsService } from '../../services/notifications/notifications.service';
 import { PatchesService } from '../../services/patches/patches.service';
 
@@ -20,8 +20,8 @@ export class DialogCreateTaskComponent implements OnInit {
 
   patchControl = new FormControl('', Validators.required);
   patchName!: string;
-  public isLoading: boolean = false;
-  patches!: IPatch[];
+  public isLoaded: boolean = false;
+  patches: IPatchShapeModel[];
   plantListEmpty: boolean = false;
 
   constructor(public dialogRef: MatDialogRef<DialogCreateTaskComponent>,
@@ -30,9 +30,9 @@ export class DialogCreateTaskComponent implements OnInit {
     private notifications: NotificationsService) { }
 
   ngOnInit(): void {
-    this.patchService.getAllPatches().subscribe(allPatches => {
+    this.patchService.getPatchesShape().subscribe(allPatches => {
       this.patches = allPatches;
-      this.isLoading = true;
+      this.isLoaded = true;
     });
   }
 
@@ -58,7 +58,7 @@ export class DialogCreateTaskComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  private checkIfPatchHasPlants(patch:IPatch, patchName: string){
+  private checkIfPatchHasPlants(patch:IPatchShapeModel, patchName: string){
     if (patch.patchName === patchName && !patch.plantList?.length) {
       this.notifications.showWarning(`You need to add plants to ${patchName} before creating tasks`);
       return;

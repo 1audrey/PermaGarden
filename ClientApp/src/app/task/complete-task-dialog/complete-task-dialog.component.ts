@@ -1,6 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { IPlantsList } from 'src/app/garden-list/models/iplants-model';
 import { ITask } from '../models/itask-model';
 
 @Component({

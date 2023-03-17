@@ -34,21 +34,20 @@
       <h3 *ngIf="gardenDimensions && !gardenBorder">Draw your garden border inside the grid</h3>
     </div>
 
-    <div class="buttons" *ngIf="gardenDimensions && gardenBorder">
-      <div class="shape-buttons">
-        <button mat-button (click)="addRectangularShape()">Rectangle or square bed</button>
-        <button mat-button (click)="addCircularShape()">Circle bed</button>
-        <button mat-button (click)="addImageShape('hexagone')">Hexagonal bed</button>
-        <button mat-button (click)="addImageShape('bush')">Bush</button>
-        <button mat-button (click)="addImageShape('tree')">Tree</button>
-        <button mat-button (click)="addFoundationArea()">Concrete area</button>
-      </div>
-    </div>
-
     <div class="garden-panel">
-      <div class="rotate-changes">
-        <button mat-button class="rotate" (click)="rotatingPatch()"><mat-icon>crop_rotate</mat-icon></button>
-        <button mat-button class="save-changes" (click)="saveChanges()"><mat-icon>save</mat-icon></button>
+      <div class="buttons" *ngIf="gardenDimensions && gardenBorder">
+        <button class="add-patch" mat-button (click)="addRectangularShape()">Rectangle or square bed</button>
+        <button class="add-patch" mat-button (click)="addCircularShape()">Circle bed</button>
+        <button class="add-patch" mat-button (click)="addImageShape('hexagone')">Hexagonal bed</button>
+        <button class="add-patch" mat-button (click)="addImageShape('bush')">Bush</button>
+        <button class="add-patch" mat-button (click)="addImageShape('tree')">Tree</button>
+        <button class="add-patch" mat-button (click)="addFoundationArea()">Concrete area</button>
+        <button mat-button class="rotate" (click)="rotatingPatch()">
+          <mat-icon>crop_rotate</mat-icon>
+        </button>
+        <button mat-button class="save-changes" (click)="saveChanges()">
+          <mat-icon>save</mat-icon>
+        </button>
       </div>
 
       <svg *ngIf="gardenDimensions" class="svg" xmlns="<http://www.w3.org/2000/svg>" [attr.height]="length"

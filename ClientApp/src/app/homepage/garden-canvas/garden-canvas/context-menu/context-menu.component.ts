@@ -21,9 +21,6 @@ import { PatchesService } from 'src/app/services/patches/patches.service';
 })
 export class ContextMenuComponent implements OnInit{
 
-  @Input()
-  // contextMenuItems: Array<ContextMenuModel>;
-
   @Input() patchName: string;
 
   state = 'collapsed';
@@ -54,14 +51,9 @@ export class ContextMenuComponent implements OnInit{
     this.state = this.state === 'collapsed' ? 'expanded' : 'collapsed';
   }
 
-  editPatch(){
+  openTask(){
    this.route.snapshot.params['patchName'];
    this.dialogRef.close();
-  }
-
-  openTask(){
-  //  this.route.snapshot.params['patchName'];
-  this.dialogRef.close();
   }
 
   deletePlantInPatch( plantName: string, patchName: string, plantId: number, patchId: number){

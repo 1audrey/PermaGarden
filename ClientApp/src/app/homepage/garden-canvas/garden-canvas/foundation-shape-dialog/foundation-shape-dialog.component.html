@@ -32,9 +32,11 @@
   </div>
   <div class="form-group">
     <div class="buttons">
+      <button id="cancel-button" mat-button type="button" class="btn btn-default" (click)="cancel()">Cancel</button>
       <button mat-button type="submit" class="save" (click)="saveFoundationPatch(newFoundationPatch.value)"
         [disabled]="newFoundationPatch.invalid">
         Save</button>
+        <em>{{notification}}</em>
     </div>
   </div>
 </form>

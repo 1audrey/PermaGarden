@@ -11,14 +11,14 @@
       <span class="menu-spacer"></span>
       <div class="menu-buttons" fxShow="true" fxHide.lt-md fxFlex fxLayout>
         <!-- The following menu items will be hidden on both SM and XS screen sizes -->
-        <a disableRipple="true" [routerLink]="['/garden']" routerLinkActive="active-list-item"
-          mat-flat-button>Garden</a>
+        <a disableRipple="true" [routerLink]="['/patches']" routerLinkActive="active-list-item"
+          mat-flat-button>Patches</a>
+        <a disableRipple="true" [routerLink]="['/garden']" mat-flat-button>Garden</a>
         <a disableRipple="true" class="plants-list" id="plants-list"
           [routerLink]="['/plants-list']" routerLinkActive="active-list-item" mat-flat-button>Plants</a>
         <a disableRipple="true" mat-flat-button [routerLink]="['/tasks']"
           routerLinkActive="active-list-item">Tasks</a>
         <a disableRipple="true" [routerLink]="['/history']" mat-flat-button>History</a>
-        <a disableRipple="true" [routerLink]="['/garden-canvas']" mat-flat-button>Canvas</a>
       </div>
       <div fxFlex fxLayoutAlign="flex-end center">
         <a disableRipple="true" *ngIf="!auth.isAuthenticated()" id="login"
@@ -32,14 +32,14 @@
   <mat-sidenav-container fxFlexFill>
     <mat-sidenav #sidenav mode="side">
       <mat-nav-list>
-        <a disableRipple="true" [routerLink]="['/garden']" routerLinkActive="active-list-item"
-          mat-button>Garden</a>
+        <a disableRipple="true" [routerLink]="['/patches']" routerLinkActive="active-list-item"
+          mat-button>Patches</a>
+        <a disableRipple="true" [routerLink]="['/garden']" mat-flat-button>Garden</a>
         <a disableRipple="true" [routerLink]="['/plants-list']"
           routerLinkActive="active-list-item" mat-button>Plants</a>
         <a disableRipple="true" mat-button [routerLink]="['/tasks']"
           routerLinkActive="active-list-item">Tasks</a>
         <a disableRipple="true" [routerLink]="['/history']" mat-button routerLinkActive="active-list-item">History</a>
-        <a disableRipple="true" [routerLink]="['/garden-canvas']" mat-flat-button>Canvas</a>
       </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content fxFlexFill>

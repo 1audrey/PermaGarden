@@ -1,12 +1,12 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { IPatch } from 'src/app/garden/models/ipatch-model';
 import { ITask } from '../models/itask-model';
 import { MatDialog } from '@angular/material/dialog';
 import { CompleteTaskDialogComponent } from '../complete-task-dialog/complete-task-dialog.component';
 import { TasksService } from '../../services/tasks/tasks.service';
 import { NotificationsService } from '../../services/notifications/notifications.service';
 import { IPlantsList } from 'src/app/garden-list/models/iplants-model';
+import { IPatchShapeModel } from 'src/app/garden/models/iPatchShape-model';
 
 @Component({
   selector: 'app-task-details',
@@ -14,12 +14,12 @@ import { IPlantsList } from 'src/app/garden-list/models/iplants-model';
   styleUrls: ['./task-details.component.css']
 })
 export class TaskDetailsComponent implements OnInit, OnChanges {
-  @Input() patchWithoutParams!: IPatch;
+  @Input() patchWithoutParams!: IPatchShapeModel;
   @Input() patchFromHomepage: boolean = false;
   @Input() selectedFilter!: string;
   patchName!: string;
   patchId!: number;
-  patch!: IPatch;
+  patch!: IPatchShapeModel;
   taskList: ITask[] = [];
   daysDifferenceBetweenTaskAndToday!: number;
   params: any;

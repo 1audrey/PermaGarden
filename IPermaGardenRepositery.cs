@@ -30,10 +30,6 @@ namespace perma_garden_app
 
         public Task SavePlantInPatch(PlantsInPatchesRecord plantInPatch, CancellationToken token);
 
-        public Task EditPatch(PatchesRecord patch, CancellationToken token);
-
-        public Task EditPatchNameInPlantsInPatches(PatchesRecord patch, CancellationToken token);
-
         public Task DeletePatch(string patchName, CancellationToken token);
 
         public Task DeletePatchOfPlantsInPatches(string patchName, CancellationToken token);

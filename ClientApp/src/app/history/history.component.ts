@@ -7,7 +7,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ITask } from '../task/models/itask-model';
 import { IPlantsList } from '../garden-list/models/iplants-model';
-import { IPatch } from '../garden/models/ipatch-model';
+import { IPatchShapeModel } from '../garden/models/iPatchShape-model';
 
 @Component({
   selector: 'app-history',
@@ -24,7 +24,7 @@ export class HistoryComponent implements OnInit, AfterViewInit {
   isFilterApplied!: boolean;
   archivedTasks!: ITask[];
   plants!: IPlantsList[];
-  patches!: IPatch[];
+  patches!: IPatchShapeModel[];
   harvestedDates!: string[];
   isShowPlantData: boolean = false;
   selectedPlant!: IPlantsList;
@@ -145,10 +145,14 @@ export class HistoryComponent implements OnInit, AfterViewInit {
   }
 
   private getPatchByPatchId(patchId: number) {
-    let patchInTask: IPatch = {
+    let patchInTask: IPatchShapeModel = {
       patchId: 0,
       patchName: '',
+      shape: '',
       patchImagePicture: '',
+      xPosition: 0,
+      yPosition: 0,
+      rotationAngle: 0,
     };
 
     this.patches.forEach((patch) => {

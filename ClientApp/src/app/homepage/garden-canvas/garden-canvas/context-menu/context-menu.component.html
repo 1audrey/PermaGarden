@@ -1,7 +1,9 @@
 <div class="container">
-  <div><mat-icon class="icon-close" (click)="close()">close</mat-icon></div>
   <mat-card class="patch">
-    <mat-card-title class="title">{{patch.patchName | titlecase}}</mat-card-title>
+    <div class="header">
+      <mat-card-title class="title">{{patch.patchName | titlecase}}</mat-card-title>
+      <mat-icon class="icon-close" (click)="close()">close</mat-icon>
+    </div>
     <!-- <button class="delete" (click)="delete()">
           <mat-icon>delete_outline</mat-icon>
         </button> -->
@@ -11,7 +13,6 @@
 
     <mat-card-actions class="actions">
       <button mat-button class="tasks" (click)="openTask()" [routerLink]="['/tasks', patch.patchName]">Tasks</button>
-      <button mat-button class="edit-patch" (click)="editPatch()" [routerLink]="['/garden', patch.patchName]">Edit patch</button>
       <button mat-button class="more-info" (click)="toggle() ">{{this.state == 'collapsed' ? 'More info': 'Less
         info'}}</button>
     </mat-card-actions>

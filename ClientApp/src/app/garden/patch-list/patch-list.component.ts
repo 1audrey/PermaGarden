@@ -1,9 +1,9 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { IPatch } from '../models/ipatch-model';
 import { ActivatedRoute } from '@angular/router';
 import { PatchesService } from 'src/app/services/patches/patches.service';
 import { NotificationsService } from 'src/app/services/notifications/notifications.service';
+import { IPatchShapeModel } from '../models/iPatchShape-model';
 
 @Component({
   selector: 'app-patch-list',
@@ -20,7 +20,7 @@ import { NotificationsService } from 'src/app/services/notifications/notificatio
   ]
 })
 export class PatchListComponent {
-  @Input() patch!: IPatch;
+  @Input() patch!: IPatchShapeModel;
   @Output() patchDeleted: EventEmitter<any> = new EventEmitter();
 
   state = 'collapsed';
@@ -36,10 +36,6 @@ export class PatchListComponent {
 
   delete(){
     this.patchDeleted.emit();
-  }
-
-  editPatch(){
-    this.route.snapshot.params['patchName'];
   }
 
   openTask(){
