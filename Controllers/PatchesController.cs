@@ -393,6 +393,81 @@ namespace perma_garden_app.Controllers
             return BadRequest("Patch is invalid");
         }
 
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Route("archive-patch")]
+        public async Task<IActionResult> ArchivePatch(string patchName, CancellationToken token)
+        {
+            if (patchName != null)
+            {
+                var patch = await _permaGardenRepositery
+                    .GetPatchByPatchName(patchName, token);
+
+                var newPatch = patch.Select(x => new PatchShapeRecord()
+                {
+                    PatchId = x.PatchId,
+                    PatchName = x.PatchName,
+                    Shape = x.Shape,
+                    PatchImagePicture = x.PatchImagePicture,
+                    xPosition = x.xPosition,
+                    yPosition = x.yPosition,
+                    Diameter = x.Diameter,
+                    Width = x.Width,
+                    Length = x.Length,
+                    RotationAngle = x.RotationAngle
+                }).ToArray();
+
+                await _permaGardenRepositery.SaveArchivedPatch(newPatch[0], token);
+
+                return Ok();
+            }
+
+            return BadRequest("Plant is invalid");
+        }
+
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Route("all-archived-patches")]
+        public async Task<IActionResult> GetAllArchivedPatches(CancellationToken token)
+        {
+            var archivedPatches = await _permaGardenRepositery
+                .GetAllArchivedPatches(token);
+
+            var patchesWithPlants = await _permaGardenRepositery
+                .GetPlantsInPatches(token);
+
+            var patchesWithTasks = await _permaGardenRepositery
+                .GetTasksInPatches(token);
+
+            var plantInTask = await _permaGardenRepositery
+                .GetPlantsInTasks(token);
+
+            var singlePatch= archivedPatches.GroupBy(z => z.PatchId).Select(x => x.First()).ToList();
+
+            var newPatches = singlePatch.Select(x => new PatchShapeRecord()
+            {
+                PatchId = x.PatchId,
+                PatchName = x.PatchName,
+                Shape = x.Shape,
+                PatchImagePicture = x.PatchImagePicture,
+                xPosition = x.xPosition,
+                yPosition = x.yPosition,
+                Diameter = x.Diameter,
+                Width = x.Width,
+                Length = x.Length,
+                RotationAngle = x.RotationAngle,
+                PlantList = GetPlantList(patchesWithPlants, x.PatchId),
+                TaskList = GetTaskList(patchesWithTasks, x.PatchId, plantInTask)
+
+            }).ToArray();
+
+            return Ok(newPatches);
+        }
+
         private List<PlantsRecord> GetPlantList(IEnumerable<PlantsInPatchesRecord> patchesWithPlants, int patchId)
         {
             var plantList = new List<PlantsRecord>();

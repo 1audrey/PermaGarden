@@ -26,6 +26,10 @@ export class PlantsService{
      return this.http.get<IPlantsList[]>(this.baseUrl + 'all-plants');
   }
 
+  getAllArchivedPlants(): Observable <IPlantsList[]> {
+    return this.http.get<IPlantsList[]>(this.baseUrl + 'all-archived-plants');
+  }
+
   setNewPlantSaved(plant: IPlantsList): Observable<IPlantsList>{
     console.log(`Setting the ${plant.plantName} from the plant service`);
     return this.http.post<IPlantsList>(this.baseUrl + 'save-plant', plant).pipe(
@@ -45,10 +49,22 @@ export class PlantsService{
     );
   }
 
-  plantToDelete(plantName: string){
+  plantToDelete(plantName: string) {
+    this.archivePlant(plantName).subscribe();
     this.setDeletedPlant(plantName).subscribe(() => {
       this.notifications.showSuccess(`${plantName} has been deleted`);
-    })
+    });
+  }
+
+  archivePlant(plantName: string): Observable<any> {
+    let params = new HttpParams();
+    params = params.set('plantName', plantName);
+
+    console.log(`Sending the ${plantName} from the plant service to archives`);
+    return this.http.post<string>(this.baseUrl + 'archive-plant', null, { params: params }).pipe(
+      tap(() => console.log('Plant service delete plant success')),
+      catchError((error: HttpErrorResponse) => throwError(error)),
+    );
   }
 
   getSinglePlant(plantId: number): Observable<IPlantsList[]>{

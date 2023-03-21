@@ -86,7 +86,7 @@ export class TasksService {
   }
 
   //TODO: error 400 here
-  saveTaskInArchiveTasks(task: ITask): Observable<ITask> {
+  saveTaskInArchiveTasks(task: ITask): Observable<any> {
     if(task.harvestedWeight){
       let totalWeight = 0;
       totalWeight = task.harvestedWeight.split(',').map(Number).reduce((sum, current) => sum + current, 0);

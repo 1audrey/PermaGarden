@@ -17,6 +17,8 @@ import { AllTaskResolverService } from './resolver/all-task-resolver.service';
 import { GardenCanvasComponent } from './homepage/garden-canvas/garden-canvas/garden-canvas.component';
 import { PatchShapeResolverService } from './resolver/patch-shape-resolver.service';
 import { SinglePatchShapeResolverService } from './resolver/single-patch-shape-resolver.service';
+import { ArchivedPlantsResolverService } from './resolver/archived-plants-resolver.service';
+import { ArchivedPatchesResolverService } from './resolver/archived-patches-resolver.service';
 
 const routes: Routes = [
   {
@@ -92,7 +94,8 @@ const routes: Routes = [
   {
     path: 'history',
     component: HistoryComponent,
-    resolve: { plants: PlantsListResolver, archivedTasks: ArchivedTasksResolver, patches: PatchShapeResolverService }
+    resolve: { plants: PlantsListResolver, archivedTasks: ArchivedTasksResolver, patches: PatchShapeResolverService,
+       archivedPlants: ArchivedPlantsResolverService, archivedPatches: ArchivedPatchesResolverService }
   },
 
   {

@@ -39,10 +39,8 @@ public static readonly CREATEPATCH_WEBSITE_URL: string = '/create-patch';
   }
 
   patchToDelete(patch: IPatchShapeModel) {
-    this.patchService.patchToDelete(patch.patchName).subscribe(() => {
-      this.notifications.showSuccess(`${patch.patchName} has been deleted`);
-      this.onPatchDeleted(patch);
-    });
+    this.patchService.patchToDelete(patch.patchName)
+    this.onPatchDeleted(patch);
   }
 
 }

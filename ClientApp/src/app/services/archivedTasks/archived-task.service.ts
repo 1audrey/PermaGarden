@@ -75,18 +75,22 @@ export class ArchivedTaskService {
     let plantsInArchived = this.initialisePlantsInTasks(plant, archivedTasks);
 
     plantsInArchived.forEach((task)=>{
-      if(Math.max(this.calculateProductivityWeightBySeed(plant, archivedTasks))){
-        this.mostProductivePatchId = task.patchId;
-      };
+      if(!task.failureReasons){
+        if(Math.max(this.calculateProductivityWeightBySeed(plant, archivedTasks))){
+          this.mostProductivePatchId = task.patchId;
+        };
+      }
     });
   }
 
-  getStartingDateWhenBestProductivity(plant: IPlantsList, archivedTasks: ITask[]){
+  getStartingDateWhenBestProductivity(plant: IPlantsList, archivedTasks: ITask[]) {
     let plantsInArchived = this.initialisePlantsInTasks(plant, archivedTasks);
 
-    plantsInArchived.forEach((task)=>{
-      if(Math.max(this.calculateProductivityWeightBySeed(plant, archivedTasks))){
-        this.startingDateForBestProductivity = task.startingDate;
+    plantsInArchived.forEach((task) => {
+      if (!task.failureReasons) {
+        if (Math.max(this.calculateProductivityWeightBySeed(plant, archivedTasks))) {
+          this.startingDateForBestProductivity = task.startingDate;
+        };
       };
     });
   }

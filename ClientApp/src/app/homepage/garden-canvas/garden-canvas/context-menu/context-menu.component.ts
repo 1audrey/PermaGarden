@@ -3,6 +3,7 @@ import { Component, Inject, Input, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { IPatchShapeModel } from 'src/app/garden/models/iPatchShape-model';
+import { NotificationsService } from 'src/app/services/notifications/notifications.service';
 import { PatchesService } from 'src/app/services/patches/patches.service';
 
 @Component({
@@ -26,25 +27,14 @@ export class ContextMenuComponent implements OnInit{
   state = 'collapsed';
   patch: IPatchShapeModel;
 
-  // @Output()
-  // onContextMenuItemClick: EventEmitter<any> = new EventEmitter<any>();
-
-  // onContextMenuClick(event, data): any {
-  //   this.onContextMenuItemClick.emit({
-  //     event,
-  //     data,
-  //   });
-  // }
-
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,
   private dialogRef: MatDialogRef<ContextMenuComponent>,
   private patchService: PatchesService,
-  private route: ActivatedRoute){}
+  private route: ActivatedRoute,
+  private notifications: NotificationsService){}
 
   ngOnInit(){
   this.patchService.getASinglePatchShape(this.data.patchName).subscribe((patches) => this.patch = patches[0])
-
-    console.log(this.patch);
   }
 
   toggle(): void {
@@ -56,15 +46,29 @@ export class ContextMenuComponent implements OnInit{
    this.dialogRef.close();
   }
 
-  deletePlantInPatch( plantName: string, patchName: string, plantId: number, patchId: number){
+  cancel() {
+    this.dialogRef.close();
+  }
+
+  deletePatch(){
+    this.patchService.patchToDelete(this.data.patchName);
+    this.dialogRef.close(this.data.patchName);
+  }
+
+  deletePlantInPatch(plantName: string, patchName: string, plantId: number, patchId: number){
     this.patchService.deletePlantInPatch(plantId, patchId).subscribe(() => {
-      // this.onPlantInPatchDeleted(plantId);
-      // this.notifications.showSuccess(`${plantName} has been deleted from ${patchName}`);
+      this.onPlantInPatchDeleted(plantId);
+      this.notifications.showSuccess(`${plantName} has been deleted from ${patchName}`);
     });
   }
 
-  close(){
-    this.dialogRef.close();
+  private onPlantInPatchDeleted(plantId: number){
+    if(this.patch.plantList){
+      var index = this.patch.plantList.findIndex((deletedPatch) => (deletedPatch.plantId === plantId));
+      if (index != -1) {
+        this.patch.plantList.splice(index, 1);
+      }
+    }
   }
 }
 

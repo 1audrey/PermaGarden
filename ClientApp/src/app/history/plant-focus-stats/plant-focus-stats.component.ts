@@ -21,6 +21,10 @@ export class PlantFocusStatsComponent implements OnInit {
   mostProductivePatchName!: string;
   startingDateForBestProductivity!: string;
   patches!: IPatchShapeModel[];
+  archivedPatches!: IPatchShapeModel[];
+  allPatches: IPatchShapeModel[] = [];
+  archivedPlants!:IPlantsList[];
+  allPlants: IPlantsList[] = [];
   plants!: IPlantsList[];
   bestCompanionPlants: string[] =[];
 
@@ -31,8 +35,17 @@ export class PlantFocusStatsComponent implements OnInit {
   @Input() archivedTasks!: ITask[];
 
   ngOnInit() {
-    this.patches = this.route.snapshot.data['patches'];
+    ///get all plants
     this.plants = this.route.snapshot.data['plants'];
+    this.archivedPlants = this.route.snapshot.data['archivedPlants']
+    this.plants.forEach((plant)=> this.allPlants.push(plant));
+    this.archivedPlants.forEach((plant) => this.allPlants.push(plant));
+
+    //get all patches
+    this.patches = this.route.snapshot.data['patches'];
+    this.archivedPatches = this.route.snapshot.data['archivedPatches'];
+    this.patches.forEach((patch) => this.allPatches.push(patch));
+    this.archivedPatches.forEach((patch) => this.allPatches.push(patch));
 
     this.archivedTaskService.getData(this.selectedPlant, this.archivedTasks);
     this.averagePeriodBetweenSowingAndPlanting = this.archivedTaskService.averagePeriodBetweenStartAndTransplant;
@@ -54,7 +67,7 @@ export class PlantFocusStatsComponent implements OnInit {
   }
 
   private getPatchNameById(patchId: number) {
-    this.patches.forEach((patch) => {
+    this.allPatches.forEach((patch) => {
       if (patchId === patch.patchId) {
         this.mostProductivePatchName = patch.patchName;
       }
@@ -62,7 +75,7 @@ export class PlantFocusStatsComponent implements OnInit {
   }
 
   private getPlantNameById(plantId: number[]){
-    this.plants.forEach((plant) => {
+    this.allPlants.forEach((plant) => {
       plantId.forEach((id)=>{
         if (id === plant.plantId) {
           this.bestCompanionPlants.push(plant.plantName);

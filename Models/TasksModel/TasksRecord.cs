@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace perma_garden_app.Models.TasksModel
+﻿namespace perma_garden_app.Models.TasksModel
 {
     public class TasksRecord
     {

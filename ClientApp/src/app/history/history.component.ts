@@ -24,10 +24,14 @@ export class HistoryComponent implements OnInit, AfterViewInit {
   isFilterApplied!: boolean;
   archivedTasks!: ITask[];
   plants!: IPlantsList[];
+  archivedPlants!: IPlantsList[];
   patches!: IPatchShapeModel[];
   harvestedDates!: string[];
   isShowPlantData: boolean = false;
   selectedPlant!: IPlantsList;
+  allplants: IPlantsList[] = [];
+  archivedPatches: IPatchShapeModel[] = [];
+  allpatches: IPatchShapeModel[] = [];
 
   constructor(private _liveAnnouncer: LiveAnnouncer, private route: ActivatedRoute) {
   }
@@ -46,8 +50,18 @@ export class HistoryComponent implements OnInit, AfterViewInit {
   get option() { return this.filterForm.get('option') }
 
   ngOnInit() {
+    ///get all plants
     this.plants = this.route.snapshot.data['plants'];
+    this.archivedPlants = this.route.snapshot.data['archivedPlants']
+    this.plants.forEach((plant)=> this.allplants.push(plant));
+    this.archivedPlants.forEach((plant) => this.allplants.push(plant));
+
+    //get all patches
     this.patches = this.route.snapshot.data['patches'];
+    this.archivedPatches = this.route.snapshot.data['archivedPatches'];
+    this.patches.forEach((patch) => this.allpatches.push(patch));
+    this.archivedPatches.forEach((patch) => this.allpatches.push(patch));
+
     this.archivedTasks = this.route.snapshot.data['archivedTasks'];
 
     this.dataSource = new MatTableDataSource(this.archivedTasks);
@@ -135,7 +149,7 @@ export class HistoryComponent implements OnInit, AfterViewInit {
       plantGrowingPeriod: 0,
       plantImagePicture: '',
     };
-    this.plants.forEach((plant) => {
+    this.allplants.forEach((plant) => {
       if (plant.plantId === plantId) {
         plantInTask = plant;
       }
@@ -155,7 +169,7 @@ export class HistoryComponent implements OnInit, AfterViewInit {
       rotationAngle: 0,
     };
 
-    this.patches.forEach((patch) => {
+    this.allpatches.forEach((patch) => {
       if (patch.patchId === patchId) {
         patchInTask = patch;
       }

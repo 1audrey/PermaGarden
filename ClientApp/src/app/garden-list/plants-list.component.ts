@@ -50,6 +50,7 @@ export class PlantsListComponent implements OnInit {
 
   plantToDelete(plant: IPlantsList) {
     this.plantService.plantToDelete(plant.plantName);
-    this.onPlantDeleted(plant);
+      this.onPlantDeleted(plant);
+
   }
 }

@@ -5,6 +5,7 @@ using System.Threading;
 using Microsoft.AspNetCore.Http;
 using perma_garden_app.Models.PatchesModel;
 using perma_garden_app.Models.TasksModel;
+using System;
 
 namespace perma_garden_app.Controllers
 {
@@ -60,10 +61,48 @@ namespace perma_garden_app.Controllers
         [Route("all-plants")]
         public async Task<IActionResult> GetAllPlants(CancellationToken token)
         {
-            var plantsImages = await _permaGardenRepositery
+            var plants = await _permaGardenRepositery
                 .GetAllPlants(token);
 
-            return Ok(plantsImages.ToList());
+            return Ok(plants.ToList());
+        }
+
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Route("all-archived-plants")]
+        public async Task<IActionResult> GetAllArchivedPlants(CancellationToken token)
+        {
+            var archivedPlants = await _permaGardenRepositery
+                .GetAllArchivedPlants(token);
+
+            return Ok(archivedPlants.ToList());
+        }
+
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Route("{plantName}")]
+        public async Task<IActionResult> GetPlantByPlantName([FromRoute] string plantName, CancellationToken token)
+        {
+            var plant = await _permaGardenRepositery
+                .GetPlantByPlantName(plantName, token);
+
+            var newPlant = plant.Select(x => new PlantsRecord()
+            {
+                PlantId = x.PlantId,
+                PlantName = x.PlantName,
+                PlantStartingMethod = x.PlantStartingMethod,
+                PlantSowingPeriod = x.PlantSowingPeriod,
+                PlantGrowingPeriod = x.PlantGrowingPeriod,
+                PlantStartingMonths = x.PlantStartingMonths,
+                PlantHarvestingMonths = x.PlantHarvestingMonths,
+                PlantImagePicture = x.PlantImagePicture
+            }).ToArray();
+
+            return Ok(newPlant);
         }
 
         [HttpPost]
@@ -100,11 +139,43 @@ namespace perma_garden_app.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [Route("delete-plant")]
-        public async Task<IActionResult> DeletePlant( string plantName, CancellationToken token)
+        public async Task<IActionResult> DeletePlant(string plantName, CancellationToken token)
         {
             if (plantName != null)
             {
                 await _permaGardenRepositery.DeletePlant(plantName, token);
+
+                return Ok();
+            }
+
+            return BadRequest("Plant is invalid");
+        }
+
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Route("archive-plant")]
+        public async Task<IActionResult> ArchivePlant(string plantName, CancellationToken token)
+        {
+            if (plantName != null)
+            {
+                var plant = await _permaGardenRepositery
+                    .GetPlantByPlantName(plantName, token);
+
+                var newPlant = plant.Select(x => new PlantsRecord()
+                {
+                    PlantId = x.PlantId,
+                    PlantName = x.PlantName,
+                    PlantStartingMethod = x.PlantStartingMethod,
+                    PlantSowingPeriod = x.PlantSowingPeriod,
+                    PlantGrowingPeriod = x.PlantGrowingPeriod,
+                    PlantStartingMonths = x.PlantStartingMonths,
+                    PlantHarvestingMonths = x.PlantHarvestingMonths,
+                    PlantImagePicture = x.PlantImagePicture
+                }).ToArray();
+
+                await _permaGardenRepositery.SavePlantInArchive(newPlant[0], token);
 
                 return Ok();
             }

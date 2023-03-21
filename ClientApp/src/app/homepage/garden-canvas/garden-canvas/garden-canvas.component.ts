@@ -583,15 +583,15 @@ export class GardenCanvasComponent implements OnInit, AfterViewInit {
         autoFocus: false,
       });
 
-      // dialogRef.afterClosed().subscribe(result => {
-      //   this.saveImagePatch(shape, result.diameter, result.patchName);
-      // })
-
+      dialogRef.afterClosed().subscribe((result) => {
+        if(result){
+          this.removePatch();
+        }
+      })
   }
 
+  removePatch(){
+    this.draggingElement.remove()
+  }
 
-  // @HostListener('document:click')
-  // documentClick(): void {
-  //   this.menuDisplayed = false;
-  // }
 }

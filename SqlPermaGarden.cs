@@ -66,6 +66,100 @@ namespace perma_garden_app
                 cancellationToken: token));
         }
 
+        public async Task<IEnumerable<PlantsRecord>> GetAllArchivedPlants(CancellationToken token)
+        {
+            var command = @"SELECT
+                                plant.PlantId
+                                , plant.PlantName
+                                , plant.PlantStartingMethod
+                                , plant.PlantSowingPeriod
+                                , plant.PlantGrowingPeriod
+                                , plant.PlantStartingMonths
+                                , plant.PlantHarvestingMonths
+                                , plant.PlantImagePicture
+                
+                            FROM
+                                dbo.PlantsArchive plant";
+
+
+            return await SqlConnection.QueryAsync<PlantsRecord>(new CommandDefinition(command,
+                cancellationToken: token));
+        }
+
+        public async Task<IEnumerable<PatchShapeRecord>> GetAllArchivedPatches(CancellationToken token)
+        {
+            var command = @"SELECT
+                                patch.PatchId
+                                , patch.PatchName
+                                , patch.Shape
+                                , patch.PatchImagePicture
+                                , patch.XPosition
+                                , patch.YPosition
+                                , patch.Diameter
+                                , patch.Width
+                                , patch.Length
+                                , patch.RotationAngle
+                
+                            FROM
+                                dbo.ArchivedPatches patch";
+
+
+            return await SqlConnection.QueryAsync<PatchShapeRecord>(new CommandDefinition(command,
+                cancellationToken: token));
+        }
+
+        public async Task<IEnumerable<PlantsRecord>> GetPlantByPlantName(string plantName, CancellationToken token)
+        {
+            var command = @"SELECT
+                                plant.PlantId
+                                , plant.PlantName
+                                , plant.PlantStartingMethod
+                                , plant.PlantSowingPeriod
+                                , plant.PlantGrowingPeriod
+                                , plant.PlantStartingMonths
+                                , plant.PlantHarvestingMonths
+                                , plant.PlantImagePicture
+
+                            FROM
+                                dbo.Plants plant
+
+                            WHERE
+                                plant.PlantName = @plantName ";
+
+            return await SqlConnection.QueryAsync<PlantsRecord>(new CommandDefinition(command, new { plantName },
+                cancellationToken: token));
+        }
+
+        public async Task SavePlantInArchive(PlantsRecord plant, CancellationToken token)
+        {
+            var command = @"INSERT INTO dbo.PlantsArchive (
+                                PlantId                                
+                                , PlantName
+                                , PlantStartingMethod
+                                , PlantSowingPeriod
+                                , PlantGrowingPeriod
+                                , PlantStartingMonths
+                                , PlantHarvestingMonths
+                                , PlantImagePicture)
+
+                            VALUES (
+                                @PlantId
+                                , @PlantName
+                                , @PlantStartingMethod
+                                , @PlantSowingPeriod
+                                , @PlantGrowingPeriod
+                                , @PlantStartingMonths
+                                , @PlantHarvestingMonths
+                                , @PlantImagePicture)";
+
+            await SqlConnection.ExecuteAsync(
+                new CommandDefinition(
+                    command,
+                    new {plant.PlantId, plant.PlantName, plant.PlantStartingMethod, plant.PlantSowingPeriod, plant.PlantGrowingPeriod, plant.PlantStartingMonths, plant.PlantHarvestingMonths, plant.PlantImagePicture },
+                    cancellationToken: token));
+        }
+
+
         public async Task SaveNewPlant(PlantsRecord plant, CancellationToken token)
         {
             var command = @"INSERT INTO dbo.Plants (
@@ -120,19 +214,26 @@ namespace perma_garden_app
                 cancellationToken: token));
         }
 
-        public async Task<IEnumerable<PatchesRecord>> GetPatchByPatchName(string patchName, CancellationToken token)
+        public async Task<IEnumerable<PatchShapeRecord>> GetPatchByPatchName(string patchName, CancellationToken token)
         {
             var command = @"SELECT
                                 patch.PatchId
                                 , patch.PatchName
+                                , patch.Shape
                                 , patch.PatchImagePicture
+                                , patch.XPosition
+                                , patch.YPosition
+                                , patch.Diameter
+                                , patch.Width
+                                , patch.Length
+                                , patch.RotationAngle
                             FROM
-                                dbo.Patches patch
+                                dbo.PatchShape patch
 
                             WHERE
                                 patch.PatchName = @patchName ";
 
-            return await SqlConnection.QueryAsync<PatchesRecord>(new CommandDefinition(command, new { patchName },
+            return await SqlConnection.QueryAsync<PatchShapeRecord>(new CommandDefinition(command, new { patchName },
                 cancellationToken: token));
         }
 
@@ -238,6 +339,41 @@ namespace perma_garden_app
                     new { patch.PatchName, patch.PatchImagePicture},
                     cancellationToken: token));
         }
+
+        public async Task SaveArchivedPatch(PatchShapeRecord patch, CancellationToken token)
+        {
+            var command = @"INSERT INTO dbo.ArchivedPatches (
+                                PatchId
+                                , PatchName
+                                , Shape
+                                , PatchImagePicture
+                                , XPosition
+                                , YPosition
+                                , Diameter
+                                , Width
+                                , Length
+                                , RotationAngle )
+
+                            VALUES (
+                                @PatchId
+                                , @PatchName
+                                , @Shape
+                                , @PatchImagePicture
+                                , @XPosition
+                                , @YPosition
+                                , @Diameter
+                                , @Width
+                                , @Length
+                                , @RotationAngle)";
+
+            await SqlConnection.ExecuteAsync(
+                new CommandDefinition(
+                    command,
+                    new { patch.PatchId, patch.PatchName, patch.PatchImagePicture, patch.Shape, patch.xPosition, patch.yPosition,
+                    patch.Diameter, patch.Width, patch.Length, patch.RotationAngle},
+                    cancellationToken: token));
+        }
+        
 
         public async Task SavePlantInPatch(PlantsInPatchesRecord plantInPatch, CancellationToken token)
         {

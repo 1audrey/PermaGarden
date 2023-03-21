@@ -26,18 +26,37 @@ export class PatchesService {
 
   constructor(private http: HttpClient, private notifications: NotificationsService) { }
 
-  patchToDelete(patchName: string): Observable<any> {
+  patchToDelete(patchName: string) {
+    this.archivePatch(patchName).subscribe();
+    this.deletePatch(patchName).subscribe(() => {
+      this.notifications.showSuccess(`${patchName} has been deleted`);
+    });
+  }
+
+  deletePatch(patchName: string): Observable<any>{
     let params = new HttpParams();
     params = params.set('patchName', patchName);
-
-    console.log('params for patch deleted', params);
-    console.log('url  for patch deleted', this.baseUrl + 'delete-patch', { params: params });
 
     console.log(`Deleting the ${patchName} from the patch service`);
     return this.http.delete<string>(this.baseUrl + 'delete-patch', { params: params }).pipe(
       tap(() => console.log(`Patch service deleted ${patchName} successfully`)),
       catchError((error: HttpErrorResponse) => throwError(error)),
     );
+  }
+
+  archivePatch(patchName: string): Observable<any>{
+    let params = new HttpParams();
+    params = params.set('patchName', patchName);
+
+    console.log(`Sending the ${patchName} to archive from the patch service`);
+    return this.http.post<string>(this.baseUrl + 'archive-patch', null, { params: params }).pipe(
+      tap(() => console.log(`Patch service send ${patchName} to archives successfully`)),
+      catchError((error: HttpErrorResponse) => throwError(error)),
+    );
+  }
+
+  getAllArchivedPatches(): Observable<IPatchShapeModel[]>{
+    return this.http.get<IPatchShapeModel[]>(this.baseUrl + 'all-archived-patches');
   }
 
   savePlantInPatch(patch: IPatchShapeModel, plant: IPlantsList) {

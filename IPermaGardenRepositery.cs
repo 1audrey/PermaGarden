@@ -12,13 +12,21 @@ namespace perma_garden_app
 
         public Task<IEnumerable<TPlants>> GetAllPlants(CancellationToken token);
 
+        public Task<IEnumerable<TPlants>> GetAllArchivedPlants(CancellationToken token);
+
+        public Task<IEnumerable<TPatchShapeRecord>> GetAllArchivedPatches(CancellationToken token);
+
+        public Task<IEnumerable<TPlants>> GetPlantByPlantName(string plantName, CancellationToken token);
+
+        public Task SavePlantInArchive(PlantsRecord plant, CancellationToken token);
+
         public Task SaveNewPlant(PlantsRecord plant, CancellationToken token);
 
         public Task DeletePlant(string plantName, CancellationToken token);
 
         public Task<IEnumerable<TPatchesShapes>> GetAllPatchesImages(CancellationToken token);
 
-        public Task<IEnumerable<TPatches>> GetPatchByPatchName(string patchName, CancellationToken token);
+        public Task<IEnumerable<TPatchShapeRecord>> GetPatchByPatchName(string patchName, CancellationToken token);
 
         public Task<IEnumerable<TPatches>> GetPatches(CancellationToken token);
 
@@ -27,6 +35,8 @@ namespace perma_garden_app
         public Task<IEnumerable<TTasksInPatches>> GetTasksInPatches(CancellationToken token);
 
         public Task SaveNewPatch(PatchesRecord patch, CancellationToken token);
+
+        public Task SaveArchivedPatch(PatchShapeRecord patch, CancellationToken token);
 
         public Task SavePlantInPatch(PlantsInPatchesRecord plantInPatch, CancellationToken token);
 

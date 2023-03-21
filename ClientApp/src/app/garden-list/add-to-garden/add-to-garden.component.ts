@@ -16,9 +16,10 @@ export class AddToGardenComponent implements OnInit {
   isDirty: boolean = true;
   patches!: IPatchShapeModel[];
   patch!: IPatchShapeModel;
-  patchName!:string;
-  patchControl = new FormControl('', Validators.required);
+  patchName!: string;
+  selectedpatchName!: string;
   isLoaded: boolean = false;
+  newAddToGarden: any;
 
   constructor(
     private router: Router,
@@ -38,15 +39,16 @@ export class AddToGardenComponent implements OnInit {
     this.dialog.close();
   }
 
-  addOnGardenPage(patch: IPatchShapeModel, plant: IPlantsList) {
+  addOnGardenPage(patchName: string, plant: IPlantsList) {
     this.isDirty = false;
-    this.patchService.savePlantInPatch(patch, plant);
+    this.patch = this.patches.find(patch => patch.patchName = patchName);
+    this.patchService.savePlantInPatch(this.patch, plant);
     this.dialog.close();
     this.router.navigate(['garden']);
   }
 
   onSelection() {
-    this.patchName;
+    this.patch.patchName;
   }
 
   createPatch(){
