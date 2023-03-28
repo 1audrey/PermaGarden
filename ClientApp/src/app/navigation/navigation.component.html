@@ -11,8 +11,6 @@
       <span class="menu-spacer"></span>
       <div class="menu-buttons" fxShow="true" fxHide.lt-md fxFlex fxLayout>
         <!-- The following menu items will be hidden on both SM and XS screen sizes -->
-        <a disableRipple="true" [routerLink]="['/patches']" routerLinkActive="active-list-item"
-          mat-flat-button>Patches</a>
         <a disableRipple="true" [routerLink]="['/garden']" mat-flat-button>Garden</a>
         <a disableRipple="true" class="plants-list" id="plants-list"
           [routerLink]="['/plants-list']" routerLinkActive="active-list-item" mat-flat-button>Plants</a>
@@ -32,8 +30,6 @@
   <mat-sidenav-container fxFlexFill>
     <mat-sidenav #sidenav mode="side">
       <mat-nav-list>
-        <a disableRipple="true" [routerLink]="['/patches']" routerLinkActive="active-list-item"
-          mat-button>Patches</a>
         <a disableRipple="true" [routerLink]="['/garden']" mat-flat-button>Garden</a>
         <a disableRipple="true" [routerLink]="['/plants-list']"
           routerLinkActive="active-list-item" mat-button>Plants</a>

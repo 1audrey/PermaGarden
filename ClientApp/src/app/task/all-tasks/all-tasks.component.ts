@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DialogCreateTaskComponent } from '../dialog-create-task/dialog-create-task.component';
 import { ActivatedRoute } from '@angular/router';
 import { ITask } from '../models/itask-model';
-import { IPatchShapeModel } from 'src/app/garden/models/iPatchShape-model';
+import { IPatchShapeModel } from 'src/app/homepage/garden-canvas/models/iPatchShape-model';
 
 @Component({
   selector: 'app-all-tasks',

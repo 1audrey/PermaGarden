@@ -4,12 +4,12 @@ import * as patches from "./patch-list.json";
 import { ITask } from '../../task/models/itask-model';
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { catchError, tap } from 'rxjs/operators';
-import { IPlantInPatch } from '../../garden/models/iplantinpatch-model';
+import { IPlantInPatch } from '../../homepage/garden-canvas/models/iplantinpatch-model';
 import { IPlantsList } from 'src/app/garden-list/models/iplants-model';
 import { NotificationsService } from '../notifications/notifications.service';
-import { IPatchShapeModel } from 'src/app/garden/models/iPatchShape-model';
-import { IGardenArea } from 'src/app/homepage/models/garden-area-models';
-import { IPatchChangesModel } from 'src/app/homepage/models/patch-changes-model';
+import { IPatchShapeModel } from 'src/app/homepage/garden-canvas/models/iPatchShape-model';
+import { IGardenArea } from 'src/app/homepage/garden-canvas/models/garden-area-models';
+import { IPatchChangesModel } from 'src/app/homepage/garden-canvas/models/patch-changes-model';
 
 @Injectable()
 export class PatchesService {

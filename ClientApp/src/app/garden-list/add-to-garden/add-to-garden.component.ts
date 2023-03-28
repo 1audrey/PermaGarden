@@ -1,8 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { IPatchShapeModel } from 'src/app/garden/models/iPatchShape-model';
+import { IPatchShapeModel } from 'src/app/homepage/garden-canvas/models/iPatchShape-model';
 import { PatchesService } from '../../services/patches/patches.service';
 import { IPlantsList } from '../models/iplants-model';
 

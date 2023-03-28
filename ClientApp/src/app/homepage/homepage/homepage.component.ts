@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { IPatchShapeModel } from 'src/app/garden/models/iPatchShape-model';
+import { IPatchShapeModel } from 'src/app/homepage/garden-canvas/models/iPatchShape-model';
 import { ITask } from 'src/app/task/models/itask-model';
 
 @Component({

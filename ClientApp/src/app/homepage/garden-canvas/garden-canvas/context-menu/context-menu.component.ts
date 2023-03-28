@@ -2,7 +2,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { Component, Inject, Input, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
-import { IPatchShapeModel } from 'src/app/garden/models/iPatchShape-model';
+import { IPatchShapeModel } from 'src/app/homepage/garden-canvas/models/iPatchShape-model';
 import { NotificationsService } from 'src/app/services/notifications/notifications.service';
 import { PatchesService } from 'src/app/services/patches/patches.service';
 

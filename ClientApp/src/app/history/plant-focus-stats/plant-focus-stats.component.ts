@@ -1,8 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { IPlantsList } from 'src/app/garden-list/models/iplants-model';
-import { IPatchShapeModel } from 'src/app/garden/models/iPatchShape-model';
-import { IPlantInPatch } from 'src/app/garden/models/iplantinpatch-model';
+import { IPatchShapeModel } from 'src/app/homepage/garden-canvas/models/iPatchShape-model';
 import { ArchivedTaskService } from 'src/app/services/archivedTasks/archived-task.service';
 import { ITask } from 'src/app/task/models/itask-model';
 

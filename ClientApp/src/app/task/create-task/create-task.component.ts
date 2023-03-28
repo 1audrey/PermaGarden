@@ -1,10 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IPlantsList } from 'src/app/garden-list/models/iplants-model';
-import { IPatchShapeModel } from 'src/app/garden/models/iPatchShape-model';
+import { IPatchShapeModel } from 'src/app/homepage/garden-canvas/models/iPatchShape-model';
 import { TasksService } from 'src/app/services/tasks/tasks.service';
-import { NotificationsService } from '../../services/notifications/notifications.service';
-import { PatchesService } from '../../services/patches/patches.service';
 import { ITask } from '../models/itask-model';
 
 @Component({
@@ -25,9 +23,8 @@ export class CreateTaskComponent implements OnInit {
 
   @Input() patch!: IPatchShapeModel;
 
-  constructor(private patchService: PatchesService,
+  constructor(
     private tasksService: TasksService,
-    private notifications: NotificationsService,
     private route: ActivatedRoute,
     private router: Router,
   ) {  }

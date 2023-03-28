@@ -6,7 +6,7 @@ import { CompleteTaskDialogComponent } from '../complete-task-dialog/complete-ta
 import { TasksService } from '../../services/tasks/tasks.service';
 import { NotificationsService } from '../../services/notifications/notifications.service';
 import { IPlantsList } from 'src/app/garden-list/models/iplants-model';
-import { IPatchShapeModel } from 'src/app/garden/models/iPatchShape-model';
+import { IPatchShapeModel } from 'src/app/homepage/garden-canvas/models/iPatchShape-model';
 
 @Component({
   selector: 'app-task-details',
@@ -228,11 +228,40 @@ export class TaskDetailsComponent implements OnInit, OnChanges {
     if(updatedTask.harvestSelectedAnswer !== 'No'){
       this.taskService.saveFinishedHarvestedTask(updatedTask);
       this.deleteTask(updatedTask.taskId);
+      if(this.isStartingMethodPlanting(updatedTask.plantId)){
+        this.saveTaskForNextYear(updatedTask)
+      }
     }
     else{
       this.taskService.saveUnfinishedHarvestedTask(updatedTask);
       this.reloadPage();
     }
+  }
+
+  private isStartingMethodPlanting(plantId: number): boolean{
+    const plant = this.plants.find((plant)=> plant.plantId === plantId);
+    return plant.plantStartingMethod === 'Planting';
+  }
+
+  private saveTaskForNextYear(updatedTask: any){
+    const task: ITask = {
+      taskId: 0,
+      seedsUsed: updatedTask.seedsUsed,
+      currentTask: updatedTask.currentTask,
+      plantId: updatedTask.plantId,
+      patchId: updatedTask.patchId,
+      nextDate: null,
+      nextTask: null,
+      startingDate: updatedTask.startingDate,
+      transplantDate: null,
+      daysDifferenceBetweenTaskAndToday: null,
+      realHarvestingDates: null,
+      harvestedWeight: null,
+      failureReasons: null,
+      productivity: 0,
+    }
+
+    this.taskService.saveTaskForNextYearForHarvestedPerrenials(task, this.patchName, updatedTask.nextDate);
   }
 
   private reloadPage(){

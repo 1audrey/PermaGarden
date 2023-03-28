@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { IPatchShape } from '../../garden/models/ipatch-shape';
+import { IPatchShape } from 'src/app/homepage/garden-canvas/models/patch-shape';
 
 
 @Injectable({

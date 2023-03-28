@@ -30,8 +30,6 @@ import { HttpClientModule } from '@angular/common/http';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatSelectModule} from '@angular/material/select';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
-import { GardenFootprintComponent } from './garden/garden-footprint/garden-footprint.component';
-import { PatchListComponent } from './garden/patch-list/patch-list.component';
 import { ManagePatchTasksComponent } from './task/manage-patch-tasks/manage-patch-tasks.component';
 import { AllTasksComponent } from './task/all-tasks/all-tasks.component';
 import { TaskDetailsComponent } from './task/task-details/task-details.component';
@@ -76,8 +74,6 @@ import { PatchShapeResolverService } from './resolver/patch-shape-resolver.servi
     AddNewPlantComponent,
     SelectImageDialogComponent,
     FilterPipe,
-    GardenFootprintComponent,
-    PatchListComponent,
     ManagePatchTasksComponent,
     AllTasksComponent,
     TaskDetailsComponent,

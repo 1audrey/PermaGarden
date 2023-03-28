@@ -5,7 +5,7 @@ import * as moment from 'moment';
 import { Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { IPlantsList } from 'src/app/garden-list/models/iplants-model';
-import { ITaskInPatch } from 'src/app/garden/models/itaskinpatch-models';
+import { ITaskInPatch } from 'src/app/homepage/garden-canvas/models/itaskinpatch-models';
 import { ITask } from 'src/app/task/models/itask-model';
 import { IPlantsInTasks } from '../../task/models/IPlantsInTasks-model';
 import { NotificationsService } from '../notifications/notifications.service';
@@ -40,6 +40,17 @@ export class TasksService {
       tap(() => console.log(`Task service added ${task.currentTask} successfully`)),
       catchError((error: HttpErrorResponse) => throwError(error))
     );
+  }
+
+  saveTaskForNextYearForHarvestedPerrenials(task: ITask, patchName: string, updatedTaskNextDate){
+    task.nextTask = this.givesFirstNextTask(task);
+    task.nextDate = this.calculateDateforNextYear(updatedTaskNextDate)
+
+    this.saveTask(task).subscribe(() => {
+      this.saveTaskInPatch(patchName, task.patchId).subscribe();
+      this.savePlantInTask(task.plantId).subscribe();
+      this.router.navigate(['/tasks']);
+    });
   }
 
   saveTaskInPatch(patchName: string, patchId: number): Observable<ITaskInPatch> {
@@ -85,7 +96,6 @@ export class TasksService {
     );
   }
 
-  //TODO: error 400 here
   saveTaskInArchiveTasks(task: ITask): Observable<any> {
     if(task.harvestedWeight){
       let totalWeight = 0;
@@ -180,7 +190,7 @@ export class TasksService {
 
     this.saveHarvestedTask(task).subscribe(() => {
       this.saveTaskInArchiveTasks(task).subscribe();
-      this.deleteTask(task.taskId).subscribe();
+      // this.deleteTask(task.taskId).subscribe();
     });
   }
 
@@ -261,8 +271,8 @@ export class TasksService {
             break;
 
           case ('Planting'):
-            var firstMonth = plant.plantHarvestingMonths[0];
-            var harvestingFirstMonth: number = this.givesMonthANumber(firstMonth);
+            var firstMonth = plant.plantHarvestingMonths.split(',');
+            harvestingFirstMonth = this.givesMonthANumber(firstMonth[0]);
             nextDate = this.getFirstDayOfFirstHarvestingMonth(startDate, harvestingFirstMonth);
             break;
         }
@@ -297,6 +307,14 @@ export class TasksService {
 
       nextDateForTask.toString();
       return nextDateForTask;
+    }
+
+    private calculateDateforNextYear(updatedTaskNextDate: string): string{
+      const aYearFromNow = new Date(updatedTaskNextDate);
+      aYearFromNow.setFullYear(aYearFromNow.getFullYear() + 1);
+
+      const nextDate = aYearFromNow.toString();
+      return nextDate;
     }
 
     private givesMonthANumber(firstMonth: string){

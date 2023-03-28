@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { IPatchShapeModel } from 'src/app/garden/models/iPatchShape-model';
+import { IPatchShapeModel } from 'src/app/homepage/garden-canvas/models/iPatchShape-model';
 import { NotificationsService } from '../../services/notifications/notifications.service';
 import { PatchesService } from '../../services/patches/patches.service';
 
@@ -30,8 +30,15 @@ export class DialogCreateTaskComponent implements OnInit {
     private notifications: NotificationsService) { }
 
   ngOnInit(): void {
-    this.patchService.getPatchesShape().subscribe(allPatches => {
-      this.patches = allPatches;
+    this.patchService.getPatchesShape().subscribe((allPatches) => {
+      const patchesWithVegAndFruits = [];
+
+      allPatches.forEach((patch)=>{
+        if(patch.patchImagePicture !== 'assets/shapes/foundation-shape.png'){
+          patchesWithVegAndFruits.push(patch);
+        }})
+
+      this.patches = patchesWithVegAndFruits;
       this.isLoaded = true;
     });
   }

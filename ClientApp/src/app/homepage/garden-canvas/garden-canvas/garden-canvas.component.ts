@@ -4,8 +4,8 @@ import { ActivatedRoute } from '@angular/router';
 import * as d3 from "d3";
 import { NotificationsService } from 'src/app/services/notifications/notifications.service';
 import { PatchesService } from 'src/app/services/patches/patches.service';
-import { IGardenArea } from '../../models/garden-area-models';
-import { IPatchChangesModel } from '../../models/patch-changes-model';
+import { IGardenArea } from '../models/garden-area-models';
+import { IPatchChangesModel } from '../models/patch-changes-model';
 import { CircleDialogComponent } from './circle-dialog/circle-dialog.component';
 import { ContextMenuComponent } from './context-menu/context-menu.component';
 import { FoundationShapeDialogComponent } from './foundation-shape-dialog/foundation-shape-dialog.component';
@@ -325,6 +325,7 @@ export class GardenCanvasComponent implements OnInit, AfterViewInit {
         this.patchesToSave.push(patchToSave);
       }
       this.patchesToSave.splice(patchIndex, 1, patchToSave);
+      console.log('patchesToSave', this.patchesToSave);
     }
   }
 
@@ -495,6 +496,7 @@ export class GardenCanvasComponent implements OnInit, AfterViewInit {
           .attr('y', yPosition)
           .attr('width', `${diameter}`)
           .attr('height', `${diameter}`)
+          .attr('transform', `rotate(${rotationAngle} ${xPosition} ${yPosition})`)
           .on("contextmenu", (event: MouseEvent) => { this.openContextMenu(event) })
           .append('title')
           .text(`${patchName}`)
@@ -508,6 +510,7 @@ export class GardenCanvasComponent implements OnInit, AfterViewInit {
           .attr('width', `${diameter}`)
           .attr('height', `${diameter}`)
           .attr('class', `${shape}`)
+          .attr('transform', `rotate(${rotationAngle} ${xPosition} ${yPosition})`)
           .on("contextmenu", (event: MouseEvent) => { this.openContextMenu(event) })
           .append('title')
           .text(`${patchName}`)

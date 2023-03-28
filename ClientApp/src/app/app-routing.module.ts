@@ -4,7 +4,6 @@ import { AddNewPlantComponent } from './garden-list/add-new-plant/add-new-plant.
 import { AddToGardenComponent } from './garden-list/add-to-garden/add-to-garden.component';
 import { PlantsListResolver } from './resolver/plants-list-resolver.service';
 import { PlantsListComponent } from './garden-list/plants-list.component';
-import { GardenFootprintComponent } from './garden/garden-footprint/garden-footprint.component';
 import { ManagePatchTasksComponent } from './task/manage-patch-tasks/manage-patch-tasks.component';
 import { AllTasksComponent } from './task/all-tasks/all-tasks.component';
 import { CreateTaskComponent } from './task/create-task/create-task.component';
@@ -59,12 +58,6 @@ const routes: Routes = [
     path: 'user',
     loadChildren: () => import('./user/user.module')
       .then(m => m.UserModule)
-  },
-
-  {
-    path: 'patches',
-    component: GardenFootprintComponent,
-    resolve: { patches: PatchShapeResolverService }
   },
 
   {

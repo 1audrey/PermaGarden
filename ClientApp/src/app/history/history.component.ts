@@ -7,7 +7,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ITask } from '../task/models/itask-model';
 import { IPlantsList } from '../garden-list/models/iplants-model';
-import { IPatchShapeModel } from '../garden/models/iPatchShape-model';
+import { IPatchShapeModel } from '../homepage/garden-canvas/models/iPatchShape-model';
 
 @Component({
   selector: 'app-history',
