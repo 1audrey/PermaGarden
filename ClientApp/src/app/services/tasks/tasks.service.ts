@@ -15,8 +15,8 @@ import { NotificationsService } from '../notifications/notifications.service';
 })
 export class TasksService {
   baseUrl = 'https://localhost:5001/Tasks/';
-  allHarvestedDates: string[] = [];
-  allHarvestedWeight: string[] = [];
+  //allHarvestedDates: string[] = [];
+  //allHarvestedWeight: string[] = [];
 
   constructor(private http: HttpClient, private router: Router, private notifications: NotificationsService) { }
 
@@ -161,22 +161,46 @@ export class TasksService {
   }
 
   saveUnfinishedHarvestedTask(task: ITask) {
+    let allHarvestedWeight = [];
+    let allHarvestedDates = [];
     if (task.harvestedWeight) {
-      this.allHarvestedWeight.push(task.harvestedWeight);
-      task.harvestedWeight = this.allHarvestedWeight.toString();
+    this.getAllTasks().subscribe(tasks => tasks.forEach(focusedTask => {
+      if (focusedTask.taskId === task.taskId) {
+        allHarvestedWeight = task.harvestedWeight.split(',');
+         }
+        }
+      ));
+
+      allHarvestedWeight.push(task.harvestedWeight);
+      task.harvestedWeight = allHarvestedWeight.toString();
     }
 
     if (task.realHarvestingDates) {
-      this.allHarvestedDates.push(task.realHarvestingDates);
-      task.realHarvestingDates = this.allHarvestedDates.toString();
+      this.getAllTasks().subscribe(tasks => tasks.forEach(focusedTask => {
+        if (focusedTask.taskId === task.taskId) {
+          allHarvestedDates = task.realHarvestingDates.split(',');
+        }
+      }
+      ));
+      allHarvestedDates.push(task.realHarvestingDates);
+      task.realHarvestingDates = allHarvestedDates.toString();
     }
     this.saveHarvestedTask(task).subscribe();
+    allHarvestedWeight = null;
   }
 
   saveFinishedHarvestedTask(task: ITask) {
+    let allHarvestedWeight = [];
+    let allHarvestedDates = [];
     if (task.harvestedWeight) {
-      this.allHarvestedWeight.push(task.harvestedWeight);
-      task.harvestedWeight = this.allHarvestedWeight.toString();
+      this.getAllTasks().subscribe(tasks => tasks.forEach(focusedTask => {
+        if (focusedTask.taskId === task.taskId) {
+          allHarvestedWeight = task.harvestedWeight.split(',');
+        }
+      }
+      ));
+      allHarvestedWeight.push(task.harvestedWeight);
+      task.harvestedWeight = allHarvestedWeight.toString();
 
       let totalWeight = 0;
       totalWeight = task.harvestedWeight.split(',').map(Number).reduce((sum, current) => sum + current, 0);
@@ -184,13 +208,18 @@ export class TasksService {
     }
 
     if (task.realHarvestingDates) {
-      this.allHarvestedDates.push(task.realHarvestingDates);
-      task.realHarvestingDates = this.allHarvestedDates.toString();
+      this.getAllTasks().subscribe(tasks => tasks.forEach(focusedTask => {
+        if (focusedTask.taskId === task.taskId) {
+          allHarvestedDates = task.harvestedWeight.split(',');
+        }
+      }
+      ));
+      allHarvestedDates.push(task.realHarvestingDates);
+      task.realHarvestingDates = allHarvestedDates.toString();
     }
 
     this.saveHarvestedTask(task).subscribe(() => {
       this.saveTaskInArchiveTasks(task).subscribe();
-      // this.deleteTask(task.taskId).subscribe();
     });
   }
 
