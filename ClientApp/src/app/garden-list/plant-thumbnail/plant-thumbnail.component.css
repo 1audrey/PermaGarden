@@ -156,5 +156,25 @@ font-weight: bold;
   background-color:#fafafa;
 }
 
+.update-plant{
+  color: white;
+  border-color: #5b8d27;
+  background-color: #5b8d27;
+  font-size: 12px;
+  font-weight:0px;
+  float: right;
+  margin-left: 5px;
+}
+
+.update-plant:hover{
+  color: white;
+  border-color: #114b0b;
+  background-color: #114b0b;
+  font-size: 12px;
+  font-weight:0px;
+  float: right;
+  margin-left: 5px;
+}
+
 
 

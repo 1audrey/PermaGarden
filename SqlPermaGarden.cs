@@ -910,7 +910,23 @@ namespace perma_garden_app
                 cancellationToken: token));
         }
 
-        
 
+        public async Task UpdatePlant(PlantsRecord plant, CancellationToken token)
+        {
+            var command = @"UPDATE dbo.Plants
+
+                            SET 
+                                PlantSowingPeriod = @PlantSowingPeriod
+                                , PlantGrowingPeriod = @PlantGrowingPeriod
+
+                            WHERE 
+                                PlantId = @PlantId";
+
+            await SqlConnection.ExecuteAsync(
+                new CommandDefinition(
+                    command,
+                    new { plant.PlantId, plant.PlantSowingPeriod, plant.PlantGrowingPeriod},
+                    cancellationToken: token));
+        }        
     }
 }

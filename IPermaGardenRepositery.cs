@@ -92,8 +92,9 @@ namespace perma_garden_app
 
         public Task<IEnumerable<TPatchShapeRecord>> GetPatchShapeByPatchName(string patchName, CancellationToken token);
 
-        
+        public Task UpdatePlant(PlantsRecord plant, CancellationToken token);
 
+        
 
     }
 }

@@ -197,5 +197,42 @@ namespace perma_garden_app.Controllers
 
         }
 
+        [HttpPut]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Route("update-plant")]
+        public async Task<IActionResult> UpdatePlant([FromBody] PlantsRecord plant, CancellationToken token)
+        {
+            if (plant != null)
+            {
+                var plants = await _permaGardenRepositery
+                    .GetAllPlants(token);
+
+                foreach (var existingPlant in plants)
+                {
+                    if (existingPlant.PlantId == plant.PlantId) {
+                            var editedPlant = new PlantsRecord
+                            {
+                                PlantId = plant.PlantId,
+                                PlantName = plant.PlantName,
+                                PlantStartingMethod = plant.PlantStartingMethod,
+                                PlantSowingPeriod = plant.PlantSowingPeriod,
+                                PlantGrowingPeriod = plant.PlantGrowingPeriod,
+                                PlantStartingMonths = plant.PlantStartingMonths,
+                                PlantHarvestingMonths = plant.PlantHarvestingMonths,
+                                PlantImagePicture = plant.PlantImagePicture
+                            };
+
+                         await _permaGardenRepositery.UpdatePlant(editedPlant, token);
+                    }
+                }
+
+                return Ok();
+            }
+
+            return BadRequest("Patch is invalid");
+        }
+
     }
 }

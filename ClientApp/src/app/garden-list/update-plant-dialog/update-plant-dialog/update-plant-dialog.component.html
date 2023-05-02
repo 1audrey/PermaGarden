@@ -1,0 +1,24 @@
+<form #udpatedPlantForm="ngForm"  autocomplete="off" novalidate>
+  <div>
+    <h2>{{plant.plantName | titlecase}}</h2>
+  </div>
+
+  <div *ngIf="plant.plantSowingPeriod" class="form-group" id="sowingPeriodInDays" [ngClass]="{'error': udpatedPlantForm.controls.sowingPeriodInDays?.invalid && udpatedPlantForm.controls.sowingPeriodInDays?.touched}">
+    <label for="plantSowingPeriod">Germination period in pots before planting (in days):</label>
+    <em *ngIf="udpatedPlantForm.controls.plantSowingPeriod?.invalid && udpatedPlantForm.controls.plantSowingPeriod.errors?.pattern"> **Must be numbers</em>
+    <input (ngModel)="updatedPlant.plantGrowingPeriod" required name="plantSowingPeriod"  id="plantSowingPeriod" type="text" class="form-control" pattern = "[0-9]+" placeholder="Currently {{plant.plantSowingPeriod}}" />
+  </div>
+
+  <div *ngIf="plant.plantGrowingPeriod" class="form-group" [ngClass]="{'error': udpatedPlantForm.controls.harvestingPeriodInDays?.invalid && udpatedPlantForm.controls.harvestingPeriodInDays?.touched}">
+    <label for="plantGrowingPeriod">Growing period until harvest (in days):</label>
+    <em *ngIf="udpatedPlantForm.controls.plantGrowingPeriod?.invalid && udpatedPlantForm.controls.plantGrowingPeriod.errors?.pattern"> **Must be numbers</em>
+    <input (ngModel)="updatedPlant.plantGrowingPeriod" name="plantGrowingPeriod" required id="plantGrowingPeriod" type="text" class="form-control" pattern= "[0-9]+" placeholder="Currently {{plant.plantGrowingPeriod}}" />
+  </div>
+
+  <div class="form-group">
+    <div class="buttons">
+      <button id="cancel-button" mat-button type="button" class="btn btn-default" (click)="cancel()">Cancel</button>
+      <button id="save-plant" mat-button type="submit" class="save-new-plant-button" [disabled]="udpatedPlantForm.invalid" (click)="updatePlant(udpatedPlantForm.value)" >Save</button>
+    </div>
+  </div>
+</form>

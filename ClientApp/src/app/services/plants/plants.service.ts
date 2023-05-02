@@ -74,6 +74,14 @@ export class PlantsService{
       catchError((error: HttpErrorResponse) => throwError(error))
     );
   }
+
+  updatePlant(plantToUpdate: IPlantsList){
+    console.log(`Updating the ${plantToUpdate.plantName} from the plant service`);
+    return this.http.put<IPlantsList>(this.baseUrl + 'update-plant', plantToUpdate).pipe(
+      tap(() => console.log('Plant service add new plant success')),
+      catchError((error: HttpErrorResponse) => throwError(error))
+    );
+  }
 }
 
 

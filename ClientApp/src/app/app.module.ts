@@ -63,6 +63,7 @@ import { ImageShapeDialogComponent } from './homepage/garden-canvas/garden-canva
 import { ContextMenuComponent } from './homepage/garden-canvas/garden-canvas/context-menu/context-menu.component';
 import { FoundationShapeDialogComponent } from './homepage/garden-canvas/garden-canvas/foundation-shape-dialog/foundation-shape-dialog.component';
 import { PatchShapeResolverService } from './resolver/patch-shape-resolver.service';
+import { UpdatePlantDialogComponent } from './garden-list/update-plant-dialog/update-plant-dialog/update-plant-dialog.component';
 
 @NgModule({
   declarations: [
@@ -93,6 +94,7 @@ import { PatchShapeResolverService } from './resolver/patch-shape-resolver.servi
     ImageShapeDialogComponent,
     ContextMenuComponent,
     FoundationShapeDialogComponent,
+    UpdatePlantDialogComponent,
 
 
 
