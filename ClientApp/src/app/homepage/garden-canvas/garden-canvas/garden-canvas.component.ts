@@ -31,8 +31,10 @@ export class GardenCanvasComponent implements OnInit, AfterViewInit {
   patchesToSave: IPatchChangesModel[] = [];
   rotationAngleToSave: number = 0;
   patchName: string
+  lineX = 0;
+  lineY = 0;
 
-  private static readonly EXTRA_CANVA_DIMENSION = 0.2;
+  private static readonly EXTRA_CANVA_DIMENSION = 0.3;
 
   points: Array<[number, number]> = [];
   private currentLine?: any;
@@ -257,6 +259,11 @@ export class GardenCanvasComponent implements OnInit, AfterViewInit {
     if (target.tagName === 'circle') {
       this.draggingPoints = this.getPointsFromCircle();
     }
+
+    if (target.tagName === 'svg') {
+      this.lineX = 0;
+      this.lineY = 0;
+    }
   }
 
   @HostListener('mousemove', ['$event'])
@@ -265,6 +272,9 @@ export class GardenCanvasComponent implements OnInit, AfterViewInit {
     let x = coordinates.x - this.currentPoint.x;
     let y = coordinates.y - this.currentPoint.y;
     let target = (event.target as SVGGElement);
+
+    this.lineX = coordinates.x - this.currentPoint.x;
+    this.lineY = coordinates.y - this.currentPoint.y;
 
     if(target.id === 'garden-grid'){
       return;

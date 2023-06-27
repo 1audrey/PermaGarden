@@ -22,8 +22,6 @@ svg{
 .garden-panel{
   margin-top: 25px;
   display: flex;
-  border-color: #000409;
-  border: solid;
   flex-direction: column;
   align-items: flex-start;
 }
