@@ -57,16 +57,15 @@ export class GardenCanvasComponent implements OnInit, AfterViewInit {
       this.width = result[0].width;
       this.gardenDimensions = true;
     });
-  }
-
-  ngAfterViewInit() {
     this.patchService.getGardenBorder().subscribe((result) => {
       this.points = result;
       this.createPolygon();
       this.gardenBorder = true;
       this.gardenBorderExists = true;
     });
+  }
 
+  ngAfterViewInit() {
     this.patchService.getPatchesShape().subscribe((result) => {
       result.forEach((patch) => {
         switch(patch.patchImagePicture){

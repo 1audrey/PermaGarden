@@ -19,6 +19,12 @@ svg{
   align-items: flex-start;
 }
 
+.top{
+  position: absolute;
+  top: 34px;
+  left: 30px;
+  }
+
 .garden-panel{
   margin-top: 25px;
   display: flex;
